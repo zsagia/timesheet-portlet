@@ -10,3 +10,4 @@ docroot/WEB-INF/lib/liferay-faces-bridge-impl.jar
 docroot/WEB-INF/lib/liferay-faces-portal.jar
 docroot/WEB-INF/lib/liferay-faces-util.jar
 ivy.xml.MD5
+docroot/WEB-INF/classes
