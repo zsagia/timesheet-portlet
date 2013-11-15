@@ -1,0 +1,12 @@
+.settings/com.liferay.ide.eclipse.project.core.prefs
+.settings/com.liferay.studio.eclipse.kaleo.core.prefs
+.settings/org.eclipse.core.resources.prefs
+docroot/css/.sass-cache/main.css
+docroot/WEB-INF/lib/jboss-el.jar
+docroot/WEB-INF/lib/jsf-api.jar
+docroot/WEB-INF/lib/jsf-impl.jar
+docroot/WEB-INF/lib/liferay-faces-bridge-api.jar
+docroot/WEB-INF/lib/liferay-faces-bridge-impl.jar
+docroot/WEB-INF/lib/liferay-faces-portal.jar
+docroot/WEB-INF/lib/liferay-faces-util.jar
+ivy.xml.MD5
