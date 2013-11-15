@@ -5,10 +5,42 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
->
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head />
+
 	<h:body>
-		<h:outputText value="#{i18n['timesheet-hello-world']}" />
+		<h:form id="taskForm">
+			<h:outputText value="Taskname:"></h:outputText>
+			<h:inputText id="taskName" value="#{taskBean.taskName}"></h:inputText>
+
+			<h:outputText value="Start:"></h:outputText>
+			<h:inputText id="startDate" value="#{taskBean.start}">
+				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+			</h:inputText>
+
+			<h:outputText value="End:"></h:outputText>
+			<h:inputText id="endDate" value="#{taskBean.end}">
+				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+			</h:inputText>
+
+			<h:commandButton id="submit" value="Submit" action="#{taskBean.createTask}"></h:commandButton>
+			<h:message for="startDate" showSummary="true"></h:message>
+		</h:form>
+
+		<h:dataTable value="#{taskBean.taskToday}" var="task">
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				#{task.taskName}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Start</f:facet>
+				#{task.startDate}
+			</h:column>
+			<h:column>
+				<f:facet name="header">End</f:facet>
+				#{task.endDate}
+			</h:column>
+		</h:dataTable>
 	</h:body>
+
 </f:view>
