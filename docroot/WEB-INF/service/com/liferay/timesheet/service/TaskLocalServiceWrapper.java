@@ -250,6 +250,19 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
         return _taskLocalService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    public com.liferay.timesheet.model.Task addTask(long companyId,
+        long userId, java.util.Date startDate, java.util.Date endDate,
+        java.lang.String taskName)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _taskLocalService.addTask(companyId, userId, startDate, endDate,
+            taskName);
+    }
+
+    public java.util.List<com.liferay.timesheet.model.Task> getTasks(
+        long userId) throws com.liferay.portal.kernel.exception.SystemException {
+        return _taskLocalService.getTasks(userId);
+    }
+
     /**
      * @deprecated Renamed to {@link #getWrappedService}
      */

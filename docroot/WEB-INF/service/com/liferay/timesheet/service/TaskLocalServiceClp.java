@@ -41,6 +41,10 @@ public class TaskLocalServiceClp implements TaskLocalService {
     private String[] _methodParameterTypes16;
     private String _methodName17;
     private String[] _methodParameterTypes17;
+    private String _methodName19;
+    private String[] _methodParameterTypes19;
+    private String _methodName20;
+    private String[] _methodParameterTypes20;
 
     public TaskLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -129,6 +133,17 @@ public class TaskLocalServiceClp implements TaskLocalService {
         _methodName17 = "setBeanIdentifier";
 
         _methodParameterTypes17 = new String[] { "java.lang.String" };
+
+        _methodName19 = "addTask";
+
+        _methodParameterTypes19 = new String[] {
+                "long", "long", "java.util.Date", "java.util.Date",
+                "java.lang.String"
+            };
+
+        _methodName20 = "getTasks";
+
+        _methodParameterTypes20 = new String[] { "long" };
     }
 
     public com.liferay.timesheet.model.Task addTask(
@@ -615,5 +630,68 @@ public class TaskLocalServiceClp implements TaskLocalService {
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable {
         throw new UnsupportedOperationException();
+    }
+
+    public com.liferay.timesheet.model.Task addTask(long companyId,
+        long userId, java.util.Date startDate, java.util.Date endDate,
+        java.lang.String taskName)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName19,
+                    _methodParameterTypes19,
+                    new Object[] {
+                        companyId,
+                        
+                    userId,
+                        
+                    ClpSerializer.translateInput(startDate),
+                        
+                    ClpSerializer.translateInput(endDate),
+                        
+                    ClpSerializer.translateInput(taskName)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.timesheet.model.Task) ClpSerializer.translateOutput(returnObj);
+    }
+
+    public java.util.List<com.liferay.timesheet.model.Task> getTasks(
+        long userId) throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName20,
+                    _methodParameterTypes20, new Object[] { userId });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.liferay.timesheet.model.Task>) ClpSerializer.translateOutput(returnObj);
     }
 }

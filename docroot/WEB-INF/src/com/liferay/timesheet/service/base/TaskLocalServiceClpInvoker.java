@@ -42,6 +42,10 @@ public class TaskLocalServiceClpInvoker {
     private String[] _methodParameterTypes38;
     private String _methodName39;
     private String[] _methodParameterTypes39;
+    private String _methodName44;
+    private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
 
     public TaskLocalServiceClpInvoker() {
         _methodName0 = "addTask";
@@ -128,6 +132,17 @@ public class TaskLocalServiceClpInvoker {
         _methodName39 = "setBeanIdentifier";
 
         _methodParameterTypes39 = new String[] { "java.lang.String" };
+
+        _methodName44 = "addTask";
+
+        _methodParameterTypes44 = new String[] {
+                "long", "long", "java.util.Date", "java.util.Date",
+                "java.lang.String"
+            };
+
+        _methodName45 = "getTasks";
+
+        _methodParameterTypes45 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -229,6 +244,19 @@ public class TaskLocalServiceClpInvoker {
             TaskLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName44.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+            return TaskLocalServiceUtil.addTask(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue(),
+                (java.util.Date) arguments[2], (java.util.Date) arguments[3],
+                (java.lang.String) arguments[4]);
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return TaskLocalServiceUtil.getTasks(((Long) arguments[0]).longValue());
         }
 
         throw new UnsupportedOperationException();

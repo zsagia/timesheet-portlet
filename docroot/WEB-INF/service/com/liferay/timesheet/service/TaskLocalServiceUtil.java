@@ -257,6 +257,19 @@ public class TaskLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static com.liferay.timesheet.model.Task addTask(long companyId,
+        long userId, java.util.Date startDate, java.util.Date endDate,
+        java.lang.String taskName)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .addTask(companyId, userId, startDate, endDate, taskName);
+    }
+
+    public static java.util.List<com.liferay.timesheet.model.Task> getTasks(
+        long userId) throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getTasks(userId);
+    }
+
     public static void clearService() {
         _service = null;
     }

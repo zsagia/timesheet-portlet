@@ -229,4 +229,13 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.liferay.timesheet.model.Task addTask(long companyId,
+        long userId, java.util.Date startDate, java.util.Date endDate,
+        java.lang.String taskName)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.liferay.timesheet.model.Task> getTasks(
+        long userId) throws com.liferay.portal.kernel.exception.SystemException;
 }
