@@ -1,40 +1,48 @@
 package com.liferay.timesheet.bean;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.timesheet.model.Task;
+import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
+import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
 
+/**
+* @author Adorjan Nagy
+* @author Tibor Jandi
+* @author Istvan Sajtos
+* @author Zsolt Szabo
+*/
 public class TaskBean {
 
-	private Date end;
-	private Date start;
+	private Date endTime;
+	private Date startTime;
 	private String taskName;
 
-	public String createTask() {
+	public String createTaskSession() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		long userId =
-			Long.valueOf(facesContext.getExternalContext().getRemoteUser());
+		long userId = Long.valueOf(
+			facesContext.getExternalContext().getRemoteUser());
+
+		Task task = null;
+
+		task = TaskLocalServiceUtil.getTaskByTN_U(taskName, userId);
 
 		try {
-			User user = UserLocalServiceUtil.getUser(userId);
+			if (Validator.isNull(task)) {
+					task = TaskLocalServiceUtil.addTask(taskName, userId);
+			}
 
-			long companyId = user.getCompanyId();
+			long taskId = task.getTaskId();
 
-			TaskLocalServiceUtil.addTask(
-				companyId, user.getUserId(), getStart(), getEnd(),
-				getTaskName());
-		}
-		catch (PortalException pe) {
-			pe.printStackTrace();
+			TaskSessionLocalServiceUtil.addTaskSession(
+				getStartTime(), getEndTime(), taskId);
 		}
 		catch (SystemException se) {
 			se.printStackTrace();
@@ -43,20 +51,30 @@ public class TaskBean {
 		return "success";
 	}
 
-	public Date getEnd() {
-		return end;
-	}
-
 	public String getTaskName() {
 		return taskName;
 	}
 
-	public Date getStart() {
-		return start;
-	}
-
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+
+	/**
+	 *  Currently it gives back TaskSessions only for the current day.
+	 *  TO DO: Passing date parameter from xhtml, so that it will be more generic.
+	 * @return
+	 */
+	public List<TaskSession> getTaskSessionsByD_U() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		List<TaskSession> taskSessions = null;
+
+		long userId = Long.valueOf(
+				facesContext.getExternalContext().getRemoteUser());
+
+		taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(new Date(), userId);
+
+		return taskSessions;
 	}
 
 	public List<Task> getTaskByUser() {
@@ -64,11 +82,11 @@ public class TaskBean {
 
 		List<Task> taskToday = null;
 
-		long userId =
-			Long.valueOf(facesContext.getExternalContext().getRemoteUser());
+		long userId = Long.valueOf(
+			facesContext.getExternalContext().getRemoteUser());
 
 		try {
-			taskToday = TaskLocalServiceUtil.getTasks(userId);
+			taskToday = TaskLocalServiceUtil.getTasksByUserId(userId);
 		}
 		catch (SystemException se) {
 			se.printStackTrace();
@@ -77,12 +95,20 @@ public class TaskBean {
 		return taskToday;
 	}
 
-	public void setEnd(Date end) {
-		this.end = end;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
 }
