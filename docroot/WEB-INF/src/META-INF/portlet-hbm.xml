@@ -3,15 +3,22 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.liferay.timesheet.model.Task" />
+	<import class="com.liferay.timesheet.model.TaskSession" />
 	<class name="com.liferay.timesheet.model.impl.TaskImpl" table="timesheet_Task">
 		<cache usage="read-write" />
 		<id name="taskId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="startDate" type="org.hibernate.type.TimestampType" />
-		<property name="endDate" type="org.hibernate.type.TimestampType" />
 		<property name="taskName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.timesheet.model.impl.TaskSessionImpl" table="timesheet_TaskSession">
+		<cache usage="read-write" />
+		<id name="taskSessionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="taskId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="startTime" type="org.hibernate.type.TimestampType" />
+		<property name="endTime" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

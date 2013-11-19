@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
@@ -8,71 +22,48 @@ import com.liferay.timesheet.model.Task;
 
 import java.io.Serializable;
 
-import java.util.Date;
-
 /**
  * The cache model class for representing Task in entity cache.
  *
- * @author Adorjan
+ * @author Istvan Sajtos
  * @see Task
  * @generated
  */
 public class TaskCacheModel implements CacheModel<Task>, Serializable {
-    public long taskId;
-    public long companyId;
-    public long userId;
-    public long startDate;
-    public long endDate;
-    public String taskName;
+	@Override
+	public String toString() {
+		StringBundler sb = new StringBundler(7);
 
-    @Override
-    public String toString() {
-        StringBundler sb = new StringBundler(13);
+		sb.append("{taskId=");
+		sb.append(taskId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", taskName=");
+		sb.append(taskName);
+		sb.append("}");
 
-        sb.append("{taskId=");
-        sb.append(taskId);
-        sb.append(", companyId=");
-        sb.append(companyId);
-        sb.append(", userId=");
-        sb.append(userId);
-        sb.append(", startDate=");
-        sb.append(startDate);
-        sb.append(", endDate=");
-        sb.append(endDate);
-        sb.append(", taskName=");
-        sb.append(taskName);
-        sb.append("}");
+		return sb.toString();
+	}
 
-        return sb.toString();
-    }
+	public Task toEntityModel() {
+		TaskImpl taskImpl = new TaskImpl();
 
-    public Task toEntityModel() {
-        TaskImpl taskImpl = new TaskImpl();
+		taskImpl.setTaskId(taskId);
+		taskImpl.setUserId(userId);
 
-        taskImpl.setTaskId(taskId);
-        taskImpl.setCompanyId(companyId);
-        taskImpl.setUserId(userId);
+		if (taskName == null) {
+			taskImpl.setTaskName(StringPool.BLANK);
+		}
+		else {
+			taskImpl.setTaskName(taskName);
+		}
 
-        if (startDate == Long.MIN_VALUE) {
-            taskImpl.setStartDate(null);
-        } else {
-            taskImpl.setStartDate(new Date(startDate));
-        }
+		taskImpl.resetOriginalValues();
 
-        if (endDate == Long.MIN_VALUE) {
-            taskImpl.setEndDate(null);
-        } else {
-            taskImpl.setEndDate(new Date(endDate));
-        }
+		return taskImpl;
+	}
 
-        if (taskName == null) {
-            taskImpl.setTaskName(StringPool.BLANK);
-        } else {
-            taskImpl.setTaskName(taskName);
-        }
-
-        taskImpl.resetOriginalValues();
-
-        return taskImpl;
-    }
+	public long taskId;
+	public long userId;
+	public String taskName;
 }

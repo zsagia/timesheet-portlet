@@ -3,10 +3,13 @@
 <model-hints>
 	<model name="com.liferay.timesheet.model.Task">
 		<field name="taskId" type="long" />
-		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
-		<field name="startDate" type="Date" />
-		<field name="endDate" type="Date" />
 		<field name="taskName" type="String" />
+	</model>
+	<model name="com.liferay.timesheet.model.TaskSession">
+		<field name="taskSessionId" type="long" />
+		<field name="taskId" type="long" />
+		<field name="startTime" type="Date" />
+		<field name="endTime" type="Date" />
 	</model>
 </model-hints>

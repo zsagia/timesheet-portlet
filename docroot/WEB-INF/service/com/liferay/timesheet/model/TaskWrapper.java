@@ -1,9 +1,21 @@
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.timesheet.model;
 
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,330 +24,232 @@ import java.util.Map;
  * This class is a wrapper for {@link Task}.
  * </p>
  *
- * @author    Adorjan
+ * @author    Istvan Sajtos
  * @see       Task
  * @generated
  */
 public class TaskWrapper implements Task, ModelWrapper<Task> {
-    private Task _task;
+	public TaskWrapper(Task task) {
+		_task = task;
+	}
 
-    public TaskWrapper(Task task) {
-        _task = task;
-    }
+	public Class<?> getModelClass() {
+		return Task.class;
+	}
 
-    public Class<?> getModelClass() {
-        return Task.class;
-    }
+	public String getModelClassName() {
+		return Task.class.getName();
+	}
 
-    public String getModelClassName() {
-        return Task.class.getName();
-    }
+	public Map<String, Object> getModelAttributes() {
+		Map<String, Object> attributes = new HashMap<String, Object>();
 
-    public Map<String, Object> getModelAttributes() {
-        Map<String, Object> attributes = new HashMap<String, Object>();
+		attributes.put("taskId", getTaskId());
+		attributes.put("userId", getUserId());
+		attributes.put("taskName", getTaskName());
 
-        attributes.put("taskId", getTaskId());
-        attributes.put("companyId", getCompanyId());
-        attributes.put("userId", getUserId());
-        attributes.put("startDate", getStartDate());
-        attributes.put("endDate", getEndDate());
-        attributes.put("taskName", getTaskName());
+		return attributes;
+	}
 
-        return attributes;
-    }
+	public void setModelAttributes(Map<String, Object> attributes) {
+		Long taskId = (Long)attributes.get("taskId");
 
-    public void setModelAttributes(Map<String, Object> attributes) {
-        Long taskId = (Long) attributes.get("taskId");
+		if (taskId != null) {
+			setTaskId(taskId);
+		}
 
-        if (taskId != null) {
-            setTaskId(taskId);
-        }
+		Long userId = (Long)attributes.get("userId");
 
-        Long companyId = (Long) attributes.get("companyId");
+		if (userId != null) {
+			setUserId(userId);
+		}
 
-        if (companyId != null) {
-            setCompanyId(companyId);
-        }
+		String taskName = (String)attributes.get("taskName");
 
-        Long userId = (Long) attributes.get("userId");
+		if (taskName != null) {
+			setTaskName(taskName);
+		}
+	}
 
-        if (userId != null) {
-            setUserId(userId);
-        }
+	/**
+	* Returns the primary key of this task.
+	*
+	* @return the primary key of this task
+	*/
+	public long getPrimaryKey() {
+		return _task.getPrimaryKey();
+	}
 
-        Date startDate = (Date) attributes.get("startDate");
+	/**
+	* Sets the primary key of this task.
+	*
+	* @param primaryKey the primary key of this task
+	*/
+	public void setPrimaryKey(long primaryKey) {
+		_task.setPrimaryKey(primaryKey);
+	}
 
-        if (startDate != null) {
-            setStartDate(startDate);
-        }
+	/**
+	* Returns the task ID of this task.
+	*
+	* @return the task ID of this task
+	*/
+	public long getTaskId() {
+		return _task.getTaskId();
+	}
 
-        Date endDate = (Date) attributes.get("endDate");
+	/**
+	* Sets the task ID of this task.
+	*
+	* @param taskId the task ID of this task
+	*/
+	public void setTaskId(long taskId) {
+		_task.setTaskId(taskId);
+	}
 
-        if (endDate != null) {
-            setEndDate(endDate);
-        }
+	/**
+	* Returns the user ID of this task.
+	*
+	* @return the user ID of this task
+	*/
+	public long getUserId() {
+		return _task.getUserId();
+	}
 
-        String taskName = (String) attributes.get("taskName");
+	/**
+	* Sets the user ID of this task.
+	*
+	* @param userId the user ID of this task
+	*/
+	public void setUserId(long userId) {
+		_task.setUserId(userId);
+	}
 
-        if (taskName != null) {
-            setTaskName(taskName);
-        }
-    }
+	/**
+	* Returns the user uuid of this task.
+	*
+	* @return the user uuid of this task
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.lang.String getUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _task.getUserUuid();
+	}
 
-    /**
-    * Returns the primary key of this task.
-    *
-    * @return the primary key of this task
-    */
-    public long getPrimaryKey() {
-        return _task.getPrimaryKey();
-    }
+	/**
+	* Sets the user uuid of this task.
+	*
+	* @param userUuid the user uuid of this task
+	*/
+	public void setUserUuid(java.lang.String userUuid) {
+		_task.setUserUuid(userUuid);
+	}
 
-    /**
-    * Sets the primary key of this task.
-    *
-    * @param primaryKey the primary key of this task
-    */
-    public void setPrimaryKey(long primaryKey) {
-        _task.setPrimaryKey(primaryKey);
-    }
+	/**
+	* Returns the task name of this task.
+	*
+	* @return the task name of this task
+	*/
+	public java.lang.String getTaskName() {
+		return _task.getTaskName();
+	}
 
-    /**
-    * Returns the task ID of this task.
-    *
-    * @return the task ID of this task
-    */
-    public long getTaskId() {
-        return _task.getTaskId();
-    }
+	/**
+	* Sets the task name of this task.
+	*
+	* @param taskName the task name of this task
+	*/
+	public void setTaskName(java.lang.String taskName) {
+		_task.setTaskName(taskName);
+	}
 
-    /**
-    * Sets the task ID of this task.
-    *
-    * @param taskId the task ID of this task
-    */
-    public void setTaskId(long taskId) {
-        _task.setTaskId(taskId);
-    }
+	public boolean isNew() {
+		return _task.isNew();
+	}
 
-    /**
-    * Returns the company ID of this task.
-    *
-    * @return the company ID of this task
-    */
-    public long getCompanyId() {
-        return _task.getCompanyId();
-    }
+	public void setNew(boolean n) {
+		_task.setNew(n);
+	}
 
-    /**
-    * Sets the company ID of this task.
-    *
-    * @param companyId the company ID of this task
-    */
-    public void setCompanyId(long companyId) {
-        _task.setCompanyId(companyId);
-    }
+	public boolean isCachedModel() {
+		return _task.isCachedModel();
+	}
 
-    /**
-    * Returns the user ID of this task.
-    *
-    * @return the user ID of this task
-    */
-    public long getUserId() {
-        return _task.getUserId();
-    }
+	public void setCachedModel(boolean cachedModel) {
+		_task.setCachedModel(cachedModel);
+	}
 
-    /**
-    * Sets the user ID of this task.
-    *
-    * @param userId the user ID of this task
-    */
-    public void setUserId(long userId) {
-        _task.setUserId(userId);
-    }
+	public boolean isEscapedModel() {
+		return _task.isEscapedModel();
+	}
 
-    /**
-    * Returns the user uuid of this task.
-    *
-    * @return the user uuid of this task
-    * @throws SystemException if a system exception occurred
-    */
-    public java.lang.String getUserUuid()
-        throws com.liferay.portal.kernel.exception.SystemException {
-        return _task.getUserUuid();
-    }
+	public java.io.Serializable getPrimaryKeyObj() {
+		return _task.getPrimaryKeyObj();
+	}
 
-    /**
-    * Sets the user uuid of this task.
-    *
-    * @param userUuid the user uuid of this task
-    */
-    public void setUserUuid(java.lang.String userUuid) {
-        _task.setUserUuid(userUuid);
-    }
+	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+		_task.setPrimaryKeyObj(primaryKeyObj);
+	}
 
-    /**
-    * Returns the start date of this task.
-    *
-    * @return the start date of this task
-    */
-    public java.util.Date getStartDate() {
-        return _task.getStartDate();
-    }
+	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+		return _task.getExpandoBridge();
+	}
 
-    /**
-    * Sets the start date of this task.
-    *
-    * @param startDate the start date of this task
-    */
-    public void setStartDate(java.util.Date startDate) {
-        _task.setStartDate(startDate);
-    }
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		_task.setExpandoBridgeAttributes(serviceContext);
+	}
 
-    /**
-    * Returns the end date of this task.
-    *
-    * @return the end date of this task
-    */
-    public java.util.Date getEndDate() {
-        return _task.getEndDate();
-    }
+	@Override
+	public java.lang.Object clone() {
+		return new TaskWrapper((Task)_task.clone());
+	}
 
-    /**
-    * Sets the end date of this task.
-    *
-    * @param endDate the end date of this task
-    */
-    public void setEndDate(java.util.Date endDate) {
-        _task.setEndDate(endDate);
-    }
+	public int compareTo(com.liferay.timesheet.model.Task task) {
+		return _task.compareTo(task);
+	}
 
-    /**
-    * Returns the task name of this task.
-    *
-    * @return the task name of this task
-    */
-    public java.lang.String getTaskName() {
-        return _task.getTaskName();
-    }
+	@Override
+	public int hashCode() {
+		return _task.hashCode();
+	}
 
-    /**
-    * Sets the task name of this task.
-    *
-    * @param taskName the task name of this task
-    */
-    public void setTaskName(java.lang.String taskName) {
-        _task.setTaskName(taskName);
-    }
+	public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.Task> toCacheModel() {
+		return _task.toCacheModel();
+	}
 
-    public boolean isNew() {
-        return _task.isNew();
-    }
+	public com.liferay.timesheet.model.Task toEscapedModel() {
+		return new TaskWrapper(_task.toEscapedModel());
+	}
 
-    public void setNew(boolean n) {
-        _task.setNew(n);
-    }
+	@Override
+	public java.lang.String toString() {
+		return _task.toString();
+	}
 
-    public boolean isCachedModel() {
-        return _task.isCachedModel();
-    }
+	public java.lang.String toXmlString() {
+		return _task.toXmlString();
+	}
 
-    public void setCachedModel(boolean cachedModel) {
-        _task.setCachedModel(cachedModel);
-    }
+	public void persist()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_task.persist();
+	}
 
-    public boolean isEscapedModel() {
-        return _task.isEscapedModel();
-    }
+	/**
+	 * @deprecated Renamed to {@link #getWrappedModel}
+	 */
+	public Task getWrappedTask() {
+		return _task;
+	}
 
-    public java.io.Serializable getPrimaryKeyObj() {
-        return _task.getPrimaryKeyObj();
-    }
+	public Task getWrappedModel() {
+		return _task;
+	}
 
-    public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
-        _task.setPrimaryKeyObj(primaryKeyObj);
-    }
+	public void resetOriginalValues() {
+		_task.resetOriginalValues();
+	}
 
-    public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-        return _task.getExpandoBridge();
-    }
-
-    public void setExpandoBridgeAttributes(
-        com.liferay.portal.service.ServiceContext serviceContext) {
-        _task.setExpandoBridgeAttributes(serviceContext);
-    }
-
-    @Override
-    public java.lang.Object clone() {
-        return new TaskWrapper((Task) _task.clone());
-    }
-
-    public int compareTo(com.liferay.timesheet.model.Task task) {
-        return _task.compareTo(task);
-    }
-
-    @Override
-    public int hashCode() {
-        return _task.hashCode();
-    }
-
-    public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.Task> toCacheModel() {
-        return _task.toCacheModel();
-    }
-
-    public com.liferay.timesheet.model.Task toEscapedModel() {
-        return new TaskWrapper(_task.toEscapedModel());
-    }
-
-    public com.liferay.timesheet.model.Task toUnescapedModel() {
-        return new TaskWrapper(_task.toUnescapedModel());
-    }
-
-    @Override
-    public java.lang.String toString() {
-        return _task.toString();
-    }
-
-    public java.lang.String toXmlString() {
-        return _task.toXmlString();
-    }
-
-    public void persist()
-        throws com.liferay.portal.kernel.exception.SystemException {
-        _task.persist();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof TaskWrapper)) {
-            return false;
-        }
-
-        TaskWrapper taskWrapper = (TaskWrapper) obj;
-
-        if (Validator.equals(_task, taskWrapper._task)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @deprecated Renamed to {@link #getWrappedModel}
-     */
-    public Task getWrappedTask() {
-        return _task;
-    }
-
-    public Task getWrappedModel() {
-        return _task;
-    }
-
-    public void resetOriginalValues() {
-        _task.resetOriginalValues();
-    }
+	private Task _task;
 }

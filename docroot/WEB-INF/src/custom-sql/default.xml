@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByD_U">
+		<![CDATA[
+			SELECT
+				timesheet_taskSession.startTime AS startTime,
+				timesheet_taskSession.endTime AS endTime,
+				timesheet_task.taskName AS taskName
+			FROM
+				timesheet_task, timesheet_taskSession
+			WHERE
+				(timesheet_task.userId = ?) AND
+				(timesheet_taskSession.taskId = timesheet_task.taskId) AND
+				(( date(timesheet_taskSession.startTime) = date(?)) OR ( date(timesheet_taskSession.endTime) = date(?)))
+			ORDER BY
+				timesheet_taskSession.startTime
+			ASC
+		]]>
+	</sql>
+</custom-sql>
