@@ -13,12 +13,15 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession> implements TaskSessionFinder {
+
+public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
+	implements TaskSessionFinder {
 
 	public static String FIND_BY_DATE_USERID =
 		TaskSessionFinder.class.getName() + ".findByD_U";
 
-	public List<TaskSession> findByD_U(Date date, long userId, int start, int end) {
+	public List<TaskSession> findByD_U(
+		Date date, long userId, int start, int end) {
 
 		Session session = null;
 
@@ -38,16 +41,20 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession> impl
 		qPos.add(date);
 		qPos.add(date);
 
-		List<Object[]> queriedTaskSessions = (List<Object[]>) QueryUtil.list(q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		List<Object[]> queriedTaskSessions =
+			(List<Object[]>) QueryUtil.list(
+				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-		List<TaskSession> taskSessions = assembleTaskSessions(queriedTaskSessions);
+		List<TaskSession> taskSessions =
+			assembleTaskSessions(queriedTaskSessions);
 
 		return taskSessions;
 	}
 
-	private List<TaskSession> assembleTaskSessions(List<Object[]> queriedTaskSessions) {
+	private List<TaskSession> assembleTaskSessions(
+		List<Object[]> queriedTaskSessions) {
 
-		List<TaskSession> taskSessions = new ArrayList();
+		List<TaskSession> taskSessions = new ArrayList<TaskSession>();
 
 		for (Object[] queriedTaskSession : queriedTaskSessions) {
 			TaskSessionImpl taskSession = new TaskSessionImpl();
@@ -61,4 +68,5 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession> impl
 
 		return taskSessions;
 	}
+
 }

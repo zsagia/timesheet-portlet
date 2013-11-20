@@ -36,7 +36,7 @@ public class TaskBean {
 
 		try {
 			if (Validator.isNull(task)) {
-					task = TaskLocalServiceUtil.addTask(taskName, userId);
+				task = TaskLocalServiceUtil.addTask(taskName, userId);
 			}
 
 			long taskId = task.getTaskId();
@@ -70,9 +70,11 @@ public class TaskBean {
 		List<TaskSession> taskSessions = null;
 
 		long userId = Long.valueOf(
-				facesContext.getExternalContext().getRemoteUser());
+			facesContext.getExternalContext().getRemoteUser());
 
-		taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(new Date(), userId);
+		taskSessions =
+			TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
+				new Date(), userId);
 
 		return taskSessions;
 	}

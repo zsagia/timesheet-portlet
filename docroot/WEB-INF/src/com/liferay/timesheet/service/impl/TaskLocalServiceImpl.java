@@ -25,9 +25,7 @@ import java.util.List;
 */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long userId)
-						throws SystemException {
-
+	public Task addTask(String taskName, long userId) throws SystemException {
 		long taskId = counterLocalService.increment();
 
 		Task task = taskPersistence.create(taskId);
@@ -40,25 +38,22 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return task;
 	}
 
-	public List<Task> getTasksByUserId(long userId) throws SystemException {
-		return taskPersistence.findByUserId(userId);
-	}
-
 	public Task getTaskByTN_U(String taskName, long userId) {
-
 		Task task = null;
 
 		try {
 			task = taskPersistence.findByTN_U(taskName, userId);
 		} catch (NoSuchTaskException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return task;
+	}
+
+	public List<Task> getTasksByUserId(long userId) throws SystemException {
+		return taskPersistence.findByUserId(userId);
 	}
 
 }
