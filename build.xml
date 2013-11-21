@@ -2,5 +2,5 @@
 <!DOCTYPE project>
 
 <project name="timesheet-portlet" basedir="." default="deploy">
-	<import file="C:\Liferay\plugins-sdk\liferay-plugins-sdk-6.1.1\portlets/build-common-portlet.xml" />
+	<import file="../build-common-portlet.xml" />
 </project>
