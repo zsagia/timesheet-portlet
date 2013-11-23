@@ -37,7 +37,8 @@ import java.util.List;
  */
 public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl {
 
-	public TaskSession addTaskSession(Date startTime, Date endTime, long taskId)
+	public TaskSession addTaskSession(
+			Date startTime, Date endTime, long taskId, long userId)
 		throws SystemException {
 
 		long taskSessionId = counterLocalService.increment();
@@ -47,21 +48,24 @@ public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl
 		taskSession.setStartTime(startTime);
 		taskSession.setEndTime(endTime);
 		taskSession.setTaskId(taskId);
+		taskSession.setUserId(userId);
 
 		taskSessionPersistence.update(taskSession, false);
 
 		return taskSession;
 	}
 
-	public TaskSession addTaskSession(Date startTime, long taskId)
+	public TaskSession addTaskSession(Date startTime, long taskId, long userId)
 		throws SystemException {
 
-		return addTaskSession(startTime, null, taskId);
+		return addTaskSession(startTime, null, taskId, userId);
 	}
 
-	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId) {
+	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
+		throws SystemException {
+
 		List<TaskSession> taskSessions =
-				taskSessionFinder.findByD_U(date, userId, 0, 20);
+			taskSessionPersistence.findByU_GtS(userId, date);
 
 		return taskSessions;
 	}
