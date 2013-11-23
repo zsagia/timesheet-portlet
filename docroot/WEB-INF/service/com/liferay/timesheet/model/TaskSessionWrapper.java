@@ -47,9 +47,10 @@ public class TaskSessionWrapper implements TaskSession,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
-		attributes.put("taskId", getTaskId());
-		attributes.put("startTime", getStartTime());
 		attributes.put("endTime", getEndTime());
+		attributes.put("startTime", getStartTime());
+		attributes.put("taskId", getTaskId());
+		attributes.put("userId", getUserId());
 
 		return attributes;
 	}
@@ -61,10 +62,10 @@ public class TaskSessionWrapper implements TaskSession,
 			setTaskSessionId(taskSessionId);
 		}
 
-		Long taskId = (Long)attributes.get("taskId");
+		Date endTime = (Date)attributes.get("endTime");
 
-		if (taskId != null) {
-			setTaskId(taskId);
+		if (endTime != null) {
+			setEndTime(endTime);
 		}
 
 		Date startTime = (Date)attributes.get("startTime");
@@ -73,10 +74,16 @@ public class TaskSessionWrapper implements TaskSession,
 			setStartTime(startTime);
 		}
 
-		Date endTime = (Date)attributes.get("endTime");
+		Long taskId = (Long)attributes.get("taskId");
 
-		if (endTime != null) {
-			setEndTime(endTime);
+		if (taskId != null) {
+			setTaskId(taskId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 	}
 
@@ -117,21 +124,21 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	/**
-	* Returns the task ID of this task session.
+	* Returns the end time of this task session.
 	*
-	* @return the task ID of this task session
+	* @return the end time of this task session
 	*/
-	public long getTaskId() {
-		return _taskSession.getTaskId();
+	public java.util.Date getEndTime() {
+		return _taskSession.getEndTime();
 	}
 
 	/**
-	* Sets the task ID of this task session.
+	* Sets the end time of this task session.
 	*
-	* @param taskId the task ID of this task session
+	* @param endTime the end time of this task session
 	*/
-	public void setTaskId(long taskId) {
-		_taskSession.setTaskId(taskId);
+	public void setEndTime(java.util.Date endTime) {
+		_taskSession.setEndTime(endTime);
 	}
 
 	/**
@@ -153,21 +160,59 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	/**
-	* Returns the end time of this task session.
+	* Returns the task ID of this task session.
 	*
-	* @return the end time of this task session
+	* @return the task ID of this task session
 	*/
-	public java.util.Date getEndTime() {
-		return _taskSession.getEndTime();
+	public long getTaskId() {
+		return _taskSession.getTaskId();
 	}
 
 	/**
-	* Sets the end time of this task session.
+	* Sets the task ID of this task session.
 	*
-	* @param endTime the end time of this task session
+	* @param taskId the task ID of this task session
 	*/
-	public void setEndTime(java.util.Date endTime) {
-		_taskSession.setEndTime(endTime);
+	public void setTaskId(long taskId) {
+		_taskSession.setTaskId(taskId);
+	}
+
+	/**
+	* Returns the user ID of this task session.
+	*
+	* @return the user ID of this task session
+	*/
+	public long getUserId() {
+		return _taskSession.getUserId();
+	}
+
+	/**
+	* Sets the user ID of this task session.
+	*
+	* @param userId the user ID of this task session
+	*/
+	public void setUserId(long userId) {
+		_taskSession.setUserId(userId);
+	}
+
+	/**
+	* Returns the user uuid of this task session.
+	*
+	* @return the user uuid of this task session
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.lang.String getUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSession.getUserUuid();
+	}
+
+	/**
+	* Sets the user uuid of this task session.
+	*
+	* @param userUuid the user uuid of this task session
+	*/
+	public void setUserUuid(java.lang.String userUuid) {
+		_taskSession.setUserUuid(userUuid);
 	}
 
 	public boolean isNew() {

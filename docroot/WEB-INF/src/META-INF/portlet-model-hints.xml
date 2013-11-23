@@ -8,8 +8,9 @@
 	</model>
 	<model name="com.liferay.timesheet.model.TaskSession">
 		<field name="taskSessionId" type="long" />
-		<field name="taskId" type="long" />
-		<field name="startTime" type="Date" />
 		<field name="endTime" type="Date" />
+		<field name="startTime" type="Date" />
+		<field name="taskId" type="long" />
+		<field name="userId" type="long" />
 	</model>
 </model-hints>

@@ -21,16 +21,18 @@
 	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskSessionModelImpl">
 		<attributes>
 			<id name="taskSessionId" />
-			<basic name="taskId" />
-			<basic name="startTime">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
 			<basic name="endTime">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="startTime">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="taskId" />
+			<basic name="userId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<entity class="com.liferay.timesheet.model.impl.TaskImpl" name="Task">

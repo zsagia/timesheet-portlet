@@ -14,6 +14,7 @@
 
 package com.liferay.timesheet.model;
 
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -73,18 +74,18 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	public void setTaskSessionId(long taskSessionId);
 
 	/**
-	 * Returns the task ID of this task session.
+	 * Returns the end time of this task session.
 	 *
-	 * @return the task ID of this task session
+	 * @return the end time of this task session
 	 */
-	public long getTaskId();
+	public Date getEndTime();
 
 	/**
-	 * Sets the task ID of this task session.
+	 * Sets the end time of this task session.
 	 *
-	 * @param taskId the task ID of this task session
+	 * @param endTime the end time of this task session
 	 */
-	public void setTaskId(long taskId);
+	public void setEndTime(Date endTime);
 
 	/**
 	 * Returns the start time of this task session.
@@ -101,18 +102,47 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	public void setStartTime(Date startTime);
 
 	/**
-	 * Returns the end time of this task session.
+	 * Returns the task ID of this task session.
 	 *
-	 * @return the end time of this task session
+	 * @return the task ID of this task session
 	 */
-	public Date getEndTime();
+	public long getTaskId();
 
 	/**
-	 * Sets the end time of this task session.
+	 * Sets the task ID of this task session.
 	 *
-	 * @param endTime the end time of this task session
+	 * @param taskId the task ID of this task session
 	 */
-	public void setEndTime(Date endTime);
+	public void setTaskId(long taskId);
+
+	/**
+	 * Returns the user ID of this task session.
+	 *
+	 * @return the user ID of this task session
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this task session.
+	 *
+	 * @param userId the user ID of this task session
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this task session.
+	 *
+	 * @return the user uuid of this task session
+	 * @throws SystemException if a system exception occurred
+	 */
+	public String getUserUuid() throws SystemException;
+
+	/**
+	 * Sets the user uuid of this task session.
+	 *
+	 * @param userUuid the user uuid of this task session
+	 */
+	public void setUserUuid(String userUuid);
 
 	public boolean isNew();
 

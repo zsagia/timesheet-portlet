@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
@@ -67,9 +68,10 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
-		attributes.put("taskId", getTaskId());
-		attributes.put("startTime", getStartTime());
 		attributes.put("endTime", getEndTime());
+		attributes.put("startTime", getStartTime());
+		attributes.put("taskId", getTaskId());
+		attributes.put("userId", getUserId());
 
 		return attributes;
 	}
@@ -82,10 +84,10 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 			setTaskSessionId(taskSessionId);
 		}
 
-		Long taskId = (Long)attributes.get("taskId");
+		Date endTime = (Date)attributes.get("endTime");
 
-		if (taskId != null) {
-			setTaskId(taskId);
+		if (endTime != null) {
+			setEndTime(endTime);
 		}
 
 		Date startTime = (Date)attributes.get("startTime");
@@ -94,10 +96,16 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 			setStartTime(startTime);
 		}
 
-		Date endTime = (Date)attributes.get("endTime");
+		Long taskId = (Long)attributes.get("taskId");
 
-		if (endTime != null) {
-			setEndTime(endTime);
+		if (taskId != null) {
+			setTaskId(taskId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 	}
 
@@ -109,12 +117,12 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		_taskSessionId = taskSessionId;
 	}
 
-	public long getTaskId() {
-		return _taskId;
+	public Date getEndTime() {
+		return _endTime;
 	}
 
-	public void setTaskId(long taskId) {
-		_taskId = taskId;
+	public void setEndTime(Date endTime) {
+		_endTime = endTime;
 	}
 
 	public Date getStartTime() {
@@ -125,12 +133,28 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		_startTime = startTime;
 	}
 
-	public Date getEndTime() {
-		return _endTime;
+	public long getTaskId() {
+		return _taskId;
 	}
 
-	public void setEndTime(Date endTime) {
-		_endTime = endTime;
+	public void setTaskId(long taskId) {
+		_taskId = taskId;
+	}
+
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
 	}
 
 	public void setTaskName(java.lang.String taskName) {
@@ -169,9 +193,10 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		TaskSessionClp clone = new TaskSessionClp();
 
 		clone.setTaskSessionId(getTaskSessionId());
-		clone.setTaskId(getTaskId());
-		clone.setStartTime(getStartTime());
 		clone.setEndTime(getEndTime());
+		clone.setStartTime(getStartTime());
+		clone.setTaskId(getTaskId());
+		clone.setUserId(getUserId());
 
 		return clone;
 	}
@@ -222,23 +247,25 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskSessionId=");
 		sb.append(getTaskSessionId());
-		sb.append(", taskId=");
-		sb.append(getTaskId());
-		sb.append(", startTime=");
-		sb.append(getStartTime());
 		sb.append(", endTime=");
 		sb.append(getEndTime());
+		sb.append(", startTime=");
+		sb.append(getStartTime());
+		sb.append(", taskId=");
+		sb.append(getTaskId());
+		sb.append(", userId=");
+		sb.append(getUserId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(16);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.TaskSession");
@@ -249,16 +276,20 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		sb.append(getTaskSessionId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>taskId</column-name><column-value><![CDATA[");
-		sb.append(getTaskId());
+			"<column><column-name>endTime</column-name><column-value><![CDATA[");
+		sb.append(getEndTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>startTime</column-name><column-value><![CDATA[");
 		sb.append(getStartTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>endTime</column-name><column-value><![CDATA[");
-		sb.append(getEndTime());
+			"<column><column-name>taskId</column-name><column-value><![CDATA[");
+		sb.append(getTaskId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -267,8 +298,10 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	}
 
 	private long _taskSessionId;
-	private long _taskId;
-	private Date _startTime;
 	private Date _endTime;
+	private Date _startTime;
+	private long _taskId;
+	private long _userId;
+	private String _userUuid;
 	private BaseModel<?> _taskSessionRemoteModel;
 }

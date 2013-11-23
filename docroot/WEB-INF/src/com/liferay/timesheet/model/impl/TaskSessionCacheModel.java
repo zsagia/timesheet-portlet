@@ -34,16 +34,18 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskSessionId=");
 		sb.append(taskSessionId);
-		sb.append(", taskId=");
-		sb.append(taskId);
-		sb.append(", startTime=");
-		sb.append(startTime);
 		sb.append(", endTime=");
 		sb.append(endTime);
+		sb.append(", startTime=");
+		sb.append(startTime);
+		sb.append(", taskId=");
+		sb.append(taskId);
+		sb.append(", userId=");
+		sb.append(userId);
 		sb.append("}");
 
 		return sb.toString();
@@ -53,14 +55,6 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
 
 		taskSessionImpl.setTaskSessionId(taskSessionId);
-		taskSessionImpl.setTaskId(taskId);
-
-		if (startTime == Long.MIN_VALUE) {
-			taskSessionImpl.setStartTime(null);
-		}
-		else {
-			taskSessionImpl.setStartTime(new Date(startTime));
-		}
 
 		if (endTime == Long.MIN_VALUE) {
 			taskSessionImpl.setEndTime(null);
@@ -69,13 +63,24 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 			taskSessionImpl.setEndTime(new Date(endTime));
 		}
 
+		if (startTime == Long.MIN_VALUE) {
+			taskSessionImpl.setStartTime(null);
+		}
+		else {
+			taskSessionImpl.setStartTime(new Date(startTime));
+		}
+
+		taskSessionImpl.setTaskId(taskId);
+		taskSessionImpl.setUserId(userId);
+
 		taskSessionImpl.resetOriginalValues();
 
 		return taskSessionImpl;
 	}
 
 	public long taskSessionId;
-	public long taskId;
-	public long startTime;
 	public long endTime;
+	public long startTime;
+	public long taskId;
+	public long userId;
 }

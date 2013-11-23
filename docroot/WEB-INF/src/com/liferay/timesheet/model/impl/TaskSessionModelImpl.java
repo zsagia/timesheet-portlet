@@ -15,12 +15,14 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -59,11 +61,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	public static final String TABLE_NAME = "timesheet_TaskSession";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "taskSessionId", Types.BIGINT },
-			{ "taskId", Types.BIGINT },
+			{ "endTime", Types.TIMESTAMP },
 			{ "startTime", Types.TIMESTAMP },
-			{ "endTime", Types.TIMESTAMP }
+			{ "taskId", Types.BIGINT },
+			{ "userId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_TaskSession (taskSessionId LONG not null primary key,taskId LONG,startTime DATE null,endTime DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_TaskSession (taskSessionId LONG not null primary key,endTime DATE null,startTime DATE null,taskId LONG,userId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_TaskSession";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -74,7 +77,11 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.timesheet.model.TaskSession"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.TaskSession"),
+			true);
+	public static long STARTTIME_COLUMN_BITMASK = 1L;
+	public static long USERID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.TaskSession"));
 
@@ -110,9 +117,10 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
-		attributes.put("taskId", getTaskId());
-		attributes.put("startTime", getStartTime());
 		attributes.put("endTime", getEndTime());
+		attributes.put("startTime", getStartTime());
+		attributes.put("taskId", getTaskId());
+		attributes.put("userId", getUserId());
 
 		return attributes;
 	}
@@ -125,10 +133,10 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			setTaskSessionId(taskSessionId);
 		}
 
-		Long taskId = (Long)attributes.get("taskId");
+		Date endTime = (Date)attributes.get("endTime");
 
-		if (taskId != null) {
-			setTaskId(taskId);
+		if (endTime != null) {
+			setEndTime(endTime);
 		}
 
 		Date startTime = (Date)attributes.get("startTime");
@@ -137,10 +145,16 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			setStartTime(startTime);
 		}
 
-		Date endTime = (Date)attributes.get("endTime");
+		Long taskId = (Long)attributes.get("taskId");
 
-		if (endTime != null) {
-			setEndTime(endTime);
+		if (taskId != null) {
+			setTaskId(taskId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 	}
 
@@ -152,6 +166,32 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_taskSessionId = taskSessionId;
 	}
 
+	public Date getEndTime() {
+		return _endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		_endTime = endTime;
+	}
+
+	public Date getStartTime() {
+		return _startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		_columnBitmask |= STARTTIME_COLUMN_BITMASK;
+
+		if (_originalStartTime == null) {
+			_originalStartTime = _startTime;
+		}
+
+		_startTime = startTime;
+	}
+
+	public Date getOriginalStartTime() {
+		return _originalStartTime;
+	}
+
 	public long getTaskId() {
 		return _taskId;
 	}
@@ -160,20 +200,36 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_taskId = taskId;
 	}
 
-	public Date getStartTime() {
-		return _startTime;
+	public long getUserId() {
+		return _userId;
 	}
 
-	public void setStartTime(Date startTime) {
-		_startTime = startTime;
+	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
+		_userId = userId;
 	}
 
-	public Date getEndTime() {
-		return _endTime;
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
-	public void setEndTime(Date endTime) {
-		_endTime = endTime;
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -205,9 +261,10 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
 
 		taskSessionImpl.setTaskSessionId(getTaskSessionId());
-		taskSessionImpl.setTaskId(getTaskId());
-		taskSessionImpl.setStartTime(getStartTime());
 		taskSessionImpl.setEndTime(getEndTime());
+		taskSessionImpl.setStartTime(getStartTime());
+		taskSessionImpl.setTaskId(getTaskId());
+		taskSessionImpl.setUserId(getUserId());
 
 		taskSessionImpl.resetOriginalValues();
 
@@ -260,6 +317,15 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public void resetOriginalValues() {
+		TaskSessionModelImpl taskSessionModelImpl = this;
+
+		taskSessionModelImpl._originalStartTime = taskSessionModelImpl._startTime;
+
+		taskSessionModelImpl._originalUserId = taskSessionModelImpl._userId;
+
+		taskSessionModelImpl._setOriginalUserId = false;
+
+		taskSessionModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -267,17 +333,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		TaskSessionCacheModel taskSessionCacheModel = new TaskSessionCacheModel();
 
 		taskSessionCacheModel.taskSessionId = getTaskSessionId();
-
-		taskSessionCacheModel.taskId = getTaskId();
-
-		Date startTime = getStartTime();
-
-		if (startTime != null) {
-			taskSessionCacheModel.startTime = startTime.getTime();
-		}
-		else {
-			taskSessionCacheModel.startTime = Long.MIN_VALUE;
-		}
 
 		Date endTime = getEndTime();
 
@@ -288,28 +343,43 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			taskSessionCacheModel.endTime = Long.MIN_VALUE;
 		}
 
+		Date startTime = getStartTime();
+
+		if (startTime != null) {
+			taskSessionCacheModel.startTime = startTime.getTime();
+		}
+		else {
+			taskSessionCacheModel.startTime = Long.MIN_VALUE;
+		}
+
+		taskSessionCacheModel.taskId = getTaskId();
+
+		taskSessionCacheModel.userId = getUserId();
+
 		return taskSessionCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskSessionId=");
 		sb.append(getTaskSessionId());
-		sb.append(", taskId=");
-		sb.append(getTaskId());
-		sb.append(", startTime=");
-		sb.append(getStartTime());
 		sb.append(", endTime=");
 		sb.append(getEndTime());
+		sb.append(", startTime=");
+		sb.append(getStartTime());
+		sb.append(", taskId=");
+		sb.append(getTaskId());
+		sb.append(", userId=");
+		sb.append(getUserId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(16);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.TaskSession");
@@ -320,16 +390,20 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		sb.append(getTaskSessionId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>taskId</column-name><column-value><![CDATA[");
-		sb.append(getTaskId());
+			"<column><column-name>endTime</column-name><column-value><![CDATA[");
+		sb.append(getEndTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>startTime</column-name><column-value><![CDATA[");
 		sb.append(getStartTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>endTime</column-name><column-value><![CDATA[");
-		sb.append(getEndTime());
+			"<column><column-name>taskId</column-name><column-value><![CDATA[");
+		sb.append(getTaskId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -342,8 +416,14 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			TaskSession.class
 		};
 	private long _taskSessionId;
-	private long _taskId;
-	private Date _startTime;
 	private Date _endTime;
+	private Date _startTime;
+	private Date _originalStartTime;
+	private long _taskId;
+	private long _userId;
+	private String _userUuid;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
+	private long _columnBitmask;
 	private TaskSession _escapedModelProxy;
 }

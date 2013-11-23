@@ -17,8 +17,9 @@
 		<id name="taskSessionId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="taskId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="startTime" type="org.hibernate.type.TimestampType" />
 		<property name="endTime" type="org.hibernate.type.TimestampType" />
+		<property name="startTime" type="org.hibernate.type.TimestampType" />
+		<property name="taskId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 </hibernate-mapping>
