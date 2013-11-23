@@ -25,7 +25,7 @@
 		</finder>
 
 	</entity>
-	
+
 	<entity name="TaskSession" local-service="true" remote-service="false">
 		<!-- PK fields -->
 
@@ -33,10 +33,14 @@
 
 		<!-- Audit fields -->
 
-		<column name="taskId" type="long" />
-		<column name="startTime" type="Date" />
 		<column name="endTime" type="Date" />
+		<column name="startTime" type="Date" />
+		<column name="taskId" type="long" />
+		<column name="userId" type="long" />
 
+		<finder name="U_GtS" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="startTime" comparator="&gt;" />
+		</finder>
 	</entity>
-	
 </service-builder>
