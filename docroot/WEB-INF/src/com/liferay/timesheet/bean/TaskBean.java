@@ -1,13 +1,19 @@
 package com.liferay.timesheet.bean;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
+import com.liferay.timesheet.service.persistence.TaskSessionUtil;
+import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +38,7 @@ public class TaskBean implements Serializable{
 	private Date startTime;
 	private String taskName;
 
-	public String createTaskSession() {
+	public String createTaskSession() throws ParseException {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		long userId = Long.valueOf(
@@ -43,8 +49,11 @@ public class TaskBean implements Serializable{
 
 			long taskId = task.getTaskId();
 
+			Date todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
+
 			TaskSessionLocalServiceUtil.addTaskSession(
-				getStartTime(), getEndTime(), taskId);
+				TimesheetUtil.addDateToDate(todayWithoutTime, getStartTime()),
+				taskId, userId);
 		}
 		catch (SystemException se) {
 			se.printStackTrace();
@@ -65,8 +74,12 @@ public class TaskBean implements Serializable{
 	 *  Currently it gives back TaskSessions only for the current day.
 	 *  TO DO: Passing date parameter from xhtml, so that it will be more generic.
 	 * @return
+	 * @throws ParseException 
+	 * @throws SystemException 
 	 */
-	public List<TaskSession> getTaskSessionsByD_U() {
+	public List<TaskSession> getTaskSessionsByD_U()
+		throws ParseException, SystemException {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		List<TaskSession> taskSessions = null;
@@ -74,9 +87,12 @@ public class TaskBean implements Serializable{
 		long userId = Long.valueOf(
 			facesContext.getExternalContext().getRemoteUser());
 
-		taskSessions =
-			TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-				new Date(), userId);
+		taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
+			TimesheetUtil.getTodayWithoutTime(), userId);
+
+		if (taskSessions == null) {
+			taskSessions = Collections.emptyList();
+		}
 
 		return taskSessions;
 	}
