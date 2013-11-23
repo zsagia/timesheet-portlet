@@ -61,7 +61,7 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 
 			taskSession.setStartTime((Date) queriedTaskSession[0]);
 			taskSession.setEndTime((Date) queriedTaskSession[1]);
-			taskSession.setTaskName((String) queriedTaskSession[2]);
+//			taskSession.setTaskName((String) queriedTaskSession[2]);
 
 			taskSessions.add(taskSession);
 		}

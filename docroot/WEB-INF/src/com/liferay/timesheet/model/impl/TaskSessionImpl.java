@@ -14,6 +14,11 @@
 
 package com.liferay.timesheet.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.timesheet.model.Task;
+import com.liferay.timesheet.service.TaskLocalServiceUtil;
+
 /**
  * The extended model implementation for the TaskSession service. Represents a row in the &quot;timesheet_TaskSession&quot; database table, with each column mapped to a property of this class.
  *
@@ -32,13 +37,10 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 	public TaskSessionImpl() {
 	}
 
-	public String getTaskName() {
-		return taskName;
+	public String getTaskName() throws PortalException, SystemException {
+		Task task = TaskLocalServiceUtil.getTask(getTaskId());
+
+		return task.getTaskName();
 	}
 
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
-
-	private String taskName;
-}
+} 
