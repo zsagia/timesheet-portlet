@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -39,9 +39,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalService;
-import com.liferay.timesheet.service.TaskService;
 import com.liferay.timesheet.service.TaskSessionLocalService;
-import com.liferay.timesheet.service.TaskSessionService;
 import com.liferay.timesheet.service.persistence.TaskPersistence;
 import com.liferay.timesheet.service.persistence.TaskSessionFinder;
 import com.liferay.timesheet.service.persistence.TaskSessionPersistence;
@@ -296,24 +294,6 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the task remote service.
-	 *
-	 * @return the task remote service
-	 */
-	public TaskService getTaskService() {
-		return taskService;
-	}
-
-	/**
-	 * Sets the task remote service.
-	 *
-	 * @param taskService the task remote service
-	 */
-	public void setTaskService(TaskService taskService) {
-		this.taskService = taskService;
-	}
-
-	/**
 	 * Returns the task persistence.
 	 *
 	 * @return the task persistence
@@ -348,24 +328,6 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	public void setTaskSessionLocalService(
 		TaskSessionLocalService taskSessionLocalService) {
 		this.taskSessionLocalService = taskSessionLocalService;
-	}
-
-	/**
-	 * Returns the task session remote service.
-	 *
-	 * @return the task session remote service
-	 */
-	public TaskSessionService getTaskSessionService() {
-		return taskSessionService;
-	}
-
-	/**
-	 * Sets the task session remote service.
-	 *
-	 * @param taskSessionService the task session remote service
-	 */
-	public void setTaskSessionService(TaskSessionService taskSessionService) {
-		this.taskSessionService = taskSessionService;
 	}
 
 	/**
@@ -533,10 +495,6 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		Class<?> clazz = getClass();
-
-		_classLoader = clazz.getClassLoader();
-
 		PersistedModelLocalServiceRegistryUtil.register("com.liferay.timesheet.model.TaskSession",
 			taskSessionLocalService);
 	}
@@ -566,22 +524,7 @@ public abstract class TaskSessionLocalServiceBaseImpl
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		Thread currentThread = Thread.currentThread();
-
-		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
-
-		if (contextClassLoader != _classLoader) {
-			currentThread.setContextClassLoader(_classLoader);
-		}
-
-		try {
-			return _clpInvoker.invokeMethod(name, parameterTypes, arguments);
-		}
-		finally {
-			if (contextClassLoader != _classLoader) {
-				currentThread.setContextClassLoader(contextClassLoader);
-			}
-		}
+		return _clpInvoker.invokeMethod(name, parameterTypes, arguments);
 	}
 
 	protected Class<?> getModelClass() {
@@ -613,14 +556,10 @@ public abstract class TaskSessionLocalServiceBaseImpl
 
 	@BeanReference(type = TaskLocalService.class)
 	protected TaskLocalService taskLocalService;
-	@BeanReference(type = TaskService.class)
-	protected TaskService taskService;
 	@BeanReference(type = TaskPersistence.class)
 	protected TaskPersistence taskPersistence;
 	@BeanReference(type = TaskSessionLocalService.class)
 	protected TaskSessionLocalService taskSessionLocalService;
-	@BeanReference(type = TaskSessionService.class)
-	protected TaskSessionService taskSessionService;
 	@BeanReference(type = TaskSessionPersistence.class)
 	protected TaskSessionPersistence taskSessionPersistence;
 	@BeanReference(type = TaskSessionFinder.class)
@@ -640,6 +579,5 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;
-	private ClassLoader _classLoader;
 	private TaskSessionLocalServiceClpInvoker _clpInvoker = new TaskSessionLocalServiceClpInvoker();
 }

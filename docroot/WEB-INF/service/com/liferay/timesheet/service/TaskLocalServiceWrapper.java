@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -267,14 +267,14 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 		return _taskLocalService.addTask(taskName, userId);
 	}
 
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTasksByUserId(userId);
-	}
-
 	public com.liferay.timesheet.model.Task getTaskByTN_U(
 		java.lang.String taskName, long userId) {
 		return _taskLocalService.getTaskByTN_U(taskName, userId);
+	}
+
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskLocalService.getTasksByUserId(userId);
 	}
 
 	/**

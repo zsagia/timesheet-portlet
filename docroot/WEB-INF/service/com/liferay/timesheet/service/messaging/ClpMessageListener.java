@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,9 +19,7 @@ import com.liferay.portal.kernel.messaging.Message;
 
 import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
-import com.liferay.timesheet.service.TaskServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.service.TaskSessionServiceUtil;
 
 /**
  * @author Brian Wing Shun Chan
@@ -40,10 +38,7 @@ public class ClpMessageListener extends BaseMessageListener {
 				servletContextName.equals(getServletContextName())) {
 			TaskLocalServiceUtil.clearService();
 
-			TaskServiceUtil.clearService();
 			TaskSessionLocalServiceUtil.clearService();
-
-			TaskSessionServiceUtil.clearService();
 		}
 	}
 }

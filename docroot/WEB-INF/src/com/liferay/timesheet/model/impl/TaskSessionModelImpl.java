@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -15,7 +15,6 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -28,16 +27,13 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.model.TaskSessionModel;
-import com.liferay.timesheet.model.TaskSessionSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +49,6 @@ import java.util.Map;
  * @see com.liferay.timesheet.model.TaskSessionModel
  * @generated
  */
-@JSON(strict = true)
 public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	implements TaskSessionModel {
 	/*
@@ -80,48 +75,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 				"value.object.finder.cache.enabled.com.liferay.timesheet.model.TaskSession"),
 			true);
 	public static final boolean COLUMN_BITMASK_ENABLED = false;
-
-	/**
-	 * Converts the soap model instance into a normal model instance.
-	 *
-	 * @param soapModel the soap model instance to convert
-	 * @return the normal model instance
-	 */
-	public static TaskSession toModel(TaskSessionSoap soapModel) {
-		if (soapModel == null) {
-			return null;
-		}
-
-		TaskSession model = new TaskSessionImpl();
-
-		model.setTaskSessionId(soapModel.getTaskSessionId());
-		model.setTaskId(soapModel.getTaskId());
-		model.setStartTime(soapModel.getStartTime());
-		model.setEndTime(soapModel.getEndTime());
-
-		return model;
-	}
-
-	/**
-	 * Converts the soap model instances into normal model instances.
-	 *
-	 * @param soapModels the soap model instances to convert
-	 * @return the normal model instances
-	 */
-	public static List<TaskSession> toModels(TaskSessionSoap[] soapModels) {
-		if (soapModels == null) {
-			return null;
-		}
-
-		List<TaskSession> models = new ArrayList<TaskSession>(soapModels.length);
-
-		for (TaskSessionSoap soapModel : soapModels) {
-			models.add(toModel(soapModel));
-		}
-
-		return models;
-	}
-
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.TaskSession"));
 
@@ -191,7 +144,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		}
 	}
 
-	@JSON
 	public long getTaskSessionId() {
 		return _taskSessionId;
 	}
@@ -200,7 +152,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_taskSessionId = taskSessionId;
 	}
 
-	@JSON
 	public long getTaskId() {
 		return _taskId;
 	}
@@ -209,7 +160,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_taskId = taskId;
 	}
 
-	@JSON
 	public Date getStartTime() {
 		return _startTime;
 	}
@@ -218,7 +168,6 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_startTime = startTime;
 	}
 
-	@JSON
 	public Date getEndTime() {
 		return _endTime;
 	}

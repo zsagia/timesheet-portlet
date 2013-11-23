@@ -5,7 +5,7 @@
 
 	<namespace>timesheet</namespace>
 
-	<entity name="Task" local-service="true" remote-service="true">
+	<entity name="Task" local-service="true" remote-service="false">
 		<!-- PK fields -->
 
 		<column name="taskId" type="long" primary="true" />
@@ -26,7 +26,7 @@
 
 	</entity>
 	
-	<entity name="TaskSession" local-service="true" remote-service="true">
+	<entity name="TaskSession" local-service="true" remote-service="false">
 		<!-- PK fields -->
 
 		<column name="taskSessionId" type="long" primary="true" />

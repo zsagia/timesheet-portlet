@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -275,14 +275,14 @@ public class TaskLocalServiceUtil {
 		return getService().addTask(taskName, userId);
 	}
 
-	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTasksByUserId(userId);
-	}
-
 	public static com.liferay.timesheet.model.Task getTaskByTN_U(
 		java.lang.String taskName, long userId) {
 		return getService().getTaskByTN_U(taskName, userId);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTasksByUserId(userId);
 	}
 
 	public static void clearService() {

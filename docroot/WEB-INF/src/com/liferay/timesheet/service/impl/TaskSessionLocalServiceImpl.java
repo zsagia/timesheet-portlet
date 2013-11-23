@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -35,8 +35,7 @@ import java.util.List;
  * @see com.liferay.timesheet.service.base.TaskSessionLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.TaskSessionLocalServiceUtil
  */
-public class TaskSessionLocalServiceImpl
-	extends TaskSessionLocalServiceBaseImpl {
+public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl {
 
 	public TaskSession addTaskSession(Date startTime, Date endTime, long taskId)
 		throws SystemException {
@@ -54,15 +53,9 @@ public class TaskSessionLocalServiceImpl
 		return taskSession;
 	}
 
-	public TaskSession addTaskSession(Date startTime, long taskId)
-		throws SystemException {
-
-		return addTaskSession(startTime, null, taskId);
-	}
-
 	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId) {
 		List<TaskSession> taskSessions =
-			taskSessionFinder.findByD_U(date, userId, 0, 20);
+				taskSessionFinder.findByD_U(date, userId, 0, 20);
 
 		return taskSessions;
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,7 +16,6 @@ package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -31,15 +30,12 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskModel;
-import com.liferay.timesheet.model.TaskSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,7 +51,6 @@ import java.util.Map;
  * @see com.liferay.timesheet.model.TaskModel
  * @generated
  */
-@JSON(strict = true)
 public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -84,47 +79,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			true);
 	public static long TASKNAME_COLUMN_BITMASK = 1L;
 	public static long USERID_COLUMN_BITMASK = 2L;
-
-	/**
-	 * Converts the soap model instance into a normal model instance.
-	 *
-	 * @param soapModel the soap model instance to convert
-	 * @return the normal model instance
-	 */
-	public static Task toModel(TaskSoap soapModel) {
-		if (soapModel == null) {
-			return null;
-		}
-
-		Task model = new TaskImpl();
-
-		model.setTaskId(soapModel.getTaskId());
-		model.setUserId(soapModel.getUserId());
-		model.setTaskName(soapModel.getTaskName());
-
-		return model;
-	}
-
-	/**
-	 * Converts the soap model instances into normal model instances.
-	 *
-	 * @param soapModels the soap model instances to convert
-	 * @return the normal model instances
-	 */
-	public static List<Task> toModels(TaskSoap[] soapModels) {
-		if (soapModels == null) {
-			return null;
-		}
-
-		List<Task> models = new ArrayList<Task>(soapModels.length);
-
-		for (TaskSoap soapModel : soapModels) {
-			models.add(toModel(soapModel));
-		}
-
-		return models;
-	}
-
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
 
@@ -187,7 +141,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		}
 	}
 
-	@JSON
 	public long getTaskId() {
 		return _taskId;
 	}
@@ -196,7 +149,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_taskId = taskId;
 	}
 
-	@JSON
 	public long getUserId() {
 		return _userId;
 	}
@@ -225,7 +177,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return _originalUserId;
 	}
 
-	@JSON
 	public String getTaskName() {
 		if (_taskName == null) {
 			return StringPool.BLANK;
