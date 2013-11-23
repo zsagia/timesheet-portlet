@@ -275,6 +275,12 @@ public class TaskSessionLocalServiceWrapper implements TaskSessionLocalService,
 			taskId);
 	}
 
+	public com.liferay.timesheet.model.TaskSession addTaskSession(
+		java.util.Date startTime, long taskId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.addTaskSession(startTime, taskId);
+	}
+
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
 		java.util.Date date, long userId) {
 		return _taskSessionLocalService.getTaskSessionsByD_U(date, userId);

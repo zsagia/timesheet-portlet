@@ -53,6 +53,12 @@ public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl
 		return taskSession;
 	}
 
+	public TaskSession addTaskSession(Date startTime, long taskId)
+		throws SystemException {
+
+		return addTaskSession(startTime, null, taskId);
+	}
+
 	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId) {
 		List<TaskSession> taskSessions =
 				taskSessionFinder.findByD_U(date, userId, 0, 20);

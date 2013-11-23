@@ -119,9 +119,13 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 				"java.util.Date", "java.util.Date", "long"
 			};
 
-		_methodName20 = "getTaskSessionsByD_U";
+		_methodName20 = "addTaskSession";
 
 		_methodParameterTypes20 = new String[] { "java.util.Date", "long" };
+
+		_methodName21 = "getTaskSessionsByD_U";
+
+		_methodParameterTypes21 = new String[] { "java.util.Date", "long" };
 	}
 
 	public com.liferay.timesheet.model.TaskSession addTaskSession(
@@ -689,13 +693,42 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 		return (com.liferay.timesheet.model.TaskSession)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId) {
+	public com.liferay.timesheet.model.TaskSession addTaskSession(
+		java.util.Date startTime, long taskId)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(startTime), taskId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.timesheet.model.TaskSession)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
+		java.util.Date date, long userId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] { ClpSerializer.translateInput(date), userId });
 		}
 		catch (Throwable t) {
@@ -754,4 +787,6 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 }
