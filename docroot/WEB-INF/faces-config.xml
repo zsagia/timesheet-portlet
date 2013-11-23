@@ -9,9 +9,4 @@
 	<lifecycle>
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
 	</lifecycle>
-	<managed-bean>
-		<managed-bean-name>taskBean</managed-bean-name>
-		<managed-bean-class>com.liferay.timesheet.bean.TaskBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 </faces-config>

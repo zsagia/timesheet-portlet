@@ -7,9 +7,12 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -18,7 +21,12 @@ import javax.faces.context.FacesContext;
 * @author Istvan Sajtos
 * @author Zsolt Szabo
 */
-public class TaskBean {
+
+@ManagedBean(name = "taskBean")
+@RequestScoped
+public class TaskBean implements Serializable{
+
+	private static final long serialVersionUID = -8412810082872360906L;
 
 	private Date endTime;
 	private Date startTime;
