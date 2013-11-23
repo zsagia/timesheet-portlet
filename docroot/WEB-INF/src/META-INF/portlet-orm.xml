@@ -41,8 +41,6 @@
 	</entity>
 	<entity class="com.liferay.timesheet.model.impl.TaskSessionImpl" name="TaskSession">
 		<table name="timesheet_TaskSession" />
-		<attributes>
-			<transient name="taskName" />
-		</attributes>
+		<attributes />
 	</entity>
 </entity-mappings>

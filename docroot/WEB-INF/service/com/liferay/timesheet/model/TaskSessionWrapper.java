@@ -288,12 +288,10 @@ public class TaskSessionWrapper implements TaskSession,
 		_taskSession.persist();
 	}
 
-	public java.lang.String getTaskName() {
+	public java.lang.String getTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _taskSession.getTaskName();
-	}
-
-	public void setTaskName(java.lang.String taskName) {
-		_taskSession.setTaskName(taskName);
 	}
 
 	/**

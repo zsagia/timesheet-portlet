@@ -157,10 +157,6 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		_userUuid = userUuid;
 	}
 
-	public void setTaskName(java.lang.String taskName) {
-		throw new UnsupportedOperationException();
-	}
-
 	public java.lang.String getTaskName() {
 		throw new UnsupportedOperationException();
 	}

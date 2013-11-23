@@ -31,7 +31,7 @@ public interface TaskSession extends TaskSessionModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.timesheet.model.impl.TaskSessionImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public java.lang.String getTaskName();
-
-	public void setTaskName(java.lang.String taskName);
+	public java.lang.String getTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }
