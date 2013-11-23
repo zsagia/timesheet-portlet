@@ -38,14 +38,8 @@ public class TaskBean implements Serializable{
 		long userId = Long.valueOf(
 			facesContext.getExternalContext().getRemoteUser());
 
-		Task task = null;
-
-		task = TaskLocalServiceUtil.getTaskByTN_U(taskName, userId);
-
 		try {
-			if (Validator.isNull(task)) {
-				task = TaskLocalServiceUtil.addTask(taskName, userId);
-			}
+			Task task = TaskLocalServiceUtil.addTask(taskName, userId);
 
 			long taskId = task.getTaskId();
 
