@@ -115,12 +115,12 @@ public class TaskSessionLocalServiceClpInvoker {
 		_methodName48 = "addTaskSession";
 
 		_methodParameterTypes48 = new String[] {
-				"java.util.Date", "java.util.Date", "long"
+				"java.util.Date", "java.util.Date", "long", "long"
 			};
 
 		_methodName49 = "addTaskSession";
 
-		_methodParameterTypes49 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes49 = new String[] { "java.util.Date", "long", "long" };
 
 		_methodName50 = "getTaskSessionsByD_U";
 
@@ -229,13 +229,15 @@ public class TaskSessionLocalServiceClpInvoker {
 		if (_methodName48.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
-				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue());
+				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue(),
+				((Long)arguments[3]).longValue());
 		}
 
 		if (_methodName49.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
-				((Long)arguments[1]).longValue());
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
 		}
 
 		if (_methodName50.equals(name) &&
