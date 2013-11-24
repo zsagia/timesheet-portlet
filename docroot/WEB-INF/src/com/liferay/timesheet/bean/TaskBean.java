@@ -1,5 +1,6 @@
 package com.liferay.timesheet.bean;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -38,26 +39,23 @@ public class TaskBean implements Serializable{
 	private Date startTime;
 	private String taskName;
 
-	public String createTaskSession() throws ParseException {
+	public String createTaskSession()
+		throws ParseException, PortalException, SystemException {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		long userId = Long.valueOf(
 			facesContext.getExternalContext().getRemoteUser());
 
-		try {
-			Task task = TaskLocalServiceUtil.addTask(taskName, userId);
+		Task task = TaskLocalServiceUtil.addTask(taskName, userId);
 
-			long taskId = task.getTaskId();
+		long taskId = task.getTaskId();
 
-			Date todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
+		Date todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
 
-			TaskSessionLocalServiceUtil.addTaskSession(
-				TimesheetUtil.addDateToDate(todayWithoutTime, getStartTime()),
-				taskId, userId);
-		}
-		catch (SystemException se) {
-			se.printStackTrace();
-		}
+		TaskSessionLocalServiceUtil.addTaskSession(
+			TimesheetUtil.addDateToDate(todayWithoutTime, getStartTime()),
+			taskId, userId);
 
 		return "success";
 	}
@@ -97,22 +95,15 @@ public class TaskBean implements Serializable{
 		return taskSessions;
 	}
 
-	public List<Task> getTaskByUser() {
+	public List<Task> getTaskByUser() throws PortalException, SystemException {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		List<Task> taskToday = null;
 
 		long userId = Long.valueOf(
 			facesContext.getExternalContext().getRemoteUser());
 
-		try {
-			taskToday = TaskLocalServiceUtil.getTasksByUserId(userId);
-		}
-		catch (SystemException se) {
-			se.printStackTrace();
-		}
+		List<Task> tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
 
-		return taskToday;
+		return tasksToday;
 	}
 
 	public Date getEndTime() {
