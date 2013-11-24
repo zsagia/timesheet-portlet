@@ -38,6 +38,7 @@ public class TaskBean implements Serializable{
 	private Date endTime;
 	private Date startTime;
 	private String taskName;
+	private Task actualTask;
 
 	public String createTaskSession()
 		throws ParseException, PortalException, SystemException {
@@ -58,6 +59,10 @@ public class TaskBean implements Serializable{
 			taskId, userId);
 
 		return "success";
+	}
+
+	public Task getActualTask() {
+		return actualTask;
 	}
 
 	public String getTaskName() {
