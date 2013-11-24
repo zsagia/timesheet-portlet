@@ -47,10 +47,12 @@ public class TaskSessionWrapper implements TaskSession,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("userId", getUserId());
 		attributes.put("endTime", getEndTime());
 		attributes.put("startTime", getStartTime());
 		attributes.put("taskId", getTaskId());
-		attributes.put("userId", getUserId());
 
 		return attributes;
 	}
@@ -60,6 +62,24 @@ public class TaskSessionWrapper implements TaskSession,
 
 		if (taskSessionId != null) {
 			setTaskSessionId(taskSessionId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 
 		Date endTime = (Date)attributes.get("endTime");
@@ -78,12 +98,6 @@ public class TaskSessionWrapper implements TaskSession,
 
 		if (taskId != null) {
 			setTaskId(taskId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
 		}
 	}
 
@@ -121,6 +135,80 @@ public class TaskSessionWrapper implements TaskSession,
 	*/
 	public void setTaskSessionId(long taskSessionId) {
 		_taskSession.setTaskSessionId(taskSessionId);
+	}
+
+	/**
+	* Returns the create date of this task session.
+	*
+	* @return the create date of this task session
+	*/
+	public java.util.Date getCreateDate() {
+		return _taskSession.getCreateDate();
+	}
+
+	/**
+	* Sets the create date of this task session.
+	*
+	* @param createDate the create date of this task session
+	*/
+	public void setCreateDate(java.util.Date createDate) {
+		_taskSession.setCreateDate(createDate);
+	}
+
+	/**
+	* Returns the modified date of this task session.
+	*
+	* @return the modified date of this task session
+	*/
+	public java.util.Date getModifiedDate() {
+		return _taskSession.getModifiedDate();
+	}
+
+	/**
+	* Sets the modified date of this task session.
+	*
+	* @param modifiedDate the modified date of this task session
+	*/
+	public void setModifiedDate(java.util.Date modifiedDate) {
+		_taskSession.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the user ID of this task session.
+	*
+	* @return the user ID of this task session
+	*/
+	public long getUserId() {
+		return _taskSession.getUserId();
+	}
+
+	/**
+	* Sets the user ID of this task session.
+	*
+	* @param userId the user ID of this task session
+	*/
+	public void setUserId(long userId) {
+		_taskSession.setUserId(userId);
+	}
+
+	/**
+	* Returns the user uuid of this task session.
+	*
+	* @return the user uuid of this task session
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.lang.String getUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSession.getUserUuid();
+	}
+
+	/**
+	* Sets the user uuid of this task session.
+	*
+	* @param userUuid the user uuid of this task session
+	*/
+	public void setUserUuid(java.lang.String userUuid) {
+		_taskSession.setUserUuid(userUuid);
 	}
 
 	/**
@@ -175,44 +263,6 @@ public class TaskSessionWrapper implements TaskSession,
 	*/
 	public void setTaskId(long taskId) {
 		_taskSession.setTaskId(taskId);
-	}
-
-	/**
-	* Returns the user ID of this task session.
-	*
-	* @return the user ID of this task session
-	*/
-	public long getUserId() {
-		return _taskSession.getUserId();
-	}
-
-	/**
-	* Sets the user ID of this task session.
-	*
-	* @param userId the user ID of this task session
-	*/
-	public void setUserId(long userId) {
-		_taskSession.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this task session.
-	*
-	* @return the user uuid of this task session
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSession.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this task session.
-	*
-	* @param userUuid the user uuid of this task session
-	*/
-	public void setUserUuid(java.lang.String userUuid) {
-		_taskSession.setUserUuid(userUuid);
 	}
 
 	public boolean isNew() {

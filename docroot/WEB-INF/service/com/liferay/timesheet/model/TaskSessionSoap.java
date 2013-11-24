@@ -31,10 +31,12 @@ public class TaskSessionSoap implements Serializable {
 		TaskSessionSoap soapModel = new TaskSessionSoap();
 
 		soapModel.setTaskSessionId(model.getTaskSessionId());
+		soapModel.setCreateDate(model.getCreateDate());
+		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setUserId(model.getUserId());
 		soapModel.setEndTime(model.getEndTime());
 		soapModel.setStartTime(model.getStartTime());
 		soapModel.setTaskId(model.getTaskId());
-		soapModel.setUserId(model.getUserId());
 
 		return soapModel;
 	}
@@ -95,6 +97,30 @@ public class TaskSessionSoap implements Serializable {
 		_taskSessionId = taskSessionId;
 	}
 
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
+	}
+
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
 	public Date getEndTime() {
 		return _endTime;
 	}
@@ -119,17 +145,11 @@ public class TaskSessionSoap implements Serializable {
 		_taskId = taskId;
 	}
 
-	public long getUserId() {
-		return _userId;
-	}
-
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
 	private long _taskSessionId;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private long _userId;
 	private Date _endTime;
 	private Date _startTime;
 	private long _taskId;
-	private long _userId;
 }

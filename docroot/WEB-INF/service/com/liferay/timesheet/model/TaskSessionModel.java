@@ -74,6 +74,63 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	public void setTaskSessionId(long taskSessionId);
 
 	/**
+	 * Returns the create date of this task session.
+	 *
+	 * @return the create date of this task session
+	 */
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this task session.
+	 *
+	 * @param createDate the create date of this task session
+	 */
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this task session.
+	 *
+	 * @return the modified date of this task session
+	 */
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this task session.
+	 *
+	 * @param modifiedDate the modified date of this task session
+	 */
+	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the user ID of this task session.
+	 *
+	 * @return the user ID of this task session
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this task session.
+	 *
+	 * @param userId the user ID of this task session
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this task session.
+	 *
+	 * @return the user uuid of this task session
+	 * @throws SystemException if a system exception occurred
+	 */
+	public String getUserUuid() throws SystemException;
+
+	/**
+	 * Sets the user uuid of this task session.
+	 *
+	 * @param userUuid the user uuid of this task session
+	 */
+	public void setUserUuid(String userUuid);
+
+	/**
 	 * Returns the end time of this task session.
 	 *
 	 * @return the end time of this task session
@@ -114,35 +171,6 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	 * @param taskId the task ID of this task session
 	 */
 	public void setTaskId(long taskId);
-
-	/**
-	 * Returns the user ID of this task session.
-	 *
-	 * @return the user ID of this task session
-	 */
-	public long getUserId();
-
-	/**
-	 * Sets the user ID of this task session.
-	 *
-	 * @param userId the user ID of this task session
-	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this task session.
-	 *
-	 * @return the user uuid of this task session
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this task session.
-	 *
-	 * @param userUuid the user uuid of this task session
-	 */
-	public void setUserUuid(String userUuid);
 
 	public boolean isNew();
 

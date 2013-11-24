@@ -22,6 +22,8 @@ import com.liferay.timesheet.model.Task;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing Task in entity cache.
  *
@@ -32,10 +34,14 @@ import java.io.Serializable;
 public class TaskCacheModel implements CacheModel<Task>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskId=");
 		sb.append(taskId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", createDate=");
+		sb.append(createDate);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", taskName=");
@@ -49,6 +55,15 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 		TaskImpl taskImpl = new TaskImpl();
 
 		taskImpl.setTaskId(taskId);
+		taskImpl.setCompanyId(companyId);
+
+		if (createDate == Long.MIN_VALUE) {
+			taskImpl.setCreateDate(null);
+		}
+		else {
+			taskImpl.setCreateDate(new Date(createDate));
+		}
+
 		taskImpl.setUserId(userId);
 
 		if (taskName == null) {
@@ -64,6 +79,8 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 	}
 
 	public long taskId;
+	public long companyId;
+	public long createDate;
 	public long userId;
 	public String taskName;
 }

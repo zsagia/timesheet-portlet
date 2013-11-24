@@ -27,6 +27,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.Proxy;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +67,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskId", getTaskId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("createDate", getCreateDate());
 		attributes.put("userId", getUserId());
 		attributes.put("taskName", getTaskName());
 
@@ -78,6 +81,18 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 		if (taskId != null) {
 			setTaskId(taskId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -99,6 +114,22 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
 	}
 
 	public long getUserId() {
@@ -153,6 +184,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		TaskClp clone = new TaskClp();
 
 		clone.setTaskId(getTaskId());
+		clone.setCompanyId(getCompanyId());
+		clone.setCreateDate(getCreateDate());
 		clone.setUserId(getUserId());
 		clone.setTaskName(getTaskName());
 
@@ -160,17 +193,15 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	public int compareTo(Task task) {
-		long primaryKey = task.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = getTaskName().compareTo(task.getTaskName());
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -205,10 +236,14 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
+		sb.append(", createDate=");
+		sb.append(getCreateDate());
 		sb.append(", userId=");
 		sb.append(getUserId());
 		sb.append(", taskName=");
@@ -219,7 +254,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -228,6 +263,14 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(
 			"<column><column-name>taskId</column-name><column-value><![CDATA[");
 		sb.append(getTaskId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
@@ -244,6 +287,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	private long _taskId;
+	private long _companyId;
+	private Date _createDate;
 	private long _userId;
 	private String _userUuid;
 	private String _taskName;

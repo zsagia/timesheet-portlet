@@ -24,6 +24,8 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 /**
  * The base model interface for the Task service. Represents a row in the &quot;timesheet_Task&quot; database table, with each column mapped to a property of this class.
  *
@@ -71,6 +73,34 @@ public interface TaskModel extends BaseModel<Task> {
 	 * @param taskId the task ID of this task
 	 */
 	public void setTaskId(long taskId);
+
+	/**
+	 * Returns the company ID of this task.
+	 *
+	 * @return the company ID of this task
+	 */
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this task.
+	 *
+	 * @param companyId the company ID of this task
+	 */
+	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the create date of this task.
+	 *
+	 * @return the create date of this task
+	 */
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this task.
+	 *
+	 * @param createDate the create date of this task
+	 */
+	public void setCreateDate(Date createDate);
 
 	/**
 	 * Returns the user ID of this task.

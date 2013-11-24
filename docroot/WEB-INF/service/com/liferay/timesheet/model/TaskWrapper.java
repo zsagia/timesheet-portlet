@@ -16,6 +16,7 @@ package com.liferay.timesheet.model;
 
 import com.liferay.portal.model.ModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,8 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskId", getTaskId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("createDate", getCreateDate());
 		attributes.put("userId", getUserId());
 		attributes.put("taskName", getTaskName());
 
@@ -56,6 +59,18 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 
 		if (taskId != null) {
 			setTaskId(taskId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -105,6 +120,42 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	*/
 	public void setTaskId(long taskId) {
 		_task.setTaskId(taskId);
+	}
+
+	/**
+	* Returns the company ID of this task.
+	*
+	* @return the company ID of this task
+	*/
+	public long getCompanyId() {
+		return _task.getCompanyId();
+	}
+
+	/**
+	* Sets the company ID of this task.
+	*
+	* @param companyId the company ID of this task
+	*/
+	public void setCompanyId(long companyId) {
+		_task.setCompanyId(companyId);
+	}
+
+	/**
+	* Returns the create date of this task.
+	*
+	* @return the create date of this task
+	*/
+	public java.util.Date getCreateDate() {
+		return _task.getCreateDate();
+	}
+
+	/**
+	* Sets the create date of this task.
+	*
+	* @param createDate the create date of this task
+	*/
+	public void setCreateDate(java.util.Date createDate) {
+		_task.setCreateDate(createDate);
 	}
 
 	/**

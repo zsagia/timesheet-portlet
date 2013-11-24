@@ -35,6 +35,7 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,11 +61,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public static final String TABLE_NAME = "timesheet_Task";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "taskId", Types.BIGINT },
+			{ "companyId", Types.BIGINT },
+			{ "createDate", Types.TIMESTAMP },
 			{ "userId", Types.BIGINT },
 			{ "taskName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,userId LONG,taskName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,companyId LONG,createDate DATE null,userId LONG,taskName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Task";
+	public static final String ORDER_BY_JPQL = " ORDER BY task.taskName ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Task.taskName ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -77,8 +82,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Task"),
 			true);
-	public static long TASKNAME_COLUMN_BITMASK = 1L;
-	public static long USERID_COLUMN_BITMASK = 2L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long TASKNAME_COLUMN_BITMASK = 2L;
+	public static long USERID_COLUMN_BITMASK = 4L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
 
@@ -114,6 +120,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskId", getTaskId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("createDate", getCreateDate());
 		attributes.put("userId", getUserId());
 		attributes.put("taskName", getTaskName());
 
@@ -126,6 +134,18 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		if (taskId != null) {
 			setTaskId(taskId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -147,6 +167,34 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
+		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
 	}
 
 	public long getUserId() {
@@ -187,7 +235,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	public void setTaskName(String taskName) {
-		_columnBitmask |= TASKNAME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalTaskName == null) {
 			_originalTaskName = _taskName;
@@ -206,7 +254,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			Task.class.getName(), getPrimaryKey());
 	}
 
@@ -233,6 +281,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		TaskImpl taskImpl = new TaskImpl();
 
 		taskImpl.setTaskId(getTaskId());
+		taskImpl.setCompanyId(getCompanyId());
+		taskImpl.setCreateDate(getCreateDate());
 		taskImpl.setUserId(getUserId());
 		taskImpl.setTaskName(getTaskName());
 
@@ -242,17 +292,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	public int compareTo(Task task) {
-		long primaryKey = task.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = getTaskName().compareTo(task.getTaskName());
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -289,6 +337,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public void resetOriginalValues() {
 		TaskModelImpl taskModelImpl = this;
 
+		taskModelImpl._originalCompanyId = taskModelImpl._companyId;
+
+		taskModelImpl._setOriginalCompanyId = false;
+
 		taskModelImpl._originalUserId = taskModelImpl._userId;
 
 		taskModelImpl._setOriginalUserId = false;
@@ -303,6 +355,17 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		TaskCacheModel taskCacheModel = new TaskCacheModel();
 
 		taskCacheModel.taskId = getTaskId();
+
+		taskCacheModel.companyId = getCompanyId();
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			taskCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			taskCacheModel.createDate = Long.MIN_VALUE;
+		}
 
 		taskCacheModel.userId = getUserId();
 
@@ -319,10 +382,14 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
+		sb.append(", createDate=");
+		sb.append(getCreateDate());
 		sb.append(", userId=");
 		sb.append(getUserId());
 		sb.append(", taskName=");
@@ -333,7 +400,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -342,6 +409,14 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		sb.append(
 			"<column><column-name>taskId</column-name><column-value><![CDATA[");
 		sb.append(getTaskId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
@@ -362,6 +437,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			Task.class
 		};
 	private long _taskId;
+	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
+	private Date _createDate;
 	private long _userId;
 	private String _userUuid;
 	private long _originalUserId;

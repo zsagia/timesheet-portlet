@@ -17,6 +17,7 @@ package com.liferay.timesheet.model;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public class TaskSoap implements Serializable {
 		TaskSoap soapModel = new TaskSoap();
 
 		soapModel.setTaskId(model.getTaskId());
+		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setTaskName(model.getTaskName());
 
@@ -92,6 +95,22 @@ public class TaskSoap implements Serializable {
 		_taskId = taskId;
 	}
 
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
 	public long getUserId() {
 		return _userId;
 	}
@@ -109,6 +128,8 @@ public class TaskSoap implements Serializable {
 	}
 
 	private long _taskId;
+	private long _companyId;
+	private Date _createDate;
 	private long _userId;
 	private String _taskName;
 }
