@@ -263,7 +263,9 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	}
 
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _taskLocalService.addTask(taskName, userId);
 	}
 
@@ -273,7 +275,9 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	}
 
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _taskLocalService.getTasksByUserId(userId);
 	}
 

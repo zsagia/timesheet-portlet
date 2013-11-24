@@ -244,7 +244,9 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 		throws java.lang.Throwable;
 
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.timesheet.model.Task getTaskByTN_U(
@@ -252,5 +254,7 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }
