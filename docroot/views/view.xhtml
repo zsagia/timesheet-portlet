@@ -12,6 +12,8 @@
 	<h:body>
 		<components:taskComponent taskBean="#{taskBean}" />
 
+		<hr />
+
 		<h:dataTable value="#{taskBean.taskSessionsByD_U}" var="taskSession">
 			<h:column>
 				<f:facet name="header">Name</f:facet>
@@ -27,5 +29,4 @@
 			</h:column>
 		</h:dataTable>
 	</h:body>
-
 </f:view>
