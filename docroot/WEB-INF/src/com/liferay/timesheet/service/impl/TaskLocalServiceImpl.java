@@ -14,11 +14,14 @@
 
 package com.liferay.timesheet.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
 import com.liferay.timesheet.NoSuchTaskException;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.base.TaskLocalServiceBaseImpl;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,35 +40,47 @@ import java.util.List;
  */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long userId) throws SystemException {
-		long taskId = counterLocalService.increment();
+	public Task addTask(String taskName, long userId)
+			throws PortalException, SystemException {
 
-		Task task = taskPersistence.create(taskId);
+			long taskId = counterLocalService.increment();
 
-		task.setUserId(userId);
-		task.setTaskName(taskName);
+			User user = userPersistence.findByPrimaryKey(userId);
 
-		taskPersistence.update(task, false);
+			Task task = taskPersistence.create(taskId);
 
-		return task;
-	}
+			Date createDate = new Date();
 
-	public Task getTaskByTN_U(String taskName, long userId) {
-		Task task = null;
+			task.setCompanyId(user.getCompanyId());
+			task.setCreateDate(createDate);
+			task.setTaskName(taskName);
+			task.setUserId(userId);
 
-		try {
-			task = taskPersistence.findByTN_U(taskName, userId);
-		} catch (NoSuchTaskException e) {
-			e.printStackTrace();
-		} catch (SystemException e) {
-			e.printStackTrace();
+			taskPersistence.update(task, false);
+
+			return task;
 		}
 
-		return task;
-	}
+		public Task getTaskByTN_U(String taskName, long userId) {
+			Task task = null;
 
-	public List<Task> getTasksByUserId(long userId) throws SystemException {
-		return taskPersistence.findByUserId(userId);
-	}
+			try {
+				task = taskPersistence.findByTN_U(taskName, userId);
+			} catch (NoSuchTaskException e) {
+				e.printStackTrace();
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+
+			return task;
+		}
+
+		public List<Task> getTasksByUserId(long userId)
+			throws PortalException, SystemException {
+
+			User user = userPersistence.findByPrimaryKey(userId);
+
+			return taskPersistence.findByC_U(user.getCompanyId(), userId);
+		}
 
 }
