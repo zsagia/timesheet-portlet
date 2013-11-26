@@ -37,10 +37,10 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 	public TaskSessionImpl() {
 	}
 
-	public String getTaskName() throws PortalException, SystemException {
+	public Task getTask() throws PortalException, SystemException {
 		Task task = TaskLocalServiceUtil.getTask(getTaskId());
 
-		return task.getTaskName();
+		return task;
 	}
 
-} 
+}
