@@ -187,7 +187,7 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		_taskId = taskId;
 	}
 
-	public java.lang.String getTaskName() {
+	public com.liferay.timesheet.model.Task getTask() {
 		throw new UnsupportedOperationException();
 	}
 

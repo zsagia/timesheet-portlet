@@ -338,10 +338,10 @@ public class TaskSessionWrapper implements TaskSession,
 		_taskSession.persist();
 	}
 
-	public java.lang.String getTaskName()
+	public com.liferay.timesheet.model.Task getTask()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _taskSession.getTaskName();
+		return _taskSession.getTask();
 	}
 
 	/**
