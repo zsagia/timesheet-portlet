@@ -58,6 +58,11 @@
 
 		<!-- Finder methods -->
 
+		<finder return-type="TaskSession" name="U_E" unique="true">
+			<finder-column name="userId" />
+			<finder-column name="endTime" />
+		</finder>
+
 		<finder name="U_GtS" return-type="Collection">
 			<finder-column name="userId" />
 			<finder-column name="startTime" comparator="&gt;" />
