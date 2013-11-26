@@ -35,7 +35,8 @@ import java.util.List;
  * @see com.liferay.timesheet.service.base.TaskSessionLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.TaskSessionLocalServiceUtil
  */
-public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl {
+public class TaskSessionLocalServiceImpl
+	extends TaskSessionLocalServiceBaseImpl {
 
 	public TaskSession addTaskSession(
 			Date startTime, Date endTime, long taskId, long userId)
@@ -61,6 +62,12 @@ public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl
 		return addTaskSession(startTime, null, taskId, userId);
 	}
 
+	public TaskSession getCurrentTaskSession(long userId)
+		throws SystemException {
+
+		return taskSessionPersistence.fetchByU_E(userId, null);
+	}
+
 	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
 		throws SystemException {
 
@@ -68,6 +75,14 @@ public class TaskSessionLocalServiceImpl extends TaskSessionLocalServiceBaseImpl
 			taskSessionPersistence.findByU_GtS(userId, date);
 
 		return taskSessions;
+	}
+
+	public TaskSession updateTaskSession(TaskSession taskSession)
+		throws SystemException {
+
+		taskSessionPersistence.update(taskSession, false);
+
+		return taskSession;
 	}
 
 }
