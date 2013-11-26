@@ -122,9 +122,19 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		_methodParameterTypes49 = new String[] { "java.util.Date", "long", "long" };
 
-		_methodName50 = "getTaskSessionsByD_U";
+		_methodName50 = "getCurrentTaskSession";
 
-		_methodParameterTypes50 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes50 = new String[] { "long" };
+
+		_methodName51 = "getTaskSessionsByD_U";
+
+		_methodParameterTypes51 = new String[] { "java.util.Date", "long" };
+
+		_methodName52 = "updateTaskSession";
+
+		_methodParameterTypes52 = new String[] {
+				"com.liferay.timesheet.model.TaskSession"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -242,8 +252,18 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		if (_methodName50.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return TaskSessionLocalServiceUtil.getCurrentTaskSession(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getTaskSessionsByD_U((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -291,4 +311,8 @@ public class TaskSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes49;
 	private String _methodName50;
 	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
 }

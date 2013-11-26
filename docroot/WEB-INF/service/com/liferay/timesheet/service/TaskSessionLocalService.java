@@ -256,6 +256,10 @@ public interface TaskSessionLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.timesheet.model.TaskSession getCurrentTaskSession(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
 		java.util.Date date, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException;

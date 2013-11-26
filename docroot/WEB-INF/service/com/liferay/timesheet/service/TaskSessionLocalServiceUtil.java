@@ -285,6 +285,11 @@ public class TaskSessionLocalServiceUtil {
 		return getService().addTaskSession(startTime, taskId, userId);
 	}
 
+	public static com.liferay.timesheet.model.TaskSession getCurrentTaskSession(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCurrentTaskSession(userId);
+	}
+
 	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
 		java.util.Date date, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
