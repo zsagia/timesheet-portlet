@@ -23,10 +23,10 @@
 			<h:outputText value="Taskname:"></h:outputText>
 
 			<c:choose>
-				<c:when test="#{empty cc.attrs.taskBean.actualTask}">
+				<c:when test="#{empty cc.attrs.taskBean.currentTaskSession}">
 					<h:inputText id="taskName" value="#{cc.attrs.taskBean.taskName}"></h:inputText>
 
-					<h:commandButton id="submit" value="Start Task" action="#{cc.attrs.taskBean.createTaskSession}"></h:commandButton>
+					<h:commandButton id="startTask" value="Start Task" action="#{cc.attrs.taskBean.createTaskSession}"></h:commandButton>
 
 					<br />
 
@@ -34,6 +34,7 @@
 					<h:inputText id="endTime" value="#{cc.attrs.taskBean.endTime}">
 						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 					</h:inputText>
+					<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.taskBean.finishTaskSession}"></h:commandButton>
 				</c:when>
 				<c:otherwise>
 					<h:outputText value="#{cc.attrs.taskBean.taskName}"></h:outputText>

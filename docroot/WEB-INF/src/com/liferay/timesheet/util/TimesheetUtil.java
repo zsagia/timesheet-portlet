@@ -1,9 +1,16 @@
 package com.liferay.timesheet.util;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.faces.context.FacesContext;
 
 public class TimesheetUtil {
 
@@ -19,6 +26,23 @@ public class TimesheetUtil {
 		long timeMilis2 = date.getTime();
 
 		return new Date(timeMilis2 + timeMilis);
+	}
+
+	public static User getCurrentUser()
+		throws PortalException, SystemException {
+
+		long userId = getCurrentUserId();
+
+		return UserLocalServiceUtil.getUser(userId);
+	}
+
+	public static long getCurrentUserId() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		long userId = Long.valueOf(
+			facesContext.getExternalContext().getRemoteUser());
+
+		return userId;
 	}
 
 	public static Date getTodayWithoutTime() throws ParseException {
