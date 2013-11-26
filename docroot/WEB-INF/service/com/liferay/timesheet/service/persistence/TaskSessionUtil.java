@@ -191,6 +191,51 @@ public class TaskSessionUtil {
 	}
 
 	/**
+	* Returns the task session where userId = &#63; and endTime = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the matching task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession findByU_E(
+		long userId, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence().findByU_E(userId, endTime);
+	}
+
+	/**
+	* Returns the task session where userId = &#63; and endTime = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByU_E(
+		long userId, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByU_E(userId, endTime);
+	}
+
+	/**
+	* Returns the task session where userId = &#63; and endTime = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByU_E(
+		long userId, java.util.Date endTime, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByU_E(userId, endTime, retrieveFromCache);
+	}
+
+	/**
 	* Returns all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	*
 	* @param userId the user ID
@@ -390,6 +435,21 @@ public class TaskSessionUtil {
 	}
 
 	/**
+	* Removes the task session where userId = &#63; and endTime = &#63; from the database.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the task session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession removeByU_E(
+		long userId, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence().removeByU_E(userId, endTime);
+	}
+
+	/**
 	* Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
 	*
 	* @param userId the user ID
@@ -409,6 +469,19 @@ public class TaskSessionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
+	}
+
+	/**
+	* Returns the number of task sessions where userId = &#63; and endTime = &#63;.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByU_E(long userId, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByU_E(userId, endTime);
 	}
 
 	/**

@@ -80,6 +80,16 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_FETCH_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByU_E",
+			new String[] { Long.class.getName(), Date.class.getName() },
+			TaskSessionModelImpl.USERID_COLUMN_BITMASK |
+			TaskSessionModelImpl.ENDTIME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_E",
+			new String[] { Long.class.getName(), Date.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_U_GTS = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByU_GtS",
@@ -111,6 +121,13 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	public void cacheResult(TaskSession taskSession) {
 		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+			new Object[] {
+				Long.valueOf(taskSession.getUserId()),
+				
+			taskSession.getEndTime()
+			}, taskSession);
 
 		taskSession.resetOriginalValues();
 	}
@@ -167,6 +184,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(taskSession);
 	}
 
 	@Override
@@ -177,7 +196,18 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		for (TaskSession taskSession : taskSessions) {
 			EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 				TaskSessionImpl.class, taskSession.getPrimaryKey());
+
+			clearUniqueFindersCache(taskSession);
 		}
+	}
+
+	protected void clearUniqueFindersCache(TaskSession taskSession) {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E,
+			new Object[] {
+				Long.valueOf(taskSession.getUserId()),
+				
+			taskSession.getEndTime()
+			});
 	}
 
 	/**
@@ -281,6 +311,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		boolean isNew = taskSession.isNew();
 
+		TaskSessionModelImpl taskSessionModelImpl = (TaskSessionModelImpl)taskSession;
+
 		Session session = null;
 
 		try {
@@ -305,6 +337,36 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
+
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+				new Object[] {
+					Long.valueOf(taskSession.getUserId()),
+					
+				taskSession.getEndTime()
+				}, taskSession);
+		}
+		else {
+			if ((taskSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_U_E.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(taskSessionModelImpl.getOriginalUserId()),
+						
+						taskSessionModelImpl.getOriginalEndTime()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_E, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+					new Object[] {
+						Long.valueOf(taskSession.getUserId()),
+						
+					taskSession.getEndTime()
+					}, taskSession);
+			}
+		}
 
 		return taskSession;
 	}
@@ -427,6 +489,162 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		}
 
 		return taskSession;
+	}
+
+	/**
+	 * Returns the task session where userId = &#63; and endTime = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the matching task session
+	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public TaskSession findByU_E(long userId, Date endTime)
+		throws NoSuchTaskSessionException, SystemException {
+		TaskSession taskSession = fetchByU_E(userId, endTime);
+
+		if (taskSession == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("userId=");
+			msg.append(userId);
+
+			msg.append(", endTime=");
+			msg.append(endTime);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchTaskSessionException(msg.toString());
+		}
+
+		return taskSession;
+	}
+
+	/**
+	 * Returns the task session where userId = &#63; and endTime = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the matching task session, or <code>null</code> if a matching task session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public TaskSession fetchByU_E(long userId, Date endTime)
+		throws SystemException {
+		return fetchByU_E(userId, endTime, true);
+	}
+
+	/**
+	 * Returns the task session where userId = &#63; and endTime = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching task session, or <code>null</code> if a matching task session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public TaskSession fetchByU_E(long userId, Date endTime,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { userId, endTime };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_U_E,
+					finderArgs, this);
+		}
+
+		if (result instanceof TaskSession) {
+			TaskSession taskSession = (TaskSession)result;
+
+			if ((userId != taskSession.getUserId()) ||
+					!Validator.equals(endTime, taskSession.getEndTime())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_TASKSESSION_WHERE);
+
+			query.append(_FINDER_COLUMN_U_E_USERID_2);
+
+			if (endTime == null) {
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_1);
+			}
+			else {
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (endTime != null) {
+					qPos.add(CalendarUtil.getTimestamp(endTime));
+				}
+
+				List<TaskSession> list = q.list();
+
+				result = list;
+
+				TaskSession taskSession = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+						finderArgs, list);
+				}
+				else {
+					taskSession = list.get(0);
+
+					cacheResult(taskSession);
+
+					if ((taskSession.getUserId() != userId) ||
+							(taskSession.getEndTime() == null) ||
+							!taskSession.getEndTime().equals(endTime)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+							finderArgs, taskSession);
+					}
+				}
+
+				return taskSession;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (TaskSession)result;
+			}
+		}
 	}
 
 	/**
@@ -955,6 +1173,21 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	}
 
 	/**
+	 * Removes the task session where userId = &#63; and endTime = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the task session that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public TaskSession removeByU_E(long userId, Date endTime)
+		throws NoSuchTaskSessionException, SystemException {
+		TaskSession taskSession = findByU_E(userId, endTime);
+
+		return remove(taskSession);
+	}
+
+	/**
 	 * Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
 	 *
 	 * @param userId the user ID
@@ -977,6 +1210,71 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		for (TaskSession taskSession : findAll()) {
 			remove(taskSession);
 		}
+	}
+
+	/**
+	 * Returns the number of task sessions where userId = &#63; and endTime = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the number of matching task sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByU_E(long userId, Date endTime) throws SystemException {
+		Object[] finderArgs = new Object[] { userId, endTime };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_U_E,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TASKSESSION_WHERE);
+
+			query.append(_FINDER_COLUMN_U_E_USERID_2);
+
+			if (endTime == null) {
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_1);
+			}
+			else {
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (endTime != null) {
+					qPos.add(CalendarUtil.getTimestamp(endTime));
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_E, finderArgs,
+					count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
 	}
 
 	/**
@@ -1126,6 +1424,9 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	private static final String _SQL_SELECT_TASKSESSION_WHERE = "SELECT taskSession FROM TaskSession taskSession WHERE ";
 	private static final String _SQL_COUNT_TASKSESSION = "SELECT COUNT(taskSession) FROM TaskSession taskSession";
 	private static final String _SQL_COUNT_TASKSESSION_WHERE = "SELECT COUNT(taskSession) FROM TaskSession taskSession WHERE ";
+	private static final String _FINDER_COLUMN_U_E_USERID_2 = "taskSession.userId = ? AND ";
+	private static final String _FINDER_COLUMN_U_E_ENDTIME_1 = "taskSession.endTime IS NULL";
+	private static final String _FINDER_COLUMN_U_E_ENDTIME_2 = "taskSession.endTime = ?";
 	private static final String _FINDER_COLUMN_U_GTS_USERID_2 = "taskSession.userId = ? AND ";
 	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_1 = "taskSession.startTime > NULL";
 	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_2 = "taskSession.startTime > ?";
