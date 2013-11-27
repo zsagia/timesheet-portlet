@@ -9,35 +9,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
 
-	<cc:interface>
-		<cc:attribute name="taskBean" required="true" />
-	</cc:interface>
+	<cc:interface></cc:interface>
 
 	<cc:implementation>
 		<h:form id="taskForm">
 			<h:outputText value="Start:"></h:outputText>
-			<h:inputText id="startTime" value="#{cc.attrs.taskBean.startTime}">
+			<h:inputText id="startTime" value="#{taskBean.startTime}">
 				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 			</h:inputText>
 
 			<h:outputText value="Taskname:"></h:outputText>
 
 			<c:choose>
-				<c:when test="#{empty cc.attrs.taskBean.currentTaskSession}">
-					<h:inputText id="taskName" value="#{cc.attrs.taskBean.taskName}"></h:inputText>
+				<c:when test="#{empty taskBean.currentTaskSession}">
+					<h:inputText id="taskName" value="#{taskBean.taskName}"></h:inputText>
 
-					<h:commandButton id="startTask" value="Start Task" action="#{cc.attrs.taskBean.createTaskSession}"></h:commandButton>
+					<h:commandButton id="startTask" value="Start Task" action="#{taskBean.createTaskSession}"></h:commandButton>
 
 					<br />
 
 					<h:outputText value="End:"></h:outputText>
-					<h:inputText id="endTime" value="#{cc.attrs.taskBean.endTime}">
+					<h:inputText id="endTime" value="#{taskBean.endTime}">
 						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 					</h:inputText>
-					<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.taskBean.finishTaskSession}"></h:commandButton>
+					<h:commandButton id="finishTask" value="Finish Task" action="#{taskBean.finishTaskSession}"></h:commandButton>
 				</c:when>
 				<c:otherwise>
-					<h:outputText value="#{cc.attrs.taskBean.taskName}"></h:outputText>
+					<h:outputText value="#{taskBean.taskName}"></h:outputText>
 				</c:otherwise>
 			</c:choose>
 

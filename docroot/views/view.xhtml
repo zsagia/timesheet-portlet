@@ -10,6 +10,10 @@
 	<h:head />
 
 	<h:body>
-		<components:taskComponent taskBean="#{taskBean}" />
+		<h:form id="navigation">
+			<h:commandLink action="#{viewController.showTaskSessionList}" value="Show today's task session list"/>
+		</h:form>
+
+		<components:taskComponent />
 	</h:body>
 </f:view>

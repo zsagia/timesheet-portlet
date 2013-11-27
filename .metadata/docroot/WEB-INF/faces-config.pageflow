@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13845243947650" configfile="/timesheet-portlet/docroot/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13845243947650" configfile="/timesheet-portlet/docroot/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="views/view.xhtml" id="pf138556643671512" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf138556643671613" path="/views/view.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/tasksession_list.xhtml" id="pf138556643671614" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf138556643671613" path="/views/tasksession_list.xhtml"/>
+  <links id="pf138556643671613" target="pf138556643671614" source="pf138556643671512" outcome="success" fromaction="#{viewController.showTaskSessionList}"/>
+</pageflow:Pageflow>
