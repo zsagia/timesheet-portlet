@@ -46,8 +46,12 @@ public class TaskSessionLocalServiceImpl
 
 		TaskSession taskSession = taskSessionPersistence.create(taskSessionId);
 
-		taskSession.setStartTime(startTime);
+		Date now = new Date();
+
+		taskSession.setCreateDate(now);
 		taskSession.setEndTime(endTime);
+		taskSession.setModifiedDate(now);
+		taskSession.setStartTime(startTime);
 		taskSession.setTaskId(taskId);
 		taskSession.setUserId(userId);
 
@@ -79,6 +83,10 @@ public class TaskSessionLocalServiceImpl
 
 	public TaskSession updateTaskSession(TaskSession taskSession)
 		throws SystemException {
+
+		Date now = new Date();
+
+		taskSession.setModifiedDate(now);
 
 		taskSessionPersistence.update(taskSession, false);
 
