@@ -253,6 +253,10 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("com.liferay.timesheet.NoSelectedTaskException")) {
+			return new com.liferay.timesheet.NoSelectedTaskException();
+		}
+
 		if (className.equals("com.liferay.timesheet.NoSuchTaskException")) {
 			return new com.liferay.timesheet.NoSuchTaskException();
 		}
