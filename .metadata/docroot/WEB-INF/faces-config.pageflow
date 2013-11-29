@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13845243947650" configfile="/timesheet-portlet/docroot/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="views/view.xhtml" id="pf138556643671512" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf138556643671613" path="/views/view.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="views/tasksession_list.xhtml" id="pf138556643671614" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf138556643671613" path="/views/tasksession_list.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/view.xhtml" x="338" y="178" id="pf138556643671512" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" outlinks="pf138556643671613 pf13857223435700 pf13857240216892 pf13857352134193" inlinks="pf13857223435700 pf13857223435701 pf13857240216892 pf13857352134193" path="/views/view.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/tasksession_list.xhtml" x="122" y="178" id="pf138556643671614" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf13857223435701" inlinks="pf138556643671613" path="/views/tasksession_list.xhtml"/>
   <links id="pf138556643671613" target="pf138556643671614" source="pf138556643671512" outcome="success" fromaction="#{viewController.showTaskSessionList}"/>
+  <links id="pf13857223435701" target="pf138556643671512" source="pf138556643671614" outcome="success" fromaction="#{viewController.showView}"/>
+  <links id="pf13857223435700" target="pf138556643671512" source="pf138556643671512" outcome="success" fromaction="#{taskBean.createTask}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13857240216892" target="pf138556643671512" source="pf138556643671512" outcome="success" fromaction="#{taskSessionBean.createTaskSession}"/>
+  <links id="pf13857352134193" target="pf138556643671512" source="pf138556643671512" outcome="success" fromaction="#{taskSessionBean.finishTaskSession}"/>
 </pageflow:Pageflow>

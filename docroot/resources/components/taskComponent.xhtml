@@ -14,25 +14,25 @@
 	<cc:implementation>
 		<h:form id="taskForm">
 			<h:outputText value="Start:"></h:outputText>
-			<h:inputText id="startTime" value="#{taskBean.startTime}">
+			<h:inputText id="startTime" value="#{taskSessionBean.startTime}">
 				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 			</h:inputText>
 
 			<h:outputText value="Taskname:"></h:outputText>
 
 			<c:choose>
-				<c:when test="#{empty taskBean.currentTaskSession}">
+				<c:when test="#{empty taskSessionBean.currentTaskSession}">
 					<h:inputText id="taskName" value="#{taskBean.taskName}"></h:inputText>
 
-					<h:commandButton id="startTask" value="Start Task" action="#{taskBean.createTaskSession}"></h:commandButton>
+					<h:commandButton id="startTask" value="Start Task" action="#{taskBean.createTask}"></h:commandButton>
 
 					<br />
 
 					<h:outputText value="End:"></h:outputText>
-					<h:inputText id="endTime" value="#{taskBean.endTime}">
+					<h:inputText id="endTime" value="#{taskSessionBean.endTime}">
 						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 					</h:inputText>
-					<h:commandButton id="finishTask" value="Finish Task" action="#{taskBean.finishTaskSession}"></h:commandButton>
+					<h:commandButton id="finishTask" value="Finish Task" action="#{taskSessionBean.finishTaskSession}"></h:commandButton>
 				</c:when>
 				<c:otherwise>
 					<h:outputText value="#{taskBean.taskName}"></h:outputText>

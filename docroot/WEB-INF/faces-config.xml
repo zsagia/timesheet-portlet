@@ -18,7 +18,17 @@
 			<to-view-id>/views/tasksession_list.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{taskBean.createTaskSession}</from-action>
+			<from-action>#{taskBean.createTask}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/views/view.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{taskSessionBean.createTaskSession}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/views/view.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{taskSessionBean.finishTaskSession}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/views/view.xhtml</to-view-id>
 		</navigation-case>
