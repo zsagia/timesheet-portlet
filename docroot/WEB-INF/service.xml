@@ -68,4 +68,8 @@
 			<finder-column name="startTime" comparator="&gt;" />
 		</finder>
 	</entity>
+
+	<exceptions>
+		<exception>NoSelectedTask</exception>
+	</exceptions>
 </service-builder>
