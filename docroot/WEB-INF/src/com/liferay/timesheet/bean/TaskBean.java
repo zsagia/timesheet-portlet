@@ -3,21 +3,16 @@ package com.liferay.timesheet.bean;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Task;
-import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
-import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 /**
 * @author Adorjan Nagy
@@ -53,7 +48,8 @@ public class TaskBean implements Serializable{
 	public List<Task> getTaskByUser() throws PortalException, SystemException {
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		List<Task> tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
+		List<Task> tasksToday =
+			TaskLocalServiceUtil.getTasksByCreatorId(userId);
 
 		return tasksToday;
 	}
