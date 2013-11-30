@@ -40,47 +40,47 @@ import java.util.List;
  */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long userId)
-			throws PortalException, SystemException {
+	public Task addTask(String taskName, long creatorId)
+		throws PortalException, SystemException {
 
-			long taskId = counterLocalService.increment();
+		long taskId = counterLocalService.increment();
 
-			User user = userPersistence.findByPrimaryKey(userId);
+		User user = userPersistence.findByPrimaryKey(creatorId);
 
-			Task task = taskPersistence.create(taskId);
+		Task task = taskPersistence.create(taskId);
 
-			Date createDate = new Date();
+		Date createDate = new Date();
 
-			task.setCompanyId(user.getCompanyId());
-			task.setCreateDate(createDate);
-			task.setTaskName(taskName);
-			task.setUserId(userId);
+		task.setCompanyId(user.getCompanyId());
+		task.setCreateDate(createDate);
+		task.setTaskName(taskName);
+		task.setCreatorId(creatorId);
 
-			taskPersistence.update(task, false);
+		taskPersistence.update(task, false);
 
-			return task;
+		return task;
+	}
+
+	public Task getTaskByTN_CR(String taskName, long creatorId) {
+		Task task = null;
+
+		try {
+			task = taskPersistence.findByTN_CR(taskName, creatorId);
+		} catch (NoSuchTaskException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
 		}
 
-		public Task getTaskByTN_U(String taskName, long userId) {
-			Task task = null;
+		return task;
+	}
 
-			try {
-				task = taskPersistence.findByTN_U(taskName, userId);
-			} catch (NoSuchTaskException e) {
-				e.printStackTrace();
-			} catch (SystemException e) {
-				e.printStackTrace();
-			}
+	public List<Task> getTasksByUserId(long creatorId)
+		throws PortalException, SystemException {
 
-			return task;
-		}
+		User user = userPersistence.findByPrimaryKey(creatorId);
 
-		public List<Task> getTasksByUserId(long userId)
-			throws PortalException, SystemException {
-
-			User user = userPersistence.findByPrimaryKey(userId);
-
-			return taskPersistence.findByC_U(user.getCompanyId(), userId);
-		}
+		return taskPersistence.findByC_CR(user.getCompanyId(), creatorId);
+	}
 
 }
