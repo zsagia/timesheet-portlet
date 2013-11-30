@@ -13,7 +13,7 @@
 
 		<column name="companyId" type="long" />
 		<column name="createDate" type="Date" />
-		<column name="userId" type="long" />
+		<column name="creatorId" type="long" />
 
 		<!-- Other fields -->
 
@@ -27,14 +27,14 @@
 
 		<!-- Finder methods -->
 
-		<finder name="TN_U" return-type="Task">
+		<finder name="TN_CR" return-type="Task">
 			<finder-column name="taskName" />
-			<finder-column name="userId" />
+			<finder-column name="creatorId" />
 		</finder>
 
-		<finder name="C_U" return-type="Collection">
+		<finder name="C_CR" return-type="Collection">
 			<finder-column name="companyId" />
-			<finder-column name="userId" />
+			<finder-column name="creatorId" />
 		</finder>
 	</entity>
 
