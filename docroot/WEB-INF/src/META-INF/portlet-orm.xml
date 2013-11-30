@@ -14,12 +14,11 @@
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="userId" />
+			<basic name="creatorId" />
 			<basic name="taskName" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskSessionModelImpl">

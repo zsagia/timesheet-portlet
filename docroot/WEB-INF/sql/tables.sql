@@ -2,7 +2,7 @@ create table timesheet_Task (
 	taskId LONG not null primary key,
 	companyId LONG,
 	createDate DATE null,
-	userId LONG,
+	creatorId LONG,
 	taskName VARCHAR(75) null
 );
 

@@ -42,8 +42,8 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 		sb.append(companyId);
 		sb.append(", createDate=");
 		sb.append(createDate);
-		sb.append(", userId=");
-		sb.append(userId);
+		sb.append(", creatorId=");
+		sb.append(creatorId);
 		sb.append(", taskName=");
 		sb.append(taskName);
 		sb.append("}");
@@ -64,7 +64,7 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 			taskImpl.setCreateDate(new Date(createDate));
 		}
 
-		taskImpl.setUserId(userId);
+		taskImpl.setCreatorId(creatorId);
 
 		if (taskName == null) {
 			taskImpl.setTaskName(StringPool.BLANK);
@@ -81,6 +81,6 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 	public long taskId;
 	public long companyId;
 	public long createDate;
-	public long userId;
+	public long creatorId;
 	public String taskName;
 }

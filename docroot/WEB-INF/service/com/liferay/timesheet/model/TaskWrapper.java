@@ -48,7 +48,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		attributes.put("taskId", getTaskId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("userId", getUserId());
+		attributes.put("creatorId", getCreatorId());
 		attributes.put("taskName", getTaskName());
 
 		return attributes;
@@ -73,10 +73,10 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 			setCreateDate(createDate);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		Long creatorId = (Long)attributes.get("creatorId");
 
-		if (userId != null) {
-			setUserId(userId);
+		if (creatorId != null) {
+			setCreatorId(creatorId);
 		}
 
 		String taskName = (String)attributes.get("taskName");
@@ -159,41 +159,21 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	/**
-	* Returns the user ID of this task.
+	* Returns the creator ID of this task.
 	*
-	* @return the user ID of this task
+	* @return the creator ID of this task
 	*/
-	public long getUserId() {
-		return _task.getUserId();
+	public long getCreatorId() {
+		return _task.getCreatorId();
 	}
 
 	/**
-	* Sets the user ID of this task.
+	* Sets the creator ID of this task.
 	*
-	* @param userId the user ID of this task
+	* @param creatorId the creator ID of this task
 	*/
-	public void setUserId(long userId) {
-		_task.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this task.
-	*
-	* @return the user uuid of this task
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _task.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this task.
-	*
-	* @param userUuid the user uuid of this task
-	*/
-	public void setUserUuid(java.lang.String userUuid) {
-		_task.setUserUuid(userUuid);
+	public void setCreatorId(long creatorId) {
+		_task.setCreatorId(creatorId);
 	}
 
 	/**

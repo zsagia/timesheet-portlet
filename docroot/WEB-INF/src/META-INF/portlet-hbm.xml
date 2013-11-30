@@ -11,7 +11,7 @@
 		</id>
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="creatorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="taskName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.timesheet.model.impl.TaskSessionImpl" table="timesheet_TaskSession">

@@ -5,7 +5,7 @@
 		<field name="taskId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />
-		<field name="userId" type="long" />
+		<field name="creatorId" type="long" />
 		<field name="taskName" type="String" />
 	</model>
 	<model name="com.liferay.timesheet.model.TaskSession">

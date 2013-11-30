@@ -33,7 +33,7 @@ public class TaskSoap implements Serializable {
 		soapModel.setTaskId(model.getTaskId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setCreateDate(model.getCreateDate());
-		soapModel.setUserId(model.getUserId());
+		soapModel.setCreatorId(model.getCreatorId());
 		soapModel.setTaskName(model.getTaskName());
 
 		return soapModel;
@@ -111,12 +111,12 @@ public class TaskSoap implements Serializable {
 		_createDate = createDate;
 	}
 
-	public long getUserId() {
-		return _userId;
+	public long getCreatorId() {
+		return _creatorId;
 	}
 
-	public void setUserId(long userId) {
-		_userId = userId;
+	public void setCreatorId(long creatorId) {
+		_creatorId = creatorId;
 	}
 
 	public String getTaskName() {
@@ -130,6 +130,6 @@ public class TaskSoap implements Serializable {
 	private long _taskId;
 	private long _companyId;
 	private Date _createDate;
-	private long _userId;
+	private long _creatorId;
 	private String _taskName;
 }

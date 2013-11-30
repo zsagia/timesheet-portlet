@@ -15,7 +15,6 @@
 package com.liferay.timesheet.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -103,33 +102,18 @@ public interface TaskModel extends BaseModel<Task> {
 	public void setCreateDate(Date createDate);
 
 	/**
-	 * Returns the user ID of this task.
+	 * Returns the creator ID of this task.
 	 *
-	 * @return the user ID of this task
+	 * @return the creator ID of this task
 	 */
-	public long getUserId();
+	public long getCreatorId();
 
 	/**
-	 * Sets the user ID of this task.
+	 * Sets the creator ID of this task.
 	 *
-	 * @param userId the user ID of this task
+	 * @param creatorId the creator ID of this task
 	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this task.
-	 *
-	 * @return the user uuid of this task
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this task.
-	 *
-	 * @param userUuid the user uuid of this task
-	 */
-	public void setUserUuid(String userUuid);
+	public void setCreatorId(long creatorId);
 
 	/**
 	 * Returns the task name of this task.

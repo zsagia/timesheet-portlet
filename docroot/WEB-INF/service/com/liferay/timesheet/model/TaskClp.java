@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 
@@ -69,7 +68,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		attributes.put("taskId", getTaskId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("userId", getUserId());
+		attributes.put("creatorId", getCreatorId());
 		attributes.put("taskName", getTaskName());
 
 		return attributes;
@@ -95,10 +94,10 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			setCreateDate(createDate);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		Long creatorId = (Long)attributes.get("creatorId");
 
-		if (userId != null) {
-			setUserId(userId);
+		if (creatorId != null) {
+			setCreatorId(creatorId);
 		}
 
 		String taskName = (String)attributes.get("taskName");
@@ -132,20 +131,12 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		_createDate = createDate;
 	}
 
-	public long getUserId() {
-		return _userId;
+	public long getCreatorId() {
+		return _creatorId;
 	}
 
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
+	public void setCreatorId(long creatorId) {
+		_creatorId = creatorId;
 	}
 
 	public String getTaskName() {
@@ -186,7 +177,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		clone.setTaskId(getTaskId());
 		clone.setCompanyId(getCompanyId());
 		clone.setCreateDate(getCreateDate());
-		clone.setUserId(getUserId());
+		clone.setCreatorId(getCreatorId());
 		clone.setTaskName(getTaskName());
 
 		return clone;
@@ -244,8 +235,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getCompanyId());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", userId=");
-		sb.append(getUserId());
+		sb.append(", creatorId=");
+		sb.append(getCreatorId());
 		sb.append(", taskName=");
 		sb.append(getTaskName());
 		sb.append("}");
@@ -273,8 +264,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
+			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
+		sb.append(getCreatorId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>taskName</column-name><column-value><![CDATA[");
@@ -289,8 +280,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	private long _taskId;
 	private long _companyId;
 	private Date _createDate;
-	private long _userId;
-	private String _userUuid;
+	private long _creatorId;
 	private String _taskName;
 	private BaseModel<?> _taskRemoteModel;
 }

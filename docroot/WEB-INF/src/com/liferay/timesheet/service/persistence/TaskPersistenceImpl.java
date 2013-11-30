@@ -78,34 +78,34 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_FETCH_BY_TN_U = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_TN_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByTN_U",
+			FINDER_CLASS_NAME_ENTITY, "fetchByTN_CR",
 			new String[] { String.class.getName(), Long.class.getName() },
 			TaskModelImpl.TASKNAME_COLUMN_BITMASK |
-			TaskModelImpl.USERID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_TN_U = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.CREATORID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_TN_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTN_U",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTN_CR",
 			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_U = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_U",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_CR",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_U = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_U",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_CR",
 			new String[] { Long.class.getName(), Long.class.getName() },
 			TaskModelImpl.COMPANYID_COLUMN_BITMASK |
-			TaskModelImpl.USERID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_U = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.CREATORID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_C_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_U",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_CR",
 			new String[] { Long.class.getName(), Long.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
@@ -126,8 +126,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		EntityCacheUtil.putResult(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskImpl.class, task.getPrimaryKey(), task);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_U,
-			new Object[] { task.getTaskName(), Long.valueOf(task.getUserId()) },
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_CR,
+			new Object[] { task.getTaskName(), Long.valueOf(task.getCreatorId()) },
 			task);
 
 		task.resetOriginalValues();
@@ -202,8 +202,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	protected void clearUniqueFindersCache(Task task) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_U,
-			new Object[] { task.getTaskName(), Long.valueOf(task.getUserId()) });
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_CR,
+			new Object[] { task.getTaskName(), Long.valueOf(task.getCreatorId()) });
 	}
 
 	/**
@@ -329,23 +329,23 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		else {
 			if ((taskModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_U.getColumnBitmask()) != 0) {
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						Long.valueOf(taskModelImpl.getOriginalCompanyId()),
-						Long.valueOf(taskModelImpl.getOriginalUserId())
+						Long.valueOf(taskModelImpl.getOriginalCreatorId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_U, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_U,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_CR, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR,
 					args);
 
 				args = new Object[] {
 						Long.valueOf(taskModelImpl.getCompanyId()),
-						Long.valueOf(taskModelImpl.getUserId())
+						Long.valueOf(taskModelImpl.getCreatorId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_U, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_U,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_CR, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR,
 					args);
 			}
 		}
@@ -354,25 +354,26 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			TaskImpl.class, task.getPrimaryKey(), task);
 
 		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_U,
-				new Object[] { task.getTaskName(), Long.valueOf(
-						task.getUserId()) }, task);
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_CR,
+				new Object[] {
+					task.getTaskName(), Long.valueOf(task.getCreatorId())
+				}, task);
 		}
 		else {
 			if ((taskModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_TN_U.getColumnBitmask()) != 0) {
+					FINDER_PATH_FETCH_BY_TN_CR.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						taskModelImpl.getOriginalTaskName(),
-						Long.valueOf(taskModelImpl.getOriginalUserId())
+						Long.valueOf(taskModelImpl.getOriginalCreatorId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TN_U, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TN_CR, args);
 
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_U, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_CR, args);
 
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_U,
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_CR,
 					new Object[] {
-						task.getTaskName(), Long.valueOf(task.getUserId())
+						task.getTaskName(), Long.valueOf(task.getCreatorId())
 					}, task);
 			}
 		}
@@ -393,7 +394,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		taskImpl.setTaskId(task.getTaskId());
 		taskImpl.setCompanyId(task.getCompanyId());
 		taskImpl.setCreateDate(task.getCreateDate());
-		taskImpl.setUserId(task.getUserId());
+		taskImpl.setCreatorId(task.getCreatorId());
 		taskImpl.setTaskName(task.getTaskName());
 
 		return taskImpl;
@@ -497,17 +498,17 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the task where taskName = &#63; and userId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
+	 * Returns the task where taskName = &#63; and creatorId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
 	 *
 	 * @param taskName the task name
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the matching task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task findByTN_U(String taskName, long userId)
+	public Task findByTN_CR(String taskName, long creatorId)
 		throws NoSuchTaskException, SystemException {
-		Task task = fetchByTN_U(taskName, userId);
+		Task task = fetchByTN_CR(taskName, creatorId);
 
 		if (task == null) {
 			StringBundler msg = new StringBundler(6);
@@ -517,8 +518,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			msg.append("taskName=");
 			msg.append(taskName);
 
-			msg.append(", userId=");
-			msg.append(userId);
+			msg.append(", creatorId=");
+			msg.append(creatorId);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -533,35 +534,35 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the task where taskName = &#63; and userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the task where taskName = &#63; and creatorId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param taskName the task name
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the matching task, or <code>null</code> if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task fetchByTN_U(String taskName, long userId)
+	public Task fetchByTN_CR(String taskName, long creatorId)
 		throws SystemException {
-		return fetchByTN_U(taskName, userId, true);
+		return fetchByTN_CR(taskName, creatorId, true);
 	}
 
 	/**
-	 * Returns the task where taskName = &#63; and userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the task where taskName = &#63; and creatorId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param taskName the task name
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching task, or <code>null</code> if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task fetchByTN_U(String taskName, long userId,
+	public Task fetchByTN_CR(String taskName, long creatorId,
 		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { taskName, userId };
+		Object[] finderArgs = new Object[] { taskName, creatorId };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_TN_U,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_TN_CR,
 					finderArgs, this);
 		}
 
@@ -569,7 +570,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			Task task = (Task)result;
 
 			if (!Validator.equals(taskName, task.getTaskName()) ||
-					(userId != task.getUserId())) {
+					(creatorId != task.getCreatorId())) {
 				result = null;
 			}
 		}
@@ -580,18 +581,18 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			query.append(_SQL_SELECT_TASK_WHERE);
 
 			if (taskName == null) {
-				query.append(_FINDER_COLUMN_TN_U_TASKNAME_1);
+				query.append(_FINDER_COLUMN_TN_CR_TASKNAME_1);
 			}
 			else {
 				if (taskName.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_TN_U_TASKNAME_3);
+					query.append(_FINDER_COLUMN_TN_CR_TASKNAME_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_TN_U_TASKNAME_2);
+					query.append(_FINDER_COLUMN_TN_CR_TASKNAME_2);
 				}
 			}
 
-			query.append(_FINDER_COLUMN_TN_U_USERID_2);
+			query.append(_FINDER_COLUMN_TN_CR_CREATORID_2);
 
 			query.append(TaskModelImpl.ORDER_BY_JPQL);
 
@@ -610,7 +611,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 					qPos.add(taskName);
 				}
 
-				qPos.add(userId);
+				qPos.add(creatorId);
 
 				List<Task> list = q.list();
 
@@ -619,7 +620,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 				Task task = null;
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_U,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_CR,
 						finderArgs, list);
 				}
 				else {
@@ -629,8 +630,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 					if ((task.getTaskName() == null) ||
 							!task.getTaskName().equals(taskName) ||
-							(task.getUserId() != userId)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_U,
+							(task.getCreatorId() != creatorId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TN_CR,
 							finderArgs, task);
 					}
 				}
@@ -642,7 +643,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			}
 			finally {
 				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_U,
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TN_CR,
 						finderArgs);
 				}
 
@@ -660,67 +661,67 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns all the tasks where companyId = &#63; and userId = &#63;.
+	 * Returns all the tasks where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Task> findByC_U(long companyId, long userId)
+	public List<Task> findByC_CR(long companyId, long creatorId)
 		throws SystemException {
-		return findByC_U(companyId, userId, QueryUtil.ALL_POS,
+		return findByC_CR(companyId, creatorId, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the tasks where companyId = &#63; and userId = &#63;.
+	 * Returns a range of all the tasks where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param start the lower bound of the range of tasks
 	 * @param end the upper bound of the range of tasks (not inclusive)
 	 * @return the range of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Task> findByC_U(long companyId, long userId, int start, int end)
-		throws SystemException {
-		return findByC_U(companyId, userId, start, end, null);
+	public List<Task> findByC_CR(long companyId, long creatorId, int start,
+		int end) throws SystemException {
+		return findByC_CR(companyId, creatorId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the tasks where companyId = &#63; and userId = &#63;.
+	 * Returns an ordered range of all the tasks where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param start the lower bound of the range of tasks
 	 * @param end the upper bound of the range of tasks (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<Task> findByC_U(long companyId, long userId, int start,
+	public List<Task> findByC_CR(long companyId, long creatorId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_U;
-			finderArgs = new Object[] { companyId, userId };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR;
+			finderArgs = new Object[] { companyId, creatorId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_U;
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_CR;
 			finderArgs = new Object[] {
-					companyId, userId,
+					companyId, creatorId,
 					
 					start, end, orderByComparator
 				};
@@ -732,7 +733,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		if ((list != null) && !list.isEmpty()) {
 			for (Task task : list) {
 				if ((companyId != task.getCompanyId()) ||
-						(userId != task.getUserId())) {
+						(creatorId != task.getCreatorId())) {
 					list = null;
 
 					break;
@@ -753,9 +754,9 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			query.append(_SQL_SELECT_TASK_WHERE);
 
-			query.append(_FINDER_COLUMN_C_U_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_CR_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_C_U_USERID_2);
+			query.append(_FINDER_COLUMN_C_CR_CREATORID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -779,7 +780,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 				qPos.add(companyId);
 
-				qPos.add(userId);
+				qPos.add(creatorId);
 
 				list = (List<Task>)QueryUtil.list(q, getDialect(), start, end);
 			}
@@ -804,19 +805,19 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the first task in the ordered set where companyId = &#63; and userId = &#63;.
+	 * Returns the first task in the ordered set where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task findByC_U_First(long companyId, long userId,
+	public Task findByC_CR_First(long companyId, long creatorId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskException, SystemException {
-		Task task = fetchByC_U_First(companyId, userId, orderByComparator);
+		Task task = fetchByC_CR_First(companyId, creatorId, orderByComparator);
 
 		if (task != null) {
 			return task;
@@ -829,8 +830,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		msg.append("companyId=");
 		msg.append(companyId);
 
-		msg.append(", userId=");
-		msg.append(userId);
+		msg.append(", creatorId=");
+		msg.append(creatorId);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -838,73 +839,17 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the first task in the ordered set where companyId = &#63; and userId = &#63;.
+	 * Returns the first task in the ordered set where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching task, or <code>null</code> if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task fetchByC_U_First(long companyId, long userId,
+	public Task fetchByC_CR_First(long companyId, long creatorId,
 		OrderByComparator orderByComparator) throws SystemException {
-		List<Task> list = findByC_U(companyId, userId, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last task in the ordered set where companyId = &#63; and userId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param userId the user ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching task
-	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Task findByC_U_Last(long companyId, long userId,
-		OrderByComparator orderByComparator)
-		throws NoSuchTaskException, SystemException {
-		Task task = fetchByC_U_Last(companyId, userId, orderByComparator);
-
-		if (task != null) {
-			return task;
-		}
-
-		StringBundler msg = new StringBundler(6);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("companyId=");
-		msg.append(companyId);
-
-		msg.append(", userId=");
-		msg.append(userId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchTaskException(msg.toString());
-	}
-
-	/**
-	 * Returns the last task in the ordered set where companyId = &#63; and userId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param userId the user ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching task, or <code>null</code> if a matching task could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Task fetchByC_U_Last(long companyId, long userId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByC_U(companyId, userId);
-
-		List<Task> list = findByC_U(companyId, userId, count - 1, count,
+		List<Task> list = findByC_CR(companyId, creatorId, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -915,18 +860,75 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the tasks before and after the current task in the ordered set where companyId = &#63; and userId = &#63;.
+	 * Returns the last task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param creatorId the creator ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task findByC_CR_Last(long companyId, long creatorId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = fetchByC_CR_Last(companyId, creatorId, orderByComparator);
+
+		if (task != null) {
+			return task;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", creatorId=");
+		msg.append(creatorId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTaskException(msg.toString());
+	}
+
+	/**
+	 * Returns the last task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param creatorId the creator ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task, or <code>null</code> if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task fetchByC_CR_Last(long companyId, long creatorId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByC_CR(companyId, creatorId);
+
+		List<Task> list = findByC_CR(companyId, creatorId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the tasks before and after the current task in the ordered set where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * @param taskId the primary key of the current task
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task[] findByC_U_PrevAndNext(long taskId, long companyId,
-		long userId, OrderByComparator orderByComparator)
+	public Task[] findByC_CR_PrevAndNext(long taskId, long companyId,
+		long creatorId, OrderByComparator orderByComparator)
 		throws NoSuchTaskException, SystemException {
 		Task task = findByPrimaryKey(taskId);
 
@@ -937,13 +939,13 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			Task[] array = new TaskImpl[3];
 
-			array[0] = getByC_U_PrevAndNext(session, task, companyId, userId,
-					orderByComparator, true);
+			array[0] = getByC_CR_PrevAndNext(session, task, companyId,
+					creatorId, orderByComparator, true);
 
 			array[1] = task;
 
-			array[2] = getByC_U_PrevAndNext(session, task, companyId, userId,
-					orderByComparator, false);
+			array[2] = getByC_CR_PrevAndNext(session, task, companyId,
+					creatorId, orderByComparator, false);
 
 			return array;
 		}
@@ -955,8 +957,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		}
 	}
 
-	protected Task getByC_U_PrevAndNext(Session session, Task task,
-		long companyId, long userId, OrderByComparator orderByComparator,
+	protected Task getByC_CR_PrevAndNext(Session session, Task task,
+		long companyId, long creatorId, OrderByComparator orderByComparator,
 		boolean previous) {
 		StringBundler query = null;
 
@@ -970,9 +972,9 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		query.append(_SQL_SELECT_TASK_WHERE);
 
-		query.append(_FINDER_COLUMN_C_U_COMPANYID_2);
+		query.append(_FINDER_COLUMN_C_CR_COMPANYID_2);
 
-		query.append(_FINDER_COLUMN_C_U_USERID_2);
+		query.append(_FINDER_COLUMN_C_CR_CREATORID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -1045,7 +1047,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		qPos.add(companyId);
 
-		qPos.add(userId);
+		qPos.add(creatorId);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(task);
@@ -1180,30 +1182,30 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Removes the task where taskName = &#63; and userId = &#63; from the database.
+	 * Removes the task where taskName = &#63; and creatorId = &#63; from the database.
 	 *
 	 * @param taskName the task name
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the task that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public Task removeByTN_U(String taskName, long userId)
+	public Task removeByTN_CR(String taskName, long creatorId)
 		throws NoSuchTaskException, SystemException {
-		Task task = findByTN_U(taskName, userId);
+		Task task = findByTN_CR(taskName, creatorId);
 
 		return remove(task);
 	}
 
 	/**
-	 * Removes all the tasks where companyId = &#63; and userId = &#63; from the database.
+	 * Removes all the tasks where companyId = &#63; and creatorId = &#63; from the database.
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByC_U(long companyId, long userId)
+	public void removeByC_CR(long companyId, long creatorId)
 		throws SystemException {
-		for (Task task : findByC_U(companyId, userId)) {
+		for (Task task : findByC_CR(companyId, creatorId)) {
 			remove(task);
 		}
 	}
@@ -1220,18 +1222,18 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the number of tasks where taskName = &#63; and userId = &#63;.
+	 * Returns the number of tasks where taskName = &#63; and creatorId = &#63;.
 	 *
 	 * @param taskName the task name
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the number of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByTN_U(String taskName, long userId)
+	public int countByTN_CR(String taskName, long creatorId)
 		throws SystemException {
-		Object[] finderArgs = new Object[] { taskName, userId };
+		Object[] finderArgs = new Object[] { taskName, creatorId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_TN_U,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_TN_CR,
 				finderArgs, this);
 
 		if (count == null) {
@@ -1240,18 +1242,18 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			query.append(_SQL_COUNT_TASK_WHERE);
 
 			if (taskName == null) {
-				query.append(_FINDER_COLUMN_TN_U_TASKNAME_1);
+				query.append(_FINDER_COLUMN_TN_CR_TASKNAME_1);
 			}
 			else {
 				if (taskName.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_TN_U_TASKNAME_3);
+					query.append(_FINDER_COLUMN_TN_CR_TASKNAME_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_TN_U_TASKNAME_2);
+					query.append(_FINDER_COLUMN_TN_CR_TASKNAME_2);
 				}
 			}
 
-			query.append(_FINDER_COLUMN_TN_U_USERID_2);
+			query.append(_FINDER_COLUMN_TN_CR_CREATORID_2);
 
 			String sql = query.toString();
 
@@ -1268,7 +1270,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 					qPos.add(taskName);
 				}
 
-				qPos.add(userId);
+				qPos.add(creatorId);
 
 				count = (Long)q.uniqueResult();
 			}
@@ -1280,7 +1282,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TN_U,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TN_CR,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1291,18 +1293,18 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the number of tasks where companyId = &#63; and userId = &#63;.
+	 * Returns the number of tasks where companyId = &#63; and creatorId = &#63;.
 	 *
 	 * @param companyId the company ID
-	 * @param userId the user ID
+	 * @param creatorId the creator ID
 	 * @return the number of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByC_U(long companyId, long userId)
+	public int countByC_CR(long companyId, long creatorId)
 		throws SystemException {
-		Object[] finderArgs = new Object[] { companyId, userId };
+		Object[] finderArgs = new Object[] { companyId, creatorId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_C_U,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_C_CR,
 				finderArgs, this);
 
 		if (count == null) {
@@ -1310,9 +1312,9 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			query.append(_SQL_COUNT_TASK_WHERE);
 
-			query.append(_FINDER_COLUMN_C_U_COMPANYID_2);
+			query.append(_FINDER_COLUMN_C_CR_COMPANYID_2);
 
-			query.append(_FINDER_COLUMN_C_U_USERID_2);
+			query.append(_FINDER_COLUMN_C_CR_CREATORID_2);
 
 			String sql = query.toString();
 
@@ -1327,7 +1329,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 				qPos.add(companyId);
 
-				qPos.add(userId);
+				qPos.add(creatorId);
 
 				count = (Long)q.uniqueResult();
 			}
@@ -1339,8 +1341,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_U, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_CR,
+					finderArgs, count);
 
 				closeSession(session);
 			}
@@ -1430,12 +1432,12 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	private static final String _SQL_SELECT_TASK_WHERE = "SELECT task FROM Task task WHERE ";
 	private static final String _SQL_COUNT_TASK = "SELECT COUNT(task) FROM Task task";
 	private static final String _SQL_COUNT_TASK_WHERE = "SELECT COUNT(task) FROM Task task WHERE ";
-	private static final String _FINDER_COLUMN_TN_U_TASKNAME_1 = "task.taskName IS NULL AND ";
-	private static final String _FINDER_COLUMN_TN_U_TASKNAME_2 = "task.taskName = ? AND ";
-	private static final String _FINDER_COLUMN_TN_U_TASKNAME_3 = "(task.taskName IS NULL OR task.taskName = ?) AND ";
-	private static final String _FINDER_COLUMN_TN_U_USERID_2 = "task.userId = ?";
-	private static final String _FINDER_COLUMN_C_U_COMPANYID_2 = "task.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_U_USERID_2 = "task.userId = ?";
+	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_1 = "task.taskName IS NULL AND ";
+	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_2 = "task.taskName = ? AND ";
+	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_3 = "(task.taskName IS NULL OR task.taskName = ?) AND ";
+	private static final String _FINDER_COLUMN_TN_CR_CREATORID_2 = "task.creatorId = ?";
+	private static final String _FINDER_COLUMN_C_CR_COMPANYID_2 = "task.companyId = ? AND ";
+	private static final String _FINDER_COLUMN_C_CR_CREATORID_2 = "task.creatorId = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "task.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Task exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Task exists with the key {";
