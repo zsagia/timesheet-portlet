@@ -112,11 +112,11 @@ public class TaskLocalServiceClpInvoker {
 
 		_methodParameterTypes48 = new String[] { "java.lang.String", "long" };
 
-		_methodName49 = "getTaskByTN_U";
+		_methodName49 = "getTaskByTN_CR";
 
 		_methodParameterTypes49 = new String[] { "java.lang.String", "long" };
 
-		_methodName50 = "getTasksByUserId";
+		_methodName50 = "getTasksByCreatorId";
 
 		_methodParameterTypes50 = new String[] { "long" };
 	}
@@ -228,13 +228,13 @@ public class TaskLocalServiceClpInvoker {
 
 		if (_methodName49.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
-			return TaskLocalServiceUtil.getTaskByTN_U((java.lang.String)arguments[0],
+			return TaskLocalServiceUtil.getTaskByTN_CR((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName50.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
-			return TaskLocalServiceUtil.getTasksByUserId(((Long)arguments[0]).longValue());
+			return TaskLocalServiceUtil.getTasksByCreatorId(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();

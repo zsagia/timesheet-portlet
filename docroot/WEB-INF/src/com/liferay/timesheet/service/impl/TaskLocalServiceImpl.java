@@ -75,7 +75,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return task;
 	}
 
-	public List<Task> getTasksByUserId(long creatorId)
+	public List<Task> getTasksByCreatorId(long creatorId)
 		throws PortalException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(creatorId);

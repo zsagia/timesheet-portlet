@@ -270,22 +270,22 @@ public class TaskLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.Task addTask(
-		java.lang.String taskName, long userId)
+		java.lang.String taskName, long creatorId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addTask(taskName, userId);
+		return getService().addTask(taskName, creatorId);
 	}
 
-	public static com.liferay.timesheet.model.Task getTaskByTN_U(
-		java.lang.String taskName, long userId) {
-		return getService().getTaskByTN_U(taskName, userId);
+	public static com.liferay.timesheet.model.Task getTaskByTN_CR(
+		java.lang.String taskName, long creatorId) {
+		return getService().getTaskByTN_CR(taskName, creatorId);
 	}
 
-	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId)
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByCreatorId(
+		long creatorId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTasksByUserId(userId);
+		return getService().getTasksByCreatorId(creatorId);
 	}
 
 	public static void clearService() {

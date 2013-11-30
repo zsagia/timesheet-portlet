@@ -112,11 +112,11 @@ public class TaskLocalServiceClp implements TaskLocalService {
 
 		_methodParameterTypes19 = new String[] { "java.lang.String", "long" };
 
-		_methodName20 = "getTaskByTN_U";
+		_methodName20 = "getTaskByTN_CR";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String", "long" };
 
-		_methodName21 = "getTasksByUserId";
+		_methodName21 = "getTasksByCreatorId";
 
 		_methodParameterTypes21 = new String[] { "long" };
 	}
@@ -644,7 +644,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 	}
 
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long userId)
+		long creatorId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -652,7 +652,11 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
-					new Object[] { ClpSerializer.translateInput(taskName), userId });
+					new Object[] {
+						ClpSerializer.translateInput(taskName),
+						
+					creatorId
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -677,14 +681,18 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.timesheet.model.Task getTaskByTN_U(
-		java.lang.String taskName, long userId) {
+	public com.liferay.timesheet.model.Task getTaskByTN_CR(
+		java.lang.String taskName, long creatorId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(taskName), userId });
+					new Object[] {
+						ClpSerializer.translateInput(taskName),
+						
+					creatorId
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -701,15 +709,15 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId)
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByCreatorId(
+		long creatorId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { userId });
+					_methodParameterTypes21, new Object[] { creatorId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
