@@ -14,6 +14,13 @@
 			<h:commandLink action="#{viewController.showTaskSessionList}" value="Show today's task session list"/>
 		</h:form>
 
-		<components:taskComponent />
+		<components:taskComponent
+			createTaskAction = "#{taskBean.createTask}"
+			currentTaskSession = "#{taskSessionBean.currentTaskSession}"
+			endTime = "#{taskSessionBean.endTime}"
+			finishTaskSessionAction = "#{taskSessionBean.finishTaskSession}"
+			startTime = "#{taskSessionBean.startTime}"
+			taskName = "#{taskBean.taskName}"
+			/>
 	</h:body>
 </f:view>
