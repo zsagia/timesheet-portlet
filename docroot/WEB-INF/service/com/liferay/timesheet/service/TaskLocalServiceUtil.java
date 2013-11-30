@@ -288,6 +288,13 @@ public class TaskLocalServiceUtil {
 		return getService().getTasksByCreatorId(creatorId);
 	}
 
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTasksByUserId(userId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -281,6 +281,13 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 		return _taskLocalService.getTasksByCreatorId(creatorId);
 	}
 
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
+		long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskLocalService.getTasksByUserId(userId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

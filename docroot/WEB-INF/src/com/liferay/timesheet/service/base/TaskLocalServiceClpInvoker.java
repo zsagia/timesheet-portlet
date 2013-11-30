@@ -119,6 +119,10 @@ public class TaskLocalServiceClpInvoker {
 		_methodName50 = "getTasksByCreatorId";
 
 		_methodParameterTypes50 = new String[] { "long" };
+
+		_methodName51 = "getTasksByUserId";
+
+		_methodParameterTypes51 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,6 +241,11 @@ public class TaskLocalServiceClpInvoker {
 			return TaskLocalServiceUtil.getTasksByCreatorId(((Long)arguments[0]).longValue());
 		}
 
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByUserId(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -282,4 +291,6 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes49;
 	private String _methodName50;
 	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
 }
