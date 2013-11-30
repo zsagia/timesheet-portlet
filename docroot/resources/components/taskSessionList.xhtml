@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:component
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -14,24 +15,49 @@
 	</cc:interface>
 
 	<cc:implementation>
-		<h:form id="navigation">
-			<h:commandLink action="#{viewController.showView}" value="Show start task session panel"/>
-		</h:form>
-		<h:form id="taskSessionListForm">
-			<h:dataTable value="#{taskSessionBean.taskSessionsByD_U}" var="taskSession">
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-				#{taskSession.task.taskName}
-			</h:column>
-			<h:column>
-				<f:facet name="header">Start</f:facet>
-				#{taskSession.startTime}
-			</h:column>
-			<h:column>
-				<f:facet name="header">End</f:facet>
-				#{taskSession.endTime}
-			</h:column>
-		</h:dataTable>
-		</h:form>
+		<aui:layout>
+			<aui:column columnWidth="75">
+				<h:form id="taskSessionListForm">
+					<h:dataTable headerClass="portlet-section-header results-header"
+						rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
+						value="#{taskSessionBean.taskSessionsByD_U}" var="taskSession">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+
+							<h:outputText value="#{taskSession.task.taskName}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Start" />
+							</f:facet>
+
+							<h:outputText value="#{taskSession.startTime}" >
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+							</h:outputText>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="End" />
+							</f:facet>
+
+							<h:outputText value="#{taskSession.endTime}" >
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+							</h:outputText>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</aui:column>
+
+			<aui:column>
+				<h:form id="navigation">
+					<h:commandLink action="#{viewController.showView}" value="Show start task session panel"/>
+				</h:form>
+			</aui:column>
+		</aui:layout>
 	</cc:implementation>
 </ui:component>
