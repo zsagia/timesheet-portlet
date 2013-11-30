@@ -19,10 +19,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.timesheet.NoSuchTaskException;
 import com.liferay.timesheet.model.Task;
+import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.base.TaskLocalServiceBaseImpl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The implementation of the task local service.
@@ -81,6 +86,35 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		User user = userPersistence.findByPrimaryKey(creatorId);
 
 		return taskPersistence.findByC_CR(user.getCompanyId(), creatorId);
+	}
+
+	public List<Task> getTasksByUserId(long userId)
+		throws PortalException, SystemException {
+
+		List<TaskSession> taskSessionList =
+			taskSessionPersistence.findByUserId(userId);
+
+		if (taskSessionList == null) {
+			return Collections.emptyList();
+		}
+
+		Set<Long> taskIds = new HashSet<Long>();
+
+		List<Task> taskList = new ArrayList<Task>();
+
+		for (TaskSession taskSession : taskSessionList) {
+			Task task = taskSession.getTask();
+
+			long taskId = task.getTaskId();
+
+			if (!taskIds.contains(taskId)) {
+				taskIds.add(taskId);
+
+				taskList.add(task);
+			}
+		}
+
+		return taskList;
 	}
 
 }
