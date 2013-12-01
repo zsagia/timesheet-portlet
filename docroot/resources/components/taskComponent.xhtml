@@ -12,17 +12,24 @@
 	<cc:interface></cc:interface>
 
 	<cc:implementation>
+		
+		<h:message for="startTime" showSummary="true"></h:message>
+		<h:message for="endTime" showSummary="true"></h:message>
+		
 		<h:form id="taskForm">
 			<h:outputText value="Start:"></h:outputText>
 			<h:inputText id="startTime" value="#{taskSessionBean.startTime}">
-				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+				<f:converter converterId="TaskSessionTimeConverter" />
+				<f:validator validatorId="TaskSessionTimeValidator" />
 			</h:inputText>
 
 			<h:outputText value="Taskname:"></h:outputText>
 
 			<c:choose>
 				<c:when test="#{empty taskSessionBean.currentTaskSession}">
-					<h:inputText id="taskName" value="#{taskBean.taskName}"></h:inputText>
+					<h:inputText id="taskName" value="#{taskBean.taskName}">
+						<f:validateRequired />
+					</h:inputText>
 
 					<h:commandButton id="startTask" value="Start Task" action="#{taskBean.createTask}"></h:commandButton>
 
@@ -30,7 +37,8 @@
 
 					<h:outputText value="End:"></h:outputText>
 					<h:inputText id="endTime" value="#{taskSessionBean.endTime}">
-						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+						<f:converter converterId="TaskSessionTimeConverter" />
+						<f:validator validatorId="TaskSessionTimeValidator" />
 					</h:inputText>
 					<h:commandButton id="finishTask" value="Finish Task" action="#{taskSessionBean.finishTaskSession}"></h:commandButton>
 				</c:when>
@@ -39,7 +47,6 @@
 				</c:otherwise>
 			</c:choose>
 
-			<h:message for="startTime" showSummary="true"></h:message>
 		</h:form>
 	</cc:implementation>
 </ui:component>
