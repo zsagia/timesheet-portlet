@@ -9,14 +9,15 @@ import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
+
 import java.text.ParseException;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
 @ManagedBean
 @RequestScoped
 public class TaskSessionBean implements Serializable {
@@ -37,21 +38,12 @@ public class TaskSessionBean implements Serializable {
 
 		long taskId = selectedTask.getTaskId();
 
-		Date startDate = new Date();
-		Date todayWithoutTime = null;
-
-		if (startTime != null) {
-			todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
-
-			startDate =
-				TimesheetUtil.addDateToDate(todayWithoutTime, getStartTime());
-		}
-
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		closeCurrentTaskSession(userId, startDate);
+		closeCurrentTaskSession(userId, getStartTime());
 
-		TaskSessionLocalServiceUtil.addTaskSession(startDate, taskId, userId);
+		TaskSessionLocalServiceUtil.addTaskSession(
+			getStartTime(), taskId, userId);
 
 		return "success";
 	}
@@ -76,18 +68,6 @@ public class TaskSessionBean implements Serializable {
 
 		TaskSession currentTaskSession =
 			TaskSessionLocalServiceUtil.getCurrentTaskSession(userId);
-
-		Date endDate = new Date();
-		Date todayWithoutTime = null;
-
-		if (endTime != null) {
-			todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
-
-			endDate =
-				TimesheetUtil.addDateToDate(todayWithoutTime, getEndTime());
-		}
-
-		currentTaskSession.setEndTime(endDate);
 
 		TaskSessionLocalServiceUtil.updateTaskSession(currentTaskSession);
 
@@ -115,8 +95,8 @@ public class TaskSessionBean implements Serializable {
 	 *  TO DO: Passing date parameter from xhtml, so that it will be more
 	 *  generic.
 	 * @return
-	 * @throws ParseException 
-	 * @throws SystemException 
+	 * @throws ParseException
+	 * @throws SystemException
 	 */
 	public List<TaskSession> getTaskSessionsByD_U()
 		throws ParseException, SystemException {
