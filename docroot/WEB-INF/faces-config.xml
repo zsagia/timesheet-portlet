@@ -41,4 +41,11 @@
 			<to-view-id>/views/view.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<application>
+		<resource-bundle>
+			<base-name>com.liferay.timesheet.bean.messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+	</application>
 </faces-config>
