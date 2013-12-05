@@ -7,7 +7,6 @@ import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -29,27 +28,27 @@ public class TaskBean implements Serializable{
 
 	private String taskName;
 
-	@ManagedProperty(name = "taskSessionBean", value = "#{taskSessionBean}")
-	private TaskSessionBean taskSessionBean;
+	@ManagedProperty(name = "taskSessionSimpleBean",
+		value = "#{taskSessionSimpleBean}")
+	private TaskSessionSimpleBean taskSessionSimpleBean;
 
-	public String createTask()
-		throws PortalException, SystemException, ParseException {
+	public String createTask()throws Exception {
 
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		Task task = TaskLocalServiceUtil.addTask(taskName, userId);
 
-		taskSessionBean.setSelectedTask(task);
-		taskSessionBean.createTaskSession();
+		taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
+		taskSessionSimpleBean.createTaskSession();
 
 		return "success";
 	}
 
-	public List<Task> getTaskByUser() throws PortalException, SystemException {
+	public List<Task> getTasksByUser() throws PortalException, SystemException {
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		List<Task> tasksToday =
-			TaskLocalServiceUtil.getTasksByCreatorId(userId);
+			TaskLocalServiceUtil.getTasksByUserId(userId);
 
 		return tasksToday;
 	}
@@ -58,16 +57,18 @@ public class TaskBean implements Serializable{
 		return taskName;
 	}
 
-	public TaskSessionBean getTaskSessionBean() {
-		return taskSessionBean;
+	public TaskSessionSimpleBean getTaskSessionSimpleBean() {
+		return taskSessionSimpleBean;
 	}
 
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
 
-	public void setTaskSessionBean(TaskSessionBean taskSessionBean) {
-		this.taskSessionBean = taskSessionBean;
+	public void setTaskSessionSimpleBean(
+		TaskSessionSimpleBean taskSessionSimpleBean) {
+
+		this.taskSessionSimpleBean = taskSessionSimpleBean;
 	}
 
 }
