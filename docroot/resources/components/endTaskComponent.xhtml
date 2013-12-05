@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<cc:interface>
+		<cc:attribute name="actionMethod" 
+			method-signature="java.lang.String action()" />
+		<cc:attribute name="endTime" />
+	</cc:interface>
+
+	<cc:implementation>
+		<aui:layout>
+			<h:form id="endTaskForm">
+				<h:outputText value="End:" />
+				<h:inputText id="endTime" value="#{cc.attrs.endTime}">
+					<f:convertDateTime pattern="HHmm" />
+				</h:inputText>
+
+				<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.actionMethod}" />
+			</h:form>
+		</aui:layout>
+	</cc:implementation>
+</ui:component>

@@ -2,25 +2,43 @@
 
 <f:view
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:components="http://java.sun.com/jsf/composite/components">
+
 	<h:head />
 
 	<h:body>
-		<h:form id="navigation">
-			<h:commandLink action="#{viewController.showTaskSessionList}" value="Show today's task session list"/>
-		</h:form>
+		<aui:layout>
+			<aui:column>
+				<components:taskComponent
+					actionMethod="#{taskBean.createTask}"
+					startTime="#{taskSessionSimpleBean.startTime}"
+					taskName="#{taskBean.taskName}" />
 
-		<components:taskComponent
-			createTaskAction = "#{taskBean.createTask}"
-			currentTaskSession = "#{taskSessionBean.currentTaskSession}"
-			endTime = "#{taskSessionBean.endTime}"
-			finishTaskSessionAction = "#{taskSessionBean.finishTaskSession}"
-			startTime = "#{taskSessionBean.startTime}"
-			taskName = "#{taskBean.taskName}"
-			/>
+				<components:endTaskComponent
+					actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
+					endTime="#{taskSessionSimpleBean.endTime}"
+					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
+
+				<hr />
+
+				<ui:repeat var="task" value="#{taskBean.tasksByUser}">
+					<components:taskComponent
+						actionMethod="#{taskSessionMultipleBean.createTaskSession}"
+						selectedTask="#{task}"
+						startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
+				</ui:repeat>
+			</aui:column>
+
+			<aui:column>
+				<h:form id="navigation">
+					<h:commandLink action="#{viewController.showTaskSessionList}" value="Show today's task session list"/>
+				</h:form>
+			</aui:column>
+		</aui:layout>
 	</h:body>
 </f:view>
