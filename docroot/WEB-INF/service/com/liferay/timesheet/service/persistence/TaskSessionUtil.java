@@ -236,6 +236,143 @@ public class TaskSessionUtil {
 	}
 
 	/**
+	* Returns all the task sessions where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUserId(userId);
+	}
+
+	/**
+	* Returns a range of all the task sessions where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of task sessions
+	* @param end the upper bound of the range of task sessions (not inclusive)
+	* @return the range of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByUserId(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUserId(userId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the task sessions where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of task sessions
+	* @param end the upper bound of the range of task sessions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByUserId(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByUserId(userId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first task session in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession findByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence().findByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the first task session in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the last task session in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession findByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence().findByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the last task session in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the task sessions before and after the current task session in the ordered set where userId = &#63;.
+	*
+	* @param taskSessionId the primary key of the current task session
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession[] findByUserId_PrevAndNext(
+		long taskSessionId, long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence()
+				   .findByUserId_PrevAndNext(taskSessionId, userId,
+			orderByComparator);
+	}
+
+	/**
 	* Returns all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	*
 	* @param userId the user ID
@@ -450,6 +587,17 @@ public class TaskSessionUtil {
 	}
 
 	/**
+	* Removes all the task sessions where userId = &#63; from the database.
+	*
+	* @param userId the user ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUserId(userId);
+	}
+
+	/**
 	* Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
 	*
 	* @param userId the user ID
@@ -482,6 +630,18 @@ public class TaskSessionUtil {
 	public static int countByU_E(long userId, java.util.Date endTime)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().countByU_E(userId, endTime);
+	}
+
+	/**
+	* Returns the number of task sessions where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUserId(userId);
 	}
 
 	/**
