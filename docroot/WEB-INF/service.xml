@@ -56,6 +56,12 @@
 		<column name="startTime" type="Date" />
 		<column name="taskId" type="long" />
 
+		<!-- Order -->
+
+		<order>
+			<order-column name="startTime" order-by="desc" />
+		</order>
+
 		<!-- Finder methods -->
 
 		<finder return-type="TaskSession" name="U_E" unique="true">
