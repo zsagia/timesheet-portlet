@@ -16,6 +16,7 @@ package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -70,6 +71,8 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		};
 	public static final String TABLE_SQL_CREATE = "create table timesheet_TaskSession (taskSessionId LONG not null primary key,createDate DATE null,modifiedDate DATE null,userId LONG,endTime DATE null,startTime DATE null,taskId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_TaskSession";
+	public static final String ORDER_BY_JPQL = " ORDER BY taskSession.startTime DESC";
+	public static final String ORDER_BY_SQL = " ORDER BY timesheet_TaskSession.startTime DESC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -250,7 +253,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	}
 
 	public void setStartTime(Date startTime) {
-		_columnBitmask |= STARTTIME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalStartTime == null) {
 			_originalStartTime = _startTime;
@@ -317,17 +320,17 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	}
 
 	public int compareTo(TaskSession taskSession) {
-		long primaryKey = taskSession.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(getStartTime(), taskSession.getStartTime());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
