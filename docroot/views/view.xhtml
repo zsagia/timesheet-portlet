@@ -14,10 +14,12 @@
 	<h:body>
 		<aui:layout>
 			<aui:column>
-				<components:taskComponent
-					actionMethod="#{taskBean.createTask}"
-					startTime="#{taskSessionSimpleBean.startTime}"
-					taskName="#{taskBean.taskName}" />
+				<h:form id="taskForm">
+					<components:taskComponent
+						actionMethod="#{taskBean.createTask}"
+						startTime="#{taskSessionSimpleBean.startTime}"
+						taskName="#{taskBean.taskName}" />
+				</h:form>
 
 				<components:endTaskComponent
 					actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
@@ -26,12 +28,14 @@
 
 				<hr />
 
-				<ui:repeat var="task" value="#{taskBean.tasksByUser}">
-					<components:taskComponent
-						actionMethod="#{taskSessionMultipleBean.createTaskSession}"
-						selectedTask="#{task}"
-						startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
-				</ui:repeat>
+				<h:form id="taskSessionForm">
+					<ui:repeat var="task" value="#{taskBean.tasksByUser}">
+						<components:taskComponent
+							actionMethod="#{taskSessionMultipleBean.createTaskSession}"
+							selectedTask="#{task}"
+							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
+					</ui:repeat>
+				</h:form>
 			</aui:column>
 
 			<aui:column>
