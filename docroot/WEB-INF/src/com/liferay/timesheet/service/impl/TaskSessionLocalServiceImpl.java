@@ -72,6 +72,19 @@ public class TaskSessionLocalServiceImpl
 		return taskSessionPersistence.fetchByU_E(userId, null);
 	}
 
+	public TaskSession getLastTaskSessionsByD_U(Date date, long userId)
+		throws SystemException {
+
+		List<TaskSession> taskSessions =
+			taskSessionPersistence.findByU_GtS(userId, date);
+
+		if ((taskSessions != null) && !taskSessions.isEmpty()) {
+			return taskSessions.get(0);
+		}
+
+		return null;
+	}
+
 	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
 		throws SystemException {
 
