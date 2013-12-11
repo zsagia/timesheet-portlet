@@ -80,6 +80,10 @@
 	</entity>
 
 	<exceptions>
+		<exception>CurrentTaskSessionIsAlreadyEnded</exception>
+		<exception>NoCurrentTaskSession</exception>
 		<exception>NoSelectedTask</exception>
+		<exception>StartTime</exception>
+		<exception>EndTime</exception>
 	</exceptions>
 </service-builder>
