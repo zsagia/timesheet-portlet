@@ -18,7 +18,8 @@
 			<h:form id="endTaskForm">
 				<h:outputText value="End:" />
 				<h:inputText id="endTime" value="#{cc.attrs.endTime}">
-					<f:convertDateTime pattern="HHmm" />
+					<f:converter converterId="TimeSheetConverter" />
+					<f:validator validatorId="EndTimeValidator" />
 				</h:inputText>
 
 				<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.actionMethod}" />

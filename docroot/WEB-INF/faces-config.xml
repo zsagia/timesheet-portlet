@@ -10,35 +10,4 @@
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
 	</lifecycle>
 
-	<navigation-rule>
-		<from-view-id>/views/view.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{viewController.showTaskSessionList}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/views/tasksession_list.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{taskBean.createTask}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/views/view.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{taskSessionBean.createTaskSession}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/views/view.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{taskSessionBean.finishTaskSession}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/views/view.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/views/tasksession_list.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{viewController.showView}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/views/view.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 </faces-config>

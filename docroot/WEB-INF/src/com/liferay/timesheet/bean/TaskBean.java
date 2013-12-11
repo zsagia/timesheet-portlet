@@ -41,7 +41,7 @@ public class TaskBean implements Serializable{
 		taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
 		taskSessionSimpleBean.createTaskSession();
 
-		return "success";
+		return "/views/view.xhtml";
 	}
 
 	public List<Task> getTasksByUser() throws PortalException, SystemException {

@@ -1,9 +1,5 @@
 package com.liferay.timesheet.bean;
 
-import com.liferay.timesheet.NoSelectedTaskException;
-import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,38 +25,12 @@ public class TaskSessionMultipleBean extends TaskSessionBaseBean {
 		this.startTimes = new HashMap<Long, Date>();
 	}
 
-	@Override
-	public String createTaskSession()
-		throws Exception {
-
-		if (selectedTaskId == 0) {
-			throw new NoSelectedTaskException();
-		}
-
-		Date startDate = new Date();
-		Date todayWithoutTime = null;
-
-		Date startTime = startTimes.get(selectedTaskId);
-
-		if (startTime != null) {
-			todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
-
-			startDate =
-				TimesheetUtil.addDateToDate(todayWithoutTime, startTime);
-		}
-
-		long userId = TimesheetUtil.getCurrentUserId();
-
-		closeCurrentTaskSession(userId, startDate);
-
-		TaskSessionLocalServiceUtil.addTaskSession(
-			startDate, selectedTaskId, userId);
-
-		return "success";
-	}
-
 	public long getSelectedTaskId() {
 		return selectedTaskId;
+	}
+
+	public Date getStartTime() {
+		return startTimes.get(getSelectedTaskId());
 	}
 
 	public Map<Long, Date> getStartTimes() {

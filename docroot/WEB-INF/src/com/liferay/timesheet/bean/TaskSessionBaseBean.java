@@ -1,6 +1,7 @@
 package com.liferay.timesheet.bean;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.timesheet.NoSelectedTaskException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
@@ -21,6 +22,8 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 	private long selectedTaskId;
 
+	private Date startTime;
+
 	public TaskSessionBaseBean() {
 		long userId = TimesheetUtil.getCurrentUserId();
 
@@ -32,7 +35,28 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 	}
 
-	abstract String createTaskSession() throws Exception;
+	public String createTaskSession() throws Exception {
+		if (getSelectedTaskId() == 0) {
+			throw new NoSelectedTaskException();
+		}
+
+		Date startDate = new Date();
+
+		Date startTime = getStartTime();
+
+		if (startTime != null) {
+			startDate = startTime;
+		}
+
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		closeCurrentTaskSession(userId, startDate);
+
+		TaskSessionLocalServiceUtil.addTaskSession(
+			startDate, getSelectedTaskId(), userId);
+
+		return "/views/view.xhtml";
+	}
 
 	public String finishTaskSession() throws ParseException, SystemException {
 		long userId = TimesheetUtil.getCurrentUserId();
@@ -41,20 +65,16 @@ public abstract class TaskSessionBaseBean implements Serializable{
 			TaskSessionLocalServiceUtil.getCurrentTaskSession(userId);
 
 		Date endDate = new Date();
-		Date todayWithoutTime = null;
 
 		if (endTime != null) {
-			todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
-
-			endDate =
-				TimesheetUtil.addDateToDate(todayWithoutTime, getEndTime());
+			endDate = endTime;
 		}
 
 		currentTaskSession.setEndTime(endDate);
 
 		TaskSessionLocalServiceUtil.updateTaskSession(currentTaskSession);
 
-		return "success";
+		return "/views/view.xhtml";
 	}
 
 	/**
@@ -103,6 +123,14 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 	public void setSelectedTaskId(long selectedTaskId) {
 		this.selectedTaskId = selectedTaskId;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
 	protected TaskSession closeCurrentTaskSession(long userId, Date endDate)

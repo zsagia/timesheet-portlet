@@ -12,11 +12,11 @@ public class ViewController implements Serializable {
 	private static final long serialVersionUID = 5559952133134792303L;
 
 	public String showView() {
-		return "success";
+		return "/views/view.xhtml";
 	}
 
 	public String showTaskSessionList() {
-		return "success";
+		return "/views/tasksession_list.xhtml";
 	}
 
 }
