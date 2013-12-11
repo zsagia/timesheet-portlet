@@ -14,6 +14,11 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+/**
+* @author Istvan Sajtos
+* @author Zsolt Szabo
+*/
+
 public class MessageUtil {
 
 	public static FacesMessage getMessage(

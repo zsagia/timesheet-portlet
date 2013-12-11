@@ -18,6 +18,11 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+/**
+* @author Istvan Sajtos
+* @author Zsolt Szabo
+*/
+
 @FacesValidator("StartTimeValidator")
 public class StartTimeValidator implements Validator {
 

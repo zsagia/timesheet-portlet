@@ -10,6 +10,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+* @author Zsolt Szabo
+*/
+
 import javax.faces.context.FacesContext;
 
 public class TimesheetUtil {

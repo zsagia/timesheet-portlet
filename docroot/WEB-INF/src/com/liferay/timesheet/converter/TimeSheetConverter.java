@@ -14,6 +14,11 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.convert.FacesConverter;
 
+/**
+* @author Istvan Sajtos
+* @author Zsolt Szabo
+*/
+
 @FacesConverter("TimeSheetConverter")
 public class TimeSheetConverter extends DateTimeConverter {
 
