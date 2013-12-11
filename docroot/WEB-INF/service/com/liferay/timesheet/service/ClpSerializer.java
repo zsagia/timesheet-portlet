@@ -253,8 +253,26 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals(
+					"com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException")) {
+			return new com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException();
+		}
+
+		if (className.equals("com.liferay.timesheet.EndTimeException")) {
+			return new com.liferay.timesheet.EndTimeException();
+		}
+
+		if (className.equals(
+					"com.liferay.timesheet.NoCurrentTaskSessionException")) {
+			return new com.liferay.timesheet.NoCurrentTaskSessionException();
+		}
+
 		if (className.equals("com.liferay.timesheet.NoSelectedTaskException")) {
 			return new com.liferay.timesheet.NoSelectedTaskException();
+		}
+
+		if (className.equals("com.liferay.timesheet.StartTimeException")) {
+			return new com.liferay.timesheet.StartTimeException();
 		}
 
 		if (className.equals("com.liferay.timesheet.NoSuchTaskException")) {
