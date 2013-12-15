@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<cc:interface>
+		<cc:attribute name="currentTaskSession" />
+		<cc:attribute name="todayWithoutTime" />
+	</cc:interface>
+
+	<cc:implementation>
+		<aui:layout cssClass="current-task-session">
+			<aui:column cssClass="column-left">
+				<h:outputText value="Today: " />
+				<h:outputText value="#{cc.attrs.todayWithoutTime}">
+					<f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+				</h:outputText>
+			</aui:column>
+
+			<aui:column cssClass="column-right">
+				<aui:column>
+					<h:outputText value="Current Task: " />
+					<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
+				</aui:column>
+
+				<aui:column>
+					<h:outputText value="Started: " />
+					<h:outputText value="#{cc.attrs.currentTaskSession.startTime}">
+						<f:convertDateTime pattern="HH:mm" type="time"/>
+					</h:outputText>
+				</aui:column>
+			</aui:column>
+		</aui:layout>
+	</cc:implementation>
+</ui:component>

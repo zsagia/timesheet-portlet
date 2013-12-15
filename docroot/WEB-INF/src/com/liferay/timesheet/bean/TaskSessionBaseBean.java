@@ -25,6 +25,10 @@ public abstract class TaskSessionBaseBean implements Serializable{
 	private Date startTime;
 
 	public TaskSessionBaseBean() {
+		init();
+	}
+
+	private void init() {
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		try {
@@ -99,6 +103,10 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 
 		return taskSessions;
+	}
+
+	public Date getTodayWithoutTime() throws Exception {
+		return TimesheetUtil.getTodayWithoutTime();
 	}
 
 	public TaskSession getCurrentTaskSession() {

@@ -16,17 +16,30 @@
 
 		<aui:layout>
 			<aui:column>
+				<components:currentTaskSessionComponent
+					currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
+					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}"
+					todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}" />
+			</aui:column>
+
+			<aui:column>
+				<components:endTaskComponent
+					actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
+					endTime="#{taskSessionSimpleBean.endTime}"
+					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
+			</aui:column>
+		</aui:layout>
+
+		<hr />
+
+		<aui:layout>
+			<aui:column>
 				<h:form id="taskForm">
 					<components:taskComponent
 						actionMethod="#{taskBean.createTask}"
 						startTime="#{taskSessionSimpleBean.startTime}"
 						taskName="#{taskBean.taskName}" />
 				</h:form>
-
-				<components:endTaskComponent
-					actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
-					endTime="#{taskSessionSimpleBean.endTime}"
-					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
 
 				<hr />
 
