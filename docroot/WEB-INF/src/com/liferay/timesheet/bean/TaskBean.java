@@ -41,6 +41,8 @@ public class TaskBean implements Serializable{
 		taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
 		taskSessionSimpleBean.createTaskSession();
 
+		clear();
+
 		return "/views/view.xhtml";
 	}
 
@@ -69,6 +71,10 @@ public class TaskBean implements Serializable{
 		TaskSessionSimpleBean taskSessionSimpleBean) {
 
 		this.taskSessionSimpleBean = taskSessionSimpleBean;
+	}
+
+	protected void clear() {
+		setTaskName(null);
 	}
 
 }

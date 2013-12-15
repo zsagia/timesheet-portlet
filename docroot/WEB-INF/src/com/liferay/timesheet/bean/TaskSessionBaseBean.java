@@ -59,6 +59,8 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		TaskSessionLocalServiceUtil.addTaskSession(
 			startDate, getSelectedTaskId(), userId);
 
+		clear();
+
 		return "/views/view.xhtml";
 	}
 
@@ -139,6 +141,11 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
+	}
+
+	protected void clear() {
+		setStartTime(null);
+		setEndTime(null);
 	}
 
 	protected TaskSession closeCurrentTaskSession(long userId, Date endDate)

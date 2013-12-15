@@ -41,4 +41,14 @@ public class TaskSessionMultipleBean extends TaskSessionBaseBean {
 		this.selectedTaskId = selectedTaskId;
 	}
 
+	public void setStartTimes(Map<Long, Date> startTimes) {
+		this.startTimes = startTimes;
+	}
+
+	protected void clear() {
+		super.clear();
+
+		setStartTimes(new HashMap<Long, Date>());
+	}
+
 }
