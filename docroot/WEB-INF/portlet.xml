@@ -9,10 +9,16 @@
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/view.xhtml</value>
 		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/views/preferences.xhtml</value>
+		</init-param> 
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
-		</supports>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+		</supports> 
 		<portlet-info>
 			<title>Timesheet</title>
 			<short-title>Timesheet</short-title>
