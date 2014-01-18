@@ -24,70 +24,68 @@ import com.liferay.portal.service.InvokableLocalService;
 import com.liferay.portal.service.PersistedModelLocalService;
 
 /**
- * The interface for the task session local service.
+ * The interface for the project local service.
  *
  * <p>
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
  * @author Istvan Sajtos, Zsolt Szabo
- * @see TaskSessionLocalServiceUtil
- * @see com.liferay.timesheet.service.base.TaskSessionLocalServiceBaseImpl
- * @see com.liferay.timesheet.service.impl.TaskSessionLocalServiceImpl
+ * @see ProjectLocalServiceUtil
+ * @see com.liferay.timesheet.service.base.ProjectLocalServiceBaseImpl
+ * @see com.liferay.timesheet.service.impl.ProjectLocalServiceImpl
  * @generated
  */
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
-public interface TaskSessionLocalService extends BaseLocalService,
+public interface ProjectLocalService extends BaseLocalService,
 	InvokableLocalService, PersistedModelLocalService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link TaskSessionLocalServiceUtil} to access the task session local service. Add custom service methods to {@link com.liferay.timesheet.service.impl.TaskSessionLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link ProjectLocalServiceUtil} to access the project local service. Add custom service methods to {@link com.liferay.timesheet.service.impl.ProjectLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
-	* Adds the task session to the database. Also notifies the appropriate model listeners.
+	* Adds the project to the database. Also notifies the appropriate model listeners.
 	*
-	* @param taskSession the task session
-	* @return the task session that was added
+	* @param project the project
+	* @return the project that was added
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
-		com.liferay.timesheet.model.TaskSession taskSession)
+	public com.liferay.timesheet.model.Project addProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Creates a new task session with the primary key. Does not add the task session to the database.
+	* Creates a new project with the primary key. Does not add the project to the database.
 	*
-	* @param taskSessionId the primary key for the new task session
-	* @return the new task session
+	* @param projectId the primary key for the new project
+	* @return the new project
 	*/
-	public com.liferay.timesheet.model.TaskSession createTaskSession(
-		long taskSessionId);
+	public com.liferay.timesheet.model.Project createProject(long projectId);
 
 	/**
-	* Deletes the task session with the primary key from the database. Also notifies the appropriate model listeners.
+	* Deletes the project with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param taskSessionId the primary key of the task session
-	* @return the task session that was removed
-	* @throws PortalException if a task session with the primary key could not be found
+	* @param projectId the primary key of the project
+	* @return the project that was removed
+	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.TaskSession deleteTaskSession(
-		long taskSessionId)
+	public com.liferay.timesheet.model.Project deleteProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Deletes the task session from the database. Also notifies the appropriate model listeners.
+	* Deletes the project from the database. Also notifies the appropriate model listeners.
 	*
-	* @param taskSession the task session
-	* @return the task session that was removed
+	* @param project the project
+	* @return the project that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.TaskSession deleteTaskSession(
-		com.liferay.timesheet.model.TaskSession taskSession)
+	public com.liferay.timesheet.model.Project deleteProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
@@ -155,21 +153,19 @@ public interface TaskSessionLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.TaskSession fetchTaskSession(
-		long taskSessionId)
+	public com.liferay.timesheet.model.Project fetchProject(long projectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the task session with the primary key.
+	* Returns the project with the primary key.
 	*
-	* @param taskSessionId the primary key of the task session
-	* @return the task session
-	* @throws PortalException if a task session with the primary key could not be found
+	* @param projectId the primary key of the project
+	* @return the project
+	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.TaskSession getTaskSession(
-		long taskSessionId)
+	public com.liferay.timesheet.model.Project getProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -180,53 +176,53 @@ public interface TaskSessionLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the task sessions.
+	* Returns a range of all the projects.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of task sessions
-	* @param end the upper bound of the range of task sessions (not inclusive)
-	* @return the range of task sessions
+	* @param start the lower bound of the range of projects
+	* @param end the upper bound of the range of projects (not inclusive)
+	* @return the range of projects
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessions(
+	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of task sessions.
+	* Returns the number of projects.
 	*
-	* @return the number of task sessions
+	* @return the number of projects
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getTaskSessionsCount()
+	public int getProjectsCount()
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Updates the task session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param taskSession the task session
-	* @return the task session that was updated
+	* @param project the project
+	* @return the project that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.TaskSession updateTaskSession(
-		com.liferay.timesheet.model.TaskSession taskSession)
+	public com.liferay.timesheet.model.Project updateProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Updates the task session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param taskSession the task session
-	* @param merge whether to merge the task session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the task session that was updated
+	* @param project the project
+	* @param merge whether to merge the project with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
+	* @return the project that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.TaskSession updateTaskSession(
-		com.liferay.timesheet.model.TaskSession taskSession, boolean merge)
+	public com.liferay.timesheet.model.Project updateProject(
+		com.liferay.timesheet.model.Project project, boolean merge)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -246,26 +242,4 @@ public interface TaskSessionLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
-
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, java.util.Date endTime, long taskId,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
-
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, long taskId, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.TaskSession getCurrentTaskSession(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByD_U(
-		java.util.Date date, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException;
 }

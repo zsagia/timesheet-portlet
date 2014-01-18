@@ -27,14 +27,14 @@ import java.util.Date;
 /**
  * The cache model class for representing Task in entity cache.
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see Task
  * @generated
  */
 public class TaskCacheModel implements CacheModel<Task>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{taskId=");
 		sb.append(taskId);
@@ -46,6 +46,8 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 		sb.append(creatorId);
 		sb.append(", taskName=");
 		sb.append(taskName);
+		sb.append(", projectId=");
+		sb.append(projectId);
 		sb.append("}");
 
 		return sb.toString();
@@ -73,6 +75,8 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 			taskImpl.setTaskName(taskName);
 		}
 
+		taskImpl.setProjectId(projectId);
+
 		taskImpl.resetOriginalValues();
 
 		return taskImpl;
@@ -83,4 +87,5 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 	public long createDate;
 	public long creatorId;
 	public String taskName;
+	public long projectId;
 }

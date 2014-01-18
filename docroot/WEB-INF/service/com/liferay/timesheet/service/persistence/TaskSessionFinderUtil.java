@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
 public class TaskSessionFinderUtil {
 	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByD_U(

@@ -25,7 +25,7 @@ import java.util.Map;
  * This class is a wrapper for {@link Task}.
  * </p>
  *
- * @author    Istvan Sajtos
+ * @author    Istvan Sajtos, Zsolt Szabo
  * @see       Task
  * @generated
  */
@@ -50,6 +50,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
 		attributes.put("taskName", getTaskName());
+		attributes.put("projectId", getProjectId());
 
 		return attributes;
 	}
@@ -83,6 +84,12 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 
 		if (taskName != null) {
 			setTaskName(taskName);
+		}
+
+		Long projectId = (Long)attributes.get("projectId");
+
+		if (projectId != null) {
+			setProjectId(projectId);
 		}
 	}
 
@@ -192,6 +199,24 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	*/
 	public void setTaskName(java.lang.String taskName) {
 		_task.setTaskName(taskName);
+	}
+
+	/**
+	* Returns the project ID of this task.
+	*
+	* @return the project ID of this task
+	*/
+	public long getProjectId() {
+		return _task.getProjectId();
+	}
+
+	/**
+	* Sets the project ID of this task.
+	*
+	* @param projectId the project ID of this task
+	*/
+	public void setProjectId(long projectId) {
+		_task.setProjectId(projectId);
 	}
 
 	public boolean isNew() {

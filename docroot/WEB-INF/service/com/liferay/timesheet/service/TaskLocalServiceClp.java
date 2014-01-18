@@ -17,7 +17,7 @@ package com.liferay.timesheet.service;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
 public class TaskLocalServiceClp implements TaskLocalService {
 	public TaskLocalServiceClp(InvokableLocalService invokableLocalService) {

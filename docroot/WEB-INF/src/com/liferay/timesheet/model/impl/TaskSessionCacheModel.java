@@ -26,7 +26,7 @@ import java.util.Date;
 /**
  * The cache model class for representing TaskSession in entity cache.
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see TaskSession
  * @generated
  */

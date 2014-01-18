@@ -18,71 +18,71 @@ import com.liferay.portal.service.ServiceWrapper;
 
 /**
  * <p>
- * This class is a wrapper for {@link TaskLocalService}.
+ * This class is a wrapper for {@link ProjectLocalService}.
  * </p>
  *
  * @author    Istvan Sajtos, Zsolt Szabo
- * @see       TaskLocalService
+ * @see       ProjectLocalService
  * @generated
  */
-public class TaskLocalServiceWrapper implements TaskLocalService,
-	ServiceWrapper<TaskLocalService> {
-	public TaskLocalServiceWrapper(TaskLocalService taskLocalService) {
-		_taskLocalService = taskLocalService;
+public class ProjectLocalServiceWrapper implements ProjectLocalService,
+	ServiceWrapper<ProjectLocalService> {
+	public ProjectLocalServiceWrapper(ProjectLocalService projectLocalService) {
+		_projectLocalService = projectLocalService;
 	}
 
 	/**
-	* Adds the task to the database. Also notifies the appropriate model listeners.
+	* Adds the project to the database. Also notifies the appropriate model listeners.
 	*
-	* @param task the task
-	* @return the task that was added
+	* @param project the project
+	* @return the project that was added
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task addTask(
-		com.liferay.timesheet.model.Task task)
+	public com.liferay.timesheet.model.Project addProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.addTask(task);
+		return _projectLocalService.addProject(project);
 	}
 
 	/**
-	* Creates a new task with the primary key. Does not add the task to the database.
+	* Creates a new project with the primary key. Does not add the project to the database.
 	*
-	* @param taskId the primary key for the new task
-	* @return the new task
+	* @param projectId the primary key for the new project
+	* @return the new project
 	*/
-	public com.liferay.timesheet.model.Task createTask(long taskId) {
-		return _taskLocalService.createTask(taskId);
+	public com.liferay.timesheet.model.Project createProject(long projectId) {
+		return _projectLocalService.createProject(projectId);
 	}
 
 	/**
-	* Deletes the task with the primary key from the database. Also notifies the appropriate model listeners.
+	* Deletes the project with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param taskId the primary key of the task
-	* @return the task that was removed
-	* @throws PortalException if a task with the primary key could not be found
+	* @param projectId the primary key of the project
+	* @return the project that was removed
+	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task deleteTask(long taskId)
+	public com.liferay.timesheet.model.Project deleteProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.deleteTask(taskId);
+		return _projectLocalService.deleteProject(projectId);
 	}
 
 	/**
-	* Deletes the task from the database. Also notifies the appropriate model listeners.
+	* Deletes the project from the database. Also notifies the appropriate model listeners.
 	*
-	* @param task the task
-	* @return the task that was removed
+	* @param project the project
+	* @return the project that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task deleteTask(
-		com.liferay.timesheet.model.Task task)
+	public com.liferay.timesheet.model.Project deleteProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.deleteTask(task);
+		return _projectLocalService.deleteProject(project);
 	}
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _taskLocalService.dynamicQuery();
+		return _projectLocalService.dynamicQuery();
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.dynamicQuery(dynamicQuery);
+		return _projectLocalService.dynamicQuery(dynamicQuery);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.dynamicQuery(dynamicQuery, start, end);
+		return _projectLocalService.dynamicQuery(dynamicQuery, start, end);
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 		int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.dynamicQuery(dynamicQuery, start, end,
+		return _projectLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
 
@@ -153,89 +153,89 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.dynamicQueryCount(dynamicQuery);
+		return _projectLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
-	public com.liferay.timesheet.model.Task fetchTask(long taskId)
+	public com.liferay.timesheet.model.Project fetchProject(long projectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.fetchTask(taskId);
+		return _projectLocalService.fetchProject(projectId);
 	}
 
 	/**
-	* Returns the task with the primary key.
+	* Returns the project with the primary key.
 	*
-	* @param taskId the primary key of the task
-	* @return the task
-	* @throws PortalException if a task with the primary key could not be found
+	* @param projectId the primary key of the project
+	* @return the project
+	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task getTask(long taskId)
+	public com.liferay.timesheet.model.Project getProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTask(taskId);
+		return _projectLocalService.getProject(projectId);
 	}
 
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getPersistedModel(primaryKeyObj);
+		return _projectLocalService.getPersistedModel(primaryKeyObj);
 	}
 
 	/**
-	* Returns a range of all the tasks.
+	* Returns a range of all the projects.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of tasks
-	* @param end the upper bound of the range of tasks (not inclusive)
-	* @return the range of tasks
+	* @param start the lower bound of the range of projects
+	* @param end the upper bound of the range of projects (not inclusive)
+	* @return the range of projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Task> getTasks(
+	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTasks(start, end);
+		return _projectLocalService.getProjects(start, end);
 	}
 
 	/**
-	* Returns the number of tasks.
+	* Returns the number of projects.
 	*
-	* @return the number of tasks
+	* @return the number of projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public int getTasksCount()
+	public int getProjectsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTasksCount();
+		return _projectLocalService.getProjectsCount();
 	}
 
 	/**
-	* Updates the task in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param task the task
-	* @return the task that was updated
+	* @param project the project
+	* @return the project that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task updateTask(
-		com.liferay.timesheet.model.Task task)
+	public com.liferay.timesheet.model.Project updateProject(
+		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.updateTask(task);
+		return _projectLocalService.updateProject(project);
 	}
 
 	/**
-	* Updates the task in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param task the task
-	* @param merge whether to merge the task with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the task that was updated
+	* @param project the project
+	* @param merge whether to merge the project with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
+	* @return the project that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Task updateTask(
-		com.liferay.timesheet.model.Task task, boolean merge)
+	public com.liferay.timesheet.model.Project updateProject(
+		com.liferay.timesheet.model.Project project, boolean merge)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.updateTask(task, merge);
+		return _projectLocalService.updateProject(project, merge);
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	* @return the Spring bean ID for this bean
 	*/
 	public java.lang.String getBeanIdentifier() {
-		return _taskLocalService.getBeanIdentifier();
+		return _projectLocalService.getBeanIdentifier();
 	}
 
 	/**
@@ -253,62 +253,37 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_taskLocalService.setBeanIdentifier(beanIdentifier);
+		_projectLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
-		return _taskLocalService.invokeMethod(name, parameterTypes, arguments);
-	}
-
-	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long creatorId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.addTask(taskName, creatorId);
-	}
-
-	public com.liferay.timesheet.model.Task getTaskByTN_CR(
-		java.lang.String taskName, long creatorId) {
-		return _taskLocalService.getTaskByTN_CR(taskName, creatorId);
-	}
-
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByCreatorId(
-		long creatorId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTasksByCreatorId(creatorId);
-	}
-
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.getTasksByUserId(userId);
+		return _projectLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
-	public TaskLocalService getWrappedTaskLocalService() {
-		return _taskLocalService;
+	public ProjectLocalService getWrappedProjectLocalService() {
+		return _projectLocalService;
 	}
 
 	/**
 	 * @deprecated Renamed to {@link #setWrappedService}
 	 */
-	public void setWrappedTaskLocalService(TaskLocalService taskLocalService) {
-		_taskLocalService = taskLocalService;
+	public void setWrappedProjectLocalService(
+		ProjectLocalService projectLocalService) {
+		_projectLocalService = projectLocalService;
 	}
 
-	public TaskLocalService getWrappedService() {
-		return _taskLocalService;
+	public ProjectLocalService getWrappedService() {
+		return _projectLocalService;
 	}
 
-	public void setWrappedService(TaskLocalService taskLocalService) {
-		_taskLocalService = taskLocalService;
+	public void setWrappedService(ProjectLocalService projectLocalService) {
+		_projectLocalService = projectLocalService;
 	}
 
-	private TaskLocalService _taskLocalService;
+	private ProjectLocalService _projectLocalService;
 }

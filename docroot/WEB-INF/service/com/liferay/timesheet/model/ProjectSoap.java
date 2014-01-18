@@ -26,22 +26,24 @@ import java.util.List;
  * @author    Istvan Sajtos, Zsolt Szabo
  * @generated
  */
-public class TaskSoap implements Serializable {
-	public static TaskSoap toSoapModel(Task model) {
-		TaskSoap soapModel = new TaskSoap();
+public class ProjectSoap implements Serializable {
+	public static ProjectSoap toSoapModel(Project model) {
+		ProjectSoap soapModel = new ProjectSoap();
 
-		soapModel.setTaskId(model.getTaskId());
+		soapModel.setUuid(model.getUuid());
+		soapModel.setProjectId(model.getProjectId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setCreatorId(model.getCreatorId());
-		soapModel.setTaskName(model.getTaskName());
-		soapModel.setProjectId(model.getProjectId());
+		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setProjectName(model.getProjectName());
+		soapModel.setParentProjectId(model.getParentProjectId());
 
 		return soapModel;
 	}
 
-	public static TaskSoap[] toSoapModels(Task[] models) {
-		TaskSoap[] soapModels = new TaskSoap[models.length];
+	public static ProjectSoap[] toSoapModels(Project[] models) {
+		ProjectSoap[] soapModels = new ProjectSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -50,14 +52,14 @@ public class TaskSoap implements Serializable {
 		return soapModels;
 	}
 
-	public static TaskSoap[][] toSoapModels(Task[][] models) {
-		TaskSoap[][] soapModels = null;
+	public static ProjectSoap[][] toSoapModels(Project[][] models) {
+		ProjectSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new TaskSoap[models.length][models[0].length];
+			soapModels = new ProjectSoap[models.length][models[0].length];
 		}
 		else {
-			soapModels = new TaskSoap[0][0];
+			soapModels = new ProjectSoap[0][0];
 		}
 
 		for (int i = 0; i < models.length; i++) {
@@ -67,33 +69,41 @@ public class TaskSoap implements Serializable {
 		return soapModels;
 	}
 
-	public static TaskSoap[] toSoapModels(List<Task> models) {
-		List<TaskSoap> soapModels = new ArrayList<TaskSoap>(models.size());
+	public static ProjectSoap[] toSoapModels(List<Project> models) {
+		List<ProjectSoap> soapModels = new ArrayList<ProjectSoap>(models.size());
 
-		for (Task model : models) {
+		for (Project model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new TaskSoap[soapModels.size()]);
+		return soapModels.toArray(new ProjectSoap[soapModels.size()]);
 	}
 
-	public TaskSoap() {
+	public ProjectSoap() {
 	}
 
 	public long getPrimaryKey() {
-		return _taskId;
+		return _projectId;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setTaskId(pk);
+		setProjectId(pk);
 	}
 
-	public long getTaskId() {
-		return _taskId;
+	public String getUuid() {
+		return _uuid;
 	}
 
-	public void setTaskId(long taskId) {
-		_taskId = taskId;
+	public void setUuid(String uuid) {
+		_uuid = uuid;
+	}
+
+	public long getProjectId() {
+		return _projectId;
+	}
+
+	public void setProjectId(long projectId) {
+		_projectId = projectId;
 	}
 
 	public long getCompanyId() {
@@ -120,26 +130,36 @@ public class TaskSoap implements Serializable {
 		_creatorId = creatorId;
 	}
 
-	public String getTaskName() {
-		return _taskName;
+	public Date getModifiedDate() {
+		return _modifiedDate;
 	}
 
-	public void setTaskName(String taskName) {
-		_taskName = taskName;
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 	}
 
-	public long getProjectId() {
-		return _projectId;
+	public String getProjectName() {
+		return _projectName;
 	}
 
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
+	public void setProjectName(String projectName) {
+		_projectName = projectName;
 	}
 
-	private long _taskId;
+	public Long getParentProjectId() {
+		return _parentProjectId;
+	}
+
+	public void setParentProjectId(Long parentProjectId) {
+		_parentProjectId = parentProjectId;
+	}
+
+	private String _uuid;
+	private long _projectId;
 	private long _companyId;
 	private Date _createDate;
 	private long _creatorId;
-	private String _taskName;
-	private long _projectId;
+	private Date _modifiedDate;
+	private String _projectName;
+	private Long _parentProjectId;
 }

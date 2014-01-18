@@ -7,6 +7,27 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.timesheet.model.impl.ProjectModelImpl">
+		<attributes>
+			<id name="projectId" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="companyId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="creatorId" />
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="projectName" />
+			<basic name="parentProjectId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskModelImpl">
 		<attributes>
 			<id name="taskId" />
@@ -16,6 +37,7 @@
 			</basic>
 			<basic name="creatorId" />
 			<basic name="taskName" />
+			<basic name="projectId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -44,6 +66,10 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<entity class="com.liferay.timesheet.model.impl.ProjectImpl" name="Project">
+		<table name="timesheet_Project" />
+		<attributes />
+	</entity>
 	<entity class="com.liferay.timesheet.model.impl.TaskImpl" name="Task">
 		<table name="timesheet_Task" />
 		<attributes />

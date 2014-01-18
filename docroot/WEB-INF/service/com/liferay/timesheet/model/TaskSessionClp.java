@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
 public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	implements TaskSession {

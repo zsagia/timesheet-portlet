@@ -25,7 +25,7 @@ import java.util.Map;
  * This class is a wrapper for {@link TaskSession}.
  * </p>
  *
- * @author    Istvan Sajtos
+ * @author    Istvan Sajtos, Zsolt Szabo
  * @see       TaskSession
  * @generated
  */

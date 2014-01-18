@@ -25,7 +25,7 @@ import com.liferay.timesheet.model.Task;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see TaskPersistenceImpl
  * @see TaskUtil
  * @generated
@@ -97,6 +97,125 @@ public interface TaskPersistence extends BasePersistence<Task> {
 	*/
 	public com.liferay.timesheet.model.Task fetchByPrimaryKey(long taskId)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns all the tasks where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @return the matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.timesheet.model.Task> findByProjectId(
+		long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the tasks where projectId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param projectId the project ID
+	* @param start the lower bound of the range of tasks
+	* @param end the upper bound of the range of tasks (not inclusive)
+	* @return the range of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.timesheet.model.Task> findByProjectId(
+		long projectId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the tasks where projectId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param projectId the project ID
+	* @param start the lower bound of the range of tasks
+	* @param end the upper bound of the range of tasks (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.timesheet.model.Task> findByProjectId(
+		long projectId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first task in the ordered set where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task
+	* @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.Task findByProjectId_First(
+		long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException;
+
+	/**
+	* Returns the first task in the ordered set where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task, or <code>null</code> if a matching task could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.Task fetchByProjectId_First(
+		long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the last task in the ordered set where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task
+	* @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.Task findByProjectId_Last(
+		long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException;
+
+	/**
+	* Returns the last task in the ordered set where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task, or <code>null</code> if a matching task could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.Task fetchByProjectId_Last(
+		long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the tasks before and after the current task in the ordered set where projectId = &#63;.
+	*
+	* @param taskId the primary key of the current task
+	* @param projectId the project ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next task
+	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.Task[] findByProjectId_PrevAndNext(
+		long taskId, long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException;
 
 	/**
 	* Returns the task where taskName = &#63; and creatorId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
@@ -307,6 +426,15 @@ public interface TaskPersistence extends BasePersistence<Task> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes all the tasks where projectId = &#63; from the database.
+	*
+	* @param projectId the project ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByProjectId(long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Removes the task where taskName = &#63; and creatorId = &#63; from the database.
 	*
 	* @param taskName the task name
@@ -335,6 +463,16 @@ public interface TaskPersistence extends BasePersistence<Task> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of tasks where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @return the number of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByProjectId(long projectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

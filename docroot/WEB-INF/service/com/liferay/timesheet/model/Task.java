@@ -19,7 +19,7 @@ import com.liferay.portal.model.PersistedModel;
 /**
  * The extended model interface for the Task service. Represents a row in the &quot;timesheet_Task&quot; database table, with each column mapped to a property of this class.
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see TaskModel
  * @see com.liferay.timesheet.model.impl.TaskImpl
  * @see com.liferay.timesheet.model.impl.TaskModelImpl

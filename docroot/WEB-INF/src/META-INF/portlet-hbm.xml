@@ -2,8 +2,22 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.timesheet.model.Project" />
 	<import class="com.liferay.timesheet.model.Task" />
 	<import class="com.liferay.timesheet.model.TaskSession" />
+	<class name="com.liferay.timesheet.model.impl.ProjectImpl" table="timesheet_Project">
+		<cache usage="read-write" />
+		<id name="projectId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="creatorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="projectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="parentProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
 	<class name="com.liferay.timesheet.model.impl.TaskImpl" table="timesheet_Task">
 		<cache usage="read-write" />
 		<id name="taskId" type="long">
@@ -13,6 +27,7 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="creatorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="taskName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.liferay.timesheet.model.impl.TaskSessionImpl" table="timesheet_TaskSession">
 		<cache usage="read-write" />

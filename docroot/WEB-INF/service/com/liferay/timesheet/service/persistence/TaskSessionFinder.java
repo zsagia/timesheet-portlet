@@ -15,7 +15,7 @@
 package com.liferay.timesheet.service.persistence;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
 public interface TaskSessionFinder {
 	public java.util.List<com.liferay.timesheet.model.TaskSession> findByD_U(

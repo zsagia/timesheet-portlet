@@ -32,7 +32,7 @@ import java.util.List;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see TaskSessionPersistence
  * @see TaskSessionPersistenceImpl
  * @generated
@@ -188,6 +188,156 @@ public class TaskSessionUtil {
 		long taskSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().fetchByPrimaryKey(taskSessionId);
+	}
+
+	/**
+	* Returns all the task sessions where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @return the matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByS_E(
+		java.util.Date startTime, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByS_E(startTime, endTime);
+	}
+
+	/**
+	* Returns a range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param start the lower bound of the range of task sessions
+	* @param end the upper bound of the range of task sessions (not inclusive)
+	* @return the range of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByS_E(
+		java.util.Date startTime, java.util.Date endTime, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByS_E(startTime, endTime, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param start the lower bound of the range of task sessions
+	* @param end the upper bound of the range of task sessions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByS_E(
+		java.util.Date startTime, java.util.Date endTime, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByS_E(startTime, endTime, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first task session in the ordered set where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession findByS_E_First(
+		java.util.Date startTime, java.util.Date endTime,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence()
+				   .findByS_E_First(startTime, endTime, orderByComparator);
+	}
+
+	/**
+	* Returns the first task session in the ordered set where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByS_E_First(
+		java.util.Date startTime, java.util.Date endTime,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByS_E_First(startTime, endTime, orderByComparator);
+	}
+
+	/**
+	* Returns the last task session in the ordered set where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession findByS_E_Last(
+		java.util.Date startTime, java.util.Date endTime,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence()
+				   .findByS_E_Last(startTime, endTime, orderByComparator);
+	}
+
+	/**
+	* Returns the last task session in the ordered set where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching task session, or <code>null</code> if a matching task session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession fetchByS_E_Last(
+		java.util.Date startTime, java.util.Date endTime,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByS_E_Last(startTime, endTime, orderByComparator);
+	}
+
+	/**
+	* Returns the task sessions before and after the current task session in the ordered set where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param taskSessionId the primary key of the current task session
+	* @param startTime the start time
+	* @param endTime the end time
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.TaskSession[] findByS_E_PrevAndNext(
+		long taskSessionId, java.util.Date startTime, java.util.Date endTime,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException {
+		return getPersistence()
+				   .findByS_E_PrevAndNext(taskSessionId, startTime, endTime,
+			orderByComparator);
 	}
 
 	/**
@@ -572,6 +722,19 @@ public class TaskSessionUtil {
 	}
 
 	/**
+	* Removes all the task sessions where startTime &gt; &#63; and endTime = &#63; from the database.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByS_E(java.util.Date startTime,
+		java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByS_E(startTime, endTime);
+	}
+
+	/**
 	* Removes the task session where userId = &#63; and endTime = &#63; from the database.
 	*
 	* @param userId the user ID
@@ -617,6 +780,20 @@ public class TaskSessionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
+	}
+
+	/**
+	* Returns the number of task sessions where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByS_E(java.util.Date startTime,
+		java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByS_E(startTime, endTime);
 	}
 
 	/**

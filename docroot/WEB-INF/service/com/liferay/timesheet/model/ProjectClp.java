@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
-import com.liferay.timesheet.service.TaskLocalServiceUtil;
+import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 
 import java.io.Serializable;
 
@@ -33,28 +33,28 @@ import java.util.Map;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class TaskClp extends BaseModelImpl<Task> implements Task {
-	public TaskClp() {
+public class ProjectClp extends BaseModelImpl<Project> implements Project {
+	public ProjectClp() {
 	}
 
 	public Class<?> getModelClass() {
-		return Task.class;
+		return Project.class;
 	}
 
 	public String getModelClassName() {
-		return Task.class.getName();
+		return Project.class.getName();
 	}
 
 	public long getPrimaryKey() {
-		return _taskId;
+		return _projectId;
 	}
 
 	public void setPrimaryKey(long primaryKey) {
-		setTaskId(primaryKey);
+		setProjectId(primaryKey);
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_taskId);
+		return new Long(_projectId);
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
@@ -65,22 +65,30 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("taskId", getTaskId());
+		attributes.put("uuid", getUuid());
+		attributes.put("projectId", getProjectId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
-		attributes.put("taskName", getTaskName());
-		attributes.put("projectId", getProjectId());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("projectName", getProjectName());
+		attributes.put("parentProjectId", getParentProjectId());
 
 		return attributes;
 	}
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long taskId = (Long)attributes.get("taskId");
+		String uuid = (String)attributes.get("uuid");
 
-		if (taskId != null) {
-			setTaskId(taskId);
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
+		Long projectId = (Long)attributes.get("projectId");
+
+		if (projectId != null) {
+			setProjectId(projectId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -101,25 +109,39 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			setCreatorId(creatorId);
 		}
 
-		String taskName = (String)attributes.get("taskName");
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
 
-		if (taskName != null) {
-			setTaskName(taskName);
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
-		Long projectId = (Long)attributes.get("projectId");
+		String projectName = (String)attributes.get("projectName");
 
-		if (projectId != null) {
-			setProjectId(projectId);
+		if (projectName != null) {
+			setProjectName(projectName);
+		}
+
+		Long parentProjectId = (Long)attributes.get("parentProjectId");
+
+		if (parentProjectId != null) {
+			setParentProjectId(parentProjectId);
 		}
 	}
 
-	public long getTaskId() {
-		return _taskId;
+	public String getUuid() {
+		return _uuid;
 	}
 
-	public void setTaskId(long taskId) {
-		_taskId = taskId;
+	public void setUuid(String uuid) {
+		_uuid = uuid;
+	}
+
+	public long getProjectId() {
+		return _projectId;
+	}
+
+	public void setProjectId(long projectId) {
+		_projectId = projectId;
 	}
 
 	public long getCompanyId() {
@@ -146,63 +168,73 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		_creatorId = creatorId;
 	}
 
-	public String getTaskName() {
-		return _taskName;
+	public Date getModifiedDate() {
+		return _modifiedDate;
 	}
 
-	public void setTaskName(String taskName) {
-		_taskName = taskName;
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 	}
 
-	public long getProjectId() {
-		return _projectId;
+	public String getProjectName() {
+		return _projectName;
 	}
 
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
+	public void setProjectName(String projectName) {
+		_projectName = projectName;
 	}
 
-	public BaseModel<?> getTaskRemoteModel() {
-		return _taskRemoteModel;
+	public Long getParentProjectId() {
+		return _parentProjectId;
 	}
 
-	public void setTaskRemoteModel(BaseModel<?> taskRemoteModel) {
-		_taskRemoteModel = taskRemoteModel;
+	public void setParentProjectId(Long parentProjectId) {
+		_parentProjectId = parentProjectId;
+	}
+
+	public BaseModel<?> getProjectRemoteModel() {
+		return _projectRemoteModel;
+	}
+
+	public void setProjectRemoteModel(BaseModel<?> projectRemoteModel) {
+		_projectRemoteModel = projectRemoteModel;
 	}
 
 	public void persist() throws SystemException {
 		if (this.isNew()) {
-			TaskLocalServiceUtil.addTask(this);
+			ProjectLocalServiceUtil.addProject(this);
 		}
 		else {
-			TaskLocalServiceUtil.updateTask(this);
+			ProjectLocalServiceUtil.updateProject(this);
 		}
 	}
 
 	@Override
-	public Task toEscapedModel() {
-		return (Task)Proxy.newProxyInstance(Task.class.getClassLoader(),
-			new Class[] { Task.class }, new AutoEscapeBeanHandler(this));
+	public Project toEscapedModel() {
+		return (Project)Proxy.newProxyInstance(Project.class.getClassLoader(),
+			new Class[] { Project.class }, new AutoEscapeBeanHandler(this));
 	}
 
 	@Override
 	public Object clone() {
-		TaskClp clone = new TaskClp();
+		ProjectClp clone = new ProjectClp();
 
-		clone.setTaskId(getTaskId());
+		clone.setUuid(getUuid());
+		clone.setProjectId(getProjectId());
 		clone.setCompanyId(getCompanyId());
 		clone.setCreateDate(getCreateDate());
 		clone.setCreatorId(getCreatorId());
-		clone.setTaskName(getTaskName());
-		clone.setProjectId(getProjectId());
+		clone.setModifiedDate(getModifiedDate());
+		clone.setProjectName(getProjectName());
+		clone.setParentProjectId(getParentProjectId());
 
 		return clone;
 	}
 
-	public int compareTo(Task task) {
+	public int compareTo(Project project) {
 		int value = 0;
 
-		value = getTaskName().compareTo(task.getTaskName());
+		value = getProjectName().compareTo(project.getProjectName());
 
 		if (value != 0) {
 			return value;
@@ -217,16 +249,16 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			return false;
 		}
 
-		TaskClp task = null;
+		ProjectClp project = null;
 
 		try {
-			task = (TaskClp)obj;
+			project = (ProjectClp)obj;
 		}
 		catch (ClassCastException cce) {
 			return false;
 		}
 
-		long primaryKey = task.getPrimaryKey();
+		long primaryKey = project.getPrimaryKey();
 
 		if (getPrimaryKey() == primaryKey) {
 			return true;
@@ -243,35 +275,43 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(17);
 
-		sb.append("{taskId=");
-		sb.append(getTaskId());
+		sb.append("{uuid=");
+		sb.append(getUuid());
+		sb.append(", projectId=");
+		sb.append(getProjectId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", creatorId=");
 		sb.append(getCreatorId());
-		sb.append(", taskName=");
-		sb.append(getTaskName());
-		sb.append(", projectId=");
-		sb.append(getProjectId());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
+		sb.append(", projectName=");
+		sb.append(getProjectName());
+		sb.append(", parentProjectId=");
+		sb.append(getParentProjectId());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(28);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.timesheet.model.Task");
+		sb.append("com.liferay.timesheet.model.Project");
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>taskId</column-name><column-value><![CDATA[");
-		sb.append(getTaskId());
+			"<column><column-name>uuid</column-name><column-value><![CDATA[");
+		sb.append(getUuid());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>projectId</column-name><column-value><![CDATA[");
+		sb.append(getProjectId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -286,12 +326,16 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getCreatorId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>taskName</column-name><column-value><![CDATA[");
-		sb.append(getTaskName());
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>projectId</column-name><column-value><![CDATA[");
-		sb.append(getProjectId());
+			"<column><column-name>projectName</column-name><column-value><![CDATA[");
+		sb.append(getProjectName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>parentProjectId</column-name><column-value><![CDATA[");
+		sb.append(getParentProjectId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -299,11 +343,13 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		return sb.toString();
 	}
 
-	private long _taskId;
+	private String _uuid;
+	private long _projectId;
 	private long _companyId;
 	private Date _createDate;
 	private long _creatorId;
-	private String _taskName;
-	private long _projectId;
-	private BaseModel<?> _taskRemoteModel;
+	private Date _modifiedDate;
+	private String _projectName;
+	private Long _parentProjectId;
+	private BaseModel<?> _projectRemoteModel;
 }

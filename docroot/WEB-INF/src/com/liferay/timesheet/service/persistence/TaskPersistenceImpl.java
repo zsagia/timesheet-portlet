@@ -61,7 +61,7 @@ import java.util.List;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  * @see TaskPersistence
  * @see TaskUtil
  * @generated
@@ -78,6 +78,26 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_PROJECTID =
+		new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProjectId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PROJECTID =
+		new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProjectId",
+			new String[] { Long.class.getName() },
+			TaskModelImpl.PROJECTID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_PROJECTID = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProjectId",
+			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_FETCH_BY_TN_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByTN_CR",
@@ -329,6 +349,25 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		else {
 			if ((taskModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PROJECTID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(taskModelImpl.getOriginalProjectId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_PROJECTID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PROJECTID,
+					args);
+
+				args = new Object[] { Long.valueOf(taskModelImpl.getProjectId()) };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_PROJECTID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PROJECTID,
+					args);
+			}
+
+			if ((taskModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_CR.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						Long.valueOf(taskModelImpl.getOriginalCompanyId()),
@@ -396,6 +435,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		taskImpl.setCreateDate(task.getCreateDate());
 		taskImpl.setCreatorId(task.getCreatorId());
 		taskImpl.setTaskName(task.getTaskName());
+		taskImpl.setProjectId(task.getProjectId());
 
 		return taskImpl;
 	}
@@ -495,6 +535,383 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		}
 
 		return task;
+	}
+
+	/**
+	 * Returns all the tasks where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @return the matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Task> findByProjectId(long projectId) throws SystemException {
+		return findByProjectId(projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the tasks where projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of tasks
+	 * @param end the upper bound of the range of tasks (not inclusive)
+	 * @return the range of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Task> findByProjectId(long projectId, int start, int end)
+		throws SystemException {
+		return findByProjectId(projectId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the tasks where projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of tasks
+	 * @param end the upper bound of the range of tasks (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<Task> findByProjectId(long projectId, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PROJECTID;
+			finderArgs = new Object[] { projectId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_PROJECTID;
+			finderArgs = new Object[] { projectId, start, end, orderByComparator };
+		}
+
+		List<Task> list = (List<Task>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (Task task : list) {
+				if ((projectId != task.getProjectId())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_TASK_WHERE);
+
+			query.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+
+			else {
+				query.append(TaskModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(projectId);
+
+				list = (List<Task>)QueryUtil.list(q, getDialect(), start, end);
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first task in the ordered set where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task findByProjectId_First(long projectId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = fetchByProjectId_First(projectId, orderByComparator);
+
+		if (task != null) {
+			return task;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("projectId=");
+		msg.append(projectId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTaskException(msg.toString());
+	}
+
+	/**
+	 * Returns the first task in the ordered set where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching task, or <code>null</code> if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task fetchByProjectId_First(long projectId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<Task> list = findByProjectId(projectId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last task in the ordered set where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task findByProjectId_Last(long projectId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = fetchByProjectId_Last(projectId, orderByComparator);
+
+		if (task != null) {
+			return task;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("projectId=");
+		msg.append(projectId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTaskException(msg.toString());
+	}
+
+	/**
+	 * Returns the last task in the ordered set where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task, or <code>null</code> if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task fetchByProjectId_Last(long projectId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByProjectId(projectId);
+
+		List<Task> list = findByProjectId(projectId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the tasks before and after the current task in the ordered set where projectId = &#63;.
+	 *
+	 * @param taskId the primary key of the current task
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Task[] findByProjectId_PrevAndNext(long taskId, long projectId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = findByPrimaryKey(taskId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Task[] array = new TaskImpl[3];
+
+			array[0] = getByProjectId_PrevAndNext(session, task, projectId,
+					orderByComparator, true);
+
+			array[1] = task;
+
+			array[2] = getByProjectId_PrevAndNext(session, task, projectId,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Task getByProjectId_PrevAndNext(Session session, Task task,
+		long projectId, OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TASK_WHERE);
+
+		query.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		else {
+			query.append(TaskModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(projectId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(task);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<Task> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
 	}
 
 	/**
@@ -1182,6 +1599,18 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
+	 * Removes all the tasks where projectId = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByProjectId(long projectId) throws SystemException {
+		for (Task task : findByProjectId(projectId)) {
+			remove(task);
+		}
+	}
+
+	/**
 	 * Removes the task where taskName = &#63; and creatorId = &#63; from the database.
 	 *
 	 * @param taskName the task name
@@ -1219,6 +1648,59 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		for (Task task : findAll()) {
 			remove(task);
 		}
+	}
+
+	/**
+	 * Returns the number of tasks where projectId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @return the number of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByProjectId(long projectId) throws SystemException {
+		Object[] finderArgs = new Object[] { projectId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PROJECTID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_TASK_WHERE);
+
+			query.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(projectId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PROJECTID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
 	}
 
 	/**
@@ -1420,6 +1902,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	@BeanReference(type = ProjectPersistence.class)
+	protected ProjectPersistence projectPersistence;
 	@BeanReference(type = TaskPersistence.class)
 	protected TaskPersistence taskPersistence;
 	@BeanReference(type = TaskSessionPersistence.class)
@@ -1432,6 +1916,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	private static final String _SQL_SELECT_TASK_WHERE = "SELECT task FROM Task task WHERE ";
 	private static final String _SQL_COUNT_TASK = "SELECT COUNT(task) FROM Task task";
 	private static final String _SQL_COUNT_TASK_WHERE = "SELECT COUNT(task) FROM Task task WHERE ";
+	private static final String _FINDER_COLUMN_PROJECTID_PROJECTID_2 = "task.projectId = ?";
 	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_1 = "task.taskName IS NULL AND ";
 	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_2 = "task.taskName = ? AND ";
 	private static final String _FINDER_COLUMN_TN_CR_TASKNAME_3 = "(task.taskName IS NULL OR task.taskName = ?) AND ";

@@ -21,7 +21,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * This class is a wrapper for {@link TaskSessionLocalService}.
  * </p>
  *
- * @author    Istvan Sajtos
+ * @author    Istvan Sajtos, Zsolt Szabo
  * @see       TaskSessionLocalService
  * @generated
  */

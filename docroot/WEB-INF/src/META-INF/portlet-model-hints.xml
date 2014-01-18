@@ -1,12 +1,23 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="com.liferay.timesheet.model.Project">
+		<field name="uuid" type="String" />
+		<field name="projectId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="creatorId" type="long" />
+		<field name="modifiedDate" type="Date" />
+		<field name="projectName" type="String" />
+		<field name="parentProjectId" type="Long" />
+	</model>
 	<model name="com.liferay.timesheet.model.Task">
 		<field name="taskId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="creatorId" type="long" />
 		<field name="taskName" type="String" />
+		<field name="projectId" type="long" />
 	</model>
 	<model name="com.liferay.timesheet.model.TaskSession">
 		<field name="taskSessionId" type="long" />

@@ -1,9 +1,21 @@
+create table timesheet_Project (
+	uuid_ VARCHAR(75) null,
+	projectId LONG not null primary key,
+	companyId LONG,
+	createDate DATE null,
+	creatorId LONG,
+	modifiedDate DATE null,
+	projectName VARCHAR(75) null,
+	parentProjectId LONG
+);
+
 create table timesheet_Task (
 	taskId LONG not null primary key,
 	companyId LONG,
 	createDate DATE null,
 	creatorId LONG,
-	taskName VARCHAR(75) null
+	taskName VARCHAR(75) null,
+	projectId LONG
 );
 
 create table timesheet_TaskSession (

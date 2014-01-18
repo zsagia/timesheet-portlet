@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import com.liferay.timesheet.model.ProjectClp;
 import com.liferay.timesheet.model.TaskClp;
 import com.liferay.timesheet.model.TaskSessionClp;
 
@@ -103,6 +104,10 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals(ProjectClp.class.getName())) {
+			return translateInputProject(oldModel);
+		}
+
 		if (oldModelClassName.equals(TaskClp.class.getName())) {
 			return translateInputTask(oldModel);
 		}
@@ -124,6 +129,16 @@ public class ClpSerializer {
 		}
 
 		return newList;
+	}
+
+	public static Object translateInputProject(BaseModel<?> oldModel) {
+		ProjectClp oldClpModel = (ProjectClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getProjectRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
 	}
 
 	public static Object translateInputTask(BaseModel<?> oldModel) {
@@ -162,6 +177,11 @@ public class ClpSerializer {
 		Class<?> oldModelClass = oldModel.getClass();
 
 		String oldModelClassName = oldModelClass.getName();
+
+		if (oldModelClassName.equals(
+					"com.liferay.timesheet.model.impl.ProjectImpl")) {
+			return translateOutputProject(oldModel);
+		}
 
 		if (oldModelClassName.equals(
 					"com.liferay.timesheet.model.impl.TaskImpl")) {
@@ -275,6 +295,10 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.StartTimeException();
 		}
 
+		if (className.equals("com.liferay.timesheet.NoSuchProjectException")) {
+			return new com.liferay.timesheet.NoSuchProjectException();
+		}
+
 		if (className.equals("com.liferay.timesheet.NoSuchTaskException")) {
 			return new com.liferay.timesheet.NoSuchTaskException();
 		}
@@ -284,6 +308,16 @@ public class ClpSerializer {
 		}
 
 		return throwable;
+	}
+
+	public static Object translateOutputProject(BaseModel<?> oldModel) {
+		ProjectClp newModel = new ProjectClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setProjectRemoteModel(oldModel);
+
+		return newModel;
 	}
 
 	public static Object translateOutputTask(BaseModel<?> oldModel) {

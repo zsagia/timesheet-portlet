@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services.
  *
- * @author    Istvan Sajtos
+ * @author    Istvan Sajtos, Zsolt Szabo
  * @generated
  */
 public class TaskSessionSoap implements Serializable {
