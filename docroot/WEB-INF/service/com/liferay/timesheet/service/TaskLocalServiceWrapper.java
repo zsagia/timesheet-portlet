@@ -263,10 +263,10 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	}
 
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long creatorId)
+		long creatorId, long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _taskLocalService.addTask(taskName, creatorId);
+		return _taskLocalService.addTask(taskName, creatorId, projectId);
 	}
 
 	public com.liferay.timesheet.model.Task getTaskByTN_CR(

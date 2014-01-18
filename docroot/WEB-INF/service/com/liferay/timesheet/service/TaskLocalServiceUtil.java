@@ -270,10 +270,10 @@ public class TaskLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.Task addTask(
-		java.lang.String taskName, long creatorId)
+		java.lang.String taskName, long creatorId, long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addTask(taskName, creatorId);
+		return getService().addTask(taskName, creatorId, projectId);
 	}
 
 	public static com.liferay.timesheet.model.Task getTaskByTN_CR(

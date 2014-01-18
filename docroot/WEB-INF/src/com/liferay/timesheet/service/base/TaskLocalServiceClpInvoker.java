@@ -110,7 +110,9 @@ public class TaskLocalServiceClpInvoker {
 
 		_methodName52 = "addTask";
 
-		_methodParameterTypes52 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes52 = new String[] {
+				"java.lang.String", "long", "long"
+			};
 
 		_methodName53 = "getTaskByTN_CR";
 
@@ -227,7 +229,8 @@ public class TaskLocalServiceClpInvoker {
 		if (_methodName52.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return TaskLocalServiceUtil.addTask((java.lang.String)arguments[0],
-				((Long)arguments[1]).longValue());
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
 		}
 
 		if (_methodName53.equals(name) &&

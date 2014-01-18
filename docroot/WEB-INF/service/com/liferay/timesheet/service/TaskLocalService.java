@@ -244,7 +244,7 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 		throws java.lang.Throwable;
 
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long creatorId)
+		long creatorId, long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
