@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
 <service-builder package-path="com.liferay.timesheet">
-	<author>Istvan Sajtos</author>
+	<author>Istvan Sajtos, Zsolt Szabo</author>
+	
 	<namespace>timesheet</namespace>
+
+	<entity name="Project" local-service="true" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="projectId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="creatorId" type="long" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="projectName" type="String" />
+		<column name="parentProjectId" type="Long" />
+
+		<!-- Order -->
+
+		<order>
+			<order-column name="projectName" order-by="asc" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="ParentProjectId" return-type="Collection">
+			<finder-column name="parentProjectId" />
+		</finder>
+	</entity>
+
 	<entity name="Task" local-service="true" remote-service="false">
 
 		<!-- PK fields -->
@@ -18,7 +51,7 @@
 		<!-- Other fields -->
 
 		<column name="taskName" type="String" />
-
+		<column name="projectId" type="long" />
 		<!-- Order -->
 
 		<order>
@@ -26,6 +59,10 @@
 		</order>
 
 		<!-- Finder methods -->
+
+		<finder name="ProjectId" return-type="Collection">
+			<finder-column name="projectId" />
+		</finder>
 
 		<finder name="TN_CR" return-type="Task">
 			<finder-column name="taskName" />
@@ -63,6 +100,11 @@
 		</order>
 
 		<!-- Finder methods -->
+
+		<finder name="S_E" return-type="Collection" >
+			<finder-column name="startTime" comparator="&gt;" />
+			<finder-column name="endTime" />
+		</finder>
 
 		<finder return-type="TaskSession" name="U_E" unique="true">
 			<finder-column name="userId" />
