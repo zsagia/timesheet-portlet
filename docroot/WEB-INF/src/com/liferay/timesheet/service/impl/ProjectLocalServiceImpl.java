@@ -14,7 +14,14 @@
 
 package com.liferay.timesheet.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.base.ProjectLocalServiceBaseImpl;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the project local service.
@@ -36,4 +43,34 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.timesheet.service.ProjectLocalServiceUtil} to access the project local service.
 	 */
+	
+	public Project addProject(
+			String projectName, long creatorId, long parentProjectId)
+		throws PortalException, SystemException {
+
+		long projectId = counterLocalService.increment();
+
+		User user = userPersistence.findByPrimaryKey(creatorId);
+
+		Project project = projectPersistence.create(projectId);
+
+		Date createDate = new Date();
+
+		project.setCompanyId(user.getCompanyId());
+		project.setCreateDate(createDate);
+		project.setParentProjectId(parentProjectId);
+		project.setProjectName(projectName);
+		project.setCreatorId(creatorId);
+
+		projectPersistence.update(project, false);
+
+		return project;
+	}
+
+	public List<Project> getProjects(long parentProjectId)
+		throws SystemException {
+
+		return projectPersistence.findByParentProjectId(parentProjectId);
+	}
+
 }
