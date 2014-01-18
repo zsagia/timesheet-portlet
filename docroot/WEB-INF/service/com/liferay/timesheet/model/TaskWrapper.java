@@ -292,6 +292,12 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		_task.persist();
 	}
 
+	public com.liferay.timesheet.model.Project getProject()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _task.getProject();
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedModel}
 	 */

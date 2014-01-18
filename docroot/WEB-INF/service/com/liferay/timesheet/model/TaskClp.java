@@ -162,6 +162,10 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		_projectId = projectId;
 	}
 
+	public com.liferay.timesheet.model.Project getProject() {
+		throw new UnsupportedOperationException();
+	}
+
 	public BaseModel<?> getTaskRemoteModel() {
 		return _taskRemoteModel;
 	}
