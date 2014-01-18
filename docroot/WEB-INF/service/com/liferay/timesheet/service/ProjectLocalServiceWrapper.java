@@ -262,6 +262,20 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		return _projectLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public com.liferay.timesheet.model.Project addProject(
+		java.lang.String projectName, long creatorId, long parentProjectId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.addProject(projectName, creatorId,
+			parentProjectId);
+	}
+
+	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
+		long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.getProjects(parentProjectId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
