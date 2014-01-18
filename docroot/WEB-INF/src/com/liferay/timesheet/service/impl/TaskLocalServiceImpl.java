@@ -45,7 +45,7 @@ import java.util.Set;
  */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long creatorId)
+	public Task addTask(String taskName, long creatorId, long projectId)
 		throws PortalException, SystemException {
 
 		long taskId = counterLocalService.increment();
@@ -59,6 +59,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		task.setCompanyId(user.getCompanyId());
 		task.setCreateDate(createDate);
 		task.setTaskName(taskName);
+		task.setProjectId(projectId);
 		task.setCreatorId(creatorId);
 
 		taskPersistence.update(task, false);
