@@ -14,6 +14,11 @@
 
 package com.liferay.timesheet.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.timesheet.model.Project;
+import com.liferay.timesheet.service.ProjectLocalServiceUtil;
+
 /**
  * The extended model implementation for the Task service. Represents a row in the &quot;timesheet_Task&quot; database table, with each column mapped to a property of this class.
  *
@@ -30,5 +35,11 @@ public class TaskImpl extends TaskBaseImpl {
 	 * Never reference this class directly. All methods that expect a task model instance should use the {@link com.liferay.timesheet.model.Task} interface instead.
 	 */
 	public TaskImpl() {
+	}
+
+	public Project getProject()
+		throws PortalException, SystemException {
+
+		return ProjectLocalServiceUtil.getProject(getProjectId());
 	}
 }
