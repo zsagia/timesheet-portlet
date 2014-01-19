@@ -6,6 +6,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:components="http://java.sun.com/jsf/composite/components">
 
@@ -20,5 +21,36 @@
 				</aui:form>
 			</aui:column>
 		</aui:layout>
+		<p:tabView id="tabView">  
+			<p:tab id="tab1" title="Project">
+				<h:form>
+					<aui:layout >
+						<aui:column>
+							<p:tree id="projectTree" value="#{projectBean.root}" var="project"
+								selectionMode="single" selection="#{projectBean.selectedProjectNode}">
+
+								<p:treeNode>  
+									<h:outputText value="#{project}" />
+								</p:treeNode>  
+							</p:tree>
+						</aui:column>
+
+						<aui:column>
+							<h:outputText value="Project name: " />
+							<p:inputText value="#{projectBean.projectName}" />
+
+							<p:commandButton value="Add Project"
+								actionListener="#{projectBean.addProject}" id="btnAddProject"/>
+						</aui:column>
+					</aui:layout>
+				</h:form>
+			</p:tab>
+
+			<p:tab id="tab2" title="Task">
+				<h:panelGrid columns="2" cellpadding="10">
+
+				</h:panelGrid>
+			</p:tab> 
+		</p:tabView>
 	</h:body>
 </f:view>

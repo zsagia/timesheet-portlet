@@ -2,8 +2,10 @@ package com.liferay.timesheet.bean;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
+import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
+import org.primefaces.model.TreeNode;
 
 /**
 * @author Adorjan Nagy
@@ -32,11 +36,21 @@ public class TaskBean implements Serializable{
 		value = "#{taskSessionSimpleBean}")
 	private TaskSessionSimpleBean taskSessionSimpleBean;
 
+	@ManagedProperty(name = "projectBean",
+		value = "#{projectBean}")
+	private ProjectBean projectBean;
+
 	public String createTask()throws Exception {
 
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		Task task = TaskLocalServiceUtil.addTask(taskName, userId);
+		TreeNode selectedProjectNode = projectBean.getSelectedProjectNode();
+
+		Project selectedProject =
+			((ProjectTreeNode)selectedProjectNode).getProject();
+
+		Task task = TaskLocalServiceUtil.addTask(
+			taskName, userId, selectedProject.getProjectId());
 
 		taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
 		taskSessionSimpleBean.createTaskSession();
@@ -75,6 +89,14 @@ public class TaskBean implements Serializable{
 
 	protected void clear() {
 		setTaskName(null);
+	}
+
+	public ProjectBean getProjectBean() {
+		return projectBean;
+	}
+
+	public void setProjectBean(ProjectBean projectBean) {
+		this.projectBean = projectBean;
 	}
 
 }

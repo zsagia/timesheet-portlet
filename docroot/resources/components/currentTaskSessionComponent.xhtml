@@ -24,6 +24,8 @@
 			<aui:column cssClass="column-right">
 				<aui:column>
 					<h:outputText value="Current Task: " />
+					<h:outputText  value="#{cc.attrs.currentTaskSession.task.project.projectName}"/>
+					<h:outputText  value=" > "/>
 					<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
 				</aui:column>
 

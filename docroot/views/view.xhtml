@@ -6,6 +6,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:components="http://java.sun.com/jsf/composite/components">
 
@@ -14,50 +15,54 @@
 	<h:body>
 		<h:messages showSummary="true" showDetail="true" />
 
-		<aui:layout>
-			<aui:column>
-				<components:currentTaskSessionComponent
-					currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
-					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}"
-					todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}" />
-			</aui:column>
+		<p:tabView id="tabView">  
+			<p:tab id="tab1" title="Creation">
+				<aui:layout>
+					<aui:column>
+						<components:currentTaskSessionComponent
+							currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
+							rendered="#{not empty taskSessionSimpleBean.currentTaskSession}"
+							todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}" />
+					</aui:column>
 
-			<aui:column>
-				<components:endTaskComponent
-					actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
-					endTime="#{taskSessionSimpleBean.endTime}"
-					rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
-			</aui:column>
-		</aui:layout>
+					<aui:column>
+						<components:endTaskComponent
+							actionMethod="#{taskSessionSimpleBean.finishTaskSession}"
+							endTime="#{taskSessionSimpleBean.endTime}"
+							rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
+					</aui:column>
+				</aui:layout>
 
-		<hr />
+				<p:separator />
 
-		<aui:layout>
-			<aui:column>
-				<h:form id="taskForm">
-					<components:taskComponent
-						actionMethod="#{taskBean.createTask}"
-						startTime="#{taskSessionSimpleBean.startTime}"
-						taskName="#{taskBean.taskName}" />
-				</h:form>
+				<aui:layout>
+					<aui:column>
+						<h:form id="taskForm">
+							<components:taskComponent
+								actionMethod="#{taskBean.createTask}"
+								projectRoot="#{projectBean.root}"
+								selectedProjectNode="#{projectBean.selectedProjectNode}"
+								startTime="#{taskSessionSimpleBean.startTime}"
+								taskName="#{taskBean.taskName}" />
+						</h:form>
 
-				<hr />
+						<hr />
 
-				<h:form id="taskSessionForm">
-					<ui:repeat var="task" value="#{taskBean.tasksByUser}">
-						<components:taskComponent
-							actionMethod="#{taskSessionMultipleBean.createTaskSession}"
-							selectedTask="#{task}"
-							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
-					</ui:repeat>
-				</h:form>
-			</aui:column>
+						<h:form id="taskSessionForm">
+							<ui:repeat var="task" value="#{taskBean.tasksByUser}">
+								<components:taskComponent
+									actionMethod="#{taskSessionMultipleBean.createTaskSession}"
+									selectedTask="#{task}"
+									startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
+							</ui:repeat>
+						</h:form>
+					</aui:column>
+				</aui:layout>
+			</p:tab>
 
-			<aui:column>
-				<h:form id="navigation">
-					<h:commandLink action="#{viewController.showTaskSessionList}" value="Show today's task session list"/>
-				</h:form>
-			</aui:column>
-		</aui:layout>
+			<p:tab id="tab2" title="Daily View">
+				<components:taskSessionList taskBean="#{taskBean}" />
+			</p:tab> 
+		</p:tabView>
 	</h:body>
 </f:view>
