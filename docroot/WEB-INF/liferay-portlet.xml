@@ -5,6 +5,19 @@
 	<portlet>
 		<portlet-name>timesheet</portlet-name>
 		<icon>/icon.png</icon>
+		<scheduler-entry>
+			<scheduler-description>
+				Automatically closes open TaskSessions at the end of the day.
+			</scheduler-description>
+			<scheduler-event-listener-class>
+				com.liferay.timesheet.messaging.ClosingMessageListener
+			</scheduler-event-listener-class>
+			<trigger>
+				<cron>
+					<cron-trigger-value>0 59 23 * * ?</cron-trigger-value>
+				</cron>
+			</trigger>
+		</scheduler-entry>
 		<ajaxable>false</ajaxable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<css-class-wrapper>timesheet-portlet</css-class-wrapper>
