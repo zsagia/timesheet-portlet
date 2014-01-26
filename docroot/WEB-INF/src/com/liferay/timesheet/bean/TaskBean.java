@@ -1,7 +1,8 @@
 package com.liferay.timesheet.bean;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
@@ -30,6 +31,8 @@ public class TaskBean implements Serializable{
 
 	private static final long serialVersionUID = -8412810082872360906L;
 
+	private static Logger logger = LoggerFactory.getLogger(TaskBean.class);
+
 	private String taskName;
 
 	@ManagedProperty(name = "taskSessionSimpleBean",
@@ -40,7 +43,7 @@ public class TaskBean implements Serializable{
 		value = "#{projectBean}")
 	private ProjectBean projectBean;
 
-	public String createTask()throws Exception {
+	public String createTaskAction() {
 
 		long userId = TimesheetUtil.getCurrentUserId();
 
@@ -49,22 +52,44 @@ public class TaskBean implements Serializable{
 		Project selectedProject =
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
-		Task task = TaskLocalServiceUtil.addTask(
-			taskName, userId, selectedProject.getProjectId());
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
 
-		taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
-		taskSessionSimpleBean.createTaskSession();
+		Task task = null;
+
+		try {
+			task = TaskLocalServiceUtil.addTask(
+				taskName, userId, selectedProject.getProjectId());
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("New Task: " + task.getTaskName());
+			}
+
+			taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
+			taskSessionSimpleBean.createTaskSession();
+		} catch (Exception e) {
+			logger.error(e);
+
+			liferayFacesContext.addGlobalErrorMessage("Adding task is failed!");
+
+			return "failure";
+		}
 
 		clear();
 
 		return "/views/view.xhtml";
 	}
 
-	public List<Task> getTasksByUser() throws PortalException, SystemException {
+	public List<Task> getTasksByUser() {
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		List<Task> tasksToday =
-			TaskLocalServiceUtil.getTasksByUserId(userId);
+		List<Task> tasksToday = null;
+
+		try {
+			tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
+		} catch (Exception e) {
+			logger.error("Getting tasks for userId: " + userId + " is failed");
+		}
 
 		return tasksToday;
 	}

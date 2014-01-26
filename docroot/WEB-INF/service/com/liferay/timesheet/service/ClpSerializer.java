@@ -273,11 +273,6 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
-		if (className.equals(
-					"com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException")) {
-			return new com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException();
-		}
-
 		if (className.equals("com.liferay.timesheet.EndTimeException")) {
 			return new com.liferay.timesheet.EndTimeException();
 		}
@@ -291,8 +286,24 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.NoSelectedTaskException();
 		}
 
+		if (className.equals("com.liferay.timesheet.ProjectCreationException")) {
+			return new com.liferay.timesheet.ProjectCreationException();
+		}
+
 		if (className.equals("com.liferay.timesheet.StartTimeException")) {
 			return new com.liferay.timesheet.StartTimeException();
+		}
+
+		if (className.equals("com.liferay.timesheet.TaskCreationException")) {
+			return new com.liferay.timesheet.TaskCreationException();
+		}
+
+		if (className.equals("com.liferay.timesheet.TaskSessionCloseException")) {
+			return new com.liferay.timesheet.TaskSessionCloseException();
+		}
+
+		if (className.equals("com.liferay.timesheet.TaskSessionUpdateException")) {
+			return new com.liferay.timesheet.TaskSessionUpdateException();
 		}
 
 		if (className.equals("com.liferay.timesheet.NoSuchProjectException")) {

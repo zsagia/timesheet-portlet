@@ -1,6 +1,7 @@
 package com.liferay.timesheet.validator;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.StartTimeException;
 import com.liferay.timesheet.model.TaskSession;
@@ -25,6 +26,9 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("StartTimeValidator")
 public class StartTimeValidator implements Validator {
+	
+	private static final Logger logger =
+		LoggerFactory.getLogger(StartTimeValidator.class);
 
 	@Override
 	public void validate(
@@ -46,10 +50,10 @@ public class StartTimeValidator implements Validator {
 					DateTimeValidatorUtil.validateStartTime(
 						lastTaskSession, (Date)value);
 				}
-			} catch (ParseException pe) {
-				pe.printStackTrace();
 			} catch (StartTimeException ste) {
-				ste.printStackTrace();
+				logger.error(
+					"another_task_is_already_recorded_in_the_given_period",
+					ste);
 
 				FacesMessage facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
@@ -58,8 +62,8 @@ public class StartTimeValidator implements Validator {
 						"_in_the_given_period");
 
 				throw new ValidatorException(facesMessage);
-			}catch (SystemException se) {
-				se.printStackTrace();
+			} catch (Exception e) {
+				logger.error(e);
 			}
 		}
 	}

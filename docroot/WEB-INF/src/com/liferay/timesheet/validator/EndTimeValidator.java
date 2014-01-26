@@ -1,5 +1,7 @@
 package com.liferay.timesheet.validator;
 
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
 import com.liferay.timesheet.EndTimeException;
@@ -21,6 +23,9 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("EndTimeValidator")
 public class EndTimeValidator implements Validator {
+	
+	private static final Logger logger =
+		LoggerFactory.getLogger(EndTimeValidator.class);
 
 	@Override
 	public void validate(
@@ -42,10 +47,10 @@ public class EndTimeValidator implements Validator {
 					DateTimeValidatorUtil.validateEndTime(
 						lastTaskSession, (Date)value);
 				}
-			} catch (ParseException pe) {
-				pe.printStackTrace();
 			} catch (EndTimeException ete) {
-				ete.printStackTrace();
+				logger.error(
+					"another_task_is_already_recorded_in_the_given_period",
+					ete);
 
 				FacesMessage facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
@@ -55,7 +60,7 @@ public class EndTimeValidator implements Validator {
 
 				throw new ValidatorException(facesMessage);
 			} catch (NoCurrentTaskSessionException nctse) {
-				nctse.printStackTrace();
+				logger.error("there_is_not_current_task_session", nctse);
 
 				FacesMessage facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
@@ -64,7 +69,7 @@ public class EndTimeValidator implements Validator {
 
 				throw new ValidatorException(facesMessage);
 			} catch (CurrentTaskSessionIsAlreadyEndedException ctsiaee) {
-				ctsiaee.printStackTrace();
+				logger.error("current_task_is_already_ended", ctsiaee);
 
 				FacesMessage facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
@@ -72,8 +77,8 @@ public class EndTimeValidator implements Validator {
 					"current_task_is_already_ended");
 
 				throw new ValidatorException(facesMessage);
-			}catch (SystemException se) {
-				se.printStackTrace();
+			}catch (Exception e) {
+				logger.error(e);
 			}
 		}
 	}

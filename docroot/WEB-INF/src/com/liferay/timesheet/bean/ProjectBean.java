@@ -1,7 +1,10 @@
 package com.liferay.timesheet.bean;
 
-import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.timesheet.ProjectCreationException;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
@@ -15,11 +18,18 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.TreeNode;
 
+/**
+* @author Zsolt Szabo
+*/
+
 @ManagedBean(name = "projectBean")
 @ViewScoped
 public class ProjectBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(ProjectBean.class);
 
 	private String projectName;
 
@@ -33,7 +43,7 @@ public class ProjectBean implements Serializable {
 		try {
 			generateTreeNodes(root);
 		} catch (SystemException e) {
-			e.printStackTrace();
+			logger.error("Tree generation is failed!");
 		}
 	}
 
@@ -61,7 +71,28 @@ public class ProjectBean implements Serializable {
 		this.selectedProjectNode = selectedProjectNode;
 	}
 
-	public void addProject() throws PortalException, SystemException {
+	public String createProjectAction() {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			Project project = createProject();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"New project is created: " + project.getProjectName());
+			}
+		} catch (ProjectCreationException e) {
+			logger.error("Creation new project is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Creation new project is failed!");
+		}
+
+		return "/views/preferences.xhtml";
+	}
+
+	public Project createProject() throws ProjectCreationException {
 		long selectedProjectId = 0;
 
 		if (selectedProjectNode != null) {
@@ -71,9 +102,17 @@ public class ProjectBean implements Serializable {
 			selectedProjectId = project.getProjectId();
 		}
 
-		ProjectLocalServiceUtil.addProject(
-			getProjectName(), TimesheetUtil.getCurrentUserId(),
-			selectedProjectId);
+		Project project = null;
+
+		try {
+			project = ProjectLocalServiceUtil.addProject(
+				getProjectName(), TimesheetUtil.getCurrentUserId(),
+				selectedProjectId);
+		} catch (Exception e) {
+			throw new ProjectCreationException();
+		}
+
+		return project;
 	}
 
 	protected void generateTreeNodes(TreeNode parentNode)

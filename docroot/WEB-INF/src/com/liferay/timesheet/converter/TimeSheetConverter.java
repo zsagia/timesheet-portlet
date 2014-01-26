@@ -1,5 +1,7 @@
 package com.liferay.timesheet.converter;
 
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.timesheet.util.TimesheetUtil;
 
@@ -21,6 +23,9 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter("TimeSheetConverter")
 public class TimeSheetConverter extends DateTimeConverter {
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(TimeSheetConverter.class);
 
 	public TimeSheetConverter() {
 		setPattern("HHmm");
@@ -46,7 +51,7 @@ public class TimeSheetConverter extends DateTimeConverter {
 				date = TimesheetUtil.addDateToDate(
 					todayWithoutTime, time);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				logger.error("date_conversion_is_failed");
 
 				throw new ConverterException();
 			}
