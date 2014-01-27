@@ -39,8 +39,8 @@
 							<h:outputText value="Project name: " />
 							<p:inputText value="#{projectBean.projectName}" />
 
-							<p:commandButton value="Add Project"
-								actionListener="#{projectBean.createProjectAction}" id="btnCreateProject" />
+							<h:commandButton value="Add Project"
+								action="#{projectBean.createProjectAction}" id="btnCreateProject" />
 						</aui:column>
 					</aui:layout>
 				</h:form>
