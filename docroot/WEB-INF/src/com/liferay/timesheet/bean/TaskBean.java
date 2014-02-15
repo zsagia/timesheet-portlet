@@ -47,13 +47,25 @@ public class TaskBean implements Serializable{
 
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		TreeNode selectedProjectNode = projectBean.getSelectedProjectNode();
-
-		Project selectedProject =
-			((ProjectTreeNode)selectedProjectNode).getProject();
+		TreeNode selectedProjectNode = null;
+		Project selectedProject = null;
 
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
+
+		try {
+			selectedProjectNode = projectBean.getSelectedProjectNode();
+
+			selectedProject =
+				((ProjectTreeNode)selectedProjectNode).getProject();
+		} catch (Exception e) {
+			logger.error(e);
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Project node is not selected!");
+
+			return "";
+		}
 
 		Task task = null;
 
@@ -72,7 +84,7 @@ public class TaskBean implements Serializable{
 
 			liferayFacesContext.addGlobalErrorMessage("Adding task is failed!");
 
-			return "failure";
+			return "";
 		}
 
 		clear();
