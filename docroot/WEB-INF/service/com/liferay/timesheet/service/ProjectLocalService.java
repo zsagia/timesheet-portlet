@@ -244,7 +244,8 @@ public interface ProjectLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId)
+		java.lang.String projectName, long creatorId, long parentProjectId,
+		boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

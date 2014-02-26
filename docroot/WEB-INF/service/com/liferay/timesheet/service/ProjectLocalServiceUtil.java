@@ -273,10 +273,12 @@ public class ProjectLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId)
+		java.lang.String projectName, long creatorId, long parentProjectId,
+		boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addProject(projectName, creatorId, parentProjectId);
+		return getService()
+				   .addProject(projectName, creatorId, parentProjectId, enabled);
 	}
 
 	public static java.util.List<com.liferay.timesheet.model.Project> getProjects(

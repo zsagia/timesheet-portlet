@@ -115,7 +115,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		_methodName19 = "addProject";
 
 		_methodParameterTypes19 = new String[] {
-				"java.lang.String", "long", "long"
+				"java.lang.String", "long", "long", "boolean"
 			};
 
 		_methodName20 = "getProjects";
@@ -646,7 +646,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	}
 
 	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId)
+		java.lang.String projectName, long creatorId, long parentProjectId,
+		boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -659,7 +660,9 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 						
 					creatorId,
 						
-					parentProjectId
+					parentProjectId,
+						
+					enabled
 					});
 		}
 		catch (Throwable t) {

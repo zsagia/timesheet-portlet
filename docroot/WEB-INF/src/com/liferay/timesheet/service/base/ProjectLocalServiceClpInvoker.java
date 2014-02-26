@@ -115,7 +115,7 @@ public class ProjectLocalServiceClpInvoker {
 		_methodName52 = "addProject";
 
 		_methodParameterTypes52 = new String[] {
-				"java.lang.String", "long", "long"
+				"java.lang.String", "long", "long", "boolean"
 			};
 
 		_methodName53 = "getProjects";
@@ -228,7 +228,8 @@ public class ProjectLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return ProjectLocalServiceUtil.addProject((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
-				((Long)arguments[2]).longValue());
+				((Long)arguments[2]).longValue(),
+				((Boolean)arguments[3]).booleanValue());
 		}
 
 		if (_methodName53.equals(name) &&
