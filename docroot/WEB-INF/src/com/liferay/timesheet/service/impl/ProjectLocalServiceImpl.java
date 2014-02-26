@@ -45,7 +45,8 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 	 */
 	
 	public Project addProject(
-			String projectName, long creatorId, long parentProjectId)
+			String projectName, long creatorId, long parentProjectId,
+			boolean enabled)
 		throws PortalException, SystemException {
 
 		long projectId = counterLocalService.increment();
@@ -59,6 +60,7 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		project.setCompanyId(user.getCompanyId());
 		project.setCreateDate(createDate);
 		project.setParentProjectId(parentProjectId);
+		project.setEnabled(enabled);
 		project.setProjectName(projectName);
 		project.setCreatorId(creatorId);
 
