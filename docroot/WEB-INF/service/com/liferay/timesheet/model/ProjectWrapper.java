@@ -51,6 +51,7 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("enabled", getEnabled());
 		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
 
@@ -92,6 +93,12 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Boolean enabled = (Boolean)attributes.get("enabled");
+
+		if (enabled != null) {
+			setEnabled(enabled);
 		}
 
 		String projectName = (String)attributes.get("projectName");
@@ -231,6 +238,24 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	*/
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_project.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the enabled of this project.
+	*
+	* @return the enabled of this project
+	*/
+	public java.lang.Boolean getEnabled() {
+		return _project.getEnabled();
+	}
+
+	/**
+	* Sets the enabled of this project.
+	*
+	* @param enabled the enabled of this project
+	*/
+	public void setEnabled(java.lang.Boolean enabled) {
+		_project.setEnabled(enabled);
 	}
 
 	/**

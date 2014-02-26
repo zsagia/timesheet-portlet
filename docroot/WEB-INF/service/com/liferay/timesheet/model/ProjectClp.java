@@ -71,6 +71,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("enabled", getEnabled());
 		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
 
@@ -113,6 +114,12 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Boolean enabled = (Boolean)attributes.get("enabled");
+
+		if (enabled != null) {
+			setEnabled(enabled);
 		}
 
 		String projectName = (String)attributes.get("projectName");
@@ -176,6 +183,14 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		_modifiedDate = modifiedDate;
 	}
 
+	public Boolean getEnabled() {
+		return _enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		_enabled = enabled;
+	}
+
 	public String getProjectName() {
 		return _projectName;
 	}
@@ -225,6 +240,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		clone.setCreateDate(getCreateDate());
 		clone.setCreatorId(getCreatorId());
 		clone.setModifiedDate(getModifiedDate());
+		clone.setEnabled(getEnabled());
 		clone.setProjectName(getProjectName());
 		clone.setParentProjectId(getParentProjectId());
 
@@ -275,7 +291,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -289,6 +305,8 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", enabled=");
+		sb.append(getEnabled());
 		sb.append(", projectName=");
 		sb.append(getProjectName());
 		sb.append(", parentProjectId=");
@@ -299,7 +317,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Project");
@@ -330,6 +348,10 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>enabled</column-name><column-value><![CDATA[");
+		sb.append(getEnabled());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>projectName</column-name><column-value><![CDATA[");
 		sb.append(getProjectName());
 		sb.append("]]></column-value></column>");
@@ -349,6 +371,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	private Date _createDate;
 	private long _creatorId;
 	private Date _modifiedDate;
+	private Boolean _enabled;
 	private String _projectName;
 	private Long _parentProjectId;
 	private BaseModel<?> _projectRemoteModel;

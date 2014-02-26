@@ -145,6 +145,20 @@ public interface ProjectModel extends BaseModel<Project> {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the enabled of this project.
+	 *
+	 * @return the enabled of this project
+	 */
+	public Boolean getEnabled();
+
+	/**
+	 * Sets the enabled of this project.
+	 *
+	 * @param enabled the enabled of this project
+	 */
+	public void setEnabled(Boolean enabled);
+
+	/**
 	 * Returns the project name of this project.
 	 *
 	 * @return the project name of this project

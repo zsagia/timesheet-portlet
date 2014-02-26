@@ -34,7 +34,7 @@ import java.util.Date;
 public class ProjectCacheModel implements CacheModel<Project>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -48,6 +48,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Serializable {
 		sb.append(creatorId);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", enabled=");
+		sb.append(enabled);
 		sb.append(", projectName=");
 		sb.append(projectName);
 		sb.append(", parentProjectId=");
@@ -86,6 +88,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Serializable {
 			projectImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		projectImpl.setEnabled(enabled);
+
 		if (projectName == null) {
 			projectImpl.setProjectName(StringPool.BLANK);
 		}
@@ -106,6 +110,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Serializable {
 	public long createDate;
 	public long creatorId;
 	public long modifiedDate;
+	public Boolean enabled;
 	public String projectName;
 	public Long parentProjectId;
 }

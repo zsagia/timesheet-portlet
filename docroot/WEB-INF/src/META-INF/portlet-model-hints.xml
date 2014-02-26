@@ -8,6 +8,7 @@
 		<field name="createDate" type="Date" />
 		<field name="creatorId" type="long" />
 		<field name="modifiedDate" type="Date" />
+		<field name="enabled" type="Boolean" />
 		<field name="projectName" type="String" />
 		<field name="parentProjectId" type="Long" />
 	</model>

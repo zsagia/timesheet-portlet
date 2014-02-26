@@ -5,6 +5,7 @@ create table timesheet_Project (
 	createDate DATE null,
 	creatorId LONG,
 	modifiedDate DATE null,
+	enabled BOOLEAN,
 	projectName VARCHAR(75) null,
 	parentProjectId LONG
 );

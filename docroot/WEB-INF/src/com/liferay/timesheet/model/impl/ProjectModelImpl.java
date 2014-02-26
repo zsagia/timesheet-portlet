@@ -65,10 +65,11 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			{ "createDate", Types.TIMESTAMP },
 			{ "creatorId", Types.BIGINT },
 			{ "modifiedDate", Types.TIMESTAMP },
+			{ "enabled", Types.BOOLEAN },
 			{ "projectName", Types.VARCHAR },
 			{ "parentProjectId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,companyId LONG,createDate DATE null,creatorId LONG,modifiedDate DATE null,projectName VARCHAR(75) null,parentProjectId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,companyId LONG,createDate DATE null,creatorId LONG,modifiedDate DATE null,enabled BOOLEAN,projectName VARCHAR(75) null,parentProjectId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Project";
 	public static final String ORDER_BY_JPQL = " ORDER BY project.projectName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Project.projectName ASC";
@@ -126,6 +127,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("enabled", getEnabled());
 		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
 
@@ -168,6 +170,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Boolean enabled = (Boolean)attributes.get("enabled");
+
+		if (enabled != null) {
+			setEnabled(enabled);
 		}
 
 		String projectName = (String)attributes.get("projectName");
@@ -244,6 +252,14 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_modifiedDate = modifiedDate;
 	}
 
+	public Boolean getEnabled() {
+		return _enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		_enabled = enabled;
+	}
+
 	public String getProjectName() {
 		if (_projectName == null) {
 			return StringPool.BLANK;
@@ -317,6 +333,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		projectImpl.setCreateDate(getCreateDate());
 		projectImpl.setCreatorId(getCreatorId());
 		projectImpl.setModifiedDate(getModifiedDate());
+		projectImpl.setEnabled(getEnabled());
 		projectImpl.setProjectName(getProjectName());
 		projectImpl.setParentProjectId(getParentProjectId());
 
@@ -416,6 +433,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			projectCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		projectCacheModel.enabled = getEnabled();
+
 		projectCacheModel.projectName = getProjectName();
 
 		String projectName = projectCacheModel.projectName;
@@ -431,7 +450,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -445,6 +464,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", enabled=");
+		sb.append(getEnabled());
 		sb.append(", projectName=");
 		sb.append(getProjectName());
 		sb.append(", parentProjectId=");
@@ -455,7 +476,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Project");
@@ -486,6 +507,10 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>enabled</column-name><column-value><![CDATA[");
+		sb.append(getEnabled());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>projectName</column-name><column-value><![CDATA[");
 		sb.append(getProjectName());
 		sb.append("]]></column-value></column>");
@@ -510,6 +535,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	private Date _createDate;
 	private long _creatorId;
 	private Date _modifiedDate;
+	private Boolean _enabled;
 	private String _projectName;
 	private Long _parentProjectId;
 	private Long _originalParentProjectId;

@@ -21,6 +21,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="enabled" />
 			<basic name="projectName" />
 			<basic name="parentProjectId" />
 			<transient name="modelAttributes" />
