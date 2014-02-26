@@ -20,6 +20,7 @@
 
 		<!-- Other fields -->
 
+		<column name="enabled" type="Boolean" />
 		<column name="projectName" type="String" />
 		<column name="parentProjectId" type="Long" />
 
