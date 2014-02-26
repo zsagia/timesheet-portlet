@@ -40,8 +40,8 @@
 						<h:form id="taskForm">
 							<components:taskComponent
 								actionMethod="#{taskBean.createTaskAction}"
-								projectRoot="#{projectBean.root}"
-								selectedProjectNode="#{projectBean.selectedProjectNode}"
+								projectRoot="#{enabledProjectBean.root}"
+								selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
 								startTime="#{taskSessionSimpleBean.startTime}"
 								taskName="#{taskBean.taskName}" />
 						</h:form>

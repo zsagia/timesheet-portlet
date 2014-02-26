@@ -1,6 +1,7 @@
 package com.liferay.timesheet.bean;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -26,10 +27,18 @@ import org.primefaces.model.TreeNode;
 @ViewScoped
 public class ProjectBean implements Serializable {
 
+	public static final String ACTION_NEW = "new";
+	public static final String ACTION_EDIT = "edit";
+	public static final String ACTION_SELECTED = "selected";
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger logger =
 		LoggerFactory.getLogger(ProjectBean.class);
+
+	private String action = ACTION_NEW;
+
+	private boolean enabled = false;
 
 	private String projectName;
 
@@ -41,34 +50,33 @@ public class ProjectBean implements Serializable {
 		root = new ProjectTreeNode(null, null);
 
 		try {
-			generateTreeNodes(root);
+			generateTreeNodes(false, root);
 		} catch (SystemException e) {
 			logger.error("Tree generation is failed!");
 		}
 	}
 
-	public String getProjectName() {
-		return projectName;
-	}
+	public Project createProject() throws ProjectCreationException {
+		long selectedProjectId = 0;
 
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
+		if (selectedProjectNode != null) {
+			Project project =
+				((ProjectTreeNode)selectedProjectNode).getProject();
 
-	public TreeNode getRoot() {
-		return root;
-	}
+			selectedProjectId = project.getProjectId();
+		}
 
-	public void setRoot(TreeNode root) {
-		this.root = root;
-	}
+		Project project = null;
 
-	public TreeNode getSelectedProjectNode() {
-		return selectedProjectNode;
-	}
+		try {
+			project = ProjectLocalServiceUtil.addProject(
+				getProjectName(), TimesheetUtil.getCurrentUserId(),
+				selectedProjectId, true);
+		} catch (Exception e) {
+			throw new ProjectCreationException();
+		}
 
-	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
-		this.selectedProjectNode = selectedProjectNode;
+		return project;
 	}
 
 	public String createProjectAction() {
@@ -92,30 +100,65 @@ public class ProjectBean implements Serializable {
 		return "/views/preferences.xhtml";
 	}
 
-	public Project createProject() throws ProjectCreationException {
-		long selectedProjectId = 0;
+	public void editAction() {
+		action = ACTION_EDIT;
 
-		if (selectedProjectNode != null) {
-			Project project =
-				((ProjectTreeNode)selectedProjectNode).getProject();
+		Project project =
+			((ProjectTreeNode)selectedProjectNode).getProject();
 
-			selectedProjectId = project.getProjectId();
-		}
+		projectName = project.getProjectName();
+	}
 
-		Project project = null;
+	public void newAction() {
+		setActionValues(ACTION_NEW, false, StringPool.BLANK);
+	}
 
-		try {
-			project = ProjectLocalServiceUtil.addProject(
-				getProjectName(), TimesheetUtil.getCurrentUserId(),
-				selectedProjectId);
-		} catch (Exception e) {
-			throw new ProjectCreationException();
-		}
+	public void onNodeSelect() {
+		Project project =
+			((ProjectTreeNode)selectedProjectNode).getProject();
+
+		setActionValues(
+			ACTION_SELECTED, project.getEnabled(), project.getProjectName());
+	}
+
+	public void onNodeUnSelect() {
+		newAction();
+	}
+
+	public Project updateProject(Project project) throws SystemException{
+		ProjectLocalServiceUtil.updateProject(project);
 
 		return project;
 	}
 
-	protected void generateTreeNodes(TreeNode parentNode)
+	public String updateProjectAction() {
+		Project project =
+			((ProjectTreeNode)selectedProjectNode).getProject();
+
+		project.setEnabled(enabled);
+		project.setProjectName(projectName);
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			updateProject(project);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"Project is updated: " + project.getProjectName());
+			}
+		} catch (SystemException e) {
+			logger.error("Creation new project is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				" Project update is failed!");
+		}
+
+		return "/views/preferences.xhtml";
+	}
+
+	protected void generateTreeNodes(boolean checkEnabled, TreeNode parentNode)
 		throws SystemException {
 
 		Project projectNode = ((ProjectTreeNode)parentNode).getProject();
@@ -125,13 +168,78 @@ public class ProjectBean implements Serializable {
 		List<Project> projects = ProjectLocalServiceUtil.getProjects(projectId);
 
 		for (Project project: projects) {
-			TreeNode treeNode = new ProjectTreeNode(
-				project.getProjectName(), parentNode);
+			boolean enabled = true;
 
-			((ProjectTreeNode)treeNode).setProject(project);
+			if (checkEnabled && !project.getEnabled()) {
+				enabled = false;
+			}
 
-			generateTreeNodes(treeNode);
+			if (enabled) {
+				TreeNode treeNode = new ProjectTreeNode(
+					project.getProjectName(), parentNode);
+
+				((ProjectTreeNode)treeNode).setProject(project);
+
+				generateTreeNodes(checkEnabled, treeNode);
+			}
 		}
+	}
+
+	protected void setActionValues(
+		String action, boolean enabled, String projectName) {
+
+		this.action = action;
+
+		this.projectName = projectName;
+
+		this.enabled = enabled;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public TreeNode getSelectedProjectNode() {
+		return selectedProjectNode;
+	}
+
+	public boolean isEnabled() {
+		if (selectedProjectNode != null) {
+			Project project =
+				((ProjectTreeNode)selectedProjectNode).getProject();
+
+			enabled = project.getEnabled();
+		}
+
+		return enabled;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
+	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
+		this.selectedProjectNode = selectedProjectNode;
 	}
 
 }

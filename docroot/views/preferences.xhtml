@@ -13,34 +13,45 @@
 	<h:head />
 
 	<h:body>
-		<h:messages showSummary="true" showDetail="true" />
+		<h:messages id="messages" showDetail="true" showSummary="true" />
 
-		<aui:layout>
-			<aui:column>
-				<aui:form>
-				</aui:form>
-			</aui:column>
-		</aui:layout>
-		<p:tabView id="tabView">  
+		<p:tabView id="tabView">
 			<p:tab id="tab1" title="Project">
-				<h:form>
-					<aui:layout >
-						<aui:column>
-							<p:tree id="projectTree" value="#{projectBean.root}" var="project"
-								selectionMode="single" selection="#{projectBean.selectedProjectNode}">
+				<h:form id="treeForm">
+					<aui:layout id="layout">
+						<aui:column id="column1">
+							<p:contextMenu for="projectTree" id="menu">
+								<p:menuitem action="#{projectBean.newAction}" icon="ui-icon-new" id="newMenuItem"
+									update=":#{p:component('column2')}" value="New" />
 
-								<p:treeNode>  
+								<p:menuitem action="#{projectBean.editAction}" icon="ui-icon-edit" id="editMenuItem"
+									update=":#{p:component('column2')}" value="Edit" />	
+							</p:contextMenu>
+
+							<p:tree draggable="true" droppable="true" dragdropScope="demo" id="projectTree"
+								selection="#{projectBean.selectedProjectNode}" selectionMode="single"
+								value="#{projectBean.root}" var="project">
+
+								<p:ajax event="unselect" listener="#{projectBean.onNodeUnSelect}" update=":#{p:component('column2')}" />
+
+								<p:ajax event="select" listener="#{projectBean.onNodeSelect}" update=":#{p:component('column2')}" />
+
+								<p:treeNode>
 									<h:outputText value="#{project}" />
 								</p:treeNode>  
 							</p:tree>
 						</aui:column>
 
-						<aui:column>
-							<h:outputText value="Project name: " />
-							<p:inputText value="#{projectBean.projectName}" />
+						<aui:column id="column2">
+							<p:menubar rendered="#{not empty projectBean.selectedProjectNode}">
+								<p:menuitem action="#{projectBean.newAction}" icon="ui-icon-new" id="newMenuItem"
+									update=":#{p:component('column2')}" value="New" />
 
-							<h:commandButton value="Add Project"
-								action="#{projectBean.createProjectAction}" id="btnCreateProject" />
+								<p:menuitem action="#{projectBean.editAction}" icon="ui-icon-edit" id="editMenuItem"
+									update=":#{p:component('column2')}" value="Edit" />	
+							</p:menubar>
+
+							<components:projectNode bean="#{projectBean}" id="projectNodeComponent" />
 						</aui:column>
 					</aui:layout>
 				</h:form>
@@ -50,7 +61,7 @@
 				<h:panelGrid columns="2" cellpadding="10">
 
 				</h:panelGrid>
-			</p:tab> 
+			</p:tab>
 		</p:tabView>
 	</h:body>
 </f:view>
