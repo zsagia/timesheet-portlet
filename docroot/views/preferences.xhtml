@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <f:view
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -43,7 +43,7 @@
 						</aui:column>
 
 						<aui:column id="column2">
-							<p:menubar rendered="#{not empty projectBean.selectedProjectNode}">
+							<p:menubar rendered="#{projectBean.selectedProjectNode!=null}">
 								<p:menuitem action="#{projectBean.newAction}" icon="ui-icon-new" id="newMenuItem"
 									update=":#{p:component('column2')}" value="New" />
 

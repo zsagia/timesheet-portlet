@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model.impl;
@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.timesheet.model.Task;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -31,7 +34,7 @@ import java.util.Date;
  * @see Task
  * @generated
  */
-public class TaskCacheModel implements CacheModel<Task>, Serializable {
+public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(13);
@@ -53,6 +56,7 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 		return sb.toString();
 	}
 
+	@Override
 	public Task toEntityModel() {
 		TaskImpl taskImpl = new TaskImpl();
 
@@ -80,6 +84,34 @@ public class TaskCacheModel implements CacheModel<Task>, Serializable {
 		taskImpl.resetOriginalValues();
 
 		return taskImpl;
+	}
+
+	@Override
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		taskId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		creatorId = objectInput.readLong();
+		taskName = objectInput.readUTF();
+		projectId = objectInput.readLong();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(taskId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(creatorId);
+
+		if (taskName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(taskName);
+		}
+
+		objectOutput.writeLong(projectId);
 	}
 
 	public long taskId;

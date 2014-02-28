@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service;
@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Istvan Sajtos, Zsolt Szabo
+ * @generated
  */
 public class ProjectLocalServiceClp implements ProjectLocalService {
 	public ProjectLocalServiceClp(InvokableLocalService invokableLocalService) {
@@ -72,57 +73,67 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchProject";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getProject";
+		_methodName10 = "fetchProject";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "fetchProjectByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getProjects";
+		_methodName12 = "getProject";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "long" };
 
-		_methodName13 = "getProjectsCount";
+		_methodName13 = "getPersistedModel";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "java.io.Serializable" };
 
-		_methodName14 = "updateProject";
+		_methodName14 = "getProjectByUuidAndCompanyId";
 
-		_methodParameterTypes14 = new String[] {
-				"com.liferay.timesheet.model.Project"
-			};
+		_methodParameterTypes14 = new String[] { "java.lang.String", "long" };
 
-		_methodName15 = "updateProject";
+		_methodName15 = "getProjects";
 
-		_methodParameterTypes15 = new String[] {
-				"com.liferay.timesheet.model.Project", "boolean"
-			};
+		_methodParameterTypes15 = new String[] { "int", "int" };
 
-		_methodName16 = "getBeanIdentifier";
+		_methodName16 = "getProjectsCount";
 
 		_methodParameterTypes16 = new String[] {  };
 
-		_methodName17 = "setBeanIdentifier";
+		_methodName17 = "updateProject";
 
-		_methodParameterTypes17 = new String[] { "java.lang.String" };
+		_methodParameterTypes17 = new String[] {
+				"com.liferay.timesheet.model.Project"
+			};
 
-		_methodName19 = "addProject";
+		_methodName18 = "getBeanIdentifier";
 
-		_methodParameterTypes19 = new String[] {
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "setBeanIdentifier";
+
+		_methodParameterTypes19 = new String[] { "java.lang.String" };
+
+		_methodName21 = "addProject";
+
+		_methodParameterTypes21 = new String[] {
 				"java.lang.String", "long", "long", "boolean"
 			};
 
-		_methodName20 = "getProjects";
+		_methodName22 = "getProjects";
 
-		_methodParameterTypes20 = new String[] { "long" };
+		_methodParameterTypes22 = new String[] { "long" };
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project addProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -152,6 +163,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project createProject(long projectId) {
 		Object returnObj = null;
 
@@ -174,6 +186,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project deleteProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -206,6 +219,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project deleteProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -235,6 +249,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -257,6 +272,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -287,6 +303,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -323,6 +340,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -363,6 +381,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -392,13 +411,49 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
-	public com.liferay.timesheet.model.Project fetchProject(long projectId)
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { projectId });
+					_methodParameterTypes9,
+					new Object[] {
+						ClpSerializer.translateInput(dynamicQuery),
+						
+					ClpSerializer.translateInput(projection)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Long)returnObj).longValue();
+	}
+
+	@Override
+	public com.liferay.timesheet.model.Project fetchProject(long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10, new Object[] { projectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -419,14 +474,45 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public com.liferay.timesheet.model.Project fetchProjectByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
+					new Object[] { ClpSerializer.translateInput(uuid), companyId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Project getProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10, new Object[] { projectId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12, new Object[] { projectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -451,6 +537,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -458,8 +545,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -485,14 +572,50 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public com.liferay.timesheet.model.Project getProjectByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
+					new Object[] { ClpSerializer.translateInput(uuid), companyId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -513,13 +636,14 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (java.util.List<com.liferay.timesheet.model.Project>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getProjectsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -540,14 +664,15 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project updateProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableLocalService.invokeMethod(_methodName17,
+					_methodParameterTypes17,
 					new Object[] { ClpSerializer.translateInput(project) });
 		}
 		catch (Throwable t) {
@@ -569,41 +694,13 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.timesheet.model.Project updateProject(
-		com.liferay.timesheet.model.Project project, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
-					new Object[] { ClpSerializer.translateInput(project), merge });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
-	}
-
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName16,
-					_methodParameterTypes16, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -620,10 +717,11 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName17,
-				_methodParameterTypes17,
+			_invokableLocalService.invokeMethod(_methodName19,
+				_methodParameterTypes19,
 				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
 		}
 		catch (Throwable t) {
@@ -639,12 +737,14 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project addProject(
 		java.lang.String projectName, long creatorId, long parentProjectId,
 		boolean enabled)
@@ -653,8 +753,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						ClpSerializer.translateInput(projectName),
 						
@@ -688,14 +788,15 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		return (com.liferay.timesheet.model.Project)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] { parentProjectId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { parentProjectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -753,8 +854,12 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
-	private String _methodName20;
-	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

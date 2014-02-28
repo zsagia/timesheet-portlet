@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.base;
@@ -19,7 +19,8 @@ import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Istvan Sajtos, Zsolt Szabo
+ * @generated
  */
 public class TaskSessionLocalServiceClpInvoker {
 	public TaskSessionLocalServiceClpInvoker() {
@@ -72,71 +73,72 @@ public class TaskSessionLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchTaskSession";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getTaskSession";
+		_methodName10 = "fetchTaskSession";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getTaskSession";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getTaskSessions";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getTaskSessionsCount";
+		_methodName13 = "getTaskSessions";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updateTaskSession";
+		_methodName14 = "getTaskSessionsCount";
 
-		_methodParameterTypes14 = new String[] {
-				"com.liferay.timesheet.model.TaskSession"
-			};
+		_methodParameterTypes14 = new String[] {  };
 
 		_methodName15 = "updateTaskSession";
 
 		_methodParameterTypes15 = new String[] {
-				"com.liferay.timesheet.model.TaskSession", "boolean"
+				"com.liferay.timesheet.model.TaskSession"
 			};
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName42 = "getBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes42 = new String[] {  };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName43 = "setBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
+		_methodParameterTypes43 = new String[] { "java.lang.String" };
 
-		_methodName52 = "addTaskSession";
+		_methodName48 = "addTaskSession";
 
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes48 = new String[] {
 				"java.util.Date", "java.util.Date", "long", "long"
 			};
 
-		_methodName53 = "addTaskSession";
+		_methodName49 = "addTaskSession";
 
-		_methodParameterTypes53 = new String[] { "java.util.Date", "long", "long" };
+		_methodParameterTypes49 = new String[] { "java.util.Date", "long", "long" };
 
-		_methodName54 = "getCurrentTaskSession";
+		_methodName50 = "getCurrentTaskSession";
 
-		_methodParameterTypes54 = new String[] { "long" };
+		_methodParameterTypes50 = new String[] { "long" };
 
-		_methodName55 = "getLastTaskSessionsByD_U";
+		_methodName51 = "getLastTaskSessionsByD_U";
 
-		_methodParameterTypes55 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes51 = new String[] { "java.util.Date", "long" };
 
-		_methodName56 = "getTaskSessionsByD_U";
+		_methodName52 = "getTaskSessionsByD_U";
 
-		_methodParameterTypes56 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes52 = new String[] { "java.util.Date", "long" };
 
-		_methodName57 = "updateTaskSession";
+		_methodName53 = "updateTaskSession";
 
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes53 = new String[] {
 				"com.liferay.timesheet.model.TaskSession"
 			};
 	}
@@ -195,86 +197,86 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.fetchTaskSession(((Long)arguments[0]).longValue());
+			return TaskSessionLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getTaskSession(((Long)arguments[0]).longValue());
+			return TaskSessionLocalServiceUtil.fetchTaskSession(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return TaskSessionLocalServiceUtil.getTaskSession(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getTaskSessions(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return TaskSessionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getTaskSessionsCount();
+			return TaskSessionLocalServiceUtil.getTaskSessions(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
+			return TaskSessionLocalServiceUtil.getTaskSessionsCount();
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
 			TaskSessionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
 				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue(),
 				((Long)arguments[3]).longValue());
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue());
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getCurrentTaskSession(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getTaskSessionsByD_U((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
@@ -313,20 +315,20 @@ public class TaskSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
 	private String _methodName52;
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
-	private String _methodName56;
-	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
 }

@@ -1,30 +1,32 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
+import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,26 +39,32 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	public TaskClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Task.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Task.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _taskId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setTaskId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_taskId);
+		return _taskId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -114,56 +122,161 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		}
 	}
 
+	@Override
 	public long getTaskId() {
 		return _taskId;
 	}
 
+	@Override
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTaskId", long.class);
+
+				method.invoke(_taskRemoteModel, taskId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_taskRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_taskRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getCreatorId() {
 		return _creatorId;
 	}
 
+	@Override
 	public void setCreatorId(long creatorId) {
 		_creatorId = creatorId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreatorId", long.class);
+
+				method.invoke(_taskRemoteModel, creatorId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getTaskName() {
 		return _taskName;
 	}
 
+	@Override
 	public void setTaskName(String taskName) {
 		_taskName = taskName;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTaskName", String.class);
+
+				method.invoke(_taskRemoteModel, taskName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getProjectId() {
 		return _projectId;
 	}
 
+	@Override
 	public void setProjectId(long projectId) {
 		_projectId = projectId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setProjectId", long.class);
+
+				method.invoke(_taskRemoteModel, projectId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project getProject() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getProject";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.timesheet.model.Project returnObj = (com.liferay.timesheet.model.Project)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getTaskRemoteModel() {
@@ -174,6 +287,48 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		_taskRemoteModel = taskRemoteModel;
 	}
 
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _taskRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_taskRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			TaskLocalServiceUtil.addTask(this);
@@ -185,7 +340,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public Task toEscapedModel() {
-		return (Task)Proxy.newProxyInstance(Task.class.getClassLoader(),
+		return (Task)ProxyUtil.newProxyInstance(Task.class.getClassLoader(),
 			new Class[] { Task.class }, new AutoEscapeBeanHandler(this));
 	}
 
@@ -203,6 +358,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		return clone;
 	}
 
+	@Override
 	public int compareTo(Task task) {
 		int value = 0;
 
@@ -217,18 +373,15 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof TaskClp)) {
 			return false;
 		}
 
-		TaskClp task = null;
-
-		try {
-			task = (TaskClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		TaskClp task = (TaskClp)obj;
 
 		long primaryKey = task.getPrimaryKey();
 
@@ -266,6 +419,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(22);
 

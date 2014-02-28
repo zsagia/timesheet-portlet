@@ -1,21 +1,19 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -36,12 +34,10 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
-import com.liferay.portal.service.persistence.ResourcePersistence;
-import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.liferay.timesheet.NoSuchTaskSessionException;
@@ -80,61 +76,6 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_S_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByS_E",
-			new String[] {
-				Date.class.getName(), Date.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_S_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByS_E",
-			new String[] { Date.class.getName(), Date.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByU_E",
-			new String[] { Long.class.getName(), Date.class.getName() },
-			TaskSessionModelImpl.USERID_COLUMN_BITMASK |
-			TaskSessionModelImpl.ENDTIME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_E",
-			new String[] { Long.class.getName(), Date.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUserId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID =
-		new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
-			new String[] { Long.class.getName() },
-			TaskSessionModelImpl.USERID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
-			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_U_GTS = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByU_GtS",
-			new String[] {
-				Long.class.getName(), Date.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_U_GTS = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByU_GtS",
-			new String[] { Long.class.getName(), Date.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
@@ -144,405 +85,19 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
 			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the task session in the entity cache if it is enabled.
-	 *
-	 * @param taskSession the task session
-	 */
-	public void cacheResult(TaskSession taskSession) {
-		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
-			new Object[] {
-				Long.valueOf(taskSession.getUserId()),
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_S_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByS_E",
+			new String[] {
+				Date.class.getName(), Date.class.getName(),
 				
-			taskSession.getEndTime()
-			}, taskSession);
-
-		taskSession.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the task sessions in the entity cache if it is enabled.
-	 *
-	 * @param taskSessions the task sessions
-	 */
-	public void cacheResult(List<TaskSession> taskSessions) {
-		for (TaskSession taskSession : taskSessions) {
-			if (EntityCacheUtil.getResult(
-						TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-						TaskSessionImpl.class, taskSession.getPrimaryKey()) == null) {
-				cacheResult(taskSession);
-			}
-			else {
-				taskSession.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all task sessions.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(TaskSessionImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(TaskSessionImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the task session.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(TaskSession taskSession) {
-		EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionImpl.class, taskSession.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(taskSession);
-	}
-
-	@Override
-	public void clearCache(List<TaskSession> taskSessions) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (TaskSession taskSession : taskSessions) {
-			EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-				TaskSessionImpl.class, taskSession.getPrimaryKey());
-
-			clearUniqueFindersCache(taskSession);
-		}
-	}
-
-	protected void clearUniqueFindersCache(TaskSession taskSession) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E,
-			new Object[] {
-				Long.valueOf(taskSession.getUserId()),
-				
-			taskSession.getEndTime()
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
 			});
-	}
-
-	/**
-	 * Creates a new task session with the primary key. Does not add the task session to the database.
-	 *
-	 * @param taskSessionId the primary key for the new task session
-	 * @return the new task session
-	 */
-	public TaskSession create(long taskSessionId) {
-		TaskSession taskSession = new TaskSessionImpl();
-
-		taskSession.setNew(true);
-		taskSession.setPrimaryKey(taskSessionId);
-
-		return taskSession;
-	}
-
-	/**
-	 * Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param taskSessionId the primary key of the task session
-	 * @return the task session that was removed
-	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public TaskSession remove(long taskSessionId)
-		throws NoSuchTaskSessionException, SystemException {
-		return remove(Long.valueOf(taskSessionId));
-	}
-
-	/**
-	 * Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the task session
-	 * @return the task session that was removed
-	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TaskSession remove(Serializable primaryKey)
-		throws NoSuchTaskSessionException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			TaskSession taskSession = (TaskSession)session.get(TaskSessionImpl.class,
-					primaryKey);
-
-			if (taskSession == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchTaskSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(taskSession);
-		}
-		catch (NoSuchTaskSessionException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected TaskSession removeImpl(TaskSession taskSession)
-		throws SystemException {
-		taskSession = toUnwrappedModel(taskSession);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			BatchSessionUtil.delete(session, taskSession);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		clearCache(taskSession);
-
-		return taskSession;
-	}
-
-	@Override
-	public TaskSession updateImpl(
-		com.liferay.timesheet.model.TaskSession taskSession, boolean merge)
-		throws SystemException {
-		taskSession = toUnwrappedModel(taskSession);
-
-		boolean isNew = taskSession.isNew();
-
-		TaskSessionModelImpl taskSessionModelImpl = (TaskSessionModelImpl)taskSession;
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			BatchSessionUtil.update(session, taskSession, merge);
-
-			taskSession.setNew(false);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !TaskSessionModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((taskSessionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(taskSessionModelImpl.getOriginalUserId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(taskSessionModelImpl.getUserId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
-
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
-				new Object[] {
-					Long.valueOf(taskSession.getUserId()),
-					
-				taskSession.getEndTime()
-				}, taskSession);
-		}
-		else {
-			if ((taskSessionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_U_E.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(taskSessionModelImpl.getOriginalUserId()),
-						
-						taskSessionModelImpl.getOriginalEndTime()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_E, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
-					new Object[] {
-						Long.valueOf(taskSession.getUserId()),
-						
-					taskSession.getEndTime()
-					}, taskSession);
-			}
-		}
-
-		return taskSession;
-	}
-
-	protected TaskSession toUnwrappedModel(TaskSession taskSession) {
-		if (taskSession instanceof TaskSessionImpl) {
-			return taskSession;
-		}
-
-		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
-
-		taskSessionImpl.setNew(taskSession.isNew());
-		taskSessionImpl.setPrimaryKey(taskSession.getPrimaryKey());
-
-		taskSessionImpl.setTaskSessionId(taskSession.getTaskSessionId());
-		taskSessionImpl.setCreateDate(taskSession.getCreateDate());
-		taskSessionImpl.setModifiedDate(taskSession.getModifiedDate());
-		taskSessionImpl.setUserId(taskSession.getUserId());
-		taskSessionImpl.setEndTime(taskSession.getEndTime());
-		taskSessionImpl.setStartTime(taskSession.getStartTime());
-		taskSessionImpl.setTaskId(taskSession.getTaskId());
-
-		return taskSessionImpl;
-	}
-
-	/**
-	 * Returns the task session with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the task session
-	 * @return the task session
-	 * @throws com.liferay.portal.NoSuchModelException if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TaskSession findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the task session with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
-	 *
-	 * @param taskSessionId the primary key of the task session
-	 * @return the task session
-	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public TaskSession findByPrimaryKey(long taskSessionId)
-		throws NoSuchTaskSessionException, SystemException {
-		TaskSession taskSession = fetchByPrimaryKey(taskSessionId);
-
-		if (taskSession == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + taskSessionId);
-			}
-
-			throw new NoSuchTaskSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				taskSessionId);
-		}
-
-		return taskSession;
-	}
-
-	/**
-	 * Returns the task session with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the task session
-	 * @return the task session, or <code>null</code> if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TaskSession fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the task session with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param taskSessionId the primary key of the task session
-	 * @return the task session, or <code>null</code> if a task session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public TaskSession fetchByPrimaryKey(long taskSessionId)
-		throws SystemException {
-		TaskSession taskSession = (TaskSession)EntityCacheUtil.getResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-				TaskSessionImpl.class, taskSessionId);
-
-		if (taskSession == _nullTaskSession) {
-			return null;
-		}
-
-		if (taskSession == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				taskSession = (TaskSession)session.get(TaskSessionImpl.class,
-						Long.valueOf(taskSessionId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (taskSession != null) {
-					cacheResult(taskSession);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
-						TaskSessionImpl.class, taskSessionId, _nullTaskSession);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return taskSession;
-	}
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_S_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByS_E",
+			new String[] { Date.class.getName(), Date.class.getName() });
 
 	/**
 	 * Returns all the task sessions where startTime &gt; &#63; and endTime = &#63;.
@@ -552,6 +107,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByS_E(Date startTime, Date endTime)
 		throws SystemException {
 		return findByS_E(startTime, endTime, QueryUtil.ALL_POS,
@@ -562,7 +118,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns a range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param startTime the start time
@@ -572,6 +128,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByS_E(Date startTime, Date endTime, int start,
 		int end) throws SystemException {
 		return findByS_E(startTime, endTime, start, end, null);
@@ -581,7 +138,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns an ordered range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param startTime the start time
@@ -592,8 +149,10 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the ordered range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByS_E(Date startTime, Date endTime, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
@@ -609,7 +168,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (TaskSession taskSession : list) {
-				if (!Validator.equals(startTime, taskSession.getStartTime()) ||
+				if ((startTime.getTime() >= taskSession.getStartTime().getTime()) ||
 						!Validator.equals(endTime, taskSession.getEndTime())) {
 					list = null;
 
@@ -631,17 +190,25 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 			query.append(_SQL_SELECT_TASKSESSION_WHERE);
 
+			boolean bindStartTime = false;
+
 			if (startTime == null) {
 				query.append(_FINDER_COLUMN_S_E_STARTTIME_1);
 			}
 			else {
+				bindStartTime = true;
+
 				query.append(_FINDER_COLUMN_S_E_STARTTIME_2);
 			}
+
+			boolean bindEndTime = false;
 
 			if (endTime == null) {
 				query.append(_FINDER_COLUMN_S_E_ENDTIME_1);
 			}
 			else {
+				bindEndTime = true;
+
 				query.append(_FINDER_COLUMN_S_E_ENDTIME_2);
 			}
 
@@ -649,8 +216,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
 					orderByComparator);
 			}
-
-			else {
+			else
+			 if (pagination) {
 				query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -665,30 +232,37 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (startTime != null) {
+				if (bindStartTime) {
 					qPos.add(CalendarUtil.getTimestamp(startTime));
 				}
 
-				if (endTime != null) {
+				if (bindEndTime) {
 					qPos.add(CalendarUtil.getTimestamp(endTime));
 				}
 
-				list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
-						start, end);
+				if (!pagination) {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<TaskSession>(list);
+				}
+				else {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -706,6 +280,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByS_E_First(Date startTime, Date endTime,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -740,6 +315,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the first matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByS_E_First(Date startTime, Date endTime,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<TaskSession> list = findByS_E(startTime, endTime, 0, 1,
@@ -762,6 +338,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByS_E_Last(Date startTime, Date endTime,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -796,9 +373,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the last matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByS_E_Last(Date startTime, Date endTime,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByS_E(startTime, endTime);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<TaskSession> list = findByS_E(startTime, endTime, count - 1,
 				count, orderByComparator);
@@ -821,6 +403,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession[] findByS_E_PrevAndNext(long taskSessionId,
 		Date startTime, Date endTime, OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -866,17 +449,25 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		query.append(_SQL_SELECT_TASKSESSION_WHERE);
 
+		boolean bindStartTime = false;
+
 		if (startTime == null) {
 			query.append(_FINDER_COLUMN_S_E_STARTTIME_1);
 		}
 		else {
+			bindStartTime = true;
+
 			query.append(_FINDER_COLUMN_S_E_STARTTIME_2);
 		}
+
+		boolean bindEndTime = false;
 
 		if (endTime == null) {
 			query.append(_FINDER_COLUMN_S_E_ENDTIME_1);
 		}
 		else {
+			bindEndTime = true;
+
 			query.append(_FINDER_COLUMN_S_E_ENDTIME_2);
 		}
 
@@ -935,7 +526,6 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				}
 			}
 		}
-
 		else {
 			query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 		}
@@ -949,11 +539,11 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		if (startTime != null) {
+		if (bindStartTime) {
 			qPos.add(CalendarUtil.getTimestamp(startTime));
 		}
 
-		if (endTime != null) {
+		if (bindEndTime) {
 			qPos.add(CalendarUtil.getTimestamp(endTime));
 		}
 
@@ -976,6 +566,118 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	}
 
 	/**
+	 * Removes all the task sessions where startTime &gt; &#63; and endTime = &#63; from the database.
+	 *
+	 * @param startTime the start time
+	 * @param endTime the end time
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByS_E(Date startTime, Date endTime)
+		throws SystemException {
+		for (TaskSession taskSession : findByS_E(startTime, endTime,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(taskSession);
+		}
+	}
+
+	/**
+	 * Returns the number of task sessions where startTime &gt; &#63; and endTime = &#63;.
+	 *
+	 * @param startTime the start time
+	 * @param endTime the end time
+	 * @return the number of matching task sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByS_E(Date startTime, Date endTime)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_WITH_PAGINATION_COUNT_BY_S_E;
+
+		Object[] finderArgs = new Object[] { startTime, endTime };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TASKSESSION_WHERE);
+
+			boolean bindStartTime = false;
+
+			if (startTime == null) {
+				query.append(_FINDER_COLUMN_S_E_STARTTIME_1);
+			}
+			else {
+				bindStartTime = true;
+
+				query.append(_FINDER_COLUMN_S_E_STARTTIME_2);
+			}
+
+			boolean bindEndTime = false;
+
+			if (endTime == null) {
+				query.append(_FINDER_COLUMN_S_E_ENDTIME_1);
+			}
+			else {
+				bindEndTime = true;
+
+				query.append(_FINDER_COLUMN_S_E_ENDTIME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindStartTime) {
+					qPos.add(CalendarUtil.getTimestamp(startTime));
+				}
+
+				if (bindEndTime) {
+					qPos.add(CalendarUtil.getTimestamp(endTime));
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_S_E_STARTTIME_1 = "taskSession.startTime > NULL AND ";
+	private static final String _FINDER_COLUMN_S_E_STARTTIME_2 = "taskSession.startTime > ? AND ";
+	private static final String _FINDER_COLUMN_S_E_ENDTIME_1 = "taskSession.endTime IS NULL";
+	private static final String _FINDER_COLUMN_S_E_ENDTIME_2 = "taskSession.endTime = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByU_E",
+			new String[] { Long.class.getName(), Date.class.getName() },
+			TaskSessionModelImpl.USERID_COLUMN_BITMASK |
+			TaskSessionModelImpl.ENDTIME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_U_E = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_E",
+			new String[] { Long.class.getName(), Date.class.getName() });
+
+	/**
 	 * Returns the task session where userId = &#63; and endTime = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
 	 *
 	 * @param userId the user ID
@@ -984,6 +686,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByU_E(long userId, Date endTime)
 		throws NoSuchTaskSessionException, SystemException {
 		TaskSession taskSession = fetchByU_E(userId, endTime);
@@ -1019,6 +722,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByU_E(long userId, Date endTime)
 		throws SystemException {
 		return fetchByU_E(userId, endTime, true);
@@ -1033,6 +737,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByU_E(long userId, Date endTime,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { userId, endTime };
@@ -1060,14 +765,16 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 			query.append(_FINDER_COLUMN_U_E_USERID_2);
 
+			boolean bindEndTime = false;
+
 			if (endTime == null) {
 				query.append(_FINDER_COLUMN_U_E_ENDTIME_1);
 			}
 			else {
+				bindEndTime = true;
+
 				query.append(_FINDER_COLUMN_U_E_ENDTIME_2);
 			}
-
-			query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 
 			String sql = query.toString();
 
@@ -1082,22 +789,20 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				qPos.add(userId);
 
-				if (endTime != null) {
+				if (bindEndTime) {
 					qPos.add(CalendarUtil.getTimestamp(endTime));
 				}
 
 				List<TaskSession> list = q.list();
-
-				result = list;
-
-				TaskSession taskSession = null;
 
 				if (list.isEmpty()) {
 					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
 						finderArgs, list);
 				}
 				else {
-					taskSession = list.get(0);
+					TaskSession taskSession = list.get(0);
+
+					result = taskSession;
 
 					cacheResult(taskSession);
 
@@ -1108,30 +813,134 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 							finderArgs, taskSession);
 					}
 				}
-
-				return taskSession;
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E,
+					finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E,
-						finderArgs);
-				}
-
 				closeSession(session);
 			}
 		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
 		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (TaskSession)result;
-			}
+			return (TaskSession)result;
 		}
 	}
+
+	/**
+	 * Removes the task session where userId = &#63; and endTime = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the task session that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession removeByU_E(long userId, Date endTime)
+		throws NoSuchTaskSessionException, SystemException {
+		TaskSession taskSession = findByU_E(userId, endTime);
+
+		return remove(taskSession);
+	}
+
+	/**
+	 * Returns the number of task sessions where userId = &#63; and endTime = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param endTime the end time
+	 * @return the number of matching task sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByU_E(long userId, Date endTime) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_U_E;
+
+		Object[] finderArgs = new Object[] { userId, endTime };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TASKSESSION_WHERE);
+
+			query.append(_FINDER_COLUMN_U_E_USERID_2);
+
+			boolean bindEndTime = false;
+
+			if (endTime == null) {
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_1);
+			}
+			else {
+				bindEndTime = true;
+
+				query.append(_FINDER_COLUMN_U_E_ENDTIME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (bindEndTime) {
+					qPos.add(CalendarUtil.getTimestamp(endTime));
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_E_USERID_2 = "taskSession.userId = ? AND ";
+	private static final String _FINDER_COLUMN_U_E_ENDTIME_1 = "taskSession.endTime IS NULL";
+	private static final String _FINDER_COLUMN_U_E_ENDTIME_2 = "taskSession.endTime = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUserId",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID =
+		new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
+			new String[] { Long.class.getName() },
+			TaskSessionModelImpl.USERID_COLUMN_BITMASK |
+			TaskSessionModelImpl.STARTTIME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
+			new String[] { Long.class.getName() });
 
 	/**
 	 * Returns all the task sessions where userId = &#63;.
@@ -1140,6 +949,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByUserId(long userId)
 		throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -1149,7 +959,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns a range of all the task sessions where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1158,6 +968,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByUserId(long userId, int start, int end)
 		throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -1167,7 +978,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns an ordered range of all the task sessions where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1177,13 +988,16 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the ordered range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
+			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID;
 			finderArgs = new Object[] { userId };
 		}
@@ -1224,8 +1038,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
 					orderByComparator);
 			}
-
-			else {
+			else
+			 if (pagination) {
 				query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1242,22 +1056,29 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				qPos.add(userId);
 
-				list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
-						start, end);
+				if (!pagination) {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<TaskSession>(list);
+				}
+				else {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -1274,6 +1095,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1303,6 +1125,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the first matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<TaskSession> list = findByUserId(userId, 0, 1, orderByComparator);
@@ -1323,6 +1146,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1352,9 +1176,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the last matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<TaskSession> list = findByUserId(userId, count - 1, count,
 				orderByComparator);
@@ -1376,6 +1205,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession[] findByUserId_PrevAndNext(long taskSessionId,
 		long userId, OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1478,7 +1308,6 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				}
 			}
 		}
-
 		else {
 			query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 		}
@@ -1513,6 +1342,88 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	}
 
 	/**
+	 * Removes all the task sessions where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByUserId(long userId) throws SystemException {
+		for (TaskSession taskSession : findByUserId(userId, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null)) {
+			remove(taskSession);
+		}
+	}
+
+	/**
+	 * Returns the number of task sessions where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching task sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByUserId(long userId) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
+
+		Object[] finderArgs = new Object[] { userId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_TASKSESSION_WHERE);
+
+			query.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_USERID_USERID_2 = "taskSession.userId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_U_GTS = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, TaskSessionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByU_GtS",
+			new String[] {
+				Long.class.getName(), Date.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_U_GTS = new FinderPath(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByU_GtS",
+			new String[] { Long.class.getName(), Date.class.getName() });
+
+	/**
 	 * Returns all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	 *
 	 * @param userId the user ID
@@ -1520,6 +1431,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByU_GtS(long userId, Date startTime)
 		throws SystemException {
 		return findByU_GtS(userId, startTime, QueryUtil.ALL_POS,
@@ -1530,7 +1442,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns a range of all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1540,6 +1452,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByU_GtS(long userId, Date startTime,
 		int start, int end) throws SystemException {
 		return findByU_GtS(userId, startTime, start, end, null);
@@ -1549,7 +1462,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns an ordered range of all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1560,9 +1473,11 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the ordered range of matching task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findByU_GtS(long userId, Date startTime,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
@@ -1579,7 +1494,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		if ((list != null) && !list.isEmpty()) {
 			for (TaskSession taskSession : list) {
 				if ((userId != taskSession.getUserId()) ||
-						!Validator.equals(startTime, taskSession.getStartTime())) {
+						(startTime.getTime() >= taskSession.getStartTime()
+															   .getTime())) {
 					list = null;
 
 					break;
@@ -1602,10 +1518,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 			query.append(_FINDER_COLUMN_U_GTS_USERID_2);
 
+			boolean bindStartTime = false;
+
 			if (startTime == null) {
 				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_1);
 			}
 			else {
+				bindStartTime = true;
+
 				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_2);
 			}
 
@@ -1613,8 +1533,8 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
 					orderByComparator);
 			}
-
-			else {
+			else
+			 if (pagination) {
 				query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1631,26 +1551,33 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				qPos.add(userId);
 
-				if (startTime != null) {
+				if (bindStartTime) {
 					qPos.add(CalendarUtil.getTimestamp(startTime));
 				}
 
-				list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
-						start, end);
+				if (!pagination) {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<TaskSession>(list);
+				}
+				else {
+					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -1668,6 +1595,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByU_GtS_First(long userId, Date startTime,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1702,6 +1630,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the first matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByU_GtS_First(long userId, Date startTime,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<TaskSession> list = findByU_GtS(userId, startTime, 0, 1,
@@ -1724,6 +1653,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession findByU_GtS_Last(long userId, Date startTime,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1758,9 +1688,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the last matching task session, or <code>null</code> if a matching task session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession fetchByU_GtS_Last(long userId, Date startTime,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByU_GtS(userId, startTime);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<TaskSession> list = findByU_GtS(userId, startTime, count - 1,
 				count, orderByComparator);
@@ -1783,6 +1718,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public TaskSession[] findByU_GtS_PrevAndNext(long taskSessionId,
 		long userId, Date startTime, OrderByComparator orderByComparator)
 		throws NoSuchTaskSessionException, SystemException {
@@ -1830,10 +1766,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		query.append(_FINDER_COLUMN_U_GTS_USERID_2);
 
+		boolean bindStartTime = false;
+
 		if (startTime == null) {
 			query.append(_FINDER_COLUMN_U_GTS_STARTTIME_1);
 		}
 		else {
+			bindStartTime = true;
+
 			query.append(_FINDER_COLUMN_U_GTS_STARTTIME_2);
 		}
 
@@ -1892,7 +1832,6 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				}
 			}
 		}
-
 		else {
 			query.append(TaskSessionModelImpl.ORDER_BY_JPQL);
 		}
@@ -1908,7 +1847,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 		qPos.add(userId);
 
-		if (startTime != null) {
+		if (bindStartTime) {
 			qPos.add(CalendarUtil.getTimestamp(startTime));
 		}
 
@@ -1931,11 +1870,533 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	}
 
 	/**
+	 * Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param startTime the start time
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByU_GtS(long userId, Date startTime)
+		throws SystemException {
+		for (TaskSession taskSession : findByU_GtS(userId, startTime,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(taskSession);
+		}
+	}
+
+	/**
+	 * Returns the number of task sessions where userId = &#63; and startTime &gt; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param startTime the start time
+	 * @return the number of matching task sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByU_GtS(long userId, Date startTime)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_WITH_PAGINATION_COUNT_BY_U_GTS;
+
+		Object[] finderArgs = new Object[] { userId, startTime };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TASKSESSION_WHERE);
+
+			query.append(_FINDER_COLUMN_U_GTS_USERID_2);
+
+			boolean bindStartTime = false;
+
+			if (startTime == null) {
+				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_1);
+			}
+			else {
+				bindStartTime = true;
+
+				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (bindStartTime) {
+					qPos.add(CalendarUtil.getTimestamp(startTime));
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_GTS_USERID_2 = "taskSession.userId = ? AND ";
+	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_1 = "taskSession.startTime > NULL";
+	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_2 = "taskSession.startTime > ?";
+
+	public TaskSessionPersistenceImpl() {
+		setModelClass(TaskSession.class);
+	}
+
+	/**
+	 * Caches the task session in the entity cache if it is enabled.
+	 *
+	 * @param taskSession the task session
+	 */
+	@Override
+	public void cacheResult(TaskSession taskSession) {
+		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E,
+			new Object[] { taskSession.getUserId(), taskSession.getEndTime() },
+			taskSession);
+
+		taskSession.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the task sessions in the entity cache if it is enabled.
+	 *
+	 * @param taskSessions the task sessions
+	 */
+	@Override
+	public void cacheResult(List<TaskSession> taskSessions) {
+		for (TaskSession taskSession : taskSessions) {
+			if (EntityCacheUtil.getResult(
+						TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+						TaskSessionImpl.class, taskSession.getPrimaryKey()) == null) {
+				cacheResult(taskSession);
+			}
+			else {
+				taskSession.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all task sessions.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(TaskSessionImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(TaskSessionImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the task session.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(TaskSession taskSession) {
+		EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionImpl.class, taskSession.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(taskSession);
+	}
+
+	@Override
+	public void clearCache(List<TaskSession> taskSessions) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (TaskSession taskSession : taskSessions) {
+			EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+				TaskSessionImpl.class, taskSession.getPrimaryKey());
+
+			clearUniqueFindersCache(taskSession);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(TaskSession taskSession) {
+		if (taskSession.isNew()) {
+			Object[] args = new Object[] {
+					taskSession.getUserId(), taskSession.getEndTime()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_E, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E, args,
+				taskSession);
+		}
+		else {
+			TaskSessionModelImpl taskSessionModelImpl = (TaskSessionModelImpl)taskSession;
+
+			if ((taskSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_U_E.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						taskSession.getUserId(), taskSession.getEndTime()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_E, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_E, args,
+					taskSession);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(TaskSession taskSession) {
+		TaskSessionModelImpl taskSessionModelImpl = (TaskSessionModelImpl)taskSession;
+
+		Object[] args = new Object[] {
+				taskSession.getUserId(), taskSession.getEndTime()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_E, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E, args);
+
+		if ((taskSessionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_U_E.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					taskSessionModelImpl.getOriginalUserId(),
+					taskSessionModelImpl.getOriginalEndTime()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_E, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_E, args);
+		}
+	}
+
+	/**
+	 * Creates a new task session with the primary key. Does not add the task session to the database.
+	 *
+	 * @param taskSessionId the primary key for the new task session
+	 * @return the new task session
+	 */
+	@Override
+	public TaskSession create(long taskSessionId) {
+		TaskSession taskSession = new TaskSessionImpl();
+
+		taskSession.setNew(true);
+		taskSession.setPrimaryKey(taskSessionId);
+
+		return taskSession;
+	}
+
+	/**
+	 * Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param taskSessionId the primary key of the task session
+	 * @return the task session that was removed
+	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession remove(long taskSessionId)
+		throws NoSuchTaskSessionException, SystemException {
+		return remove((Serializable)taskSessionId);
+	}
+
+	/**
+	 * Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the task session
+	 * @return the task session that was removed
+	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession remove(Serializable primaryKey)
+		throws NoSuchTaskSessionException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			TaskSession taskSession = (TaskSession)session.get(TaskSessionImpl.class,
+					primaryKey);
+
+			if (taskSession == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchTaskSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(taskSession);
+		}
+		catch (NoSuchTaskSessionException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected TaskSession removeImpl(TaskSession taskSession)
+		throws SystemException {
+		taskSession = toUnwrappedModel(taskSession);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(taskSession)) {
+				taskSession = (TaskSession)session.get(TaskSessionImpl.class,
+						taskSession.getPrimaryKeyObj());
+			}
+
+			if (taskSession != null) {
+				session.delete(taskSession);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (taskSession != null) {
+			clearCache(taskSession);
+		}
+
+		return taskSession;
+	}
+
+	@Override
+	public TaskSession updateImpl(
+		com.liferay.timesheet.model.TaskSession taskSession)
+		throws SystemException {
+		taskSession = toUnwrappedModel(taskSession);
+
+		boolean isNew = taskSession.isNew();
+
+		TaskSessionModelImpl taskSessionModelImpl = (TaskSessionModelImpl)taskSession;
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (taskSession.isNew()) {
+				session.save(taskSession);
+
+				taskSession.setNew(false);
+			}
+			else {
+				session.merge(taskSession);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !TaskSessionModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((taskSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						taskSessionModelImpl.getOriginalUserId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
+					args);
+
+				args = new Object[] { taskSessionModelImpl.getUserId() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+			TaskSessionImpl.class, taskSession.getPrimaryKey(), taskSession);
+
+		clearUniqueFindersCache(taskSession);
+		cacheUniqueFindersCache(taskSession);
+
+		return taskSession;
+	}
+
+	protected TaskSession toUnwrappedModel(TaskSession taskSession) {
+		if (taskSession instanceof TaskSessionImpl) {
+			return taskSession;
+		}
+
+		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
+
+		taskSessionImpl.setNew(taskSession.isNew());
+		taskSessionImpl.setPrimaryKey(taskSession.getPrimaryKey());
+
+		taskSessionImpl.setTaskSessionId(taskSession.getTaskSessionId());
+		taskSessionImpl.setCreateDate(taskSession.getCreateDate());
+		taskSessionImpl.setModifiedDate(taskSession.getModifiedDate());
+		taskSessionImpl.setUserId(taskSession.getUserId());
+		taskSessionImpl.setEndTime(taskSession.getEndTime());
+		taskSessionImpl.setStartTime(taskSession.getStartTime());
+		taskSessionImpl.setTaskId(taskSession.getTaskId());
+
+		return taskSessionImpl;
+	}
+
+	/**
+	 * Returns the task session with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the task session
+	 * @return the task session
+	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchTaskSessionException, SystemException {
+		TaskSession taskSession = fetchByPrimaryKey(primaryKey);
+
+		if (taskSession == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchTaskSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return taskSession;
+	}
+
+	/**
+	 * Returns the task session with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
+	 *
+	 * @param taskSessionId the primary key of the task session
+	 * @return the task session
+	 * @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession findByPrimaryKey(long taskSessionId)
+		throws NoSuchTaskSessionException, SystemException {
+		return findByPrimaryKey((Serializable)taskSessionId);
+	}
+
+	/**
+	 * Returns the task session with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the task session
+	 * @return the task session, or <code>null</code> if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		TaskSession taskSession = (TaskSession)EntityCacheUtil.getResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+				TaskSessionImpl.class, primaryKey);
+
+		if (taskSession == _nullTaskSession) {
+			return null;
+		}
+
+		if (taskSession == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				taskSession = (TaskSession)session.get(TaskSessionImpl.class,
+						primaryKey);
+
+				if (taskSession != null) {
+					cacheResult(taskSession);
+				}
+				else {
+					EntityCacheUtil.putResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+						TaskSessionImpl.class, primaryKey, _nullTaskSession);
+				}
+			}
+			catch (Exception e) {
+				EntityCacheUtil.removeResult(TaskSessionModelImpl.ENTITY_CACHE_ENABLED,
+					TaskSessionImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return taskSession;
+	}
+
+	/**
+	 * Returns the task session with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param taskSessionId the primary key of the task session
+	 * @return the task session, or <code>null</code> if a task session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TaskSession fetchByPrimaryKey(long taskSessionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)taskSessionId);
+	}
+
+	/**
 	 * Returns all the task sessions.
 	 *
 	 * @return the task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1944,7 +2405,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns a range of all the task sessions.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of task sessions
@@ -1952,6 +2413,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the range of task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1961,7 +2423,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * Returns an ordered range of all the task sessions.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of task sessions
@@ -1970,13 +2432,16 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the ordered range of task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<TaskSession> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
-		Object[] finderArgs = new Object[] { start, end, orderByComparator };
+		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
+			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
@@ -2004,7 +2469,11 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				sql = query.toString();
 			}
 			else {
-				sql = _SQL_SELECT_TASKSESSION.concat(TaskSessionModelImpl.ORDER_BY_JPQL);
+				sql = _SQL_SELECT_TASKSESSION;
+
+				if (pagination) {
+					sql = sql.concat(TaskSessionModelImpl.ORDER_BY_JPQL);
+				}
 			}
 
 			Session session = null;
@@ -2014,30 +2483,29 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				Query q = session.createQuery(sql);
 
-				if (orderByComparator == null) {
+				if (!pagination) {
 					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
 							start, end, false);
 
 					Collections.sort(list);
+
+					list = new UnmodifiableList<TaskSession>(list);
 				}
 				else {
 					list = (List<TaskSession>)QueryUtil.list(q, getDialect(),
 							start, end);
 				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -2046,326 +2514,15 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	}
 
 	/**
-	 * Removes all the task sessions where startTime &gt; &#63; and endTime = &#63; from the database.
-	 *
-	 * @param startTime the start time
-	 * @param endTime the end time
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByS_E(Date startTime, Date endTime)
-		throws SystemException {
-		for (TaskSession taskSession : findByS_E(startTime, endTime)) {
-			remove(taskSession);
-		}
-	}
-
-	/**
-	 * Removes the task session where userId = &#63; and endTime = &#63; from the database.
-	 *
-	 * @param userId the user ID
-	 * @param endTime the end time
-	 * @return the task session that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public TaskSession removeByU_E(long userId, Date endTime)
-		throws NoSuchTaskSessionException, SystemException {
-		TaskSession taskSession = findByU_E(userId, endTime);
-
-		return remove(taskSession);
-	}
-
-	/**
-	 * Removes all the task sessions where userId = &#63; from the database.
-	 *
-	 * @param userId the user ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUserId(long userId) throws SystemException {
-		for (TaskSession taskSession : findByUserId(userId)) {
-			remove(taskSession);
-		}
-	}
-
-	/**
-	 * Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
-	 *
-	 * @param userId the user ID
-	 * @param startTime the start time
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByU_GtS(long userId, Date startTime)
-		throws SystemException {
-		for (TaskSession taskSession : findByU_GtS(userId, startTime)) {
-			remove(taskSession);
-		}
-	}
-
-	/**
 	 * Removes all the task sessions from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (TaskSession taskSession : findAll()) {
 			remove(taskSession);
 		}
-	}
-
-	/**
-	 * Returns the number of task sessions where startTime &gt; &#63; and endTime = &#63;.
-	 *
-	 * @param startTime the start time
-	 * @param endTime the end time
-	 * @return the number of matching task sessions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByS_E(Date startTime, Date endTime)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { startTime, endTime };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_S_E,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_TASKSESSION_WHERE);
-
-			if (startTime == null) {
-				query.append(_FINDER_COLUMN_S_E_STARTTIME_1);
-			}
-			else {
-				query.append(_FINDER_COLUMN_S_E_STARTTIME_2);
-			}
-
-			if (endTime == null) {
-				query.append(_FINDER_COLUMN_S_E_ENDTIME_1);
-			}
-			else {
-				query.append(_FINDER_COLUMN_S_E_ENDTIME_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (startTime != null) {
-					qPos.add(CalendarUtil.getTimestamp(startTime));
-				}
-
-				if (endTime != null) {
-					qPos.add(CalendarUtil.getTimestamp(endTime));
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_S_E,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of task sessions where userId = &#63; and endTime = &#63;.
-	 *
-	 * @param userId the user ID
-	 * @param endTime the end time
-	 * @return the number of matching task sessions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByU_E(long userId, Date endTime) throws SystemException {
-		Object[] finderArgs = new Object[] { userId, endTime };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_U_E,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_TASKSESSION_WHERE);
-
-			query.append(_FINDER_COLUMN_U_E_USERID_2);
-
-			if (endTime == null) {
-				query.append(_FINDER_COLUMN_U_E_ENDTIME_1);
-			}
-			else {
-				query.append(_FINDER_COLUMN_U_E_ENDTIME_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(userId);
-
-				if (endTime != null) {
-					qPos.add(CalendarUtil.getTimestamp(endTime));
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_E, finderArgs,
-					count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of task sessions where userId = &#63;.
-	 *
-	 * @param userId the user ID
-	 * @return the number of matching task sessions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUserId(long userId) throws SystemException {
-		Object[] finderArgs = new Object[] { userId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_USERID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_TASKSESSION_WHERE);
-
-			query.append(_FINDER_COLUMN_USERID_USERID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(userId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of task sessions where userId = &#63; and startTime &gt; &#63;.
-	 *
-	 * @param userId the user ID
-	 * @param startTime the start time
-	 * @return the number of matching task sessions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByU_GtS(long userId, Date startTime)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { userId, startTime };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_U_GTS,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_TASKSESSION_WHERE);
-
-			query.append(_FINDER_COLUMN_U_GTS_USERID_2);
-
-			if (startTime == null) {
-				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_1);
-			}
-			else {
-				query.append(_FINDER_COLUMN_U_GTS_STARTTIME_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(userId);
-
-				if (startTime != null) {
-					qPos.add(CalendarUtil.getTimestamp(startTime));
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_U_GTS,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -2374,6 +2531,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	 * @return the number of task sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2387,18 +2545,17 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 				Query q = session.createQuery(_SQL_COUNT_TASKSESSION);
 
 				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
 					FINDER_ARGS_EMPTY, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY);
 
+				throw processException(e);
+			}
+			finally {
 				closeSession(session);
 			}
 		}
@@ -2420,7 +2577,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<TaskSession>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
@@ -2434,34 +2591,14 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 	public void destroy() {
 		EntityCacheUtil.removeCache(TaskSessionImpl.class.getName());
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = ProjectPersistence.class)
-	protected ProjectPersistence projectPersistence;
-	@BeanReference(type = TaskPersistence.class)
-	protected TaskPersistence taskPersistence;
-	@BeanReference(type = TaskSessionPersistence.class)
-	protected TaskSessionPersistence taskSessionPersistence;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_TASKSESSION = "SELECT taskSession FROM TaskSession taskSession";
 	private static final String _SQL_SELECT_TASKSESSION_WHERE = "SELECT taskSession FROM TaskSession taskSession WHERE ";
 	private static final String _SQL_COUNT_TASKSESSION = "SELECT COUNT(taskSession) FROM TaskSession taskSession";
 	private static final String _SQL_COUNT_TASKSESSION_WHERE = "SELECT COUNT(taskSession) FROM TaskSession taskSession WHERE ";
-	private static final String _FINDER_COLUMN_S_E_STARTTIME_1 = "taskSession.startTime > NULL AND ";
-	private static final String _FINDER_COLUMN_S_E_STARTTIME_2 = "taskSession.startTime > ? AND ";
-	private static final String _FINDER_COLUMN_S_E_ENDTIME_1 = "taskSession.endTime IS NULL";
-	private static final String _FINDER_COLUMN_S_E_ENDTIME_2 = "taskSession.endTime = ?";
-	private static final String _FINDER_COLUMN_U_E_USERID_2 = "taskSession.userId = ? AND ";
-	private static final String _FINDER_COLUMN_U_E_ENDTIME_1 = "taskSession.endTime IS NULL";
-	private static final String _FINDER_COLUMN_U_E_ENDTIME_2 = "taskSession.endTime = ?";
-	private static final String _FINDER_COLUMN_USERID_USERID_2 = "taskSession.userId = ?";
-	private static final String _FINDER_COLUMN_U_GTS_USERID_2 = "taskSession.userId = ? AND ";
-	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_1 = "taskSession.startTime > NULL";
-	private static final String _FINDER_COLUMN_U_GTS_STARTTIME_2 = "taskSession.startTime > ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "taskSession.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No TaskSession exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No TaskSession exists with the key {";
@@ -2481,6 +2618,7 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		};
 
 	private static CacheModel<TaskSession> _nullTaskSessionCacheModel = new CacheModel<TaskSession>() {
+			@Override
 			public TaskSession toEntityModel() {
 				return _nullTaskSession;
 			}

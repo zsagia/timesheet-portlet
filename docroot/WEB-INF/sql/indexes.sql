@@ -1,5 +1,6 @@
 create index IX_F1CF7648 on timesheet_Project (parentProjectId);
 create index IX_F508FA42 on timesheet_Project (uuid_);
+create index IX_6ABD6CA6 on timesheet_Project (uuid_, companyId);
 
 create index IX_F3AE5F87 on timesheet_Task (companyId, creatorId);
 create index IX_3F299F0A on timesheet_Task (companyId, userId);

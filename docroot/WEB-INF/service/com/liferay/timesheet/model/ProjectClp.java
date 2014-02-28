@@ -1,30 +1,34 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,26 +41,32 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	public ProjectClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Project.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Project.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _projectId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setProjectId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_projectId);
+		return _projectId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -135,76 +145,217 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		_uuid = uuid;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUuid", String.class);
+
+				method.invoke(_projectRemoteModel, uuid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getProjectId() {
 		return _projectId;
 	}
 
+	@Override
 	public void setProjectId(long projectId) {
 		_projectId = projectId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setProjectId", long.class);
+
+				method.invoke(_projectRemoteModel, projectId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_projectRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_projectRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getCreatorId() {
 		return _creatorId;
 	}
 
+	@Override
 	public void setCreatorId(long creatorId) {
 		_creatorId = creatorId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreatorId", long.class);
+
+				method.invoke(_projectRemoteModel, creatorId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_projectRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Boolean getEnabled() {
 		return _enabled;
 	}
 
+	@Override
 	public void setEnabled(Boolean enabled) {
 		_enabled = enabled;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEnabled", Boolean.class);
+
+				method.invoke(_projectRemoteModel, enabled);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getProjectName() {
 		return _projectName;
 	}
 
+	@Override
 	public void setProjectName(String projectName) {
 		_projectName = projectName;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setProjectName", String.class);
+
+				method.invoke(_projectRemoteModel, projectName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Long getParentProjectId() {
 		return _parentProjectId;
 	}
 
+	@Override
 	public void setParentProjectId(Long parentProjectId) {
 		_parentProjectId = parentProjectId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setParentProjectId", Long.class);
+
+				method.invoke(_projectRemoteModel, parentProjectId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				Project.class.getName()));
 	}
 
 	public BaseModel<?> getProjectRemoteModel() {
@@ -215,6 +366,48 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		_projectRemoteModel = projectRemoteModel;
 	}
 
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _projectRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_projectRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			ProjectLocalServiceUtil.addProject(this);
@@ -226,7 +419,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	@Override
 	public Project toEscapedModel() {
-		return (Project)Proxy.newProxyInstance(Project.class.getClassLoader(),
+		return (Project)ProxyUtil.newProxyInstance(Project.class.getClassLoader(),
 			new Class[] { Project.class }, new AutoEscapeBeanHandler(this));
 	}
 
@@ -247,6 +440,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		return clone;
 	}
 
+	@Override
 	public int compareTo(Project project) {
 		int value = 0;
 
@@ -261,18 +455,15 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof ProjectClp)) {
 			return false;
 		}
 
-		ProjectClp project = null;
-
-		try {
-			project = (ProjectClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		ProjectClp project = (ProjectClp)obj;
 
 		long primaryKey = project.getPrimaryKey();
 
@@ -316,6 +507,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(31);
 

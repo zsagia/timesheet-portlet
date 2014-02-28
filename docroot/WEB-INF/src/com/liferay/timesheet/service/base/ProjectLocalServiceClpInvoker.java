@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.base;
@@ -19,7 +19,8 @@ import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Istvan Sajtos, Zsolt Szabo
+ * @generated
  */
 public class ProjectLocalServiceClpInvoker {
 	public ProjectLocalServiceClpInvoker() {
@@ -72,55 +73,64 @@ public class ProjectLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchProject";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getProject";
+		_methodName10 = "fetchProject";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "fetchProjectByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getProjects";
+		_methodName12 = "getProject";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "long" };
 
-		_methodName13 = "getProjectsCount";
+		_methodName13 = "getPersistedModel";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "java.io.Serializable" };
 
-		_methodName14 = "updateProject";
+		_methodName14 = "getProjectByUuidAndCompanyId";
 
-		_methodParameterTypes14 = new String[] {
+		_methodParameterTypes14 = new String[] { "java.lang.String", "long" };
+
+		_methodName15 = "getProjects";
+
+		_methodParameterTypes15 = new String[] { "int", "int" };
+
+		_methodName16 = "getProjectsCount";
+
+		_methodParameterTypes16 = new String[] {  };
+
+		_methodName17 = "updateProject";
+
+		_methodParameterTypes17 = new String[] {
 				"com.liferay.timesheet.model.Project"
 			};
 
-		_methodName15 = "updateProject";
+		_methodName44 = "getBeanIdentifier";
 
-		_methodParameterTypes15 = new String[] {
-				"com.liferay.timesheet.model.Project", "boolean"
-			};
+		_methodParameterTypes44 = new String[] {  };
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName45 = "setBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes45 = new String[] { "java.lang.String" };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName50 = "addProject";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
-
-		_methodName52 = "addProject";
-
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes50 = new String[] {
 				"java.lang.String", "long", "long", "boolean"
 			};
 
-		_methodName53 = "getProjects";
+		_methodName51 = "getProjects";
 
-		_methodParameterTypes53 = new String[] { "long" };
+		_methodParameterTypes51 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -177,63 +187,75 @@ public class ProjectLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return ProjectLocalServiceUtil.fetchProject(((Long)arguments[0]).longValue());
+			return ProjectLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProject(((Long)arguments[0]).longValue());
+			return ProjectLocalServiceUtil.fetchProject(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return ProjectLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return ProjectLocalServiceUtil.fetchProjectByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjects(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return ProjectLocalServiceUtil.getProject(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjectsCount();
+			return ProjectLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return ProjectLocalServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
+			return ProjectLocalServiceUtil.getProjectByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return ProjectLocalServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+			return ProjectLocalServiceUtil.getProjects(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return ProjectLocalServiceUtil.getProjectsCount();
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return ProjectLocalServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
+		}
+
+		if (_methodName44.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
 			return ProjectLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName45.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
 			ProjectLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return ProjectLocalServiceUtil.addProject((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
 				((Boolean)arguments[3]).booleanValue());
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return ProjectLocalServiceUtil.getProjects(((Long)arguments[0]).longValue());
 		}
 
@@ -272,12 +294,16 @@ public class ProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName44;
+	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
 }

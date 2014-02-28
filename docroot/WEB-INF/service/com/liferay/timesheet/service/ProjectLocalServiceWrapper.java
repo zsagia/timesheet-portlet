@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service;
@@ -17,12 +17,10 @@ package com.liferay.timesheet.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link ProjectLocalService}.
- * </p>
+ * Provides a wrapper for {@link ProjectLocalService}.
  *
- * @author    Istvan Sajtos, Zsolt Szabo
- * @see       ProjectLocalService
+ * @author Istvan Sajtos, Zsolt Szabo
+ * @see ProjectLocalService
  * @generated
  */
 public class ProjectLocalServiceWrapper implements ProjectLocalService,
@@ -38,6 +36,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the project that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project addProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +49,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @param projectId the primary key for the new project
 	* @return the new project
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project createProject(long projectId) {
 		return _projectLocalService.createProject(projectId);
 	}
@@ -62,6 +62,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project deleteProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -75,12 +76,14 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the project that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project deleteProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.deleteProject(project);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _projectLocalService.dynamicQuery();
 	}
@@ -92,6 +95,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -103,7 +107,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* Performs a dynamic query on the database and returns a range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -112,6 +116,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -123,7 +128,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -133,6 +138,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -150,15 +156,49 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Project fetchProject(long projectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.fetchProject(projectId);
+	}
+
+	/**
+	* Returns the project with the matching UUID and company.
+	*
+	* @param uuid the project's UUID
+	* @param companyId the primary key of the company
+	* @return the matching project, or <code>null</code> if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.timesheet.model.Project fetchProjectByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.fetchProjectByUuidAndCompanyId(uuid,
+			companyId);
 	}
 
 	/**
@@ -169,12 +209,14 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @throws PortalException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project getProject(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.getProject(projectId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -183,10 +225,27 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	/**
+	* Returns the project with the matching UUID and company.
+	*
+	* @param uuid the project's UUID
+	* @param companyId the primary key of the company
+	* @return the matching project
+	* @throws PortalException if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.timesheet.model.Project getProjectByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.getProjectByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
 	* Returns a range of all the projects.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of projects
@@ -194,6 +253,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the range of projects
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -206,6 +266,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the number of projects
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getProjectsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.getProjectsCount();
@@ -218,6 +279,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	* @return the project that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.timesheet.model.Project updateProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -225,24 +287,11 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	/**
-	* Updates the project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param project the project
-	* @param merge whether to merge the project with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the project that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.timesheet.model.Project updateProject(
-		com.liferay.timesheet.model.Project project, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.updateProject(project, merge);
-	}
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _projectLocalService.getBeanIdentifier();
 	}
@@ -252,16 +301,19 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_projectLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return _projectLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Project addProject(
 		java.lang.String projectName, long creatorId, long parentProjectId,
 		boolean enabled)
@@ -271,6 +323,7 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 			parentProjectId, enabled);
 	}
 
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -278,24 +331,26 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public ProjectLocalService getWrappedProjectLocalService() {
 		return _projectLocalService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedProjectLocalService(
 		ProjectLocalService projectLocalService) {
 		_projectLocalService = projectLocalService;
 	}
 
+	@Override
 	public ProjectLocalService getWrappedService() {
 		return _projectLocalService;
 	}
 
+	@Override
 	public void setWrappedService(ProjectLocalService projectLocalService) {
 		_projectLocalService = projectLocalService;
 	}

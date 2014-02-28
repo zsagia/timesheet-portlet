@@ -1,20 +1,21 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -22,6 +23,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -85,34 +87,42 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Project"),
 			true);
-	public static long PARENTPROJECTID_COLUMN_BITMASK = 1L;
-	public static long UUID_COLUMN_BITMASK = 2L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long PARENTPROJECTID_COLUMN_BITMASK = 2L;
+	public static long UUID_COLUMN_BITMASK = 4L;
+	public static long PROJECTNAME_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Project"));
 
 	public ProjectModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _projectId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setProjectId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_projectId);
+		return _projectId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Project.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Project.class.getName();
 	}
@@ -191,6 +201,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -200,6 +211,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -212,54 +224,79 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	public long getProjectId() {
 		return _projectId;
 	}
 
+	@Override
 	public void setProjectId(long projectId) {
 		_projectId = projectId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
 	}
 
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public long getCreatorId() {
 		return _creatorId;
 	}
 
+	@Override
 	public void setCreatorId(long creatorId) {
 		_creatorId = creatorId;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public Boolean getEnabled() {
 		return _enabled;
 	}
 
+	@Override
 	public void setEnabled(Boolean enabled) {
 		_enabled = enabled;
 	}
 
+	@Override
 	public String getProjectName() {
 		if (_projectName == null) {
 			return StringPool.BLANK;
@@ -269,16 +306,19 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		}
 	}
 
+	@Override
 	public void setProjectName(String projectName) {
 		_columnBitmask = -1L;
 
 		_projectName = projectName;
 	}
 
+	@Override
 	public Long getParentProjectId() {
 		return _parentProjectId;
 	}
 
+	@Override
 	public void setParentProjectId(Long parentProjectId) {
 		_columnBitmask |= PARENTPROJECTID_COLUMN_BITMASK;
 
@@ -293,6 +333,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	public Long getOriginalParentProjectId() {
 		return _originalParentProjectId;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				Project.class.getName()));
 	}
 
 	public long getColumnBitmask() {
@@ -314,13 +360,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public Project toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (Project)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (Project)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
 	}
 
 	@Override
@@ -342,6 +387,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return projectImpl;
 	}
 
+	@Override
 	public int compareTo(Project project) {
 		int value = 0;
 
@@ -356,18 +402,15 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof Project)) {
 			return false;
 		}
 
-		Project project = null;
-
-		try {
-			project = (Project)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		Project project = (Project)obj;
 
 		long primaryKey = project.getPrimaryKey();
 
@@ -389,6 +432,10 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		ProjectModelImpl projectModelImpl = this;
 
 		projectModelImpl._originalUuid = projectModelImpl._uuid;
+
+		projectModelImpl._originalCompanyId = projectModelImpl._companyId;
+
+		projectModelImpl._setOriginalCompanyId = false;
 
 		projectModelImpl._originalParentProjectId = projectModelImpl._parentProjectId;
 
@@ -475,6 +522,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(31);
 
@@ -525,13 +573,15 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	}
 
 	private static ClassLoader _classLoader = Project.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			Project.class
 		};
 	private String _uuid;
 	private String _originalUuid;
 	private long _projectId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private Date _createDate;
 	private long _creatorId;
 	private Date _modifiedDate;
@@ -541,5 +591,5 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	private Long _originalParentProjectId;
 	private boolean _setOriginalParentProjectId;
 	private long _columnBitmask;
-	private Project _escapedModelProxy;
+	private Project _escapedModel;
 }

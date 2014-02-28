@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model.impl;
@@ -91,26 +91,32 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public TaskModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _taskId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setTaskId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_taskId);
+		return _taskId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Task.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Task.class.getName();
 	}
@@ -168,18 +174,22 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		}
 	}
 
+	@Override
 	public long getTaskId() {
 		return _taskId;
 	}
 
+	@Override
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -196,18 +206,22 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return _originalCompanyId;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public long getCreatorId() {
 		return _creatorId;
 	}
 
+	@Override
 	public void setCreatorId(long creatorId) {
 		_columnBitmask |= CREATORID_COLUMN_BITMASK;
 
@@ -224,6 +238,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return _originalCreatorId;
 	}
 
+	@Override
 	public String getTaskName() {
 		if (_taskName == null) {
 			return StringPool.BLANK;
@@ -233,6 +248,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		}
 	}
 
+	@Override
 	public void setTaskName(String taskName) {
 		_columnBitmask = -1L;
 
@@ -247,10 +263,12 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return GetterUtil.getString(_originalTaskName);
 	}
 
+	@Override
 	public long getProjectId() {
 		return _projectId;
 	}
 
+	@Override
 	public void setProjectId(long projectId) {
 		_columnBitmask |= PROJECTID_COLUMN_BITMASK;
 
@@ -286,13 +304,12 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public Task toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (Task)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (Task)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
 	}
 
 	@Override
@@ -311,6 +328,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return taskImpl;
 	}
 
+	@Override
 	public int compareTo(Task task) {
 		int value = 0;
 
@@ -325,18 +343,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof Task)) {
 			return false;
 		}
 
-		Task task = null;
-
-		try {
-			task = (Task)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		Task task = (Task)obj;
 
 		long primaryKey = task.getPrimaryKey();
 
@@ -427,6 +442,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(22);
 
@@ -465,9 +481,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	private static ClassLoader _classLoader = Task.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
-			Task.class
-		};
+	private static Class<?>[] _escapedModelInterfaces = new Class[] { Task.class };
 	private long _taskId;
 	private long _companyId;
 	private long _originalCompanyId;
@@ -482,5 +496,5 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private long _originalProjectId;
 	private boolean _setOriginalProjectId;
 	private long _columnBitmask;
-	private Task _escapedModelProxy;
+	private Task _escapedModel;
 }

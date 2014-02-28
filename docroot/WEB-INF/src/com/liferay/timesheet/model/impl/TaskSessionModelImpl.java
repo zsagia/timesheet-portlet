@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model.impl;
@@ -94,26 +94,32 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	public TaskSessionModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _taskSessionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setTaskSessionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_taskSessionId);
+		return _taskSessionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return TaskSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return TaskSession.class.getName();
 	}
@@ -178,34 +184,42 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		}
 	}
 
+	@Override
 	public long getTaskSessionId() {
 		return _taskSessionId;
 	}
 
+	@Override
 	public void setTaskSessionId(long taskSessionId) {
 		_taskSessionId = taskSessionId;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -218,10 +232,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -230,10 +246,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		return _originalUserId;
 	}
 
+	@Override
 	public Date getEndTime() {
 		return _endTime;
 	}
 
+	@Override
 	public void setEndTime(Date endTime) {
 		_columnBitmask |= ENDTIME_COLUMN_BITMASK;
 
@@ -248,10 +266,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		return _originalEndTime;
 	}
 
+	@Override
 	public Date getStartTime() {
 		return _startTime;
 	}
 
+	@Override
 	public void setStartTime(Date startTime) {
 		_columnBitmask = -1L;
 
@@ -266,10 +286,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		return _originalStartTime;
 	}
 
+	@Override
 	public long getTaskId() {
 		return _taskId;
 	}
 
+	@Override
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
 	}
@@ -293,13 +315,12 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public TaskSession toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (TaskSession)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (TaskSession)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
 	}
 
 	@Override
@@ -319,6 +340,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		return taskSessionImpl;
 	}
 
+	@Override
 	public int compareTo(TaskSession taskSession) {
 		int value = 0;
 
@@ -335,18 +357,15 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof TaskSession)) {
 			return false;
 		}
 
-		TaskSession taskSession = null;
-
-		try {
-			taskSession = (TaskSession)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		TaskSession taskSession = (TaskSession)obj;
 
 		long primaryKey = taskSession.getPrimaryKey();
 
@@ -450,6 +469,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(25);
 
@@ -492,7 +512,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	}
 
 	private static ClassLoader _classLoader = TaskSession.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			TaskSession.class
 		};
 	private long _taskSessionId;
@@ -508,5 +528,5 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	private Date _originalStartTime;
 	private long _taskId;
 	private long _columnBitmask;
-	private TaskSession _escapedModelProxy;
+	private TaskSession _escapedModel;
 }

@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service;
@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Istvan Sajtos, Zsolt Szabo
+ * @generated
  */
 public class TaskLocalServiceClp implements TaskLocalService {
 	public TaskLocalServiceClp(InvokableLocalService invokableLocalService) {
@@ -68,36 +69,37 @@ public class TaskLocalServiceClp implements TaskLocalService {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchTask";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getTask";
+		_methodName10 = "fetchTask";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getTask";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getTasks";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getTasksCount";
+		_methodName13 = "getTasks";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updateTask";
+		_methodName14 = "getTasksCount";
 
-		_methodParameterTypes14 = new String[] {
-				"com.liferay.timesheet.model.Task"
-			};
+		_methodParameterTypes14 = new String[] {  };
 
 		_methodName15 = "updateTask";
 
 		_methodParameterTypes15 = new String[] {
-				"com.liferay.timesheet.model.Task", "boolean"
+				"com.liferay.timesheet.model.Task"
 			};
 
 		_methodName16 = "getBeanIdentifier";
@@ -127,6 +129,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		_methodParameterTypes22 = new String[] { "long" };
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task addTask(
 		com.liferay.timesheet.model.Task task)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -156,6 +159,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task createTask(long taskId) {
 		Object returnObj = null;
 
@@ -178,6 +182,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task deleteTask(long taskId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -210,6 +215,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task deleteTask(
 		com.liferay.timesheet.model.Task task)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -239,6 +245,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -261,6 +268,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -291,6 +299,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -327,6 +336,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -367,6 +377,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -396,13 +407,49 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
-	public com.liferay.timesheet.model.Task fetchTask(long taskId)
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { taskId });
+					_methodParameterTypes9,
+					new Object[] {
+						ClpSerializer.translateInput(dynamicQuery),
+						
+					ClpSerializer.translateInput(projection)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Long)returnObj).longValue();
+	}
+
+	@Override
+	public com.liferay.timesheet.model.Task fetchTask(long taskId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10, new Object[] { taskId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -423,14 +470,15 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task getTask(long taskId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10, new Object[] { taskId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11, new Object[] { taskId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -455,6 +503,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -462,8 +511,8 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -489,14 +538,15 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Task> getTasks(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -517,13 +567,14 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List<com.liferay.timesheet.model.Task>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getTasksCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -544,14 +595,15 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task updateTask(
 		com.liferay.timesheet.model.Task task)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
 					new Object[] { ClpSerializer.translateInput(task) });
 		}
 		catch (Throwable t) {
@@ -573,35 +625,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.timesheet.model.Task updateTask(
-		com.liferay.timesheet.model.Task task, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
-					new Object[] { ClpSerializer.translateInput(task), merge });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
-	}
-
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -624,6 +648,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
@@ -643,12 +668,14 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
 		long creatorId, long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -689,6 +716,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task getTaskByTN_CR(
 		java.lang.String taskName, long creatorId) {
 		Object returnObj = null;
@@ -717,6 +745,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (com.liferay.timesheet.model.Task)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByCreatorId(
 		long creatorId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -750,6 +779,7 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List<com.liferay.timesheet.model.Task>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
 		long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,

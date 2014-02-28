@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.persistence;
@@ -61,7 +61,7 @@ public class ProjectUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
-	public long countWithDynamicQuery(DynamicQuery dynamicQuery)
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
@@ -95,96 +95,18 @@ public class ProjectUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static Project update(Project project, boolean merge)
+	public static Project update(Project project) throws SystemException {
+		return getPersistence().update(project);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
+	 */
+	public static Project update(Project project, ServiceContext serviceContext)
 		throws SystemException {
-		return getPersistence().update(project, merge);
-	}
-
-	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
-	 */
-	public static Project update(Project project, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(project, merge, serviceContext);
-	}
-
-	/**
-	* Caches the project in the entity cache if it is enabled.
-	*
-	* @param project the project
-	*/
-	public static void cacheResult(com.liferay.timesheet.model.Project project) {
-		getPersistence().cacheResult(project);
-	}
-
-	/**
-	* Caches the projects in the entity cache if it is enabled.
-	*
-	* @param projects the projects
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.timesheet.model.Project> projects) {
-		getPersistence().cacheResult(projects);
-	}
-
-	/**
-	* Creates a new project with the primary key. Does not add the project to the database.
-	*
-	* @param projectId the primary key for the new project
-	* @return the new project
-	*/
-	public static com.liferay.timesheet.model.Project create(long projectId) {
-		return getPersistence().create(projectId);
-	}
-
-	/**
-	* Removes the project with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param projectId the primary key of the project
-	* @return the project that was removed
-	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Project remove(long projectId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchProjectException {
-		return getPersistence().remove(projectId);
-	}
-
-	public static com.liferay.timesheet.model.Project updateImpl(
-		com.liferay.timesheet.model.Project project, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(project, merge);
-	}
-
-	/**
-	* Returns the project with the primary key or throws a {@link com.liferay.timesheet.NoSuchProjectException} if it could not be found.
-	*
-	* @param projectId the primary key of the project
-	* @return the project
-	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Project findByPrimaryKey(
-		long projectId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchProjectException {
-		return getPersistence().findByPrimaryKey(projectId);
-	}
-
-	/**
-	* Returns the project with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param projectId the primary key of the project
-	* @return the project, or <code>null</code> if a project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Project fetchByPrimaryKey(
-		long projectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(projectId);
+		return getPersistence().update(project, serviceContext);
 	}
 
 	/**
@@ -204,7 +126,7 @@ public class ProjectUtil {
 	* Returns a range of all the projects where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -223,7 +145,7 @@ public class ProjectUtil {
 	* Returns an ordered range of all the projects where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -324,6 +246,204 @@ public class ProjectUtil {
 	}
 
 	/**
+	* Removes all the projects where uuid = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUuid(uuid);
+	}
+
+	/**
+	* Returns the number of projects where uuid = &#63;.
+	*
+	* @param uuid the uuid
+	* @return the number of matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUuid(uuid);
+	}
+
+	/**
+	* Returns all the projects where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Project> findByUuid_C(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUuid_C(uuid, companyId);
+	}
+
+	/**
+	* Returns a range of all the projects where uuid = &#63; and companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param start the lower bound of the range of projects
+	* @param end the upper bound of the range of projects (not inclusive)
+	* @return the range of matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Project> findByUuid_C(
+		java.lang.String uuid, long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUuid_C(uuid, companyId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the projects where uuid = &#63; and companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param start the lower bound of the range of projects
+	* @param end the upper bound of the range of projects (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Project> findByUuid_C(
+		java.lang.String uuid, long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByUuid_C(uuid, companyId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first project in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching project
+	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project findByUuid_C_First(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchProjectException {
+		return getPersistence()
+				   .findByUuid_C_First(uuid, companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the first project in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching project, or <code>null</code> if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project fetchByUuid_C_First(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByUuid_C_First(uuid, companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last project in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching project
+	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project findByUuid_C_Last(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchProjectException {
+		return getPersistence()
+				   .findByUuid_C_Last(uuid, companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last project in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching project, or <code>null</code> if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project fetchByUuid_C_Last(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByUuid_C_Last(uuid, companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the projects before and after the current project in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param projectId the primary key of the current project
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next project
+	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project[] findByUuid_C_PrevAndNext(
+		long projectId, java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchProjectException {
+		return getPersistence()
+				   .findByUuid_C_PrevAndNext(projectId, uuid, companyId,
+			orderByComparator);
+	}
+
+	/**
+	* Removes all the projects where uuid = &#63; and companyId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUuid_C(uuid, companyId);
+	}
+
+	/**
+	* Returns the number of projects where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the number of matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUuid_C(uuid, companyId);
+	}
+
+	/**
 	* Returns all the projects where parentProjectId = &#63;.
 	*
 	* @param parentProjectId the parent project ID
@@ -340,7 +460,7 @@ public class ProjectUtil {
 	* Returns a range of all the projects where parentProjectId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param parentProjectId the parent project ID
@@ -360,7 +480,7 @@ public class ProjectUtil {
 	* Returns an ordered range of all the projects where parentProjectId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param parentProjectId the parent project ID
@@ -472,6 +592,106 @@ public class ProjectUtil {
 	}
 
 	/**
+	* Removes all the projects where parentProjectId = &#63; from the database.
+	*
+	* @param parentProjectId the parent project ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByParentProjectId(java.lang.Long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByParentProjectId(parentProjectId);
+	}
+
+	/**
+	* Returns the number of projects where parentProjectId = &#63;.
+	*
+	* @param parentProjectId the parent project ID
+	* @return the number of matching projects
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByParentProjectId(java.lang.Long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByParentProjectId(parentProjectId);
+	}
+
+	/**
+	* Caches the project in the entity cache if it is enabled.
+	*
+	* @param project the project
+	*/
+	public static void cacheResult(com.liferay.timesheet.model.Project project) {
+		getPersistence().cacheResult(project);
+	}
+
+	/**
+	* Caches the projects in the entity cache if it is enabled.
+	*
+	* @param projects the projects
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.timesheet.model.Project> projects) {
+		getPersistence().cacheResult(projects);
+	}
+
+	/**
+	* Creates a new project with the primary key. Does not add the project to the database.
+	*
+	* @param projectId the primary key for the new project
+	* @return the new project
+	*/
+	public static com.liferay.timesheet.model.Project create(long projectId) {
+		return getPersistence().create(projectId);
+	}
+
+	/**
+	* Removes the project with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param projectId the primary key of the project
+	* @return the project that was removed
+	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project remove(long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchProjectException {
+		return getPersistence().remove(projectId);
+	}
+
+	public static com.liferay.timesheet.model.Project updateImpl(
+		com.liferay.timesheet.model.Project project)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(project);
+	}
+
+	/**
+	* Returns the project with the primary key or throws a {@link com.liferay.timesheet.NoSuchProjectException} if it could not be found.
+	*
+	* @param projectId the primary key of the project
+	* @return the project
+	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project findByPrimaryKey(
+		long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchProjectException {
+		return getPersistence().findByPrimaryKey(projectId);
+	}
+
+	/**
+	* Returns the project with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param projectId the primary key of the project
+	* @return the project, or <code>null</code> if a project with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Project fetchByPrimaryKey(
+		long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(projectId);
+	}
+
+	/**
 	* Returns all the projects.
 	*
 	* @return the projects
@@ -486,7 +706,7 @@ public class ProjectUtil {
 	* Returns a range of all the projects.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of projects
@@ -504,7 +724,7 @@ public class ProjectUtil {
 	* Returns an ordered range of all the projects.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of projects
@@ -521,28 +741,6 @@ public class ProjectUtil {
 	}
 
 	/**
-	* Removes all the projects where uuid = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByUuid(uuid);
-	}
-
-	/**
-	* Removes all the projects where parentProjectId = &#63; from the database.
-	*
-	* @param parentProjectId the parent project ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByParentProjectId(java.lang.Long parentProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByParentProjectId(parentProjectId);
-	}
-
-	/**
 	* Removes all the projects from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -550,30 +748,6 @@ public class ProjectUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of projects where uuid = &#63;.
-	*
-	* @param uuid the uuid
-	* @return the number of matching projects
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByUuid(uuid);
-	}
-
-	/**
-	* Returns the number of projects where parentProjectId = &#63;.
-	*
-	* @param parentProjectId the parent project ID
-	* @return the number of matching projects
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByParentProjectId(java.lang.Long parentProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByParentProjectId(parentProjectId);
 	}
 
 	/**
@@ -600,7 +774,7 @@ public class ProjectUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setPersistence(ProjectPersistence persistence) {
 	}

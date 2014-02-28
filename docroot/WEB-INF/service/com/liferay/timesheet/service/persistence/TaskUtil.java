@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.persistence;
@@ -61,7 +61,7 @@ public class TaskUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
-	public long countWithDynamicQuery(DynamicQuery dynamicQuery)
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
@@ -94,94 +94,18 @@ public class TaskUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static Task update(Task task, boolean merge)
+	public static Task update(Task task) throws SystemException {
+		return getPersistence().update(task);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
+	 */
+	public static Task update(Task task, ServiceContext serviceContext)
 		throws SystemException {
-		return getPersistence().update(task, merge);
-	}
-
-	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
-	 */
-	public static Task update(Task task, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(task, merge, serviceContext);
-	}
-
-	/**
-	* Caches the task in the entity cache if it is enabled.
-	*
-	* @param task the task
-	*/
-	public static void cacheResult(com.liferay.timesheet.model.Task task) {
-		getPersistence().cacheResult(task);
-	}
-
-	/**
-	* Caches the tasks in the entity cache if it is enabled.
-	*
-	* @param tasks the tasks
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.timesheet.model.Task> tasks) {
-		getPersistence().cacheResult(tasks);
-	}
-
-	/**
-	* Creates a new task with the primary key. Does not add the task to the database.
-	*
-	* @param taskId the primary key for the new task
-	* @return the new task
-	*/
-	public static com.liferay.timesheet.model.Task create(long taskId) {
-		return getPersistence().create(taskId);
-	}
-
-	/**
-	* Removes the task with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param taskId the primary key of the task
-	* @return the task that was removed
-	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Task remove(long taskId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskException {
-		return getPersistence().remove(taskId);
-	}
-
-	public static com.liferay.timesheet.model.Task updateImpl(
-		com.liferay.timesheet.model.Task task, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(task, merge);
-	}
-
-	/**
-	* Returns the task with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
-	*
-	* @param taskId the primary key of the task
-	* @return the task
-	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Task findByPrimaryKey(long taskId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskException {
-		return getPersistence().findByPrimaryKey(taskId);
-	}
-
-	/**
-	* Returns the task with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param taskId the primary key of the task
-	* @return the task, or <code>null</code> if a task with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Task fetchByPrimaryKey(
-		long taskId) throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(taskId);
+		return getPersistence().update(task, serviceContext);
 	}
 
 	/**
@@ -201,7 +125,7 @@ public class TaskUtil {
 	* Returns a range of all the tasks where projectId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param projectId the project ID
@@ -220,7 +144,7 @@ public class TaskUtil {
 	* Returns an ordered range of all the tasks where projectId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param projectId the project ID
@@ -327,6 +251,29 @@ public class TaskUtil {
 	}
 
 	/**
+	* Removes all the tasks where projectId = &#63; from the database.
+	*
+	* @param projectId the project ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByProjectId(long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByProjectId(projectId);
+	}
+
+	/**
+	* Returns the number of tasks where projectId = &#63;.
+	*
+	* @param projectId the project ID
+	* @return the number of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByProjectId(long projectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByProjectId(projectId);
+	}
+
+	/**
 	* Returns the task where taskName = &#63; and creatorId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
 	*
 	* @param taskName the task name
@@ -373,6 +320,34 @@ public class TaskUtil {
 	}
 
 	/**
+	* Removes the task where taskName = &#63; and creatorId = &#63; from the database.
+	*
+	* @param taskName the task name
+	* @param creatorId the creator ID
+	* @return the task that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Task removeByTN_CR(
+		java.lang.String taskName, long creatorId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException {
+		return getPersistence().removeByTN_CR(taskName, creatorId);
+	}
+
+	/**
+	* Returns the number of tasks where taskName = &#63; and creatorId = &#63;.
+	*
+	* @param taskName the task name
+	* @param creatorId the creator ID
+	* @return the number of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByTN_CR(java.lang.String taskName, long creatorId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByTN_CR(taskName, creatorId);
+	}
+
+	/**
 	* Returns all the tasks where companyId = &#63; and creatorId = &#63;.
 	*
 	* @param companyId the company ID
@@ -390,7 +365,7 @@ public class TaskUtil {
 	* Returns a range of all the tasks where companyId = &#63; and creatorId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param companyId the company ID
@@ -410,7 +385,7 @@ public class TaskUtil {
 	* Returns an ordered range of all the tasks where companyId = &#63; and creatorId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param companyId the company ID
@@ -524,6 +499,106 @@ public class TaskUtil {
 	}
 
 	/**
+	* Removes all the tasks where companyId = &#63; and creatorId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param creatorId the creator ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByC_CR(long companyId, long creatorId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByC_CR(companyId, creatorId);
+	}
+
+	/**
+	* Returns the number of tasks where companyId = &#63; and creatorId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param creatorId the creator ID
+	* @return the number of matching tasks
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByC_CR(long companyId, long creatorId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByC_CR(companyId, creatorId);
+	}
+
+	/**
+	* Caches the task in the entity cache if it is enabled.
+	*
+	* @param task the task
+	*/
+	public static void cacheResult(com.liferay.timesheet.model.Task task) {
+		getPersistence().cacheResult(task);
+	}
+
+	/**
+	* Caches the tasks in the entity cache if it is enabled.
+	*
+	* @param tasks the tasks
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.timesheet.model.Task> tasks) {
+		getPersistence().cacheResult(tasks);
+	}
+
+	/**
+	* Creates a new task with the primary key. Does not add the task to the database.
+	*
+	* @param taskId the primary key for the new task
+	* @return the new task
+	*/
+	public static com.liferay.timesheet.model.Task create(long taskId) {
+		return getPersistence().create(taskId);
+	}
+
+	/**
+	* Removes the task with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param taskId the primary key of the task
+	* @return the task that was removed
+	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Task remove(long taskId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException {
+		return getPersistence().remove(taskId);
+	}
+
+	public static com.liferay.timesheet.model.Task updateImpl(
+		com.liferay.timesheet.model.Task task)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(task);
+	}
+
+	/**
+	* Returns the task with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
+	*
+	* @param taskId the primary key of the task
+	* @return the task
+	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Task findByPrimaryKey(long taskId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskException {
+		return getPersistence().findByPrimaryKey(taskId);
+	}
+
+	/**
+	* Returns the task with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param taskId the primary key of the task
+	* @return the task, or <code>null</code> if a task with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Task fetchByPrimaryKey(
+		long taskId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(taskId);
+	}
+
+	/**
 	* Returns all the tasks.
 	*
 	* @return the tasks
@@ -538,7 +613,7 @@ public class TaskUtil {
 	* Returns a range of all the tasks.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of tasks
@@ -556,7 +631,7 @@ public class TaskUtil {
 	* Returns an ordered range of all the tasks.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of tasks
@@ -573,44 +648,6 @@ public class TaskUtil {
 	}
 
 	/**
-	* Removes all the tasks where projectId = &#63; from the database.
-	*
-	* @param projectId the project ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByProjectId(long projectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByProjectId(projectId);
-	}
-
-	/**
-	* Removes the task where taskName = &#63; and creatorId = &#63; from the database.
-	*
-	* @param taskName the task name
-	* @param creatorId the creator ID
-	* @return the task that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.timesheet.model.Task removeByTN_CR(
-		java.lang.String taskName, long creatorId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskException {
-		return getPersistence().removeByTN_CR(taskName, creatorId);
-	}
-
-	/**
-	* Removes all the tasks where companyId = &#63; and creatorId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @param creatorId the creator ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByC_CR(long companyId, long creatorId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByC_CR(companyId, creatorId);
-	}
-
-	/**
 	* Removes all the tasks from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -618,44 +655,6 @@ public class TaskUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of tasks where projectId = &#63;.
-	*
-	* @param projectId the project ID
-	* @return the number of matching tasks
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByProjectId(long projectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByProjectId(projectId);
-	}
-
-	/**
-	* Returns the number of tasks where taskName = &#63; and creatorId = &#63;.
-	*
-	* @param taskName the task name
-	* @param creatorId the creator ID
-	* @return the number of matching tasks
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByTN_CR(java.lang.String taskName, long creatorId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByTN_CR(taskName, creatorId);
-	}
-
-	/**
-	* Returns the number of tasks where companyId = &#63; and creatorId = &#63;.
-	*
-	* @param companyId the company ID
-	* @param creatorId the creator ID
-	* @return the number of matching tasks
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByC_CR(long companyId, long creatorId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByC_CR(companyId, creatorId);
 	}
 
 	/**
@@ -681,7 +680,7 @@ public class TaskUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setPersistence(TaskPersistence persistence) {
 	}

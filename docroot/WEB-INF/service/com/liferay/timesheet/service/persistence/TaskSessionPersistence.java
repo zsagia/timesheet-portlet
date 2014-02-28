@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.service.persistence;
@@ -38,69 +38,6 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	 */
 
 	/**
-	* Caches the task session in the entity cache if it is enabled.
-	*
-	* @param taskSession the task session
-	*/
-	public void cacheResult(com.liferay.timesheet.model.TaskSession taskSession);
-
-	/**
-	* Caches the task sessions in the entity cache if it is enabled.
-	*
-	* @param taskSessions the task sessions
-	*/
-	public void cacheResult(
-		java.util.List<com.liferay.timesheet.model.TaskSession> taskSessions);
-
-	/**
-	* Creates a new task session with the primary key. Does not add the task session to the database.
-	*
-	* @param taskSessionId the primary key for the new task session
-	* @return the new task session
-	*/
-	public com.liferay.timesheet.model.TaskSession create(long taskSessionId);
-
-	/**
-	* Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param taskSessionId the primary key of the task session
-	* @return the task session that was removed
-	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.timesheet.model.TaskSession remove(long taskSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskSessionException;
-
-	public com.liferay.timesheet.model.TaskSession updateImpl(
-		com.liferay.timesheet.model.TaskSession taskSession, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the task session with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
-	*
-	* @param taskSessionId the primary key of the task session
-	* @return the task session
-	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.timesheet.model.TaskSession findByPrimaryKey(
-		long taskSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskSessionException;
-
-	/**
-	* Returns the task session with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param taskSessionId the primary key of the task session
-	* @return the task session, or <code>null</code> if a task session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.timesheet.model.TaskSession fetchByPrimaryKey(
-		long taskSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the task sessions where startTime &gt; &#63; and endTime = &#63;.
 	*
 	* @param startTime the start time
@@ -116,7 +53,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns a range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param startTime the start time
@@ -134,7 +71,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns an ordered range of all the task sessions where startTime &gt; &#63; and endTime = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param startTime the start time
@@ -228,6 +165,27 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 			com.liferay.timesheet.NoSuchTaskSessionException;
 
 	/**
+	* Removes all the task sessions where startTime &gt; &#63; and endTime = &#63; from the database.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByS_E(java.util.Date startTime, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of task sessions where startTime &gt; &#63; and endTime = &#63;.
+	*
+	* @param startTime the start time
+	* @param endTime the end time
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByS_E(java.util.Date startTime, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the task session where userId = &#63; and endTime = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
 	*
 	* @param userId the user ID
@@ -267,6 +225,30 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes the task session where userId = &#63; and endTime = &#63; from the database.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the task session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.TaskSession removeByU_E(long userId,
+		java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException;
+
+	/**
+	* Returns the number of task sessions where userId = &#63; and endTime = &#63;.
+	*
+	* @param userId the user ID
+	* @param endTime the end time
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByU_E(long userId, java.util.Date endTime)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the task sessions where userId = &#63;.
 	*
 	* @param userId the user ID
@@ -280,7 +262,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns a range of all the task sessions where userId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -297,7 +279,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns an ordered range of all the task sessions where userId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -385,6 +367,25 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 			com.liferay.timesheet.NoSuchTaskSessionException;
 
 	/**
+	* Removes all the task sessions where userId = &#63; from the database.
+	*
+	* @param userId the user ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of task sessions where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	*
 	* @param userId the user ID
@@ -400,7 +401,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns a range of all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -418,7 +419,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns an ordered range of all the task sessions where userId = &#63; and startTime &gt; &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -512,6 +513,90 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 			com.liferay.timesheet.NoSuchTaskSessionException;
 
 	/**
+	* Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
+	*
+	* @param userId the user ID
+	* @param startTime the start time
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByU_GtS(long userId, java.util.Date startTime)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of task sessions where userId = &#63; and startTime &gt; &#63;.
+	*
+	* @param userId the user ID
+	* @param startTime the start time
+	* @return the number of matching task sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByU_GtS(long userId, java.util.Date startTime)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Caches the task session in the entity cache if it is enabled.
+	*
+	* @param taskSession the task session
+	*/
+	public void cacheResult(com.liferay.timesheet.model.TaskSession taskSession);
+
+	/**
+	* Caches the task sessions in the entity cache if it is enabled.
+	*
+	* @param taskSessions the task sessions
+	*/
+	public void cacheResult(
+		java.util.List<com.liferay.timesheet.model.TaskSession> taskSessions);
+
+	/**
+	* Creates a new task session with the primary key. Does not add the task session to the database.
+	*
+	* @param taskSessionId the primary key for the new task session
+	* @return the new task session
+	*/
+	public com.liferay.timesheet.model.TaskSession create(long taskSessionId);
+
+	/**
+	* Removes the task session with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param taskSessionId the primary key of the task session
+	* @return the task session that was removed
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.TaskSession remove(long taskSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException;
+
+	public com.liferay.timesheet.model.TaskSession updateImpl(
+		com.liferay.timesheet.model.TaskSession taskSession)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the task session with the primary key or throws a {@link com.liferay.timesheet.NoSuchTaskSessionException} if it could not be found.
+	*
+	* @param taskSessionId the primary key of the task session
+	* @return the task session
+	* @throws com.liferay.timesheet.NoSuchTaskSessionException if a task session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.TaskSession findByPrimaryKey(
+		long taskSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchTaskSessionException;
+
+	/**
+	* Returns the task session with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param taskSessionId the primary key of the task session
+	* @return the task session, or <code>null</code> if a task session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.timesheet.model.TaskSession fetchByPrimaryKey(
+		long taskSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the task sessions.
 	*
 	* @return the task sessions
@@ -524,7 +609,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns a range of all the task sessions.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of task sessions
@@ -540,7 +625,7 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 	* Returns an ordered range of all the task sessions.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskSessionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of task sessions
@@ -555,96 +640,11 @@ public interface TaskSessionPersistence extends BasePersistence<TaskSession> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the task sessions where startTime &gt; &#63; and endTime = &#63; from the database.
-	*
-	* @param startTime the start time
-	* @param endTime the end time
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByS_E(java.util.Date startTime, java.util.Date endTime)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes the task session where userId = &#63; and endTime = &#63; from the database.
-	*
-	* @param userId the user ID
-	* @param endTime the end time
-	* @return the task session that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.timesheet.model.TaskSession removeByU_E(long userId,
-		java.util.Date endTime)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.timesheet.NoSuchTaskSessionException;
-
-	/**
-	* Removes all the task sessions where userId = &#63; from the database.
-	*
-	* @param userId the user ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByUserId(long userId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the task sessions where userId = &#63; and startTime &gt; &#63; from the database.
-	*
-	* @param userId the user ID
-	* @param startTime the start time
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByU_GtS(long userId, java.util.Date startTime)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Removes all the task sessions from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of task sessions where startTime &gt; &#63; and endTime = &#63;.
-	*
-	* @param startTime the start time
-	* @param endTime the end time
-	* @return the number of matching task sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByS_E(java.util.Date startTime, java.util.Date endTime)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of task sessions where userId = &#63; and endTime = &#63;.
-	*
-	* @param userId the user ID
-	* @param endTime the end time
-	* @return the number of matching task sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByU_E(long userId, java.util.Date endTime)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of task sessions where userId = &#63;.
-	*
-	* @param userId the user ID
-	* @return the number of matching task sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUserId(long userId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of task sessions where userId = &#63; and startTime &gt; &#63;.
-	*
-	* @param userId the user ID
-	* @param startTime the start time
-	* @return the number of matching task sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByU_GtS(long userId, java.util.Date startTime)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

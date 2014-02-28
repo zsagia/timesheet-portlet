@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.timesheet.model;
@@ -17,16 +17,18 @@ package com.liferay.timesheet.model;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -40,26 +42,32 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	public TaskSessionClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return TaskSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return TaskSession.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _taskSessionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setTaskSessionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_taskSessionId);
+		return _taskSessionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -124,72 +132,194 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		}
 	}
 
+	@Override
 	public long getTaskSessionId() {
 		return _taskSessionId;
 	}
 
+	@Override
 	public void setTaskSessionId(long taskSessionId) {
 		_taskSessionId = taskSessionId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTaskSessionId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, taskSessionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_taskSessionRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_taskSessionRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public Date getEndTime() {
 		return _endTime;
 	}
 
+	@Override
 	public void setEndTime(Date endTime) {
 		_endTime = endTime;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEndTime", Date.class);
+
+				method.invoke(_taskSessionRemoteModel, endTime);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getStartTime() {
 		return _startTime;
 	}
 
+	@Override
 	public void setStartTime(Date startTime) {
 		_startTime = startTime;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStartTime", Date.class);
+
+				method.invoke(_taskSessionRemoteModel, startTime);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getTaskId() {
 		return _taskId;
 	}
 
+	@Override
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTaskId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, taskId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public com.liferay.timesheet.model.Task getTask() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getTask";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.timesheet.model.Task returnObj = (com.liferay.timesheet.model.Task)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getTaskSessionRemoteModel() {
@@ -200,6 +330,48 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		_taskSessionRemoteModel = taskSessionRemoteModel;
 	}
 
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _taskSessionRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_taskSessionRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			TaskSessionLocalServiceUtil.addTaskSession(this);
@@ -211,7 +383,7 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 
 	@Override
 	public TaskSession toEscapedModel() {
-		return (TaskSession)Proxy.newProxyInstance(TaskSession.class.getClassLoader(),
+		return (TaskSession)ProxyUtil.newProxyInstance(TaskSession.class.getClassLoader(),
 			new Class[] { TaskSession.class }, new AutoEscapeBeanHandler(this));
 	}
 
@@ -230,6 +402,7 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(TaskSession taskSession) {
 		int value = 0;
 
@@ -246,18 +419,15 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof TaskSessionClp)) {
 			return false;
 		}
 
-		TaskSessionClp taskSession = null;
-
-		try {
-			taskSession = (TaskSessionClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		TaskSessionClp taskSession = (TaskSessionClp)obj;
 
 		long primaryKey = taskSession.getPrimaryKey();
 
@@ -297,6 +467,7 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(25);
 
