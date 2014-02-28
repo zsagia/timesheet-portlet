@@ -21,7 +21,7 @@
 					<aui:column>
 						<components:currentTaskSessionComponent
 							currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
-							rendered="#{not empty taskSessionSimpleBean.currentTaskSession}"
+							rendered="#{taskSessionSimpleBean.currentTaskSession!=null}"
 							todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}" />
 					</aui:column>
 
@@ -29,7 +29,7 @@
 						<components:endTaskComponent
 							actionMethod="#{taskSessionSimpleBean.finishTaskSessionAction}"
 							endTime="#{taskSessionSimpleBean.endTime}"
-							rendered="#{not empty taskSessionSimpleBean.currentTaskSession}" />
+							rendered="#{taskSessionSimpleBean.currentTaskSession!=null}" />
 					</aui:column>
 				</aui:layout>
 

@@ -39,9 +39,9 @@ public class TaskBean implements Serializable{
 		value = "#{taskSessionSimpleBean}")
 	private TaskSessionSimpleBean taskSessionSimpleBean;
 
-	@ManagedProperty(name = "projectBean",
-		value = "#{projectBean}")
-	private ProjectBean projectBean;
+	@ManagedProperty(name = "enabledProjectBean",
+		value = "#{enabledProjectBean}")
+	private ProjectBean enabledProjectBean;
 
 	public String createTaskAction() {
 
@@ -54,7 +54,7 @@ public class TaskBean implements Serializable{
 			LiferayFacesContext.getInstance();
 
 		try {
-			selectedProjectNode = projectBean.getSelectedProjectNode();
+			selectedProjectNode = enabledProjectBean.getSelectedProjectNode();
 
 			selectedProject =
 				((ProjectTreeNode)selectedProjectNode).getProject();
@@ -128,12 +128,12 @@ public class TaskBean implements Serializable{
 		setTaskName(null);
 	}
 
-	public ProjectBean getProjectBean() {
-		return projectBean;
+	public ProjectBean getEnabledProjectBean() {
+		return enabledProjectBean;
 	}
 
-	public void setProjectBean(ProjectBean projectBean) {
-		this.projectBean = projectBean;
+	public void setEnabledProjectBean(ProjectBean enabledProjectBean) {
+		this.enabledProjectBean = enabledProjectBean;
 	}
 
 }
