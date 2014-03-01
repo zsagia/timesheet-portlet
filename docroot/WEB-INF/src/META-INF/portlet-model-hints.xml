@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="com.liferay.timesheet.model.Department">
+		<field name="departmentId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="creatorId" type="long" />
+		<field name="modifiedDate" type="Date" />
+		<field name="departmentName" type="String" />
+	</model>
 	<model name="com.liferay.timesheet.model.Project">
 		<field name="uuid" type="String" />
 		<field name="projectId" type="long" />

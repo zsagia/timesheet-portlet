@@ -2,9 +2,21 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.timesheet.model.Department" />
 	<import class="com.liferay.timesheet.model.Project" />
 	<import class="com.liferay.timesheet.model.Task" />
 	<import class="com.liferay.timesheet.model.TaskSession" />
+	<class name="com.liferay.timesheet.model.impl.DepartmentImpl" table="timesheet_Department">
+		<cache usage="read-write" />
+		<id name="departmentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="creatorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="departmentName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.liferay.timesheet.model.impl.ProjectImpl" table="timesheet_Project">
 		<cache usage="read-write" />
 		<id name="projectId" type="long">

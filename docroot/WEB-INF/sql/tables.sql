@@ -1,3 +1,12 @@
+create table timesheet_Department (
+	departmentId LONG not null primary key,
+	companyId LONG,
+	createDate DATE null,
+	creatorId LONG,
+	modifiedDate DATE null,
+	departmentName VARCHAR(75) null
+);
+
 create table timesheet_Project (
 	uuid_ VARCHAR(75) null,
 	projectId LONG not null primary key,

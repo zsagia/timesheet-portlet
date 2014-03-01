@@ -302,7 +302,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
-	public int compareTo(Task task) {
+	public int compareTo(com.liferay.timesheet.model.Task task) {
 		return _task.compareTo(task);
 	}
 
@@ -312,17 +312,17 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<Task> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.Task> toCacheModel() {
 		return _task.toCacheModel();
 	}
 
 	@Override
-	public Task toEscapedModel() {
+	public com.liferay.timesheet.model.Task toEscapedModel() {
 		return new TaskWrapper(_task.toEscapedModel());
 	}
 
 	@Override
-	public Task toUnescapedModel() {
+	public com.liferay.timesheet.model.Task toUnescapedModel() {
 		return new TaskWrapper(_task.toUnescapedModel());
 	}
 

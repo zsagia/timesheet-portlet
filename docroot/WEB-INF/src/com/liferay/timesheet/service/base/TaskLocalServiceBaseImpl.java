@@ -33,6 +33,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalService;
+import com.liferay.timesheet.service.persistence.DepartmentPersistence;
 import com.liferay.timesheet.service.persistence.ProjectPersistence;
 import com.liferay.timesheet.service.persistence.TaskPersistence;
 import com.liferay.timesheet.service.persistence.TaskSessionFinder;
@@ -271,6 +272,44 @@ public abstract class TaskLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public Task updateTask(Task task) throws SystemException {
 		return taskPersistence.update(task);
+	}
+
+	/**
+	 * Returns the department local service.
+	 *
+	 * @return the department local service
+	 */
+	public com.liferay.timesheet.service.DepartmentLocalService getDepartmentLocalService() {
+		return departmentLocalService;
+	}
+
+	/**
+	 * Sets the department local service.
+	 *
+	 * @param departmentLocalService the department local service
+	 */
+	public void setDepartmentLocalService(
+		com.liferay.timesheet.service.DepartmentLocalService departmentLocalService) {
+		this.departmentLocalService = departmentLocalService;
+	}
+
+	/**
+	 * Returns the department persistence.
+	 *
+	 * @return the department persistence
+	 */
+	public DepartmentPersistence getDepartmentPersistence() {
+		return departmentPersistence;
+	}
+
+	/**
+	 * Sets the department persistence.
+	 *
+	 * @param departmentPersistence the department persistence
+	 */
+	public void setDepartmentPersistence(
+		DepartmentPersistence departmentPersistence) {
+		this.departmentPersistence = departmentPersistence;
 	}
 
 	/**
@@ -579,6 +618,10 @@ public abstract class TaskLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
+	@BeanReference(type = com.liferay.timesheet.service.DepartmentLocalService.class)
+	protected com.liferay.timesheet.service.DepartmentLocalService departmentLocalService;
+	@BeanReference(type = DepartmentPersistence.class)
+	protected DepartmentPersistence departmentPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectLocalService.class)
 	protected com.liferay.timesheet.service.ProjectLocalService projectLocalService;
 	@BeanReference(type = ProjectPersistence.class)

@@ -352,7 +352,7 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
-	public int compareTo(TaskSession taskSession) {
+	public int compareTo(com.liferay.timesheet.model.TaskSession taskSession) {
 		return _taskSession.compareTo(taskSession);
 	}
 
@@ -362,17 +362,17 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<TaskSession> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.TaskSession> toCacheModel() {
 		return _taskSession.toCacheModel();
 	}
 
 	@Override
-	public TaskSession toEscapedModel() {
+	public com.liferay.timesheet.model.TaskSession toEscapedModel() {
 		return new TaskSessionWrapper(_taskSession.toEscapedModel());
 	}
 
 	@Override
-	public TaskSession toUnescapedModel() {
+	public com.liferay.timesheet.model.TaskSession toUnescapedModel() {
 		return new TaskSessionWrapper(_taskSession.toUnescapedModel());
 	}
 

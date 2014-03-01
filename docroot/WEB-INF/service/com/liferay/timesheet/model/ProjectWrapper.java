@@ -384,7 +384,7 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	@Override
-	public int compareTo(Project project) {
+	public int compareTo(com.liferay.timesheet.model.Project project) {
 		return _project.compareTo(project);
 	}
 
@@ -394,17 +394,17 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<Project> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.Project> toCacheModel() {
 		return _project.toCacheModel();
 	}
 
 	@Override
-	public Project toEscapedModel() {
+	public com.liferay.timesheet.model.Project toEscapedModel() {
 		return new ProjectWrapper(_project.toEscapedModel());
 	}
 
 	@Override
-	public Project toUnescapedModel() {
+	public com.liferay.timesheet.model.Project toUnescapedModel() {
 		return new ProjectWrapper(_project.toUnescapedModel());
 	}
 
