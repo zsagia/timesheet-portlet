@@ -2,16 +2,16 @@
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name>timesheet</portlet-name>
-		<display-name>Timesheet</display-name>
+		<portlet-name>1</portlet-name>
+		<display-name>Timesheet (Admin)</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/views/view.xhtml</value>
+			<value>/views/admin/view.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/preferences.xhtml</value>
+			<value>/views/admin/preferences.xhtml</value>
 		</init-param> 
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -20,9 +20,9 @@
 			<portlet-mode>edit</portlet-mode>
 		</supports> 
 		<portlet-info>
-			<title>Timesheet</title>
-			<short-title>Timesheet</short-title>
-			<keywords>Timesheet</keywords>
+			<title>Timesheet (Admin)</title>
+			<short-title>Timesheet (Admin)</short-title>
+			<keywords>Timesheet (Admin)</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -30,6 +30,42 @@
 		<security-role-ref>
 			<role-name>guest</role-name>
 		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>2</portlet-name>
+		<display-name>Timesheet (Task)</display-name>
+		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/views/task/view.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/views/task/preferences.xhtml</value>
+		</init-param> 
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+		</supports> 
+		<portlet-info>
+			<title>Timesheet (Task)</title>
+			<short-title>Timesheet (Task)</short-title>
+			<keywords>Timesheet (Task)</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref> 
 		<security-role-ref>
 			<role-name>power-user</role-name>
 		</security-role-ref>
