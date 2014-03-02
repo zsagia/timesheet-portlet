@@ -14,7 +14,16 @@
 
 package com.liferay.timesheet.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.timesheet.NoSuchDepartmentException;
+import com.liferay.timesheet.model.Department;
+import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.base.DepartmentLocalServiceBaseImpl;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the department local service.
@@ -36,4 +45,38 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.timesheet.service.DepartmentLocalServiceUtil} to access the department local service.
 	 */
+
+	public Department addDepartment(
+			String departmentName, long creatorId)
+		throws PortalException, SystemException {
+
+		long departmentId = counterLocalService.increment();
+
+		User user = userPersistence.findByPrimaryKey(creatorId);
+
+		Department department = departmentPersistence.create(departmentId);
+
+		Date createDate = new Date();
+
+		department.setCompanyId(user.getCompanyId());
+		department.setCreateDate(createDate);
+		department.setDepartmentName(departmentName);
+		department.setCreatorId(creatorId);
+
+		departmentPersistence.update(department);
+
+		return department;
+	}
+
+	public Department getDepartment(long departmentId)
+		throws SystemException, NoSuchDepartmentException {
+
+		return departmentPersistence.findByPrimaryKey(departmentId);
+	}
+
+	public List<Department> getDepartments(long companyId)
+		throws SystemException {
+
+		return departmentPersistence.findByCompanyId(companyId);
+	}
 }
