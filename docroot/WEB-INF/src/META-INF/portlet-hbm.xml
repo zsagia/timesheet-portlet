@@ -27,6 +27,7 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="creatorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="departmentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="enabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="projectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="parentProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />

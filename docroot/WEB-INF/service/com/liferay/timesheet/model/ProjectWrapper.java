@@ -56,6 +56,7 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("departmentId", getDepartmentId());
 		attributes.put("enabled", getEnabled());
 		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
@@ -99,6 +100,12 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long departmentId = (Long)attributes.get("departmentId");
+
+		if (departmentId != null) {
+			setDepartmentId(departmentId);
 		}
 
 		Boolean enabled = (Boolean)attributes.get("enabled");
@@ -258,6 +265,26 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_project.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the department ID of this project.
+	*
+	* @return the department ID of this project
+	*/
+	@Override
+	public java.lang.Long getDepartmentId() {
+		return _project.getDepartmentId();
+	}
+
+	/**
+	* Sets the department ID of this project.
+	*
+	* @param departmentId the department ID of this project
+	*/
+	@Override
+	public void setDepartmentId(java.lang.Long departmentId) {
+		_project.setDepartmentId(departmentId);
 	}
 
 	/**

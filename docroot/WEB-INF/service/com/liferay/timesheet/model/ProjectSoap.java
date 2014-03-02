@@ -36,6 +36,7 @@ public class ProjectSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setCreatorId(model.getCreatorId());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setDepartmentId(model.getDepartmentId());
 		soapModel.setEnabled(model.getEnabled());
 		soapModel.setProjectName(model.getProjectName());
 		soapModel.setParentProjectId(model.getParentProjectId());
@@ -139,6 +140,14 @@ public class ProjectSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public Long getDepartmentId() {
+		return _departmentId;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		_departmentId = departmentId;
+	}
+
 	public Boolean getEnabled() {
 		return _enabled;
 	}
@@ -169,6 +178,7 @@ public class ProjectSoap implements Serializable {
 	private Date _createDate;
 	private long _creatorId;
 	private Date _modifiedDate;
+	private Long _departmentId;
 	private Boolean _enabled;
 	private String _projectName;
 	private Long _parentProjectId;

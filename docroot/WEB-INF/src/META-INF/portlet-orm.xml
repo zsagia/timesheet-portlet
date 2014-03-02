@@ -38,6 +38,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="departmentId" />
 			<basic name="enabled" />
 			<basic name="projectName" />
 			<basic name="parentProjectId" />

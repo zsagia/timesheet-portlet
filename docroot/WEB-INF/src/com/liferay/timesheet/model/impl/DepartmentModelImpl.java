@@ -79,7 +79,11 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.timesheet.model.Department"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Department"),
+			true);
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long DEPARTMENTNAME_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Department"));
 
@@ -186,7 +190,19 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@Override
@@ -231,7 +247,13 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 	@Override
 	public void setDepartmentName(String departmentName) {
+		_columnBitmask = -1L;
+
 		_departmentName = departmentName;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -315,6 +337,13 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 	@Override
 	public void resetOriginalValues() {
+		DepartmentModelImpl departmentModelImpl = this;
+
+		departmentModelImpl._originalCompanyId = departmentModelImpl._companyId;
+
+		departmentModelImpl._setOriginalCompanyId = false;
+
+		departmentModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -421,9 +450,12 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		};
 	private long _departmentId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private Date _createDate;
 	private long _creatorId;
 	private Date _modifiedDate;
 	private String _departmentName;
+	private long _columnBitmask;
 	private Department _escapedModel;
 }

@@ -1,3 +1,6 @@
+create index IX_1B6563E3 on timesheet_Department (companyId);
+
+create index IX_8BA46E73 on timesheet_Project (departmentId);
 create index IX_F1CF7648 on timesheet_Project (parentProjectId);
 create index IX_F508FA42 on timesheet_Project (uuid_);
 create index IX_6ABD6CA6 on timesheet_Project (uuid_, companyId);

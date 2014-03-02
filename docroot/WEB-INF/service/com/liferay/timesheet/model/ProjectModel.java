@@ -154,6 +154,20 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the department ID of this project.
+	 *
+	 * @return the department ID of this project
+	 */
+	public Long getDepartmentId();
+
+	/**
+	 * Sets the department ID of this project.
+	 *
+	 * @param departmentId the department ID of this project
+	 */
+	public void setDepartmentId(Long departmentId);
+
+	/**
 	 * Returns the enabled of this project.
 	 *
 	 * @return the enabled of this project

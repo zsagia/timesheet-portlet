@@ -37,7 +37,7 @@ import java.util.Date;
 public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -51,6 +51,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		sb.append(creatorId);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", departmentId=");
+		sb.append(departmentId);
 		sb.append(", enabled=");
 		sb.append(enabled);
 		sb.append(", projectName=");
@@ -92,6 +94,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 			projectImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		projectImpl.setDepartmentId(departmentId);
 		projectImpl.setEnabled(enabled);
 
 		if (projectName == null) {
@@ -116,6 +119,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		createDate = objectInput.readLong();
 		creatorId = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		departmentId = objectInput.readLong();
 		enabled = objectInput.readBoolean();
 		projectName = objectInput.readUTF();
 		parentProjectId = objectInput.readLong();
@@ -136,6 +140,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(creatorId);
 		objectOutput.writeLong(modifiedDate);
+		objectOutput.writeLong(departmentId);
 		objectOutput.writeBoolean(enabled);
 
 		if (projectName == null) {
@@ -154,6 +159,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 	public long createDate;
 	public long creatorId;
 	public long modifiedDate;
+	public Long departmentId;
 	public Boolean enabled;
 	public String projectName;
 	public Long parentProjectId;
