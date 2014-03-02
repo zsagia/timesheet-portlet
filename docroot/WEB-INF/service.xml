@@ -27,6 +27,12 @@
 		<order>
 			<order-column name="departmentName" order-by="asc" />
 		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
 	</entity>
 
 	<entity name="Project" local-service="true" remote-service="false" uuid="true">
@@ -44,6 +50,7 @@
 
 		<!-- Other fields -->
 
+		<column name="departmentId" type="Long" />
 		<column name="enabled" type="Boolean" />
 		<column name="projectName" type="String" />
 		<column name="parentProjectId" type="Long" />
@@ -55,6 +62,10 @@
 		</order>
 
 		<!-- Finder methods -->
+
+		<finder name="DepartmentId" return-type="Collection">
+			<finder-column name="departmentId" />
+		</finder>
 
 		<finder name="ParentProjectId" return-type="Collection">
 			<finder-column name="parentProjectId" />
