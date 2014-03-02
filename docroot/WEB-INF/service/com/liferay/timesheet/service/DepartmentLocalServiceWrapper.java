@@ -197,12 +197,14 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
 	* @return the department
 	* @throws PortalException if a department with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws com.liferay.timesheet.NoSuchDepartmentException
 	*/
 	@Override
 	public com.liferay.timesheet.model.Department getDepartment(
 		long departmentId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDepartmentException {
 		return _departmentLocalService.getDepartment(departmentId);
 	}
 
@@ -285,6 +287,21 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
 		throws java.lang.Throwable {
 		return _departmentLocalService.invokeMethod(name, parameterTypes,
 			arguments);
+	}
+
+	@Override
+	public com.liferay.timesheet.model.Department addDepartment(
+		java.lang.String departmentName, long creatorId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _departmentLocalService.addDepartment(departmentName, creatorId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Department> getDepartments(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _departmentLocalService.getDepartments(companyId);
 	}
 
 	/**

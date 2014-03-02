@@ -178,12 +178,14 @@ public interface DepartmentLocalService extends BaseLocalService,
 	* @return the department
 	* @throws PortalException if a department with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws com.liferay.timesheet.NoSuchDepartmentException
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.timesheet.model.Department getDepartment(
 		long departmentId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDepartmentException;
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -248,4 +250,14 @@ public interface DepartmentLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.liferay.timesheet.model.Department addDepartment(
+		java.lang.String departmentName, long creatorId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Department> getDepartments(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

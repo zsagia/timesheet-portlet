@@ -228,10 +228,12 @@ public abstract class DepartmentLocalServiceBaseImpl
 	 * @return the department
 	 * @throws PortalException if a department with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
+	 * @throws com.liferay.timesheet.NoSuchDepartmentException
 	 */
 	@Override
 	public Department getDepartment(long departmentId)
-		throws PortalException, SystemException {
+		throws PortalException, SystemException,
+			com.liferay.timesheet.NoSuchDepartmentException {
 		return departmentPersistence.findByPrimaryKey(departmentId);
 	}
 

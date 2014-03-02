@@ -194,11 +194,13 @@ public class DepartmentLocalServiceUtil {
 	* @return the department
 	* @throws PortalException if a department with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws com.liferay.timesheet.NoSuchDepartmentException
 	*/
 	public static com.liferay.timesheet.model.Department getDepartment(
 		long departmentId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDepartmentException {
 		return getService().getDepartment(departmentId);
 	}
 
@@ -273,6 +275,19 @@ public class DepartmentLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static com.liferay.timesheet.model.Department addDepartment(
+		java.lang.String departmentName, long creatorId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addDepartment(departmentName, creatorId);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Department> getDepartments(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDepartments(companyId);
 	}
 
 	public static void clearService() {
