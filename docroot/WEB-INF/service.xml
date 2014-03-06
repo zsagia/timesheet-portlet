@@ -67,6 +67,11 @@
 			<finder-column name="departmentId" />
 		</finder>
 
+		<finder name="D_PP" return-type="Collection">
+			<finder-column name="departmentId" />
+			<finder-column name="parentProjectId" />
+		</finder>
+
 		<finder name="ParentProjectId" return-type="Collection">
 			<finder-column name="parentProjectId" />
 		</finder>
@@ -162,8 +167,7 @@
 		<exception>NoCurrentTaskSession</exception>
 		<exception>NoSelectedTask</exception>
 		<exception>StartTime</exception>
-		<exception>ProjectCreation</exception>
-		<exception>TaskCreation</exception>
+		<exception>EntityCreation</exception>
 		<exception>TaskSessionClose</exception>
 		<exception>TaskSessionUpdate</exception>
 	</exceptions>

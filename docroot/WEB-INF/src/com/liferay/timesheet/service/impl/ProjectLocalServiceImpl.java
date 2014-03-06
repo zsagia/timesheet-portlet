@@ -45,8 +45,8 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 	 */
 	
 	public Project addProject(
-			String projectName, long creatorId, long parentProjectId,
-			boolean enabled)
+			String projectName, long creatorId, long departmentId,
+			long parentProjectId, boolean enabled)
 		throws PortalException, SystemException {
 
 		long projectId = counterLocalService.increment();
@@ -59,12 +59,13 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 
 		project.setCompanyId(user.getCompanyId());
 		project.setCreateDate(createDate);
+		project.setDepartmentId(departmentId);
 		project.setParentProjectId(parentProjectId);
 		project.setEnabled(enabled);
 		project.setProjectName(projectName);
 		project.setCreatorId(creatorId);
 
-		projectPersistence.update(project, false);
+		projectPersistence.update(project);
 
 		return project;
 	}
@@ -73,6 +74,19 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		throws SystemException {
 
 		return projectPersistence.findByParentProjectId(parentProjectId);
+	}
+	
+	public List<Project> getProjectsByD_PP(
+			long departmentId, long parentProjectId)
+		throws SystemException {
+
+		return projectPersistence.findByD_PP(departmentId, parentProjectId);
+	}
+
+	public List<Project> getProjectsByDepartmentId(long departmentId)
+		throws SystemException {
+
+		return projectPersistence.findByDepartmentId(departmentId);
 	}
 
 }

@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.timesheet.NoSuchDepartmentException;
 import com.liferay.timesheet.model.Department;
-import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.base.DepartmentLocalServiceBaseImpl;
 
 import java.util.Date;
@@ -79,4 +78,5 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 
 		return departmentPersistence.findByCompanyId(companyId);
 	}
+
 }
