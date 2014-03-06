@@ -125,12 +125,20 @@ public class ProjectLocalServiceClpInvoker {
 		_methodName54 = "addProject";
 
 		_methodParameterTypes54 = new String[] {
-				"java.lang.String", "long", "long", "boolean"
+				"java.lang.String", "long", "long", "long", "boolean"
 			};
 
 		_methodName55 = "getProjects";
 
 		_methodParameterTypes55 = new String[] { "long" };
+
+		_methodName56 = "getProjectsByD_PP";
+
+		_methodParameterTypes56 = new String[] { "long", "long" };
+
+		_methodName57 = "getProjectsByDepartmentId";
+
+		_methodParameterTypes57 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -251,12 +259,24 @@ public class ProjectLocalServiceClpInvoker {
 			return ProjectLocalServiceUtil.addProject((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
-				((Boolean)arguments[3]).booleanValue());
+				((Long)arguments[3]).longValue(),
+				((Boolean)arguments[4]).booleanValue());
 		}
 
 		if (_methodName55.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
 			return ProjectLocalServiceUtil.getProjects(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return ProjectLocalServiceUtil.getProjectsByD_PP(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return ProjectLocalServiceUtil.getProjectsByDepartmentId(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -306,4 +326,8 @@ public class ProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
 }

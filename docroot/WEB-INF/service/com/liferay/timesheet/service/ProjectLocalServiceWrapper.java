@@ -315,12 +315,12 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 
 	@Override
 	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId,
-		boolean enabled)
+		java.lang.String projectName, long creatorId, long departmentId,
+		long parentProjectId, boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.addProject(projectName, creatorId,
-			parentProjectId, enabled);
+			departmentId, parentProjectId, enabled);
 	}
 
 	@Override
@@ -328,6 +328,21 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.getProjects(parentProjectId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
+		long departmentId, long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.getProjectsByD_PP(departmentId,
+			parentProjectId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
+		long departmentId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.getProjectsByDepartmentId(departmentId);
 	}
 
 	/**

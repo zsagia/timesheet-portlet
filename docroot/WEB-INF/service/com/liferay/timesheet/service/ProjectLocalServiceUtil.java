@@ -305,18 +305,31 @@ public class ProjectLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId,
-		boolean enabled)
+		java.lang.String projectName, long creatorId, long departmentId,
+		long parentProjectId, boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addProject(projectName, creatorId, parentProjectId, enabled);
+				   .addProject(projectName, creatorId, departmentId,
+			parentProjectId, enabled);
 	}
 
 	public static java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getProjects(parentProjectId);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
+		long departmentId, long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getProjectsByD_PP(departmentId, parentProjectId);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
+		long departmentId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getProjectsByDepartmentId(departmentId);
 	}
 
 	public static void clearService() {

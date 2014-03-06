@@ -125,12 +125,20 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		_methodName21 = "addProject";
 
 		_methodParameterTypes21 = new String[] {
-				"java.lang.String", "long", "long", "boolean"
+				"java.lang.String", "long", "long", "long", "boolean"
 			};
 
 		_methodName22 = "getProjects";
 
 		_methodParameterTypes22 = new String[] { "long" };
+
+		_methodName23 = "getProjectsByD_PP";
+
+		_methodParameterTypes23 = new String[] { "long", "long" };
+
+		_methodName24 = "getProjectsByDepartmentId";
+
+		_methodParameterTypes24 = new String[] { "long" };
 	}
 
 	@Override
@@ -746,8 +754,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 
 	@Override
 	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId,
-		boolean enabled)
+		java.lang.String projectName, long creatorId, long departmentId,
+		long parentProjectId, boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -759,6 +767,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 						ClpSerializer.translateInput(projectName),
 						
 					creatorId,
+						
+					departmentId,
 						
 					parentProjectId,
 						
@@ -797,6 +807,65 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName22,
 					_methodParameterTypes22, new Object[] { parentProjectId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.Project>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
+		long departmentId, long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { departmentId, parentProjectId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.Project>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
+		long departmentId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { departmentId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -862,4 +931,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	private String[] _methodParameterTypes21;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

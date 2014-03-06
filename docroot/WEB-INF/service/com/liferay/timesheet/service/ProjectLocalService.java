@@ -274,13 +274,23 @@ public interface ProjectLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long parentProjectId,
-		boolean enabled)
+		java.lang.String projectName, long creatorId, long departmentId,
+		long parentProjectId, boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
+		long departmentId, long parentProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
+		long departmentId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }
