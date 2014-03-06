@@ -43,6 +43,10 @@ public class TaskBean implements Serializable{
 		value = "#{enabledProjectBean}")
 	private ProjectBean enabledProjectBean;
 
+	@ManagedProperty(name = "departmentBean",
+		value = "#{departmentBean}")
+	private DepartmentBean departmentBean;
+
 	public String createTaskAction() {
 
 		long userId = TimesheetUtil.getCurrentUserId();
@@ -89,7 +93,7 @@ public class TaskBean implements Serializable{
 
 		clear();
 
-		return "/views/view.xhtml";
+		return "/views/task/view.xhtml";
 	}
 
 	public List<Task> getTasksByUser() {
@@ -134,6 +138,14 @@ public class TaskBean implements Serializable{
 
 	public void setEnabledProjectBean(ProjectBean enabledProjectBean) {
 		this.enabledProjectBean = enabledProjectBean;
+	}
+
+	public DepartmentBean getDepartmentBean() {
+		return departmentBean;
+	}
+
+	public void setDepartmentBean(DepartmentBean departmentBean) {
+		this.departmentBean = departmentBean;
 	}
 
 }

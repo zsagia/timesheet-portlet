@@ -13,8 +13,8 @@
 		<cc:attribute name="actionMethod" 
 			method-signature="java.lang.String action()" />
 		<cc:attribute name="projectRoot" />
-		<cc:attribute name="selectedTask" />
 		<cc:attribute name="selectedProjectNode" />
+		<cc:attribute name="selectedTask" />
 		<cc:attribute name="startTime" />
 		<cc:attribute name="taskName" />
 	</cc:interface>
@@ -22,12 +22,12 @@
 	<cc:implementation>
 		<aui:layout>
 			<aui:column rendered="#{empty cc.attrs.selectedTask}">
-				<p:tree id="projectTree" value="#{cc.attrs.projectRoot}" var="project"
-					selectionMode="single" selection="#{cc.attrs.selectedProjectNode}">
+				<p:tree id="projectTree" selection="#{cc.attrs.selectedProjectNode}" selectionMode="single"
+					value="#{cc.attrs.projectRoot}" var="project">
 
-					<p:treeNode>  
+					<p:treeNode>
 						<h:outputText value="#{project}" />
-					</p:treeNode>  
+					</p:treeNode>
 				</p:tree>
 			</aui:column>
 
@@ -39,17 +39,17 @@
 					<f:validator validatorId="StartTimeValidator" />
 				</h:inputText>
 
-				<h:outputText value="Taskname: " rendered="#{empty cc.attrs.selectedTask}" />
+				<h:outputText rendered="#{empty cc.attrs.selectedTask}" value="Taskname: " />
 
-				<h:inputText id="taskName" value="#{cc.attrs.taskName}" rendered="#{empty cc.attrs.selectedTask}">
+				<h:inputText id="taskName" rendered="#{empty cc.attrs.selectedTask}" value="#{cc.attrs.taskName}">
 					<f:validateRequired />
 				</h:inputText>
 
-				<h:outputText value="#{cc.attrs.selectedTask.project.projectName}" rendered="#{not empty cc.attrs.selectedTask}" />
-				<h:outputText value=" > " rendered="#{not empty cc.attrs.selectedTask}" />
-				<h:outputText value="#{cc.attrs.selectedTask.taskName}" rendered="#{not empty cc.attrs.selectedTask}" />
+				<h:outputText rendered="#{not empty cc.attrs.selectedTask}" value="#{cc.attrs.selectedTask.project.projectName}" />
+				<h:outputText rendered="#{not empty cc.attrs.selectedTask}" value=" > " />
+				<h:outputText rendered="#{not empty cc.attrs.selectedTask}" value="#{cc.attrs.selectedTask.taskName}" />
 
-				<h:commandButton id="startTask" value="Start Task" action="#{cc.attrs.actionMethod}" >
+				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" value="Start Task">
 					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
 				</h:commandButton>
 			</aui:column>

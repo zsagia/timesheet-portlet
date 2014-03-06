@@ -27,10 +27,25 @@ public class EnabledProjectBean extends ProjectBean {
 		setRoot(new ProjectTreeNode(null, null));
 
 		try {
-			generateTreeNodes(true, getRoot());
+			generateTreeNodes(true, 0, getRoot());
 		} catch (SystemException e) {
 			logger.error("Tree generation is failed!");
 		}
+	}
+
+	public void onDepartmentSelect() {
+		setRoot(new ProjectTreeNode(null, null));
+
+		try {
+			generateTreeNodes(
+				true, getSelectedDepartment().getDepartmentId(), getRoot());
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+
+		setActionValues(ACTION_NEW, false, null);
+
+		setSelectedProjectNode(null);
 	}
 
 }

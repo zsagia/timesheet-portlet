@@ -1,11 +1,12 @@
 package com.liferay.timesheet.bean;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
-import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.timesheet.ProjectCreationException;
+import com.liferay.timesheet.EntityCreationException;
+import com.liferay.timesheet.admin.BaseAdminBean;
+import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
@@ -25,22 +26,18 @@ import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "projectBean")
 @ViewScoped
-public class ProjectBean implements Serializable {
-
-	public static final String ACTION_NEW = "new";
-	public static final String ACTION_EDIT = "edit";
-	public static final String ACTION_SELECTED = "selected";
+public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger logger =
 		LoggerFactory.getLogger(ProjectBean.class);
 
-	private String action = ACTION_NEW;
-
 	private boolean enabled = false;
 
-	private String projectName;
+	private Department selectedDepartment = null;
+
+	private String projectName = null;
 
 	private TreeNode root = null;
 
@@ -50,13 +47,14 @@ public class ProjectBean implements Serializable {
 		root = new ProjectTreeNode(null, null);
 
 		try {
-			generateTreeNodes(false, root);
+			generateTreeNodes(false, 0, root);
 		} catch (SystemException e) {
 			logger.error("Tree generation is failed!");
 		}
 	}
 
-	public Project createProject() throws ProjectCreationException {
+	@Override
+	public Object createEntity() throws EntityCreationException {
 		long selectedProjectId = 0;
 
 		if (selectedProjectNode != null) {
@@ -71,37 +69,39 @@ public class ProjectBean implements Serializable {
 		try {
 			project = ProjectLocalServiceUtil.addProject(
 				getProjectName(), TimesheetUtil.getCurrentUserId(),
-				selectedProjectId, true);
+				selectedDepartment.getDepartmentId(), selectedProjectId, true);
 		} catch (Exception e) {
-			throw new ProjectCreationException();
+			throw new EntityCreationException();
 		}
 
 		return project;
 	}
 
-	public String createProjectAction() {
+	@Override
+	public String createEntityAction() {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
 		try {
-			Project project = createProject();
+			Project project = (Project)createEntity();
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
 					"New project is created: " + project.getProjectName());
 			}
-		} catch (ProjectCreationException e) {
+		} catch (EntityCreationException e) {
 			logger.error("Creation new project is failed!");
 
 			liferayFacesContext.addGlobalErrorMessage(
 				"Creation new project is failed!");
 		}
 
-		return "/views/preferences.xhtml";
+		return "/views/admin/view.xhtml";
 	}
 
-	public void editAction() {
-		action = ACTION_EDIT;
+	@Override
+	public void doEditAction() {
+		setAction(ACTION_EDIT);
 
 		Project project =
 			((ProjectTreeNode)selectedProjectNode).getProject();
@@ -109,10 +109,27 @@ public class ProjectBean implements Serializable {
 		projectName = project.getProjectName();
 	}
 
-	public void newAction() {
-		setActionValues(ACTION_NEW, false, StringPool.BLANK);
+	@Override
+	public void doNewAction() {
+		setActionValues(ACTION_NEW, false, null);
 	}
 
+	public void onDepartmentSelect() {
+		root = new ProjectTreeNode(null, null);
+
+		try {
+			generateTreeNodes(
+				false, selectedDepartment.getDepartmentId(), root);
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+
+		setActionValues(ACTION_NEW, false, null);
+
+		selectedProjectNode = null;
+	}
+
+	@Override
 	public void onNodeSelect() {
 		Project project =
 			((ProjectTreeNode)selectedProjectNode).getProject();
@@ -121,17 +138,20 @@ public class ProjectBean implements Serializable {
 			ACTION_SELECTED, project.getEnabled(), project.getProjectName());
 	}
 
+	@Override
 	public void onNodeUnSelect() {
-		newAction();
+		doNewAction();
 	}
 
-	public Project updateProject(Project project) throws SystemException{
-		ProjectLocalServiceUtil.updateProject(project);
+	@Override
+	public Object updateEntity(Object entity) throws SystemException{
+		ProjectLocalServiceUtil.updateProject((Project)entity);
 
-		return project;
+		return entity;
 	}
 
-	public String updateProjectAction() {
+	@Override
+	public String updateEntityAction() {
 		Project project =
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
@@ -142,7 +162,7 @@ public class ProjectBean implements Serializable {
 			LiferayFacesContext.getInstance();
 
 		try {
-			updateProject(project);
+			updateEntity(project);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
@@ -155,32 +175,37 @@ public class ProjectBean implements Serializable {
 				" Project update is failed!");
 		}
 
-		return "/views/preferences.xhtml";
+		return "/views/admin/view.xhtml";
 	}
 
-	protected void generateTreeNodes(boolean checkEnabled, TreeNode parentNode)
+	protected void generateTreeNodes(
+			boolean checkEnabled, long departmentId, TreeNode parentNode)
 		throws SystemException {
 
-		Project projectNode = ((ProjectTreeNode)parentNode).getProject();
+		if (departmentId > 0) {
+			Project projectNode = ((ProjectTreeNode)parentNode).getProject();
 
-		long projectId = projectNode != null ? projectNode.getProjectId() : 0;
+			long projectId =
+				projectNode != null ? projectNode.getProjectId() : 0;
 
-		List<Project> projects = ProjectLocalServiceUtil.getProjects(projectId);
+			List<Project> projects = ProjectLocalServiceUtil.getProjectsByD_PP(
+				departmentId, projectId);
 
-		for (Project project: projects) {
-			boolean enabled = true;
+			for (Project project: projects) {
+				boolean enabled = true;
 
-			if (checkEnabled && !project.getEnabled()) {
-				enabled = false;
-			}
+				if (checkEnabled && !project.getEnabled()) {
+					enabled = false;
+				}
 
-			if (enabled) {
-				TreeNode treeNode = new ProjectTreeNode(
-					project.getProjectName(), parentNode);
+				if (enabled) {
+					TreeNode treeNode = new ProjectTreeNode(
+						project.getProjectName(), parentNode);
 
-				((ProjectTreeNode)treeNode).setProject(project);
+					((ProjectTreeNode)treeNode).setProject(project);
 
-				generateTreeNodes(checkEnabled, treeNode);
+					generateTreeNodes(checkEnabled, departmentId, treeNode);
+				}
 			}
 		}
 	}
@@ -188,15 +213,11 @@ public class ProjectBean implements Serializable {
 	protected void setActionValues(
 		String action, boolean enabled, String projectName) {
 
-		this.action = action;
+		setAction(action);
 
 		this.projectName = projectName;
 
 		this.enabled = enabled;
-	}
-
-	public String getAction() {
-		return action;
 	}
 
 	public String getProjectName() {
@@ -212,7 +233,10 @@ public class ProjectBean implements Serializable {
 	}
 
 	public boolean isEnabled() {
-		if (selectedProjectNode != null) {
+		if (ACTION_NEW.equals(getAction())) {
+			enabled = false;
+		}
+		else if (selectedProjectNode != null) {
 			Project project =
 				((ProjectTreeNode)selectedProjectNode).getProject();
 
@@ -220,10 +244,6 @@ public class ProjectBean implements Serializable {
 		}
 
 		return enabled;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
 	}
 
 	public void setEnabled(boolean enabled) {
@@ -240,6 +260,14 @@ public class ProjectBean implements Serializable {
 
 	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
 		this.selectedProjectNode = selectedProjectNode;
+	}
+
+	public Department getSelectedDepartment() {
+		return selectedDepartment;
+	}
+
+	public void setSelectedDepartment(Department selectedDepartment) {
+		this.selectedDepartment = selectedDepartment;
 	}
 
 }

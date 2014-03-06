@@ -16,49 +16,120 @@
 		<h:messages showSummary="true" showDetail="true" />
 
 		<p:tabView id="tabView">
-			<p:tab id="tab1" title="Project">
+			<p:tab id="tab1" title="Department">
+				<h:form id="departmentForm">
+					<aui:layout>
+						<aui:column id="department_column_1">
+							<h:selectOneListbox converter="DepartmentConverter" id="departmentList" style="height:200px"
+								value="#{departmentBean.selectedDepartment}" var="d" >
+
+								<f:selectItems itemValue="#{department}" itemLabel="#{department.departmentName}"
+									value="#{departmentBean.departments}" var="department" />
+
+								<p:ajax event="change" listener="#{departmentBean.onNodeSelect}"
+									update=":#{p:component('department_column_2')}" />
+							</h:selectOneListbox>
+						</aui:column>
+
+						<aui:column id="department_column_2">
+							<p:menubar rendered="#{departmentBean.selectedDepartment!=null}">
+								<p:menuitem action="#{departmentBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
+									update=":#{p:component('department_column_2')}" value="New" />
+
+								<p:menuitem action="#{departmentBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
+									update=":#{p:component('department_column_2')}" value="Edit" />	
+							</p:menubar>
+
+							<aui:fieldset>
+								<aui:field label="Department name:">
+									<p:inputText id="departmentName" rendered="#{departmentBean.action!='selected'}" required="false" requiredMessage="Department name is required!"
+										value="#{departmentBean.departmentName}" />
+									<p:outputLabel rendered="#{departmentBean.action=='selected'}" value="#{departmentBean.departmentName}" />
+								</aui:field>
+							</aui:fieldset>
+
+							<h:commandButton action="#{departmentBean.createEntityAction}" id="btnDepartmentAction1"
+								rendered="#{departmentBean.action=='new'}" value="Add Department" />
+
+							<h:commandButton action="#{departmentBean.updateEntityAction}" id="btnDepartmentAction2"
+								rendered="#{departmentBean.action=='edit'}" value="Update Department" />
+						</aui:column>
+					</aui:layout>
+				</h:form>
+			</p:tab>
+
+			<p:tab id="tab2" title="Project">
 				<h:form id="treeForm">
 					<aui:layout id="layout">
-						<aui:column id="column1">
-							<p:contextMenu for="projectTree" id="menu">
-								<p:menuitem action="#{projectBean.newAction}" icon="ui-icon-new" id="newMenuItem"
-									update=":#{p:component('column2')}" value="New" />
+						<aui:column id="project_column_1">
+							<h:selectOneListbox converter="DepartmentConverter" id="departmentsList" value="#{projectBean.selectedDepartment}">
+								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
+									value="#{projectBean.departments}" var="department" />
 
-								<p:menuitem action="#{projectBean.editAction}" icon="ui-icon-edit" id="editMenuItem"
-									update=":#{p:component('column2')}" value="Edit" />	
+								<p:ajax event="change" listener="#{projectBean.onDepartmentSelect}"
+									update=":#{p:component('project_column_2')}, :#{p:component('project_column_3')}" />
+							</h:selectOneListbox>
+						</aui:column>
+						<aui:column id="project_column_2">
+							<p:contextMenu for="projectTree" id="menu">
+								<p:menuitem action="#{projectBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
+									update=":#{p:component('project_column_3')}" value="New" />
+
+								<p:menuitem action="#{projectBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
+									update=":#{p:component('project_column_3')}" value="Edit" />
 							</p:contextMenu>
 
 							<p:tree draggable="true" droppable="true" dragdropScope="demo" id="projectTree"
 								selection="#{projectBean.selectedProjectNode}" selectionMode="single"
 								value="#{projectBean.root}" var="project">
 
-								<p:ajax event="unselect" listener="#{projectBean.onNodeUnSelect}" update=":#{p:component('column2')}" />
+								<p:ajax event="unselect" listener="#{projectBean.onNodeUnSelect}" update=":#{p:component('project_column_3')}" />
 
-								<p:ajax event="select" listener="#{projectBean.onNodeSelect}" update=":#{p:component('column2')}" />
+								<p:ajax event="select" listener="#{projectBean.onNodeSelect}" update=":#{p:component('project_column_3')}" />
 
 								<p:treeNode>
 									<h:outputText value="#{project}" />
-								</p:treeNode>  
+								</p:treeNode>
 							</p:tree>
 						</aui:column>
 
-						<aui:column id="column2">
+						<aui:column id="project_column_3">
 							<p:menubar rendered="#{projectBean.selectedProjectNode!=null}">
-								<p:menuitem action="#{projectBean.newAction}" icon="ui-icon-new" id="newMenuItem"
-									update=":#{p:component('column2')}" value="New" />
+								<p:menuitem action="#{projectBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
+									update=":#{p:component('project_column_3')}" value="New" />
 
-								<p:menuitem action="#{projectBean.editAction}" icon="ui-icon-edit" id="editMenuItem"
-									update=":#{p:component('column2')}" value="Edit" />	
+								<p:menuitem action="#{projectBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
+									update=":#{p:component('project_column_3')}" value="Edit" />
 							</p:menubar>
 
-							<components:projectNode bean="#{projectBean}" id="projectNodeComponent" />
+							<aui:fieldset>
+								<aui:field label="Project name:">
+									<p:inputText id="projectName1" rendered="#{projectBean.action!='selected'}"
+										value="#{projectBean.projectName}" />
+									<p:outputLabel id="projectName2" rendered="#{projectBean.action=='selected'}"
+										value="#{projectBean.projectName}" />
+								</aui:field>
+
+								<aui:field label="Enabled:">
+									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{projectBean.action!='selected'}"
+										value="#{projectBean.enabled}" />
+									<p:outputLabel id="enabledProject2" rendered="#{projectBean.action=='selected'}"
+										value="#{projectBean.enabled}" />
+								</aui:field>
+							</aui:fieldset>
+
+							<h:commandButton action="#{projectBean.createEntityAction}" id="btnProjectAction1"
+								rendered="#{projectBean.action=='new'}" value="Add Project" />
+
+							<h:commandButton action="#{projectBean.updateEntityAction}" id="btnProjectAction2"
+								rendered="#{projectBean.action=='edit'}" value="Update Project" />
 						</aui:column>
 					</aui:layout>
 				</h:form>
 			</p:tab>
 
-			<p:tab id="tab2" title="Task">
-				<h:panelGrid columns="2" cellpadding="10">
+			<p:tab id="tab3" title="Task">
+				<h:panelGrid cellpadding="10" columns="2">
 
 				</h:panelGrid>
 			</p:tab>

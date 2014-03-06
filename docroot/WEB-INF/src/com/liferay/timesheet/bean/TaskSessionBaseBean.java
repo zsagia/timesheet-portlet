@@ -77,7 +77,7 @@ public abstract class TaskSessionBaseBean implements Serializable{
 				"Unable to add task session for task: " + getSelectedTaskId());
 		}
 
-		return "/views/view.xhtml";
+		return "/views/task/view.xhtml";
 	}
 
 	public TaskSession createTaskSession()
@@ -135,7 +135,7 @@ public abstract class TaskSessionBaseBean implements Serializable{
 				"Unable to update task session!");
 		}
 
-		return "/views/view.xhtml";
+		return "/views/task/view.xhtml";
 	}
 
 	public void finishTaskSession()

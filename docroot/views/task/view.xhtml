@@ -13,7 +13,7 @@
 	<h:head />
 
 	<h:body>
-		<h:messages showSummary="true" showDetail="true" />
+		<h:messages showDetail="true" showSummary="true" />
 
 		<p:tabView id="tabView">  
 			<p:tab id="tab1" title="Creation">
@@ -33,31 +33,39 @@
 					</aui:column>
 				</aui:layout>
 
-				<p:separator />
+				<h:form id="taskForm">
+					<aui:layout>
+						<aui:column id="project_column_1">
+							<h:selectOneListbox converter="DepartmentConverter" id="departmentList" style="height:200px"
+								value="#{enabledProjectBean.selectedDepartment}" var="d">
 
-				<aui:layout>
-					<aui:column>
-						<h:form id="taskForm">
+								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
+									value="#{taskBean.departmentBean.departments}" var="department" />
+
+								<p:ajax event="change" listener="#{enabledProjectBean.onDepartmentSelect}"
+									update=":#{p:component('project_column_2')}" />
+							</h:selectOneListbox>
+						</aui:column>
+
+						<aui:column id="project_column_2">
 							<components:taskComponent
 								actionMethod="#{taskBean.createTaskAction}"
 								projectRoot="#{enabledProjectBean.root}"
 								selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
 								startTime="#{taskSessionSimpleBean.startTime}"
 								taskName="#{taskBean.taskName}" />
-						</h:form>
+						</aui:column>
+					</aui:layout>
+				</h:form>
 
-						<hr />
-
-						<h:form id="taskSessionForm">
-							<ui:repeat var="task" value="#{taskBean.tasksByUser}">
-								<components:taskComponent
-									actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
-									selectedTask="#{task}"
-									startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
-							</ui:repeat>
-						</h:form>
-					</aui:column>
-				</aui:layout>
+				<h:form id="taskSessionForm">
+					<ui:repeat value="#{taskBean.tasksByUser}" var="task">
+						<components:taskComponent
+							actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
+							selectedTask="#{task}"
+							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
+					</ui:repeat>
+				</h:form>
 			</p:tab>
 
 			<p:tab id="tab2" title="Daily View">
