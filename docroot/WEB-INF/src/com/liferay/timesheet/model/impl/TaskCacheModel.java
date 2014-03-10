@@ -37,20 +37,28 @@ import java.util.Date;
 public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{taskId=");
 		sb.append(taskId);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
-		sb.append(", creatorId=");
-		sb.append(creatorId);
-		sb.append(", taskName=");
-		sb.append(taskName);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append(", projectId=");
 		sb.append(projectId);
+		sb.append(", taskName=");
+		sb.append(taskName);
 		sb.append("}");
 
 		return sb.toString();
@@ -61,7 +69,16 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 		TaskImpl taskImpl = new TaskImpl();
 
 		taskImpl.setTaskId(taskId);
+		taskImpl.setGroupId(groupId);
 		taskImpl.setCompanyId(companyId);
+		taskImpl.setUserId(userId);
+
+		if (userName == null) {
+			taskImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			taskImpl.setUserName(userName);
+		}
 
 		if (createDate == Long.MIN_VALUE) {
 			taskImpl.setCreateDate(null);
@@ -70,7 +87,21 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 			taskImpl.setCreateDate(new Date(createDate));
 		}
 
-		taskImpl.setCreatorId(creatorId);
+		if (modifiedDate == Long.MIN_VALUE) {
+			taskImpl.setModifiedDate(null);
+		}
+		else {
+			taskImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
+		if (description == null) {
+			taskImpl.setDescription(StringPool.BLANK);
+		}
+		else {
+			taskImpl.setDescription(description);
+		}
+
+		taskImpl.setProjectId(projectId);
 
 		if (taskName == null) {
 			taskImpl.setTaskName(StringPool.BLANK);
@@ -78,8 +109,6 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 		else {
 			taskImpl.setTaskName(taskName);
 		}
-
-		taskImpl.setProjectId(projectId);
 
 		taskImpl.resetOriginalValues();
 
@@ -89,20 +118,43 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		taskId = objectInput.readLong();
+		groupId = objectInput.readLong();
 		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
-		creatorId = objectInput.readLong();
-		taskName = objectInput.readUTF();
+		modifiedDate = objectInput.readLong();
+		description = objectInput.readUTF();
 		projectId = objectInput.readLong();
+		taskName = objectInput.readUTF();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(taskId);
+		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
 		objectOutput.writeLong(createDate);
-		objectOutput.writeLong(creatorId);
+		objectOutput.writeLong(modifiedDate);
+
+		if (description == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
+		objectOutput.writeLong(projectId);
 
 		if (taskName == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -110,14 +162,16 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 		else {
 			objectOutput.writeUTF(taskName);
 		}
-
-		objectOutput.writeLong(projectId);
 	}
 
 	public long taskId;
+	public long groupId;
 	public long companyId;
+	public long userId;
+	public String userName;
 	public long createDate;
-	public long creatorId;
-	public String taskName;
+	public long modifiedDate;
+	public String description;
 	public long projectId;
+	public String taskName;
 }

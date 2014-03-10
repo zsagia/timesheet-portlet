@@ -15,6 +15,7 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -22,6 +23,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -60,13 +62,15 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 	public static final String TABLE_NAME = "timesheet_Department";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "departmentId", Types.BIGINT },
+			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
+			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
-			{ "creatorId", Types.BIGINT },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "departmentName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Department (departmentId LONG not null primary key,companyId LONG,createDate DATE null,creatorId LONG,modifiedDate DATE null,departmentName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Department (departmentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,departmentName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Department";
 	public static final String ORDER_BY_JPQL = " ORDER BY department.departmentName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Department.departmentName ASC";
@@ -125,9 +129,11 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentName", getDepartmentName());
 
@@ -142,22 +148,34 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 			setDepartmentId(departmentId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -184,6 +202,16 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 	}
 
 	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -206,6 +234,41 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -213,16 +276,6 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
-	}
-
-	@Override
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	@Override
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
 	}
 
 	@Override
@@ -284,9 +337,11 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		DepartmentImpl departmentImpl = new DepartmentImpl();
 
 		departmentImpl.setDepartmentId(getDepartmentId());
+		departmentImpl.setGroupId(getGroupId());
 		departmentImpl.setCompanyId(getCompanyId());
+		departmentImpl.setUserId(getUserId());
+		departmentImpl.setUserName(getUserName());
 		departmentImpl.setCreateDate(getCreateDate());
-		departmentImpl.setCreatorId(getCreatorId());
 		departmentImpl.setModifiedDate(getModifiedDate());
 		departmentImpl.setDepartmentName(getDepartmentName());
 
@@ -352,7 +407,19 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 		departmentCacheModel.departmentId = getDepartmentId();
 
+		departmentCacheModel.groupId = getGroupId();
+
 		departmentCacheModel.companyId = getCompanyId();
+
+		departmentCacheModel.userId = getUserId();
+
+		departmentCacheModel.userName = getUserName();
+
+		String userName = departmentCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			departmentCacheModel.userName = null;
+		}
 
 		Date createDate = getCreateDate();
 
@@ -362,8 +429,6 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		else {
 			departmentCacheModel.createDate = Long.MIN_VALUE;
 		}
-
-		departmentCacheModel.creatorId = getCreatorId();
 
 		Date modifiedDate = getModifiedDate();
 
@@ -387,16 +452,20 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{departmentId=");
 		sb.append(getDepartmentId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
 		sb.append(", departmentName=");
@@ -408,7 +477,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(28);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Department");
@@ -419,16 +488,24 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		sb.append(getDepartmentId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
@@ -449,11 +526,14 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 			Department.class
 		};
 	private long _departmentId;
+	private long _groupId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
+	private long _userId;
+	private String _userUuid;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private String _departmentName;
 	private long _columnBitmask;

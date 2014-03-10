@@ -5,6 +5,7 @@ create index IX_62216527 on timesheet_Project (departmentId, parentProjectId);
 create index IX_F1CF7648 on timesheet_Project (parentProjectId);
 create index IX_F508FA42 on timesheet_Project (uuid_);
 create index IX_6ABD6CA6 on timesheet_Project (uuid_, companyId);
+create unique index IX_89E4E4A8 on timesheet_Project (uuid_, groupId);
 
 create index IX_F3AE5F87 on timesheet_Task (companyId, creatorId);
 create index IX_3F299F0A on timesheet_Task (companyId, userId);

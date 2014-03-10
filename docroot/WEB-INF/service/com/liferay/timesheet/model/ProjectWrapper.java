@@ -52,14 +52,17 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 
 		attributes.put("uuid", getUuid());
 		attributes.put("projectId", getProjectId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
-		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
+		attributes.put("projectName", getProjectName());
 
 		return attributes;
 	}
@@ -78,22 +81,34 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 			setProjectId(projectId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -108,22 +123,28 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 			setDepartmentId(departmentId);
 		}
 
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
 		Boolean enabled = (Boolean)attributes.get("enabled");
 
 		if (enabled != null) {
 			setEnabled(enabled);
 		}
 
-		String projectName = (String)attributes.get("projectName");
-
-		if (projectName != null) {
-			setProjectName(projectName);
-		}
-
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
 
 		if (parentProjectId != null) {
 			setParentProjectId(parentProjectId);
+		}
+
+		String projectName = (String)attributes.get("projectName");
+
+		if (projectName != null) {
+			setProjectName(projectName);
 		}
 	}
 
@@ -188,6 +209,26 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
+	* Returns the group ID of this project.
+	*
+	* @return the group ID of this project
+	*/
+	@Override
+	public long getGroupId() {
+		return _project.getGroupId();
+	}
+
+	/**
+	* Sets the group ID of this project.
+	*
+	* @param groupId the group ID of this project
+	*/
+	@Override
+	public void setGroupId(long groupId) {
+		_project.setGroupId(groupId);
+	}
+
+	/**
 	* Returns the company ID of this project.
 	*
 	* @return the company ID of this project
@@ -208,6 +249,68 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
+	* Returns the user ID of this project.
+	*
+	* @return the user ID of this project
+	*/
+	@Override
+	public long getUserId() {
+		return _project.getUserId();
+	}
+
+	/**
+	* Sets the user ID of this project.
+	*
+	* @param userId the user ID of this project
+	*/
+	@Override
+	public void setUserId(long userId) {
+		_project.setUserId(userId);
+	}
+
+	/**
+	* Returns the user uuid of this project.
+	*
+	* @return the user uuid of this project
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.lang.String getUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _project.getUserUuid();
+	}
+
+	/**
+	* Sets the user uuid of this project.
+	*
+	* @param userUuid the user uuid of this project
+	*/
+	@Override
+	public void setUserUuid(java.lang.String userUuid) {
+		_project.setUserUuid(userUuid);
+	}
+
+	/**
+	* Returns the user name of this project.
+	*
+	* @return the user name of this project
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _project.getUserName();
+	}
+
+	/**
+	* Sets the user name of this project.
+	*
+	* @param userName the user name of this project
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_project.setUserName(userName);
+	}
+
+	/**
 	* Returns the create date of this project.
 	*
 	* @return the create date of this project
@@ -225,26 +328,6 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_project.setCreateDate(createDate);
-	}
-
-	/**
-	* Returns the creator ID of this project.
-	*
-	* @return the creator ID of this project
-	*/
-	@Override
-	public long getCreatorId() {
-		return _project.getCreatorId();
-	}
-
-	/**
-	* Sets the creator ID of this project.
-	*
-	* @param creatorId the creator ID of this project
-	*/
-	@Override
-	public void setCreatorId(long creatorId) {
-		_project.setCreatorId(creatorId);
 	}
 
 	/**
@@ -288,6 +371,26 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
+	* Returns the description of this project.
+	*
+	* @return the description of this project
+	*/
+	@Override
+	public java.lang.String getDescription() {
+		return _project.getDescription();
+	}
+
+	/**
+	* Sets the description of this project.
+	*
+	* @param description the description of this project
+	*/
+	@Override
+	public void setDescription(java.lang.String description) {
+		_project.setDescription(description);
+	}
+
+	/**
 	* Returns the enabled of this project.
 	*
 	* @return the enabled of this project
@@ -308,26 +411,6 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
-	* Returns the project name of this project.
-	*
-	* @return the project name of this project
-	*/
-	@Override
-	public java.lang.String getProjectName() {
-		return _project.getProjectName();
-	}
-
-	/**
-	* Sets the project name of this project.
-	*
-	* @param projectName the project name of this project
-	*/
-	@Override
-	public void setProjectName(java.lang.String projectName) {
-		_project.setProjectName(projectName);
-	}
-
-	/**
 	* Returns the parent project ID of this project.
 	*
 	* @return the parent project ID of this project
@@ -345,6 +428,26 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	@Override
 	public void setParentProjectId(java.lang.Long parentProjectId) {
 		_project.setParentProjectId(parentProjectId);
+	}
+
+	/**
+	* Returns the project name of this project.
+	*
+	* @return the project name of this project
+	*/
+	@Override
+	public java.lang.String getProjectName() {
+		return _project.getProjectName();
+	}
+
+	/**
+	* Sets the project name of this project.
+	*
+	* @param projectName the project name of this project
+	*/
+	@Override
+	public void setProjectName(java.lang.String projectName) {
+		_project.setProjectName(projectName);
 	}
 
 	@Override

@@ -77,9 +77,13 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("userId", getUserId());
+		attributes.put("description", getDescription());
 		attributes.put("endTime", getEndTime());
 		attributes.put("startTime", getStartTime());
 		attributes.put("taskId", getTaskId());
@@ -95,6 +99,30 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 			setTaskSessionId(taskSessionId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -107,10 +135,10 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		String description = (String)attributes.get("description");
 
-		if (userId != null) {
-			setUserId(userId);
+		if (description != null) {
+			setDescription(description);
 		}
 
 		Date endTime = (Date)attributes.get("endTime");
@@ -148,6 +176,108 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 				Method method = clazz.getMethod("setTaskSessionId", long.class);
 
 				method.invoke(_taskSessionRemoteModel, taskSessionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_taskSessionRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+
+		if (_taskSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_taskSessionRemoteModel, userName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -202,36 +332,26 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	}
 
 	@Override
-	public long getUserId() {
-		return _userId;
+	public String getDescription() {
+		return _description;
 	}
 
 	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
+	public void setDescription(String description) {
+		_description = description;
 
 		if (_taskSessionRemoteModel != null) {
 			try {
 				Class<?> clazz = _taskSessionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setUserId", long.class);
+				Method method = clazz.getMethod("setDescription", String.class);
 
-				method.invoke(_taskSessionRemoteModel, userId);
+				method.invoke(_taskSessionRemoteModel, description);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
 			}
 		}
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
 	}
 
 	@Override
@@ -392,9 +512,13 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		TaskSessionClp clone = new TaskSessionClp();
 
 		clone.setTaskSessionId(getTaskSessionId());
+		clone.setGroupId(getGroupId());
+		clone.setCompanyId(getCompanyId());
+		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setUserId(getUserId());
+		clone.setDescription(getDescription());
 		clone.setEndTime(getEndTime());
 		clone.setStartTime(getStartTime());
 		clone.setTaskId(getTaskId());
@@ -446,16 +570,24 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{taskSessionId=");
 		sb.append(getTaskSessionId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", userId=");
-		sb.append(getUserId());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", endTime=");
 		sb.append(getEndTime());
 		sb.append(", startTime=");
@@ -469,7 +601,7 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.TaskSession");
@@ -480,6 +612,22 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		sb.append(getTaskSessionId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
@@ -488,8 +636,8 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>endTime</column-name><column-value><![CDATA[");
@@ -510,10 +658,14 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	}
 
 	private long _taskSessionId;
-	private Date _createDate;
-	private Date _modifiedDate;
+	private long _groupId;
+	private long _companyId;
 	private long _userId;
 	private String _userUuid;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private String _description;
 	private Date _endTime;
 	private Date _startTime;
 	private long _taskId;

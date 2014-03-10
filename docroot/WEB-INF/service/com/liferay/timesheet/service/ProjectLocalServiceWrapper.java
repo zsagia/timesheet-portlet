@@ -202,6 +202,21 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	/**
+	* Returns the project matching the UUID and group.
+	*
+	* @param uuid the project's UUID
+	* @param groupId the primary key of the group
+	* @return the matching project, or <code>null</code> if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.timesheet.model.Project fetchProjectByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.fetchProjectByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
 	* Returns the project with the primary key.
 	*
 	* @param projectId the primary key of the project
@@ -239,6 +254,23 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _projectLocalService.getProjectByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the project matching the UUID and group.
+	*
+	* @param uuid the project's UUID
+	* @param groupId the primary key of the group
+	* @return the matching project
+	* @throws PortalException if a matching project could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.timesheet.model.Project getProjectByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _projectLocalService.getProjectByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**

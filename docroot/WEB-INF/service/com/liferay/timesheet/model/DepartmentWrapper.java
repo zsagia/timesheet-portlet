@@ -50,9 +50,11 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentName", getDepartmentName());
 
@@ -67,22 +69,34 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
 			setDepartmentId(departmentId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -139,6 +153,26 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
 	}
 
 	/**
+	* Returns the group ID of this department.
+	*
+	* @return the group ID of this department
+	*/
+	@Override
+	public long getGroupId() {
+		return _department.getGroupId();
+	}
+
+	/**
+	* Sets the group ID of this department.
+	*
+	* @param groupId the group ID of this department
+	*/
+	@Override
+	public void setGroupId(long groupId) {
+		_department.setGroupId(groupId);
+	}
+
+	/**
 	* Returns the company ID of this department.
 	*
 	* @return the company ID of this department
@@ -159,6 +193,68 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
 	}
 
 	/**
+	* Returns the user ID of this department.
+	*
+	* @return the user ID of this department
+	*/
+	@Override
+	public long getUserId() {
+		return _department.getUserId();
+	}
+
+	/**
+	* Sets the user ID of this department.
+	*
+	* @param userId the user ID of this department
+	*/
+	@Override
+	public void setUserId(long userId) {
+		_department.setUserId(userId);
+	}
+
+	/**
+	* Returns the user uuid of this department.
+	*
+	* @return the user uuid of this department
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.lang.String getUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _department.getUserUuid();
+	}
+
+	/**
+	* Sets the user uuid of this department.
+	*
+	* @param userUuid the user uuid of this department
+	*/
+	@Override
+	public void setUserUuid(java.lang.String userUuid) {
+		_department.setUserUuid(userUuid);
+	}
+
+	/**
+	* Returns the user name of this department.
+	*
+	* @return the user name of this department
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _department.getUserName();
+	}
+
+	/**
+	* Sets the user name of this department.
+	*
+	* @param userName the user name of this department
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_department.setUserName(userName);
+	}
+
+	/**
 	* Returns the create date of this department.
 	*
 	* @return the create date of this department
@@ -176,26 +272,6 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
 	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_department.setCreateDate(createDate);
-	}
-
-	/**
-	* Returns the creator ID of this department.
-	*
-	* @return the creator ID of this department
-	*/
-	@Override
-	public long getCreatorId() {
-		return _department.getCreatorId();
-	}
-
-	/**
-	* Sets the creator ID of this department.
-	*
-	* @param creatorId the creator ID of this department
-	*/
-	@Override
-	public void setCreatorId(long creatorId) {
-		_department.setCreatorId(creatorId);
 	}
 
 	/**

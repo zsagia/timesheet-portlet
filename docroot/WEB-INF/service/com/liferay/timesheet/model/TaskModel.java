@@ -15,8 +15,10 @@
 package com.liferay.timesheet.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
+import com.liferay.portal.model.GroupedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -38,7 +40,7 @@ import java.util.Date;
  * @see com.liferay.timesheet.model.impl.TaskModelImpl
  * @generated
  */
-public interface TaskModel extends BaseModel<Task> {
+public interface TaskModel extends BaseModel<Task>, GroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -74,10 +76,27 @@ public interface TaskModel extends BaseModel<Task> {
 	public void setTaskId(long taskId);
 
 	/**
+	 * Returns the group ID of this task.
+	 *
+	 * @return the group ID of this task
+	 */
+	@Override
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this task.
+	 *
+	 * @param groupId the group ID of this task
+	 */
+	@Override
+	public void setGroupId(long groupId);
+
+	/**
 	 * Returns the company ID of this task.
 	 *
 	 * @return the company ID of this task
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -85,13 +104,65 @@ public interface TaskModel extends BaseModel<Task> {
 	 *
 	 * @param companyId the company ID of this task
 	 */
+	@Override
 	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this task.
+	 *
+	 * @return the user ID of this task
+	 */
+	@Override
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this task.
+	 *
+	 * @param userId the user ID of this task
+	 */
+	@Override
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this task.
+	 *
+	 * @return the user uuid of this task
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public String getUserUuid() throws SystemException;
+
+	/**
+	 * Sets the user uuid of this task.
+	 *
+	 * @param userUuid the user uuid of this task
+	 */
+	@Override
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this task.
+	 *
+	 * @return the user name of this task
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this task.
+	 *
+	 * @param userName the user name of this task
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this task.
 	 *
 	 * @return the create date of this task
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -99,21 +170,53 @@ public interface TaskModel extends BaseModel<Task> {
 	 *
 	 * @param createDate the create date of this task
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
-	 * Returns the creator ID of this task.
+	 * Returns the modified date of this task.
 	 *
-	 * @return the creator ID of this task
+	 * @return the modified date of this task
 	 */
-	public long getCreatorId();
+	@Override
+	public Date getModifiedDate();
 
 	/**
-	 * Sets the creator ID of this task.
+	 * Sets the modified date of this task.
 	 *
-	 * @param creatorId the creator ID of this task
+	 * @param modifiedDate the modified date of this task
 	 */
-	public void setCreatorId(long creatorId);
+	@Override
+	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the description of this task.
+	 *
+	 * @return the description of this task
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this task.
+	 *
+	 * @param description the description of this task
+	 */
+	public void setDescription(String description);
+
+	/**
+	 * Returns the project ID of this task.
+	 *
+	 * @return the project ID of this task
+	 */
+	public long getProjectId();
+
+	/**
+	 * Sets the project ID of this task.
+	 *
+	 * @param projectId the project ID of this task
+	 */
+	public void setProjectId(long projectId);
 
 	/**
 	 * Returns the task name of this task.
@@ -129,20 +232,6 @@ public interface TaskModel extends BaseModel<Task> {
 	 * @param taskName the task name of this task
 	 */
 	public void setTaskName(String taskName);
-
-	/**
-	 * Returns the project ID of this task.
-	 *
-	 * @return the project ID of this task
-	 */
-	public long getProjectId();
-
-	/**
-	 * Sets the project ID of this task.
-	 *
-	 * @param projectId the project ID of this task
-	 */
-	public void setProjectId(long projectId);
 
 	@Override
 	public boolean isNew();

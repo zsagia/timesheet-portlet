@@ -230,6 +230,20 @@ public abstract class ProjectLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the project matching the UUID and group.
+	 *
+	 * @param uuid the project's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching project, or <code>null</code> if a matching project could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project fetchProjectByUuidAndGroupId(String uuid, long groupId)
+		throws SystemException {
+		return projectPersistence.fetchByUUID_G(uuid, groupId);
+	}
+
+	/**
 	 * Returns the project with the primary key.
 	 *
 	 * @param projectId the primary key of the project
@@ -262,6 +276,21 @@ public abstract class ProjectLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public Project getProjectByUuidAndCompanyId(String uuid, long companyId)
 		throws PortalException, SystemException {
 		return projectPersistence.findByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the project matching the UUID and group.
+	 *
+	 * @param uuid the project's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching project
+	 * @throws PortalException if a matching project could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project getProjectByUuidAndGroupId(String uuid, long groupId)
+		throws PortalException, SystemException {
+		return projectPersistence.findByUUID_G(uuid, groupId);
 	}
 
 	/**

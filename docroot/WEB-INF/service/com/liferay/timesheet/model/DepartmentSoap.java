@@ -31,9 +31,11 @@ public class DepartmentSoap implements Serializable {
 		DepartmentSoap soapModel = new DepartmentSoap();
 
 		soapModel.setDepartmentId(model.getDepartmentId());
+		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
-		soapModel.setCreatorId(model.getCreatorId());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setDepartmentName(model.getDepartmentName());
 
@@ -96,6 +98,14 @@ public class DepartmentSoap implements Serializable {
 		_departmentId = departmentId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -104,20 +114,28 @@ public class DepartmentSoap implements Serializable {
 		_companyId = companyId;
 	}
 
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
-	}
-
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
 	}
 
 	public Date getModifiedDate() {
@@ -137,9 +155,11 @@ public class DepartmentSoap implements Serializable {
 	}
 
 	private long _departmentId;
+	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private String _departmentName;
 }

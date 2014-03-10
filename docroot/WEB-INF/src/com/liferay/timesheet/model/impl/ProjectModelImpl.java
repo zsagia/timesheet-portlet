@@ -15,6 +15,7 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -63,16 +64,19 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "uuid_", Types.VARCHAR },
 			{ "projectId", Types.BIGINT },
+			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
+			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
-			{ "creatorId", Types.BIGINT },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "departmentId", Types.BIGINT },
+			{ "description", Types.VARCHAR },
 			{ "enabled", Types.BOOLEAN },
-			{ "projectName", Types.VARCHAR },
-			{ "parentProjectId", Types.BIGINT }
+			{ "parentProjectId", Types.BIGINT },
+			{ "projectName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,companyId LONG,createDate DATE null,creatorId LONG,modifiedDate DATE null,departmentId LONG,enabled BOOLEAN,projectName VARCHAR(75) null,parentProjectId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,departmentId LONG,description VARCHAR(75) null,enabled BOOLEAN,parentProjectId LONG,projectName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Project";
 	public static final String ORDER_BY_JPQL = " ORDER BY project.projectName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Project.projectName ASC";
@@ -90,9 +94,10 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long DEPARTMENTID_COLUMN_BITMASK = 2L;
-	public static long PARENTPROJECTID_COLUMN_BITMASK = 4L;
-	public static long UUID_COLUMN_BITMASK = 8L;
-	public static long PROJECTNAME_COLUMN_BITMASK = 16L;
+	public static long GROUPID_COLUMN_BITMASK = 4L;
+	public static long PARENTPROJECTID_COLUMN_BITMASK = 8L;
+	public static long UUID_COLUMN_BITMASK = 16L;
+	public static long PROJECTNAME_COLUMN_BITMASK = 32L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Project"));
 
@@ -135,14 +140,17 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		attributes.put("uuid", getUuid());
 		attributes.put("projectId", getProjectId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
-		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
+		attributes.put("projectName", getProjectName());
 
 		return attributes;
 	}
@@ -161,22 +169,34 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			setProjectId(projectId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -191,22 +211,28 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			setDepartmentId(departmentId);
 		}
 
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
 		Boolean enabled = (Boolean)attributes.get("enabled");
 
 		if (enabled != null) {
 			setEnabled(enabled);
 		}
 
-		String projectName = (String)attributes.get("projectName");
-
-		if (projectName != null) {
-			setProjectName(projectName);
-		}
-
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
 
 		if (parentProjectId != null) {
 			setParentProjectId(parentProjectId);
+		}
+
+		String projectName = (String)attributes.get("projectName");
+
+		if (projectName != null) {
+			setProjectName(projectName);
 		}
 	}
 
@@ -244,6 +270,28 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	}
 
 	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_columnBitmask |= GROUPID_COLUMN_BITMASK;
+
+		if (!_setOriginalGroupId) {
+			_setOriginalGroupId = true;
+
+			_originalGroupId = _groupId;
+		}
+
+		_groupId = groupId;
+	}
+
+	public long getOriginalGroupId() {
+		return _originalGroupId;
+	}
+
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -266,6 +314,41 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -273,16 +356,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
-	}
-
-	@Override
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	@Override
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
 	}
 
 	@Override
@@ -318,6 +391,21 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	}
 
 	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+	}
+
+	@Override
 	public Boolean getEnabled() {
 		return _enabled;
 	}
@@ -325,23 +413,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	@Override
 	public void setEnabled(Boolean enabled) {
 		_enabled = enabled;
-	}
-
-	@Override
-	public String getProjectName() {
-		if (_projectName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _projectName;
-		}
-	}
-
-	@Override
-	public void setProjectName(String projectName) {
-		_columnBitmask = -1L;
-
-		_projectName = projectName;
 	}
 
 	@Override
@@ -364,6 +435,23 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	public Long getOriginalParentProjectId() {
 		return _originalParentProjectId;
+	}
+
+	@Override
+	public String getProjectName() {
+		if (_projectName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _projectName;
+		}
+	}
+
+	@Override
+	public void setProjectName(String projectName) {
+		_columnBitmask = -1L;
+
+		_projectName = projectName;
 	}
 
 	@Override
@@ -405,14 +493,17 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		projectImpl.setUuid(getUuid());
 		projectImpl.setProjectId(getProjectId());
+		projectImpl.setGroupId(getGroupId());
 		projectImpl.setCompanyId(getCompanyId());
+		projectImpl.setUserId(getUserId());
+		projectImpl.setUserName(getUserName());
 		projectImpl.setCreateDate(getCreateDate());
-		projectImpl.setCreatorId(getCreatorId());
 		projectImpl.setModifiedDate(getModifiedDate());
 		projectImpl.setDepartmentId(getDepartmentId());
+		projectImpl.setDescription(getDescription());
 		projectImpl.setEnabled(getEnabled());
-		projectImpl.setProjectName(getProjectName());
 		projectImpl.setParentProjectId(getParentProjectId());
+		projectImpl.setProjectName(getProjectName());
 
 		projectImpl.resetOriginalValues();
 
@@ -465,6 +556,10 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		projectModelImpl._originalUuid = projectModelImpl._uuid;
 
+		projectModelImpl._originalGroupId = projectModelImpl._groupId;
+
+		projectModelImpl._setOriginalGroupId = false;
+
 		projectModelImpl._originalCompanyId = projectModelImpl._companyId;
 
 		projectModelImpl._setOriginalCompanyId = false;
@@ -494,7 +589,19 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		projectCacheModel.projectId = getProjectId();
 
+		projectCacheModel.groupId = getGroupId();
+
 		projectCacheModel.companyId = getCompanyId();
+
+		projectCacheModel.userId = getUserId();
+
+		projectCacheModel.userName = getUserName();
+
+		String userName = projectCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			projectCacheModel.userName = null;
+		}
 
 		Date createDate = getCreateDate();
 
@@ -504,8 +611,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		else {
 			projectCacheModel.createDate = Long.MIN_VALUE;
 		}
-
-		projectCacheModel.creatorId = getCreatorId();
 
 		Date modifiedDate = getModifiedDate();
 
@@ -518,7 +623,17 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		projectCacheModel.departmentId = getDepartmentId();
 
+		projectCacheModel.description = getDescription();
+
+		String description = projectCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			projectCacheModel.description = null;
+		}
+
 		projectCacheModel.enabled = getEnabled();
+
+		projectCacheModel.parentProjectId = getParentProjectId();
 
 		projectCacheModel.projectName = getProjectName();
 
@@ -528,35 +643,39 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			projectCacheModel.projectName = null;
 		}
 
-		projectCacheModel.parentProjectId = getParentProjectId();
-
 		return projectCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
 		sb.append(", projectId=");
 		sb.append(getProjectId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
 		sb.append(", departmentId=");
 		sb.append(getDepartmentId());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
-		sb.append(", projectName=");
-		sb.append(getProjectName());
 		sb.append(", parentProjectId=");
 		sb.append(getParentProjectId());
+		sb.append(", projectName=");
+		sb.append(getProjectName());
 		sb.append("}");
 
 		return sb.toString();
@@ -564,7 +683,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Project");
@@ -579,16 +698,24 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getProjectId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
@@ -599,16 +726,20 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getDepartmentId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
 		sb.append(getEnabled());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>projectName</column-name><column-value><![CDATA[");
-		sb.append(getProjectName());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>parentProjectId</column-name><column-value><![CDATA[");
 		sb.append(getParentProjectId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>projectName</column-name><column-value><![CDATA[");
+		sb.append(getProjectName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -623,20 +754,26 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	private String _uuid;
 	private String _originalUuid;
 	private long _projectId;
+	private long _groupId;
+	private long _originalGroupId;
+	private boolean _setOriginalGroupId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
+	private long _userId;
+	private String _userUuid;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private Long _departmentId;
 	private Long _originalDepartmentId;
 	private boolean _setOriginalDepartmentId;
+	private String _description;
 	private Boolean _enabled;
-	private String _projectName;
 	private Long _parentProjectId;
 	private Long _originalParentProjectId;
 	private boolean _setOriginalParentProjectId;
+	private String _projectName;
 	private long _columnBitmask;
 	private Project _escapedModel;
 }

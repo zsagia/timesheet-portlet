@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
@@ -75,9 +76,11 @@ public class DepartmentClp extends BaseModelImpl<Department>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentName", getDepartmentName());
 
@@ -92,22 +95,34 @@ public class DepartmentClp extends BaseModelImpl<Department>
 			setDepartmentId(departmentId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -147,6 +162,29 @@ public class DepartmentClp extends BaseModelImpl<Department>
 	}
 
 	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_departmentRemoteModel != null) {
+			try {
+				Class<?> clazz = _departmentRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_departmentRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -170,6 +208,62 @@ public class DepartmentClp extends BaseModelImpl<Department>
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+
+		if (_departmentRemoteModel != null) {
+			try {
+				Class<?> clazz = _departmentRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_departmentRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+
+		if (_departmentRemoteModel != null) {
+			try {
+				Class<?> clazz = _departmentRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_departmentRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -185,29 +279,6 @@ public class DepartmentClp extends BaseModelImpl<Department>
 				Method method = clazz.getMethod("setCreateDate", Date.class);
 
 				method.invoke(_departmentRemoteModel, createDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	@Override
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
-
-		if (_departmentRemoteModel != null) {
-			try {
-				Class<?> clazz = _departmentRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCreatorId", long.class);
-
-				method.invoke(_departmentRemoteModel, creatorId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -332,9 +403,11 @@ public class DepartmentClp extends BaseModelImpl<Department>
 		DepartmentClp clone = new DepartmentClp();
 
 		clone.setDepartmentId(getDepartmentId());
+		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
+		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
-		clone.setCreatorId(getCreatorId());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setDepartmentName(getDepartmentName());
 
@@ -383,16 +456,20 @@ public class DepartmentClp extends BaseModelImpl<Department>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{departmentId=");
 		sb.append(getDepartmentId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
 		sb.append(", departmentName=");
@@ -404,7 +481,7 @@ public class DepartmentClp extends BaseModelImpl<Department>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(28);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Department");
@@ -415,16 +492,24 @@ public class DepartmentClp extends BaseModelImpl<Department>
 		sb.append(getDepartmentId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
@@ -441,9 +526,12 @@ public class DepartmentClp extends BaseModelImpl<Department>
 	}
 
 	private long _departmentId;
+	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private String _userUuid;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private String _departmentName;
 	private BaseModel<?> _departmentRemoteModel;

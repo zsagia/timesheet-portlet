@@ -15,6 +15,7 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
 import com.liferay.timesheet.model.TaskSession;
@@ -37,16 +38,24 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{taskSessionId=");
 		sb.append(taskSessionId);
+		sb.append(", groupId=");
+		sb.append(groupId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", userId=");
-		sb.append(userId);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append(", endTime=");
 		sb.append(endTime);
 		sb.append(", startTime=");
@@ -63,6 +72,16 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
 
 		taskSessionImpl.setTaskSessionId(taskSessionId);
+		taskSessionImpl.setGroupId(groupId);
+		taskSessionImpl.setCompanyId(companyId);
+		taskSessionImpl.setUserId(userId);
+
+		if (userName == null) {
+			taskSessionImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			taskSessionImpl.setUserName(userName);
+		}
 
 		if (createDate == Long.MIN_VALUE) {
 			taskSessionImpl.setCreateDate(null);
@@ -78,7 +97,12 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 			taskSessionImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		taskSessionImpl.setUserId(userId);
+		if (description == null) {
+			taskSessionImpl.setDescription(StringPool.BLANK);
+		}
+		else {
+			taskSessionImpl.setDescription(description);
+		}
 
 		if (endTime == Long.MIN_VALUE) {
 			taskSessionImpl.setEndTime(null);
@@ -104,9 +128,13 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		taskSessionId = objectInput.readLong();
+		groupId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		userId = objectInput.readLong();
+		description = objectInput.readUTF();
 		endTime = objectInput.readLong();
 		startTime = objectInput.readLong();
 		taskId = objectInput.readLong();
@@ -116,18 +144,40 @@ public class TaskSessionCacheModel implements CacheModel<TaskSession>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(taskSessionId);
+		objectOutput.writeLong(groupId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(userId);
+
+		if (description == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
 		objectOutput.writeLong(endTime);
 		objectOutput.writeLong(startTime);
 		objectOutput.writeLong(taskId);
 	}
 
 	public long taskSessionId;
+	public long groupId;
+	public long companyId;
+	public long userId;
+	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public long userId;
+	public String description;
 	public long endTime;
 	public long startTime;
 	public long taskId;

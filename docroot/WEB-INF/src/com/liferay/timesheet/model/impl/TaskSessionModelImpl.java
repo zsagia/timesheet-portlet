@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
@@ -62,14 +63,18 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	public static final String TABLE_NAME = "timesheet_TaskSession";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "taskSessionId", Types.BIGINT },
+			{ "groupId", Types.BIGINT },
+			{ "companyId", Types.BIGINT },
+			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "userId", Types.BIGINT },
+			{ "description", Types.VARCHAR },
 			{ "endTime", Types.TIMESTAMP },
 			{ "startTime", Types.TIMESTAMP },
 			{ "taskId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_TaskSession (taskSessionId LONG not null primary key,createDate DATE null,modifiedDate DATE null,userId LONG,endTime DATE null,startTime DATE null,taskId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_TaskSession (taskSessionId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,endTime DATE null,startTime DATE null,taskId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_TaskSession";
 	public static final String ORDER_BY_JPQL = " ORDER BY taskSession.startTime DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_TaskSession.startTime DESC";
@@ -129,9 +134,13 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("userId", getUserId());
+		attributes.put("description", getDescription());
 		attributes.put("endTime", getEndTime());
 		attributes.put("startTime", getStartTime());
 		attributes.put("taskId", getTaskId());
@@ -147,6 +156,30 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			setTaskSessionId(taskSessionId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -159,10 +192,10 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		String description = (String)attributes.get("description");
 
-		if (userId != null) {
-			setUserId(userId);
+		if (description != null) {
+			setDescription(description);
 		}
 
 		Date endTime = (Date)attributes.get("endTime");
@@ -195,23 +228,23 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	}
 
 	@Override
-	public Date getCreateDate() {
-		return _createDate;
+	public long getGroupId() {
+		return _groupId;
 	}
 
 	@Override
-	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
 	}
 
 	@Override
-	public Date getModifiedDate() {
-		return _modifiedDate;
+	public long getCompanyId() {
+		return _companyId;
 	}
 
 	@Override
-	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@Override
@@ -244,6 +277,56 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	public long getOriginalUserId() {
 		return _originalUserId;
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
+	}
+
+	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
 	}
 
 	@Override
@@ -302,7 +385,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			TaskSession.class.getName(), getPrimaryKey());
 	}
 
@@ -328,9 +411,13 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		TaskSessionImpl taskSessionImpl = new TaskSessionImpl();
 
 		taskSessionImpl.setTaskSessionId(getTaskSessionId());
+		taskSessionImpl.setGroupId(getGroupId());
+		taskSessionImpl.setCompanyId(getCompanyId());
+		taskSessionImpl.setUserId(getUserId());
+		taskSessionImpl.setUserName(getUserName());
 		taskSessionImpl.setCreateDate(getCreateDate());
 		taskSessionImpl.setModifiedDate(getModifiedDate());
-		taskSessionImpl.setUserId(getUserId());
+		taskSessionImpl.setDescription(getDescription());
 		taskSessionImpl.setEndTime(getEndTime());
 		taskSessionImpl.setStartTime(getStartTime());
 		taskSessionImpl.setTaskId(getTaskId());
@@ -403,6 +490,20 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 		taskSessionCacheModel.taskSessionId = getTaskSessionId();
 
+		taskSessionCacheModel.groupId = getGroupId();
+
+		taskSessionCacheModel.companyId = getCompanyId();
+
+		taskSessionCacheModel.userId = getUserId();
+
+		taskSessionCacheModel.userName = getUserName();
+
+		String userName = taskSessionCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			taskSessionCacheModel.userName = null;
+		}
+
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -421,7 +522,13 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			taskSessionCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		taskSessionCacheModel.userId = getUserId();
+		taskSessionCacheModel.description = getDescription();
+
+		String description = taskSessionCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			taskSessionCacheModel.description = null;
+		}
 
 		Date endTime = getEndTime();
 
@@ -448,16 +555,24 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{taskSessionId=");
 		sb.append(getTaskSessionId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", userId=");
-		sb.append(getUserId());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", endTime=");
 		sb.append(getEndTime());
 		sb.append(", startTime=");
@@ -471,7 +586,7 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.TaskSession");
@@ -482,6 +597,22 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		sb.append(getTaskSessionId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
@@ -490,8 +621,8 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>endTime</column-name><column-value><![CDATA[");
@@ -516,12 +647,16 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			TaskSession.class
 		};
 	private long _taskSessionId;
-	private Date _createDate;
-	private Date _modifiedDate;
+	private long _groupId;
+	private long _companyId;
 	private long _userId;
 	private String _userUuid;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private String _description;
 	private Date _endTime;
 	private Date _originalEndTime;
 	private Date _startTime;

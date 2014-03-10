@@ -15,6 +15,7 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -22,6 +23,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -59,13 +61,17 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public static final String TABLE_NAME = "timesheet_Task";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "taskId", Types.BIGINT },
+			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
+			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
-			{ "creatorId", Types.BIGINT },
-			{ "taskName", Types.VARCHAR },
-			{ "projectId", Types.BIGINT }
+			{ "modifiedDate", Types.TIMESTAMP },
+			{ "description", Types.VARCHAR },
+			{ "projectId", Types.BIGINT },
+			{ "taskName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,companyId LONG,createDate DATE null,creatorId LONG,taskName VARCHAR(75) null,projectId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Task";
 	public static final String ORDER_BY_JPQL = " ORDER BY task.taskName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Task.taskName ASC";
@@ -82,9 +88,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Task"),
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
-	public static long CREATORID_COLUMN_BITMASK = 2L;
-	public static long PROJECTID_COLUMN_BITMASK = 4L;
-	public static long TASKNAME_COLUMN_BITMASK = 8L;
+	public static long PROJECTID_COLUMN_BITMASK = 2L;
+	public static long TASKNAME_COLUMN_BITMASK = 4L;
+	public static long USERID_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
 
@@ -126,11 +132,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskId", getTaskId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
-		attributes.put("taskName", getTaskName());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
+		attributes.put("taskName", getTaskName());
 
 		return attributes;
 	}
@@ -143,10 +153,28 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			setTaskId(taskId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -155,22 +183,28 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			setCreateDate(createDate);
 		}
 
-		Long creatorId = (Long)attributes.get("creatorId");
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
 
-		if (creatorId != null) {
-			setCreatorId(creatorId);
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
-		String taskName = (String)attributes.get("taskName");
+		String description = (String)attributes.get("description");
 
-		if (taskName != null) {
-			setTaskName(taskName);
+		if (description != null) {
+			setDescription(description);
 		}
 
 		Long projectId = (Long)attributes.get("projectId");
 
 		if (projectId != null) {
 			setProjectId(projectId);
+		}
+
+		String taskName = (String)attributes.get("taskName");
+
+		if (taskName != null) {
+			setTaskName(taskName);
 		}
 	}
 
@@ -182,6 +216,16 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	@Override
 	public void setTaskId(long taskId) {
 		_taskId = taskId;
+	}
+
+	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
 	}
 
 	@Override
@@ -207,6 +251,53 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -217,25 +308,50 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	@Override
-	public long getCreatorId() {
-		return _creatorId;
+	public Date getModifiedDate() {
+		return _modifiedDate;
 	}
 
 	@Override
-	public void setCreatorId(long creatorId) {
-		_columnBitmask |= CREATORID_COLUMN_BITMASK;
-
-		if (!_setOriginalCreatorId) {
-			_setOriginalCreatorId = true;
-
-			_originalCreatorId = _creatorId;
-		}
-
-		_creatorId = creatorId;
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 	}
 
-	public long getOriginalCreatorId() {
-		return _originalCreatorId;
+	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+	}
+
+	@Override
+	public long getProjectId() {
+		return _projectId;
+	}
+
+	@Override
+	public void setProjectId(long projectId) {
+		_columnBitmask |= PROJECTID_COLUMN_BITMASK;
+
+		if (!_setOriginalProjectId) {
+			_setOriginalProjectId = true;
+
+			_originalProjectId = _projectId;
+		}
+
+		_projectId = projectId;
+	}
+
+	public long getOriginalProjectId() {
+		return _originalProjectId;
 	}
 
 	@Override
@@ -261,28 +377,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	public String getOriginalTaskName() {
 		return GetterUtil.getString(_originalTaskName);
-	}
-
-	@Override
-	public long getProjectId() {
-		return _projectId;
-	}
-
-	@Override
-	public void setProjectId(long projectId) {
-		_columnBitmask |= PROJECTID_COLUMN_BITMASK;
-
-		if (!_setOriginalProjectId) {
-			_setOriginalProjectId = true;
-
-			_originalProjectId = _projectId;
-		}
-
-		_projectId = projectId;
-	}
-
-	public long getOriginalProjectId() {
-		return _originalProjectId;
 	}
 
 	public long getColumnBitmask() {
@@ -317,11 +411,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		TaskImpl taskImpl = new TaskImpl();
 
 		taskImpl.setTaskId(getTaskId());
+		taskImpl.setGroupId(getGroupId());
 		taskImpl.setCompanyId(getCompanyId());
+		taskImpl.setUserId(getUserId());
+		taskImpl.setUserName(getUserName());
 		taskImpl.setCreateDate(getCreateDate());
-		taskImpl.setCreatorId(getCreatorId());
-		taskImpl.setTaskName(getTaskName());
+		taskImpl.setModifiedDate(getModifiedDate());
+		taskImpl.setDescription(getDescription());
 		taskImpl.setProjectId(getProjectId());
+		taskImpl.setTaskName(getTaskName());
 
 		taskImpl.resetOriginalValues();
 
@@ -376,15 +474,15 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		taskModelImpl._setOriginalCompanyId = false;
 
-		taskModelImpl._originalCreatorId = taskModelImpl._creatorId;
+		taskModelImpl._originalUserId = taskModelImpl._userId;
 
-		taskModelImpl._setOriginalCreatorId = false;
-
-		taskModelImpl._originalTaskName = taskModelImpl._taskName;
+		taskModelImpl._setOriginalUserId = false;
 
 		taskModelImpl._originalProjectId = taskModelImpl._projectId;
 
 		taskModelImpl._setOriginalProjectId = false;
+
+		taskModelImpl._originalTaskName = taskModelImpl._taskName;
 
 		taskModelImpl._columnBitmask = 0;
 	}
@@ -395,7 +493,19 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		taskCacheModel.taskId = getTaskId();
 
+		taskCacheModel.groupId = getGroupId();
+
 		taskCacheModel.companyId = getCompanyId();
+
+		taskCacheModel.userId = getUserId();
+
+		taskCacheModel.userName = getUserName();
+
+		String userName = taskCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			taskCacheModel.userName = null;
+		}
 
 		Date createDate = getCreateDate();
 
@@ -406,7 +516,24 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			taskCacheModel.createDate = Long.MIN_VALUE;
 		}
 
-		taskCacheModel.creatorId = getCreatorId();
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			taskCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			taskCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
+		taskCacheModel.description = getDescription();
+
+		String description = taskCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			taskCacheModel.description = null;
+		}
+
+		taskCacheModel.projectId = getProjectId();
 
 		taskCacheModel.taskName = getTaskName();
 
@@ -416,27 +543,33 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			taskCacheModel.taskName = null;
 		}
 
-		taskCacheModel.projectId = getProjectId();
-
 		return taskCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
-		sb.append(", taskName=");
-		sb.append(getTaskName());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", projectId=");
 		sb.append(getProjectId());
+		sb.append(", taskName=");
+		sb.append(getTaskName());
 		sb.append("}");
 
 		return sb.toString();
@@ -444,7 +577,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -455,24 +588,40 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		sb.append(getTaskId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>taskName</column-name><column-value><![CDATA[");
-		sb.append(getTaskName());
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>projectId</column-name><column-value><![CDATA[");
 		sb.append(getProjectId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>taskName</column-name><column-value><![CDATA[");
+		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -483,18 +632,23 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private static ClassLoader _classLoader = Task.class.getClassLoader();
 	private static Class<?>[] _escapedModelInterfaces = new Class[] { Task.class };
 	private long _taskId;
+	private long _groupId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
+	private long _userId;
+	private String _userUuid;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
-	private long _originalCreatorId;
-	private boolean _setOriginalCreatorId;
-	private String _taskName;
-	private String _originalTaskName;
+	private Date _modifiedDate;
+	private String _description;
 	private long _projectId;
 	private long _originalProjectId;
 	private boolean _setOriginalProjectId;
+	private String _taskName;
+	private String _originalTaskName;
 	private long _columnBitmask;
 	private Task _escapedModel;
 }

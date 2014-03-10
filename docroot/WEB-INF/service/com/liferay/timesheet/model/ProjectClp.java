@@ -77,14 +77,17 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 		attributes.put("uuid", getUuid());
 		attributes.put("projectId", getProjectId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
-		attributes.put("projectName", getProjectName());
 		attributes.put("parentProjectId", getParentProjectId());
+		attributes.put("projectName", getProjectName());
 
 		return attributes;
 	}
@@ -103,22 +106,34 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 			setProjectId(projectId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
 		}
 
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
 			setCreateDate(createDate);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
 		}
 
 		Date modifiedDate = (Date)attributes.get("modifiedDate");
@@ -133,22 +148,28 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 			setDepartmentId(departmentId);
 		}
 
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
 		Boolean enabled = (Boolean)attributes.get("enabled");
 
 		if (enabled != null) {
 			setEnabled(enabled);
 		}
 
-		String projectName = (String)attributes.get("projectName");
-
-		if (projectName != null) {
-			setProjectName(projectName);
-		}
-
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
 
 		if (parentProjectId != null) {
 			setParentProjectId(parentProjectId);
+		}
+
+		String projectName = (String)attributes.get("projectName");
+
+		if (projectName != null) {
+			setProjectName(projectName);
 		}
 	}
 
@@ -199,6 +220,29 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_projectRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -222,6 +266,62 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_projectRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_projectRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -237,29 +337,6 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 				Method method = clazz.getMethod("setCreateDate", Date.class);
 
 				method.invoke(_projectRemoteModel, createDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	@Override
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
-
-		if (_projectRemoteModel != null) {
-			try {
-				Class<?> clazz = _projectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCreatorId", long.class);
-
-				method.invoke(_projectRemoteModel, creatorId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -314,6 +391,29 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	@Override
+	public String getDescription() {
+		return _description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDescription", String.class);
+
+				method.invoke(_projectRemoteModel, description);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public Boolean getEnabled() {
 		return _enabled;
 	}
@@ -337,29 +437,6 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	@Override
-	public String getProjectName() {
-		return _projectName;
-	}
-
-	@Override
-	public void setProjectName(String projectName) {
-		_projectName = projectName;
-
-		if (_projectRemoteModel != null) {
-			try {
-				Class<?> clazz = _projectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setProjectName", String.class);
-
-				method.invoke(_projectRemoteModel, projectName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public Long getParentProjectId() {
 		return _parentProjectId;
 	}
@@ -375,6 +452,29 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 				Method method = clazz.getMethod("setParentProjectId", Long.class);
 
 				method.invoke(_projectRemoteModel, parentProjectId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getProjectName() {
+		return _projectName;
+	}
+
+	@Override
+	public void setProjectName(String projectName) {
+		_projectName = projectName;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setProjectName", String.class);
+
+				method.invoke(_projectRemoteModel, projectName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -459,14 +559,17 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 		clone.setUuid(getUuid());
 		clone.setProjectId(getProjectId());
+		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
+		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
-		clone.setCreatorId(getCreatorId());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setDepartmentId(getDepartmentId());
+		clone.setDescription(getDescription());
 		clone.setEnabled(getEnabled());
-		clone.setProjectName(getProjectName());
 		clone.setParentProjectId(getParentProjectId());
+		clone.setProjectName(getProjectName());
 
 		return clone;
 	}
@@ -513,28 +616,34 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
 		sb.append(", projectId=");
 		sb.append(getProjectId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
 		sb.append(", departmentId=");
 		sb.append(getDepartmentId());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
-		sb.append(", projectName=");
-		sb.append(getProjectName());
 		sb.append(", parentProjectId=");
 		sb.append(getParentProjectId());
+		sb.append(", projectName=");
+		sb.append(getProjectName());
 		sb.append("}");
 
 		return sb.toString();
@@ -542,7 +651,7 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Project");
@@ -557,16 +666,24 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getProjectId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
@@ -577,16 +694,20 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getDepartmentId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
 		sb.append(getEnabled());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>projectName</column-name><column-value><![CDATA[");
-		sb.append(getProjectName());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>parentProjectId</column-name><column-value><![CDATA[");
 		sb.append(getParentProjectId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>projectName</column-name><column-value><![CDATA[");
+		sb.append(getProjectName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -596,13 +717,17 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 	private String _uuid;
 	private long _projectId;
+	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private String _userUuid;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private Long _departmentId;
+	private String _description;
 	private Boolean _enabled;
-	private String _projectName;
 	private Long _parentProjectId;
+	private String _projectName;
 	private BaseModel<?> _projectRemoteModel;
 }

@@ -274,122 +274,121 @@ public class TaskUtil {
 	}
 
 	/**
-	* Returns the task where taskName = &#63; and creatorId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
+	* Returns the task where taskName = &#63; and userId = &#63; or throws a {@link com.liferay.timesheet.NoSuchTaskException} if it could not be found.
 	*
 	* @param taskName the task name
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the matching task
 	* @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task findByTN_CR(
-		java.lang.String taskName, long creatorId)
+		java.lang.String taskName, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchTaskException {
-		return getPersistence().findByTN_CR(taskName, creatorId);
+		return getPersistence().findByTN_CR(taskName, userId);
 	}
 
 	/**
-	* Returns the task where taskName = &#63; and creatorId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the task where taskName = &#63; and userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param taskName the task name
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the matching task, or <code>null</code> if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task fetchByTN_CR(
-		java.lang.String taskName, long creatorId)
+		java.lang.String taskName, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByTN_CR(taskName, creatorId);
+		return getPersistence().fetchByTN_CR(taskName, userId);
 	}
 
 	/**
-	* Returns the task where taskName = &#63; and creatorId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the task where taskName = &#63; and userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param taskName the task name
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching task, or <code>null</code> if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task fetchByTN_CR(
-		java.lang.String taskName, long creatorId, boolean retrieveFromCache)
+		java.lang.String taskName, long userId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .fetchByTN_CR(taskName, creatorId, retrieveFromCache);
+		return getPersistence().fetchByTN_CR(taskName, userId, retrieveFromCache);
 	}
 
 	/**
-	* Removes the task where taskName = &#63; and creatorId = &#63; from the database.
+	* Removes the task where taskName = &#63; and userId = &#63; from the database.
 	*
 	* @param taskName the task name
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the task that was removed
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task removeByTN_CR(
-		java.lang.String taskName, long creatorId)
+		java.lang.String taskName, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchTaskException {
-		return getPersistence().removeByTN_CR(taskName, creatorId);
+		return getPersistence().removeByTN_CR(taskName, userId);
 	}
 
 	/**
-	* Returns the number of tasks where taskName = &#63; and creatorId = &#63;.
+	* Returns the number of tasks where taskName = &#63; and userId = &#63;.
 	*
 	* @param taskName the task name
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the number of matching tasks
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByTN_CR(java.lang.String taskName, long creatorId)
+	public static int countByTN_CR(java.lang.String taskName, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByTN_CR(taskName, creatorId);
+		return getPersistence().countByTN_CR(taskName, userId);
 	}
 
 	/**
-	* Returns all the tasks where companyId = &#63; and creatorId = &#63;.
+	* Returns all the tasks where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the matching tasks
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.timesheet.model.Task> findByC_CR(
-		long companyId, long creatorId)
+		long companyId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByC_CR(companyId, creatorId);
+		return getPersistence().findByC_CR(companyId, userId);
 	}
 
 	/**
-	* Returns a range of all the tasks where companyId = &#63; and creatorId = &#63;.
+	* Returns a range of all the tasks where companyId = &#63; and userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of tasks
 	* @param end the upper bound of the range of tasks (not inclusive)
 	* @return the range of matching tasks
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.timesheet.model.Task> findByC_CR(
-		long companyId, long creatorId, int start, int end)
+		long companyId, long userId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByC_CR(companyId, creatorId, start, end);
+		return getPersistence().findByC_CR(companyId, userId, start, end);
 	}
 
 	/**
-	* Returns an ordered range of all the tasks where companyId = &#63; and creatorId = &#63;.
+	* Returns an ordered range of all the tasks where companyId = &#63; and userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of tasks
 	* @param end the upper bound of the range of tasks (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -397,130 +396,129 @@ public class TaskUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.timesheet.model.Task> findByC_CR(
-		long companyId, long creatorId, int start, int end,
+		long companyId, long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByC_CR(companyId, creatorId, start, end,
-			orderByComparator);
+				   .findByC_CR(companyId, userId, start, end, orderByComparator);
 	}
 
 	/**
-	* Returns the first task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	* Returns the first task in the ordered set where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching task
 	* @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task findByC_CR_First(
-		long companyId, long creatorId,
+		long companyId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchTaskException {
 		return getPersistence()
-				   .findByC_CR_First(companyId, creatorId, orderByComparator);
+				   .findByC_CR_First(companyId, userId, orderByComparator);
 	}
 
 	/**
-	* Returns the first task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	* Returns the first task in the ordered set where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching task, or <code>null</code> if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task fetchByC_CR_First(
-		long companyId, long creatorId,
+		long companyId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByC_CR_First(companyId, creatorId, orderByComparator);
+				   .fetchByC_CR_First(companyId, userId, orderByComparator);
 	}
 
 	/**
-	* Returns the last task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	* Returns the last task in the ordered set where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching task
 	* @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task findByC_CR_Last(
-		long companyId, long creatorId,
+		long companyId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchTaskException {
 		return getPersistence()
-				   .findByC_CR_Last(companyId, creatorId, orderByComparator);
+				   .findByC_CR_Last(companyId, userId, orderByComparator);
 	}
 
 	/**
-	* Returns the last task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	* Returns the last task in the ordered set where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching task, or <code>null</code> if a matching task could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task fetchByC_CR_Last(
-		long companyId, long creatorId,
+		long companyId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByC_CR_Last(companyId, creatorId, orderByComparator);
+				   .fetchByC_CR_Last(companyId, userId, orderByComparator);
 	}
 
 	/**
-	* Returns the tasks before and after the current task in the ordered set where companyId = &#63; and creatorId = &#63;.
+	* Returns the tasks before and after the current task in the ordered set where companyId = &#63; and userId = &#63;.
 	*
 	* @param taskId the primary key of the current task
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next task
 	* @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.timesheet.model.Task[] findByC_CR_PrevAndNext(
-		long taskId, long companyId, long creatorId,
+		long taskId, long companyId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchTaskException {
 		return getPersistence()
-				   .findByC_CR_PrevAndNext(taskId, companyId, creatorId,
+				   .findByC_CR_PrevAndNext(taskId, companyId, userId,
 			orderByComparator);
 	}
 
 	/**
-	* Removes all the tasks where companyId = &#63; and creatorId = &#63; from the database.
+	* Removes all the tasks where companyId = &#63; and userId = &#63; from the database.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeByC_CR(long companyId, long creatorId)
+	public static void removeByC_CR(long companyId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByC_CR(companyId, creatorId);
+		getPersistence().removeByC_CR(companyId, userId);
 	}
 
 	/**
-	* Returns the number of tasks where companyId = &#63; and creatorId = &#63;.
+	* Returns the number of tasks where companyId = &#63; and userId = &#63;.
 	*
 	* @param companyId the company ID
-	* @param creatorId the creator ID
+	* @param userId the user ID
 	* @return the number of matching tasks
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByC_CR(long companyId, long creatorId)
+	public static int countByC_CR(long companyId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByC_CR(companyId, creatorId);
+		return getPersistence().countByC_CR(companyId, userId);
 	}
 
 	/**

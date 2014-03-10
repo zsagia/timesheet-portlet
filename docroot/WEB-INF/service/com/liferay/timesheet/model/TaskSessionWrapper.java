@@ -51,9 +51,13 @@ public class TaskSessionWrapper implements TaskSession,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskSessionId", getTaskSessionId());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("userId", getUserId());
+		attributes.put("description", getDescription());
 		attributes.put("endTime", getEndTime());
 		attributes.put("startTime", getStartTime());
 		attributes.put("taskId", getTaskId());
@@ -69,6 +73,30 @@ public class TaskSessionWrapper implements TaskSession,
 			setTaskSessionId(taskSessionId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -81,10 +109,10 @@ public class TaskSessionWrapper implements TaskSession,
 			setModifiedDate(modifiedDate);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		String description = (String)attributes.get("description");
 
-		if (userId != null) {
-			setUserId(userId);
+		if (description != null) {
+			setDescription(description);
 		}
 
 		Date endTime = (Date)attributes.get("endTime");
@@ -147,43 +175,43 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	/**
-	* Returns the create date of this task session.
+	* Returns the group ID of this task session.
 	*
-	* @return the create date of this task session
+	* @return the group ID of this task session
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
-		return _taskSession.getCreateDate();
+	public long getGroupId() {
+		return _taskSession.getGroupId();
 	}
 
 	/**
-	* Sets the create date of this task session.
+	* Sets the group ID of this task session.
 	*
-	* @param createDate the create date of this task session
+	* @param groupId the group ID of this task session
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
-		_taskSession.setCreateDate(createDate);
+	public void setGroupId(long groupId) {
+		_taskSession.setGroupId(groupId);
 	}
 
 	/**
-	* Returns the modified date of this task session.
+	* Returns the company ID of this task session.
 	*
-	* @return the modified date of this task session
+	* @return the company ID of this task session
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
-		return _taskSession.getModifiedDate();
+	public long getCompanyId() {
+		return _taskSession.getCompanyId();
 	}
 
 	/**
-	* Sets the modified date of this task session.
+	* Sets the company ID of this task session.
 	*
-	* @param modifiedDate the modified date of this task session
+	* @param companyId the company ID of this task session
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
-		_taskSession.setModifiedDate(modifiedDate);
+	public void setCompanyId(long companyId) {
+		_taskSession.setCompanyId(companyId);
 	}
 
 	/**
@@ -226,6 +254,86 @@ public class TaskSessionWrapper implements TaskSession,
 	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_taskSession.setUserUuid(userUuid);
+	}
+
+	/**
+	* Returns the user name of this task session.
+	*
+	* @return the user name of this task session
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _taskSession.getUserName();
+	}
+
+	/**
+	* Sets the user name of this task session.
+	*
+	* @param userName the user name of this task session
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_taskSession.setUserName(userName);
+	}
+
+	/**
+	* Returns the create date of this task session.
+	*
+	* @return the create date of this task session
+	*/
+	@Override
+	public java.util.Date getCreateDate() {
+		return _taskSession.getCreateDate();
+	}
+
+	/**
+	* Sets the create date of this task session.
+	*
+	* @param createDate the create date of this task session
+	*/
+	@Override
+	public void setCreateDate(java.util.Date createDate) {
+		_taskSession.setCreateDate(createDate);
+	}
+
+	/**
+	* Returns the modified date of this task session.
+	*
+	* @return the modified date of this task session
+	*/
+	@Override
+	public java.util.Date getModifiedDate() {
+		return _taskSession.getModifiedDate();
+	}
+
+	/**
+	* Sets the modified date of this task session.
+	*
+	* @param modifiedDate the modified date of this task session
+	*/
+	@Override
+	public void setModifiedDate(java.util.Date modifiedDate) {
+		_taskSession.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the description of this task session.
+	*
+	* @return the description of this task session
+	*/
+	@Override
+	public java.lang.String getDescription() {
+		return _taskSession.getDescription();
+	}
+
+	/**
+	* Sets the description of this task session.
+	*
+	* @param description the description of this task session
+	*/
+	@Override
+	public void setDescription(java.lang.String description) {
+		_taskSession.setDescription(description);
 	}
 
 	/**

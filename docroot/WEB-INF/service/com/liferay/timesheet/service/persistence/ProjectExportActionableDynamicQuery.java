@@ -37,6 +37,8 @@ public class ProjectExportActionableDynamicQuery
 		_portletDataContext = portletDataContext;
 
 		setCompanyId(_portletDataContext.getCompanyId());
+
+		setGroupId(_portletDataContext.getScopeGroupId());
 	}
 
 	@Override

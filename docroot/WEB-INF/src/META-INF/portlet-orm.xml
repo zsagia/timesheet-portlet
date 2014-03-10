@@ -10,11 +10,13 @@
 	<mapped-superclass class="com.liferay.timesheet.model.impl.DepartmentModelImpl">
 		<attributes>
 			<id name="departmentId" />
+			<basic name="groupId" />
 			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="creatorId" />
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -22,6 +24,7 @@
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.ProjectModelImpl">
@@ -30,48 +33,63 @@
 			<basic name="uuid">
 				<column name="UUID_" />
 			</basic>
+			<basic name="groupId" />
 			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="creatorId" />
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="departmentId" />
+			<basic name="description" />
 			<basic name="enabled" />
-			<basic name="projectName" />
 			<basic name="parentProjectId" />
+			<basic name="projectName" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskModelImpl">
 		<attributes>
 			<id name="taskId" />
+			<basic name="groupId" />
 			<basic name="companyId" />
-			<basic name="createDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="creatorId" />
-			<basic name="taskName" />
-			<basic name="projectId" />
-			<transient name="modelAttributes" />
-			<transient name="primaryKey" />
-			<transient name="primaryKeyObj" />
-		</attributes>
-	</mapped-superclass>
-	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskSessionModelImpl">
-		<attributes>
-			<id name="taskSessionId" />
+			<basic name="userId" />
+			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="description" />
+			<basic name="projectId" />
+			<basic name="taskName" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.timesheet.model.impl.TaskSessionModelImpl">
+		<attributes>
+			<id name="taskSessionId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
 			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="description" />
 			<basic name="endTime">
 				<temporal>TIMESTAMP</temporal>
 			</basic>

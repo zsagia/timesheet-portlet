@@ -32,14 +32,17 @@ public class ProjectSoap implements Serializable {
 
 		soapModel.setUuid(model.getUuid());
 		soapModel.setProjectId(model.getProjectId());
+		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
-		soapModel.setCreatorId(model.getCreatorId());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setDepartmentId(model.getDepartmentId());
+		soapModel.setDescription(model.getDescription());
 		soapModel.setEnabled(model.getEnabled());
-		soapModel.setProjectName(model.getProjectName());
 		soapModel.setParentProjectId(model.getParentProjectId());
+		soapModel.setProjectName(model.getProjectName());
 
 		return soapModel;
 	}
@@ -108,6 +111,14 @@ public class ProjectSoap implements Serializable {
 		_projectId = projectId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -116,20 +127,28 @@ public class ProjectSoap implements Serializable {
 		_companyId = companyId;
 	}
 
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
-	}
-
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
 	}
 
 	public Date getModifiedDate() {
@@ -148,20 +167,20 @@ public class ProjectSoap implements Serializable {
 		_departmentId = departmentId;
 	}
 
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
 	public Boolean getEnabled() {
 		return _enabled;
 	}
 
 	public void setEnabled(Boolean enabled) {
 		_enabled = enabled;
-	}
-
-	public String getProjectName() {
-		return _projectName;
-	}
-
-	public void setProjectName(String projectName) {
-		_projectName = projectName;
 	}
 
 	public Long getParentProjectId() {
@@ -172,14 +191,25 @@ public class ProjectSoap implements Serializable {
 		_parentProjectId = parentProjectId;
 	}
 
+	public String getProjectName() {
+		return _projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		_projectName = projectName;
+	}
+
 	private String _uuid;
 	private long _projectId;
+	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
 	private Date _modifiedDate;
 	private Long _departmentId;
+	private String _description;
 	private Boolean _enabled;
-	private String _projectName;
 	private Long _parentProjectId;
+	private String _projectName;
 }

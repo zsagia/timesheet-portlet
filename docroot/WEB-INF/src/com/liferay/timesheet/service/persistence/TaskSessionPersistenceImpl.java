@@ -2280,9 +2280,13 @@ public class TaskSessionPersistenceImpl extends BasePersistenceImpl<TaskSession>
 		taskSessionImpl.setPrimaryKey(taskSession.getPrimaryKey());
 
 		taskSessionImpl.setTaskSessionId(taskSession.getTaskSessionId());
+		taskSessionImpl.setGroupId(taskSession.getGroupId());
+		taskSessionImpl.setCompanyId(taskSession.getCompanyId());
+		taskSessionImpl.setUserId(taskSession.getUserId());
+		taskSessionImpl.setUserName(taskSession.getUserName());
 		taskSessionImpl.setCreateDate(taskSession.getCreateDate());
 		taskSessionImpl.setModifiedDate(taskSession.getModifiedDate());
-		taskSessionImpl.setUserId(taskSession.getUserId());
+		taskSessionImpl.setDescription(taskSession.getDescription());
 		taskSessionImpl.setEndTime(taskSession.getEndTime());
 		taskSessionImpl.setStartTime(taskSession.getStartTime());
 		taskSessionImpl.setTaskId(taskSession.getTaskId());

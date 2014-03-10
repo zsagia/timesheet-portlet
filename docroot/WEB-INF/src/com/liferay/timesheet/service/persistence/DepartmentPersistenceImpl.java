@@ -838,9 +838,11 @@ public class DepartmentPersistenceImpl extends BasePersistenceImpl<Department>
 		departmentImpl.setPrimaryKey(department.getPrimaryKey());
 
 		departmentImpl.setDepartmentId(department.getDepartmentId());
+		departmentImpl.setGroupId(department.getGroupId());
 		departmentImpl.setCompanyId(department.getCompanyId());
+		departmentImpl.setUserId(department.getUserId());
+		departmentImpl.setUserName(department.getUserName());
 		departmentImpl.setCreateDate(department.getCreateDate());
-		departmentImpl.setCreatorId(department.getCreatorId());
 		departmentImpl.setModifiedDate(department.getModifiedDate());
 		departmentImpl.setDepartmentName(department.getDepartmentName());
 

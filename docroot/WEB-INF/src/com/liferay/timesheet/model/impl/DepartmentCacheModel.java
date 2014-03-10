@@ -38,16 +38,20 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{departmentId=");
 		sb.append(departmentId);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
-		sb.append(", creatorId=");
-		sb.append(creatorId);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
 		sb.append(", departmentName=");
@@ -62,7 +66,16 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 		DepartmentImpl departmentImpl = new DepartmentImpl();
 
 		departmentImpl.setDepartmentId(departmentId);
+		departmentImpl.setGroupId(groupId);
 		departmentImpl.setCompanyId(companyId);
+		departmentImpl.setUserId(userId);
+
+		if (userName == null) {
+			departmentImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			departmentImpl.setUserName(userName);
+		}
 
 		if (createDate == Long.MIN_VALUE) {
 			departmentImpl.setCreateDate(null);
@@ -70,8 +83,6 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 		else {
 			departmentImpl.setCreateDate(new Date(createDate));
 		}
-
-		departmentImpl.setCreatorId(creatorId);
 
 		if (modifiedDate == Long.MIN_VALUE) {
 			departmentImpl.setModifiedDate(null);
@@ -95,9 +106,11 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		departmentId = objectInput.readLong();
+		groupId = objectInput.readLong();
 		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
-		creatorId = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		departmentName = objectInput.readUTF();
 	}
@@ -106,9 +119,18 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(departmentId);
+		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
 		objectOutput.writeLong(createDate);
-		objectOutput.writeLong(creatorId);
 		objectOutput.writeLong(modifiedDate);
 
 		if (departmentName == null) {
@@ -120,9 +142,11 @@ public class DepartmentCacheModel implements CacheModel<Department>,
 	}
 
 	public long departmentId;
+	public long groupId;
 	public long companyId;
+	public long userId;
+	public String userName;
 	public long createDate;
-	public long creatorId;
 	public long modifiedDate;
 	public String departmentName;
 }

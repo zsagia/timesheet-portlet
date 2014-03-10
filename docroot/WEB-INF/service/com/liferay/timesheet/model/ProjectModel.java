@@ -15,9 +15,10 @@
 package com.liferay.timesheet.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedModel;
+import com.liferay.portal.model.StagedGroupedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -39,7 +40,7 @@ import java.util.Date;
  * @see com.liferay.timesheet.model.impl.ProjectModelImpl
  * @generated
  */
-public interface ProjectModel extends BaseModel<Project>, StagedModel {
+public interface ProjectModel extends BaseModel<Project>, StagedGroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -92,6 +93,22 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	public void setProjectId(long projectId);
 
 	/**
+	 * Returns the group ID of this project.
+	 *
+	 * @return the group ID of this project
+	 */
+	@Override
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this project.
+	 *
+	 * @param groupId the group ID of this project
+	 */
+	@Override
+	public void setGroupId(long groupId);
+
+	/**
 	 * Returns the company ID of this project.
 	 *
 	 * @return the company ID of this project
@@ -108,6 +125,56 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	public void setCompanyId(long companyId);
 
 	/**
+	 * Returns the user ID of this project.
+	 *
+	 * @return the user ID of this project
+	 */
+	@Override
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this project.
+	 *
+	 * @param userId the user ID of this project
+	 */
+	@Override
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this project.
+	 *
+	 * @return the user uuid of this project
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public String getUserUuid() throws SystemException;
+
+	/**
+	 * Sets the user uuid of this project.
+	 *
+	 * @param userUuid the user uuid of this project
+	 */
+	@Override
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this project.
+	 *
+	 * @return the user name of this project
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this project.
+	 *
+	 * @param userName the user name of this project
+	 */
+	@Override
+	public void setUserName(String userName);
+
+	/**
 	 * Returns the create date of this project.
 	 *
 	 * @return the create date of this project
@@ -122,20 +189,6 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	 */
 	@Override
 	public void setCreateDate(Date createDate);
-
-	/**
-	 * Returns the creator ID of this project.
-	 *
-	 * @return the creator ID of this project
-	 */
-	public long getCreatorId();
-
-	/**
-	 * Sets the creator ID of this project.
-	 *
-	 * @param creatorId the creator ID of this project
-	 */
-	public void setCreatorId(long creatorId);
 
 	/**
 	 * Returns the modified date of this project.
@@ -168,6 +221,21 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	public void setDepartmentId(Long departmentId);
 
 	/**
+	 * Returns the description of this project.
+	 *
+	 * @return the description of this project
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this project.
+	 *
+	 * @param description the description of this project
+	 */
+	public void setDescription(String description);
+
+	/**
 	 * Returns the enabled of this project.
 	 *
 	 * @return the enabled of this project
@@ -180,6 +248,20 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	 * @param enabled the enabled of this project
 	 */
 	public void setEnabled(Boolean enabled);
+
+	/**
+	 * Returns the parent project ID of this project.
+	 *
+	 * @return the parent project ID of this project
+	 */
+	public Long getParentProjectId();
+
+	/**
+	 * Sets the parent project ID of this project.
+	 *
+	 * @param parentProjectId the parent project ID of this project
+	 */
+	public void setParentProjectId(Long parentProjectId);
 
 	/**
 	 * Returns the project name of this project.
@@ -195,20 +277,6 @@ public interface ProjectModel extends BaseModel<Project>, StagedModel {
 	 * @param projectName the project name of this project
 	 */
 	public void setProjectName(String projectName);
-
-	/**
-	 * Returns the parent project ID of this project.
-	 *
-	 * @return the parent project ID of this project
-	 */
-	public Long getParentProjectId();
-
-	/**
-	 * Sets the parent project ID of this project.
-	 *
-	 * @param parentProjectId the parent project ID of this project
-	 */
-	public void setParentProjectId(Long parentProjectId);
 
 	@Override
 	public boolean isNew();

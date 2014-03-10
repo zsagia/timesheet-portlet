@@ -14,9 +14,11 @@
 
 package com.liferay.timesheet.model;
 
+import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
+import com.liferay.portal.model.GroupedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -38,7 +40,7 @@ import java.util.Date;
  * @see com.liferay.timesheet.model.impl.TaskSessionModelImpl
  * @generated
  */
-public interface TaskSessionModel extends BaseModel<TaskSession> {
+public interface TaskSessionModel extends BaseModel<TaskSession>, GroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -74,38 +76,43 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	public void setTaskSessionId(long taskSessionId);
 
 	/**
-	 * Returns the create date of this task session.
+	 * Returns the group ID of this task session.
 	 *
-	 * @return the create date of this task session
+	 * @return the group ID of this task session
 	 */
-	public Date getCreateDate();
+	@Override
+	public long getGroupId();
 
 	/**
-	 * Sets the create date of this task session.
+	 * Sets the group ID of this task session.
 	 *
-	 * @param createDate the create date of this task session
+	 * @param groupId the group ID of this task session
 	 */
-	public void setCreateDate(Date createDate);
+	@Override
+	public void setGroupId(long groupId);
 
 	/**
-	 * Returns the modified date of this task session.
+	 * Returns the company ID of this task session.
 	 *
-	 * @return the modified date of this task session
+	 * @return the company ID of this task session
 	 */
-	public Date getModifiedDate();
+	@Override
+	public long getCompanyId();
 
 	/**
-	 * Sets the modified date of this task session.
+	 * Sets the company ID of this task session.
 	 *
-	 * @param modifiedDate the modified date of this task session
+	 * @param companyId the company ID of this task session
 	 */
-	public void setModifiedDate(Date modifiedDate);
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this task session.
 	 *
 	 * @return the user ID of this task session
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -113,6 +120,7 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	 *
 	 * @param userId the user ID of this task session
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -121,6 +129,7 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	 * @return the user uuid of this task session
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -128,7 +137,72 @@ public interface TaskSessionModel extends BaseModel<TaskSession> {
 	 *
 	 * @param userUuid the user uuid of this task session
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this task session.
+	 *
+	 * @return the user name of this task session
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this task session.
+	 *
+	 * @param userName the user name of this task session
+	 */
+	@Override
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this task session.
+	 *
+	 * @return the create date of this task session
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this task session.
+	 *
+	 * @param createDate the create date of this task session
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this task session.
+	 *
+	 * @return the modified date of this task session
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this task session.
+	 *
+	 * @param modifiedDate the modified date of this task session
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the description of this task session.
+	 *
+	 * @return the description of this task session
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this task session.
+	 *
+	 * @param description the description of this task session
+	 */
+	public void setDescription(String description);
 
 	/**
 	 * Returns the end time of this task session.

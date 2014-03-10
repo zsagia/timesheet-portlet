@@ -31,9 +31,13 @@ public class TaskSessionSoap implements Serializable {
 		TaskSessionSoap soapModel = new TaskSessionSoap();
 
 		soapModel.setTaskSessionId(model.getTaskSessionId());
+		soapModel.setGroupId(model.getGroupId());
+		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setUserId(model.getUserId());
+		soapModel.setDescription(model.getDescription());
 		soapModel.setEndTime(model.getEndTime());
 		soapModel.setStartTime(model.getStartTime());
 		soapModel.setTaskId(model.getTaskId());
@@ -97,6 +101,38 @@ public class TaskSessionSoap implements Serializable {
 		_taskSessionId = taskSessionId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -113,12 +149,12 @@ public class TaskSessionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getUserId() {
-		return _userId;
+	public String getDescription() {
+		return _description;
 	}
 
-	public void setUserId(long userId) {
-		_userId = userId;
+	public void setDescription(String description) {
+		_description = description;
 	}
 
 	public Date getEndTime() {
@@ -146,9 +182,13 @@ public class TaskSessionSoap implements Serializable {
 	}
 
 	private long _taskSessionId;
+	private long _groupId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _userId;
+	private String _description;
 	private Date _endTime;
 	private Date _startTime;
 	private long _taskId;

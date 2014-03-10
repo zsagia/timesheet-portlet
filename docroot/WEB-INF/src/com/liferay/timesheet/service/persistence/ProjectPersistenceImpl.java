@@ -615,6 +615,269 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	private static final String _FINDER_COLUMN_UUID_UUID_1 = "project.uuid IS NULL";
 	private static final String _FINDER_COLUMN_UUID_UUID_2 = "project.uuid = ?";
 	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(project.uuid IS NULL OR project.uuid = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() },
+			ProjectModelImpl.UUID_COLUMN_BITMASK |
+			ProjectModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_G = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+			ProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() });
+
+	/**
+	 * Returns the project where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.timesheet.NoSuchProjectException} if it could not be found.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the matching project
+	 * @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project findByUUID_G(String uuid, long groupId)
+		throws NoSuchProjectException, SystemException {
+		Project project = fetchByUUID_G(uuid, groupId);
+
+		if (project == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("uuid=");
+			msg.append(uuid);
+
+			msg.append(", groupId=");
+			msg.append(groupId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchProjectException(msg.toString());
+		}
+
+		return project;
+	}
+
+	/**
+	 * Returns the project where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the matching project, or <code>null</code> if a matching project could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project fetchByUUID_G(String uuid, long groupId)
+		throws SystemException {
+		return fetchByUUID_G(uuid, groupId, true);
+	}
+
+	/**
+	 * Returns the project where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching project, or <code>null</code> if a matching project could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project fetchByUUID_G(String uuid, long groupId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { uuid, groupId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_UUID_G,
+					finderArgs, this);
+		}
+
+		if (result instanceof Project) {
+			Project project = (Project)result;
+
+			if (!Validator.equals(uuid, project.getUuid()) ||
+					(groupId != project.getGroupId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_PROJECT_WHERE);
+
+			boolean bindUuid = false;
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
+			}
+			else if (uuid.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+			}
+			else {
+				bindUuid = true;
+
+				query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+			}
+
+			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindUuid) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(groupId);
+
+				List<Project> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+						finderArgs, list);
+				}
+				else {
+					Project project = list.get(0);
+
+					result = project;
+
+					cacheResult(project);
+
+					if ((project.getUuid() == null) ||
+							!project.getUuid().equals(uuid) ||
+							(project.getGroupId() != groupId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+							finderArgs, project);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Project)result;
+		}
+	}
+
+	/**
+	 * Removes the project where uuid = &#63; and groupId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the project that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Project removeByUUID_G(String uuid, long groupId)
+		throws NoSuchProjectException, SystemException {
+		Project project = findByUUID_G(uuid, groupId);
+
+		return remove(project);
+	}
+
+	/**
+	 * Returns the number of projects where uuid = &#63; and groupId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the number of matching projects
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByUUID_G(String uuid, long groupId)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
+
+		Object[] finderArgs = new Object[] { uuid, groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_PROJECT_WHERE);
+
+			boolean bindUuid = false;
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
+			}
+			else if (uuid.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+			}
+			else {
+				bindUuid = true;
+
+				query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+			}
+
+			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindUuid) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "project.uuid IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "project.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(project.uuid IS NULL OR project.uuid = '') AND ";
+	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "project.groupId = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
@@ -2730,6 +2993,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		EntityCacheUtil.putResult(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectImpl.class, project.getPrimaryKey(), project);
 
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] { project.getUuid(), project.getGroupId() }, project);
+
 		project.resetOriginalValues();
 	}
 
@@ -2786,6 +3052,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(project);
 	}
 
 	@Override
@@ -2796,6 +3064,53 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		for (Project project : projects) {
 			EntityCacheUtil.removeResult(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 				ProjectImpl.class, project.getPrimaryKey());
+
+			clearUniqueFindersCache(project);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(Project project) {
+		if (project.isNew()) {
+			Object[] args = new Object[] { project.getUuid(), project.getGroupId() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args, project);
+		}
+		else {
+			ProjectModelImpl projectModelImpl = (ProjectModelImpl)project;
+
+			if ((projectModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						project.getUuid(), project.getGroupId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+					project);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(Project project) {
+		ProjectModelImpl projectModelImpl = (ProjectModelImpl)project;
+
+		Object[] args = new Object[] { project.getUuid(), project.getGroupId() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+		if ((projectModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					projectModelImpl.getOriginalUuid(),
+					projectModelImpl.getOriginalGroupId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
 		}
 	}
 
@@ -3047,6 +3362,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		EntityCacheUtil.putResult(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectImpl.class, project.getPrimaryKey(), project);
 
+		clearUniqueFindersCache(project);
+		cacheUniqueFindersCache(project);
+
 		return project;
 	}
 
@@ -3062,14 +3380,17 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		projectImpl.setUuid(project.getUuid());
 		projectImpl.setProjectId(project.getProjectId());
+		projectImpl.setGroupId(project.getGroupId());
 		projectImpl.setCompanyId(project.getCompanyId());
+		projectImpl.setUserId(project.getUserId());
+		projectImpl.setUserName(project.getUserName());
 		projectImpl.setCreateDate(project.getCreateDate());
-		projectImpl.setCreatorId(project.getCreatorId());
 		projectImpl.setModifiedDate(project.getModifiedDate());
 		projectImpl.setDepartmentId(project.getDepartmentId());
+		projectImpl.setDescription(project.getDescription());
 		projectImpl.setEnabled(project.getEnabled());
-		projectImpl.setProjectName(project.getProjectName());
 		projectImpl.setParentProjectId(project.getParentProjectId());
+		projectImpl.setProjectName(project.getProjectName());
 
 		return projectImpl;
 	}

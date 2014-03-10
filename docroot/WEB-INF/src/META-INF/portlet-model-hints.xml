@@ -3,37 +3,50 @@
 <model-hints>
 	<model name="com.liferay.timesheet.model.Department">
 		<field name="departmentId" type="long" />
+		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
-		<field name="creatorId" type="long" />
 		<field name="modifiedDate" type="Date" />
 		<field name="departmentName" type="String" />
 	</model>
 	<model name="com.liferay.timesheet.model.Project">
 		<field name="uuid" type="String" />
 		<field name="projectId" type="long" />
+		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
-		<field name="creatorId" type="long" />
 		<field name="modifiedDate" type="Date" />
 		<field name="departmentId" type="Long" />
+		<field name="description" type="String" />
 		<field name="enabled" type="Boolean" />
-		<field name="projectName" type="String" />
 		<field name="parentProjectId" type="Long" />
+		<field name="projectName" type="String" />
 	</model>
 	<model name="com.liferay.timesheet.model.Task">
 		<field name="taskId" type="long" />
+		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
-		<field name="creatorId" type="long" />
-		<field name="taskName" type="String" />
+		<field name="modifiedDate" type="Date" />
+		<field name="description" type="String" />
 		<field name="projectId" type="long" />
+		<field name="taskName" type="String" />
 	</model>
 	<model name="com.liferay.timesheet.model.TaskSession">
 		<field name="taskSessionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="userId" type="long" />
+		<field name="description" type="String" />
 		<field name="endTime" type="Date" />
 		<field name="startTime" type="Date" />
 		<field name="taskId" type="long" />

@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.timesheet.service.ClpSerializer;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
@@ -74,11 +75,15 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("taskId", getTaskId());
+		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorId", getCreatorId());
-		attributes.put("taskName", getTaskName());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
+		attributes.put("taskName", getTaskName());
 
 		return attributes;
 	}
@@ -91,10 +96,28 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			setTaskId(taskId);
 		}
 
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
 		Long companyId = (Long)attributes.get("companyId");
 
 		if (companyId != null) {
 			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -103,22 +126,28 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			setCreateDate(createDate);
 		}
 
-		Long creatorId = (Long)attributes.get("creatorId");
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
 
-		if (creatorId != null) {
-			setCreatorId(creatorId);
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
-		String taskName = (String)attributes.get("taskName");
+		String description = (String)attributes.get("description");
 
-		if (taskName != null) {
-			setTaskName(taskName);
+		if (description != null) {
+			setDescription(description);
 		}
 
 		Long projectId = (Long)attributes.get("projectId");
 
 		if (projectId != null) {
 			setProjectId(projectId);
+		}
+
+		String taskName = (String)attributes.get("taskName");
+
+		if (taskName != null) {
+			setTaskName(taskName);
 		}
 	}
 
@@ -138,6 +167,29 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 				Method method = clazz.getMethod("setTaskId", long.class);
 
 				method.invoke(_taskRemoteModel, taskId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_taskRemoteModel, groupId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -169,6 +221,62 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_taskRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_taskRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -192,21 +300,21 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
-	public long getCreatorId() {
-		return _creatorId;
+	public Date getModifiedDate() {
+		return _modifiedDate;
 	}
 
 	@Override
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 
 		if (_taskRemoteModel != null) {
 			try {
 				Class<?> clazz = _taskRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setCreatorId", long.class);
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
 
-				method.invoke(_taskRemoteModel, creatorId);
+				method.invoke(_taskRemoteModel, modifiedDate);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -215,21 +323,21 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
-	public String getTaskName() {
-		return _taskName;
+	public String getDescription() {
+		return _description;
 	}
 
 	@Override
-	public void setTaskName(String taskName) {
-		_taskName = taskName;
+	public void setDescription(String description) {
+		_description = description;
 
 		if (_taskRemoteModel != null) {
 			try {
 				Class<?> clazz = _taskRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setTaskName", String.class);
+				Method method = clazz.getMethod("setDescription", String.class);
 
-				method.invoke(_taskRemoteModel, taskName);
+				method.invoke(_taskRemoteModel, description);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -253,6 +361,29 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 				Method method = clazz.getMethod("setProjectId", long.class);
 
 				method.invoke(_taskRemoteModel, projectId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getTaskName() {
+		return _taskName;
+	}
+
+	@Override
+	public void setTaskName(String taskName) {
+		_taskName = taskName;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTaskName", String.class);
+
+				method.invoke(_taskRemoteModel, taskName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -349,11 +480,15 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		TaskClp clone = new TaskClp();
 
 		clone.setTaskId(getTaskId());
+		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
+		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
-		clone.setCreatorId(getCreatorId());
-		clone.setTaskName(getTaskName());
+		clone.setModifiedDate(getModifiedDate());
+		clone.setDescription(getDescription());
 		clone.setProjectId(getProjectId());
+		clone.setTaskName(getTaskName());
 
 		return clone;
 	}
@@ -400,20 +535,28 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
+		sb.append(", userId=");
+		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
-		sb.append(", creatorId=");
-		sb.append(getCreatorId());
-		sb.append(", taskName=");
-		sb.append(getTaskName());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", projectId=");
 		sb.append(getProjectId());
+		sb.append(", taskName=");
+		sb.append(getTaskName());
 		sb.append("}");
 
 		return sb.toString();
@@ -421,7 +564,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -432,24 +575,40 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getTaskId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
 		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>creatorId</column-name><column-value><![CDATA[");
-		sb.append(getCreatorId());
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>taskName</column-name><column-value><![CDATA[");
-		sb.append(getTaskName());
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>projectId</column-name><column-value><![CDATA[");
 		sb.append(getProjectId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>taskName</column-name><column-value><![CDATA[");
+		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -458,10 +617,15 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	private long _taskId;
+	private long _groupId;
 	private long _companyId;
+	private long _userId;
+	private String _userUuid;
+	private String _userName;
 	private Date _createDate;
-	private long _creatorId;
-	private String _taskName;
+	private Date _modifiedDate;
+	private String _description;
 	private long _projectId;
+	private String _taskName;
 	private BaseModel<?> _taskRemoteModel;
 }
