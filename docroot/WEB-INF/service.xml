@@ -11,11 +11,16 @@
 
 		<column name="departmentId" type="long" primary="true" />
 
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
-		<column name="creatorId" type="long" />
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
@@ -41,19 +46,25 @@
 
 		<column name="projectId" type="long" primary="true" />
 
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
-		<column name="creatorId" type="long" />
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
 
 		<column name="departmentId" type="Long" />
+		<column name="description" type="String" />
 		<column name="enabled" type="Boolean" />
-		<column name="projectName" type="String" />
 		<column name="parentProjectId" type="Long" />
+		<column name="projectName" type="String" />
 
 		<!-- Order -->
 
@@ -83,16 +94,24 @@
 
 		<column name="taskId" type="long" primary="true" />
 
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
-		<column name="creatorId" type="long" />
+		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
 
-		<column name="taskName" type="String" />
+		<column name="description" type="String" />
 		<column name="projectId" type="long" />
+		<column name="taskName" type="String" />
+
 		<!-- Order -->
 
 		<order>
@@ -107,12 +126,12 @@
 
 		<finder name="TN_CR" return-type="Task">
 			<finder-column name="taskName" />
-			<finder-column name="creatorId" />
+			<finder-column name="userId" />
 		</finder>
 
 		<finder name="C_CR" return-type="Collection">
 			<finder-column name="companyId" />
-			<finder-column name="creatorId" />
+			<finder-column name="userId" />
 		</finder>
 	</entity>
 
@@ -122,14 +141,21 @@
 
 		<column name="taskSessionId" type="long" primary="true" />
 
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
 		<!-- Audit fields -->
 
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-		<column name="userId" type="long" />
 
 		<!-- Other fields -->
 
+		<column name="description" type="String" />
 		<column name="endTime" type="Date" />
 		<column name="startTime" type="Date" />
 		<column name="taskId" type="long" />
@@ -164,10 +190,10 @@
 
 	<exceptions>
 		<exception>EndTime</exception>
+		<exception>EntityCreation</exception>
 		<exception>NoCurrentTaskSession</exception>
 		<exception>NoSelectedTask</exception>
 		<exception>StartTime</exception>
-		<exception>EntityCreation</exception>
 		<exception>TaskSessionClose</exception>
 		<exception>TaskSessionUpdate</exception>
 	</exceptions>
