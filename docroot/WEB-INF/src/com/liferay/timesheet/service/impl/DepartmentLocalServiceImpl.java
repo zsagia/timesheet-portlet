@@ -46,12 +46,12 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 	 */
 
 	public Department addDepartment(
-			String departmentName, long creatorId)
+			String departmentName, long userId)
 		throws PortalException, SystemException {
 
 		long departmentId = counterLocalService.increment();
 
-		User user = userPersistence.findByPrimaryKey(creatorId);
+		User user = userPersistence.findByPrimaryKey(userId);
 
 		Department department = departmentPersistence.create(departmentId);
 
@@ -60,7 +60,7 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 		department.setCompanyId(user.getCompanyId());
 		department.setCreateDate(createDate);
 		department.setDepartmentName(departmentName);
-		department.setCreatorId(creatorId);
+		department.setUserId(userId);
 
 		departmentPersistence.update(department);
 

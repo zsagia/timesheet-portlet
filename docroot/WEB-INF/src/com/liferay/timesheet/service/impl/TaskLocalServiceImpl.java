@@ -45,12 +45,12 @@ import java.util.Set;
  */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long creatorId, long projectId)
+	public Task addTask(String taskName, long userId, long projectId)
 		throws PortalException, SystemException {
 
 		long taskId = counterLocalService.increment();
 
-		User user = userPersistence.findByPrimaryKey(creatorId);
+		User user = userPersistence.findByPrimaryKey(userId);
 
 		Task task = taskPersistence.create(taskId);
 
@@ -60,7 +60,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		task.setCreateDate(createDate);
 		task.setTaskName(taskName);
 		task.setProjectId(projectId);
-		task.setCreatorId(creatorId);
+		task.setUserId(userId);
 
 		taskPersistence.update(task, false);
 
