@@ -17,6 +17,7 @@ package com.liferay.timesheet.service.impl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.NoSuchTaskException;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
@@ -45,24 +46,30 @@ import java.util.Set;
  */
 public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
-	public Task addTask(String taskName, long userId, long projectId)
+	public Task addTask(
+			long userId, String taskName, long projectId, String description,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+		long groupId = serviceContext.getScopeGroupId();
 
 		long taskId = counterLocalService.increment();
 
-		User user = userPersistence.findByPrimaryKey(userId);
-
 		Task task = taskPersistence.create(taskId);
 
-		Date createDate = new Date();
+		Date now = new Date();
 
 		task.setCompanyId(user.getCompanyId());
-		task.setCreateDate(createDate);
-		task.setTaskName(taskName);
+		task.setCreateDate(now);
+		task.setGroupId(groupId);
+		task.setModifiedDate(now);
 		task.setProjectId(projectId);
+		task.setTaskName(taskName);
 		task.setUserId(userId);
+		task.setUserName(user.getFullName());
 
-		taskPersistence.update(task, false);
+		taskPersistence.update(task);
 
 		return task;
 	}

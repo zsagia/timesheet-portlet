@@ -17,6 +17,7 @@ package com.liferay.timesheet.service.impl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.base.ProjectLocalServiceBaseImpl;
 
@@ -45,25 +46,31 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 	 */
 	
 	public Project addProject(
-			String projectName, long userId, long departmentId,
-			long parentProjectId, boolean enabled)
+			long userId, long departmentId, boolean enabled,
+			long parentProjectId, String projectName, String description,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+		long groupId = serviceContext.getScopeGroupId();
 
 		long projectId = counterLocalService.increment();
 
-		User user = userPersistence.findByPrimaryKey(userId);
-
 		Project project = projectPersistence.create(projectId);
 
-		Date createDate = new Date();
+		Date now = new Date();
 
 		project.setCompanyId(user.getCompanyId());
-		project.setCreateDate(createDate);
+		project.setCreateDate(now);
 		project.setDepartmentId(departmentId);
-		project.setParentProjectId(parentProjectId);
+		project.setDescription(description);
 		project.setEnabled(enabled);
+		project.setGroupId(groupId);
+		project.setModifiedDate(now);
+		project.setParentProjectId(parentProjectId);
 		project.setProjectName(projectName);
 		project.setUserId(userId);
+		project.setUserName(user.getFullName());
 
 		projectPersistence.update(project);
 

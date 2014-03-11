@@ -17,6 +17,7 @@ package com.liferay.timesheet.service.impl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.NoSuchDepartmentException;
 import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.service.base.DepartmentLocalServiceBaseImpl;
@@ -46,21 +47,25 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 	 */
 
 	public Department addDepartment(
-			String departmentName, long userId)
+			long userId, String departmentName, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+		long groupId = serviceContext.getScopeGroupId();
 
 		long departmentId = counterLocalService.increment();
 
-		User user = userPersistence.findByPrimaryKey(userId);
-
 		Department department = departmentPersistence.create(departmentId);
 
-		Date createDate = new Date();
+		Date now = new Date();
 
 		department.setCompanyId(user.getCompanyId());
-		department.setCreateDate(createDate);
+		department.setCreateDate(now);
 		department.setDepartmentName(departmentName);
+		department.setGroupId(groupId);
+		department.setModifiedDate(now);
 		department.setUserId(userId);
+		department.setUserName(user.getFullName());
 
 		departmentPersistence.update(department);
 

@@ -14,7 +14,10 @@
 
 package com.liferay.timesheet.service.impl;
 
+import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.base.TaskSessionLocalServiceBaseImpl;
 
@@ -39,8 +42,12 @@ public class TaskSessionLocalServiceImpl
 	extends TaskSessionLocalServiceBaseImpl {
 
 	public TaskSession addTaskSession(
-			Date startTime, Date endTime, long taskId, long userId)
-		throws SystemException {
+			long userId, Date startTime, Date endTime, long taskId,
+			String description, ServiceContext serviceContext)
+		throws SystemException, NoSuchUserException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+		long groupId = serviceContext.getScopeGroupId();
 
 		long taskSessionId = counterLocalService.increment();
 
@@ -49,21 +56,27 @@ public class TaskSessionLocalServiceImpl
 		Date now = new Date();
 
 		taskSession.setCreateDate(now);
+		taskSession.setDescription(description);
 		taskSession.setEndTime(endTime);
+		taskSession.setGroupId(groupId);
 		taskSession.setModifiedDate(now);
 		taskSession.setStartTime(startTime);
 		taskSession.setTaskId(taskId);
-		taskSession.setUserId(userId);
+		taskSession.setUserId(user.getUserId());
+		taskSession.setUserName(user.getFullName());
 
-		taskSessionPersistence.update(taskSession, false);
+		taskSessionPersistence.update(taskSession);
 
 		return taskSession;
 	}
 
-	public TaskSession addTaskSession(Date startTime, long taskId, long userId)
-		throws SystemException {
+	public TaskSession addTaskSession(
+			long userId, Date startTime, long taskId, String description,
+			ServiceContext serviceContext)
+		throws SystemException, NoSuchUserException {
 
-		return addTaskSession(startTime, null, taskId, userId);
+		return addTaskSession(
+			userId, startTime, null, taskId, description, serviceContext);
 	}
 
 	public TaskSession getCurrentTaskSession(long userId)
@@ -101,7 +114,7 @@ public class TaskSessionLocalServiceImpl
 
 		taskSession.setModifiedDate(now);
 
-		taskSessionPersistence.update(taskSession, false);
+		taskSessionPersistence.update(taskSession);
 
 		return taskSession;
 	}
