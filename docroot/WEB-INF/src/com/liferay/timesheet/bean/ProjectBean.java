@@ -4,6 +4,7 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
@@ -35,6 +36,8 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	private boolean enabled = false;
 
+	private String description = null;
+
 	private Department selectedDepartment = null;
 
 	private String projectName = null;
@@ -64,12 +67,16 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			selectedProjectId = project.getProjectId();
 		}
 
+		ServiceContext serviceContext =
+			TimesheetUtil.createServiceContext();
+
 		Project project = null;
 
 		try {
 			project = ProjectLocalServiceUtil.addProject(
-				getProjectName(), TimesheetUtil.getCurrentUserId(),
-				selectedDepartment.getDepartmentId(), selectedProjectId, true);
+				TimesheetUtil.getCurrentUserId(),
+				selectedDepartment.getDepartmentId(), true, selectedProjectId,
+				getProjectName(), description, serviceContext);
 		} catch (Exception e) {
 			throw new EntityCreationException();
 		}
@@ -220,6 +227,10 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		this.enabled = enabled;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
 	public String getProjectName() {
 		return projectName;
 	}
@@ -244,6 +255,10 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		}
 
 		return enabled;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setEnabled(boolean enabled) {

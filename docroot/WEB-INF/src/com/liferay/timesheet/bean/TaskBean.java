@@ -3,6 +3,7 @@ package com.liferay.timesheet.bean;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
@@ -33,6 +34,8 @@ public class TaskBean implements Serializable{
 
 	private static Logger logger = LoggerFactory.getLogger(TaskBean.class);
 
+	private String description;
+
 	private String taskName;
 
 	@ManagedProperty(name = "taskSessionSimpleBean",
@@ -57,6 +60,9 @@ public class TaskBean implements Serializable{
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
+		ServiceContext serviceContext =
+			TimesheetUtil.createServiceContext();
+
 		try {
 			selectedProjectNode = enabledProjectBean.getSelectedProjectNode();
 
@@ -75,7 +81,8 @@ public class TaskBean implements Serializable{
 
 		try {
 			task = TaskLocalServiceUtil.addTask(
-				taskName, userId, selectedProject.getProjectId());
+				userId, taskName, selectedProject.getProjectId(), description,
+				serviceContext);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("New Task: " + task.getTaskName());
@@ -110,12 +117,40 @@ public class TaskBean implements Serializable{
 		return tasksToday;
 	}
 
+	protected void clear() {
+		setTaskName(null);
+	}
+
+	public DepartmentBean getDepartmentBean() {
+		return departmentBean;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public ProjectBean getEnabledProjectBean() {
+		return enabledProjectBean;
+	}
+
 	public String getTaskName() {
 		return taskName;
 	}
 
 	public TaskSessionSimpleBean getTaskSessionSimpleBean() {
 		return taskSessionSimpleBean;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setDepartmentBean(DepartmentBean departmentBean) {
+		this.departmentBean = departmentBean;
+	}
+
+	public void setEnabledProjectBean(ProjectBean enabledProjectBean) {
+		this.enabledProjectBean = enabledProjectBean;
 	}
 
 	public void setTaskName(String taskName) {
@@ -126,26 +161,6 @@ public class TaskBean implements Serializable{
 		TaskSessionSimpleBean taskSessionSimpleBean) {
 
 		this.taskSessionSimpleBean = taskSessionSimpleBean;
-	}
-
-	protected void clear() {
-		setTaskName(null);
-	}
-
-	public ProjectBean getEnabledProjectBean() {
-		return enabledProjectBean;
-	}
-
-	public void setEnabledProjectBean(ProjectBean enabledProjectBean) {
-		this.enabledProjectBean = enabledProjectBean;
-	}
-
-	public DepartmentBean getDepartmentBean() {
-		return departmentBean;
-	}
-
-	public void setDepartmentBean(DepartmentBean departmentBean) {
-		this.departmentBean = departmentBean;
 	}
 
 }

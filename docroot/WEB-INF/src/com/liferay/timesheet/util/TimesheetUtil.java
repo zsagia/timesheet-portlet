@@ -1,9 +1,12 @@
 package com.liferay.timesheet.util;
 
+import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,6 +33,18 @@ public class TimesheetUtil {
 		long timeMilis2 = date.getTime();
 
 		return new Date(timeMilis2 + timeMilis);
+	}
+
+	public static ServiceContext createServiceContext() {
+		LiferayFacesContext liferayFacesContext =
+				LiferayFacesContext.getInstance();
+
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setScopeGroupId(themeDisplay.getScopeGroupId());
+
+		return serviceContext;
 	}
 
 	public static User getCurrentUser()

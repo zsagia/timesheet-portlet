@@ -4,6 +4,7 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
 import com.liferay.timesheet.NoSelectedTaskException;
 import com.liferay.timesheet.TaskSessionCloseException;
@@ -26,13 +27,15 @@ public abstract class TaskSessionBaseBean implements Serializable{
 	private static final Logger logger =
 		LoggerFactory.getLogger(TaskSessionBaseBean.class);
 
-	private TaskSession currentTaskSession;
+	private TaskSession currentTaskSession = null;
 
-	private Date endTime;
+	private String description = null;
+
+	private Date endTime = null;
 
 	private long selectedTaskId;
 
-	private Date startTime;
+	private Date startTime = null;
 
 	public TaskSessionBaseBean() {
 		init();
@@ -104,10 +107,13 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 
 		TaskSession taskSession = null;
+	
+		ServiceContext serviceContext =
+			TimesheetUtil.createServiceContext();
 
 		try {
 			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
-				startDate, getSelectedTaskId(), userId);
+				userId, startDate, getSelectedTaskId(), description, serviceContext);
 		} catch (Exception e) {
 			throw new TaskSessionCreationException();
 		}
@@ -249,6 +255,14 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 
 		return currentTaskSession;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

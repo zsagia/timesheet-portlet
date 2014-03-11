@@ -5,6 +5,7 @@ import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
@@ -38,8 +39,12 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		Department department = null;
 
 		try {
+			ServiceContext serviceContext =
+				TimesheetUtil.createServiceContext();
+
 			department = DepartmentLocalServiceUtil.addDepartment(
-				getDepartmentName(), TimesheetUtil.getCurrentUserId());
+				TimesheetUtil.getCurrentUserId(), getDepartmentName(),
+				serviceContext);
 		} catch (Exception e) {
 			logger.error("Department creation is failed!");
 		}
