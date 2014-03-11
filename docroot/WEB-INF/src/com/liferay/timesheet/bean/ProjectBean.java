@@ -163,6 +163,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
 		project.setEnabled(enabled);
+		project.setDescription(description);
 		project.setProjectName(projectName);
 
 		LiferayFacesContext liferayFacesContext =
@@ -179,7 +180,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			logger.error("Creation new project is failed!");
 
 			liferayFacesContext.addGlobalErrorMessage(
-				" Project update is failed!");
+				"Project update is failed!");
 		}
 
 		return "/views/admin/view.xhtml";

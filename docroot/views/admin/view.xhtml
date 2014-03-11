@@ -103,18 +103,25 @@
 							</p:menubar>
 
 							<aui:fieldset>
-								<aui:field label="Project name:">
+								<aui:field label="Project name">
 									<p:inputText id="projectName1" rendered="#{projectBean.action!='selected'}"
 										value="#{projectBean.projectName}" />
 									<p:outputLabel id="projectName2" rendered="#{projectBean.action=='selected'}"
 										value="#{projectBean.projectName}" />
 								</aui:field>
 
-								<aui:field label="Enabled:">
+								<aui:field label="Enabled">
 									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{projectBean.action!='selected'}"
 										value="#{projectBean.enabled}" />
 									<p:outputLabel id="enabledProject2" rendered="#{projectBean.action=='selected'}"
 										value="#{projectBean.enabled}" />
+								</aui:field>
+
+								<aui:field label="Description">
+									<h:inputTextarea id="description1" rendered="#{projectBean.action!='selected'}"
+										value="#{projectBean.description}" />
+									<h:outputText id="description2" rendered="#{projectBean.action=='selected'}"
+										value="#{projectBean.description}" />
 								</aui:field>
 							</aui:fieldset>
 

@@ -50,6 +50,7 @@
 						<aui:column id="project_column_2">
 							<components:taskComponent
 								actionMethod="#{taskBean.createTaskAction}"
+								description="#{taskBean.description}"
 								projectRoot="#{enabledProjectBean.root}"
 								selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
 								startTime="#{taskSessionSimpleBean.startTime}"
@@ -62,6 +63,7 @@
 					<ui:repeat value="#{taskBean.tasksByUser}" var="task">
 						<components:taskComponent
 							actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
+							description="#{taskBean.description}"
 							selectedTask="#{task}"
 							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
 					</ui:repeat>
