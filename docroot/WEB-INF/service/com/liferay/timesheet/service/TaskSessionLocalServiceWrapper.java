@@ -288,18 +288,24 @@ public class TaskSessionLocalServiceWrapper implements TaskSessionLocalService,
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
+	public com.liferay.timesheet.model.TaskSession addTaskSession(long userId,
 		java.util.Date startTime, java.util.Date endTime, long taskId,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSessionLocalService.addTaskSession(startTime, endTime,
-			taskId, userId);
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.addTaskSession(userId, startTime,
+			endTime, taskId, description, serviceContext);
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, long taskId, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSessionLocalService.addTaskSession(startTime, taskId, userId);
+	public com.liferay.timesheet.model.TaskSession addTaskSession(long userId,
+		java.util.Date startTime, long taskId, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.addTaskSession(userId, startTime,
+			taskId, description, serviceContext);
 	}
 
 	@Override

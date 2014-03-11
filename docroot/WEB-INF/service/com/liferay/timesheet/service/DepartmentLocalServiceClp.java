@@ -117,7 +117,10 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 
 		_methodName19 = "addDepartment";
 
-		_methodParameterTypes19 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes19 = new String[] {
+				"long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 
 		_methodName20 = "getDepartments";
 
@@ -680,8 +683,9 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Department addDepartment(
-		java.lang.String departmentName, long creatorId)
+	public com.liferay.timesheet.model.Department addDepartment(long userId,
+		java.lang.String departmentName,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -690,9 +694,11 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(departmentName),
+						userId,
 						
-					creatorId
+					ClpSerializer.translateInput(departmentName),
+						
+					ClpSerializer.translateInput(serviceContext)
 					});
 		}
 		catch (Throwable t) {

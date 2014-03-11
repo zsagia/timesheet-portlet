@@ -276,15 +276,25 @@ public class TaskSessionLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, java.util.Date endTime, long taskId,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().addTaskSession(startTime, endTime, taskId, userId);
+		long userId, java.util.Date startTime, java.util.Date endTime,
+		long taskId, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addTaskSession(userId, startTime, endTime, taskId,
+			description, serviceContext);
 	}
 
 	public static com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, long taskId, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().addTaskSession(startTime, taskId, userId);
+		long userId, java.util.Date startTime, long taskId,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addTaskSession(userId, startTime, taskId, description,
+			serviceContext);
 	}
 
 	public static com.liferay.timesheet.model.TaskSession getCurrentTaskSession(

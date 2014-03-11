@@ -271,11 +271,15 @@ public class TaskLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static com.liferay.timesheet.model.Task addTask(
-		java.lang.String taskName, long creatorId, long projectId)
+	public static com.liferay.timesheet.model.Task addTask(long userId,
+		java.lang.String taskName, long projectId,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addTask(taskName, creatorId, projectId);
+		return getService()
+				   .addTask(userId, taskName, projectId, description,
+			serviceContext);
 	}
 
 	public static com.liferay.timesheet.model.Task getTaskByTN_CR(

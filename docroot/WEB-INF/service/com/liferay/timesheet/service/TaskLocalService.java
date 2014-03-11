@@ -245,8 +245,10 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long creatorId, long projectId)
+	public com.liferay.timesheet.model.Task addTask(long userId,
+		java.lang.String taskName, long projectId,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

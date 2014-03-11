@@ -290,11 +290,13 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Department addDepartment(
-		java.lang.String departmentName, long creatorId)
+	public com.liferay.timesheet.model.Department addDepartment(long userId,
+		java.lang.String departmentName,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _departmentLocalService.addDepartment(departmentName, creatorId);
+		return _departmentLocalService.addDepartment(userId, departmentName,
+			serviceContext);
 	}
 
 	@Override

@@ -133,7 +133,8 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 		_methodName23 = "addProject";
 
 		_methodParameterTypes23 = new String[] {
-				"java.lang.String", "long", "long", "long", "boolean"
+				"long", "long", "boolean", "long", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName24 = "getProjects";
@@ -826,9 +827,10 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long departmentId,
-		long parentProjectId, boolean enabled)
+	public com.liferay.timesheet.model.Project addProject(long userId,
+		long departmentId, boolean enabled, long parentProjectId,
+		java.lang.String projectName, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -837,15 +839,19 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName23,
 					_methodParameterTypes23,
 					new Object[] {
-						ClpSerializer.translateInput(projectName),
-						
-					creatorId,
+						userId,
 						
 					departmentId,
 						
+					enabled,
+						
 					parentProjectId,
 						
-					enabled
+					ClpSerializer.translateInput(projectName),
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
 					});
 		}
 		catch (Throwable t) {

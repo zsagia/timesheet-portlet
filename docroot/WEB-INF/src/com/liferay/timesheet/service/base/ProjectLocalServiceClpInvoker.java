@@ -133,7 +133,8 @@ public class ProjectLocalServiceClpInvoker {
 		_methodName56 = "addProject";
 
 		_methodParameterTypes56 = new String[] {
-				"java.lang.String", "long", "long", "long", "boolean"
+				"long", "long", "boolean", "long", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName57 = "getProjects";
@@ -276,11 +277,12 @@ public class ProjectLocalServiceClpInvoker {
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
-			return ProjectLocalServiceUtil.addProject((java.lang.String)arguments[0],
+			return ProjectLocalServiceUtil.addProject(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
-				((Long)arguments[2]).longValue(),
+				((Boolean)arguments[2]).booleanValue(),
 				((Long)arguments[3]).longValue(),
-				((Boolean)arguments[4]).booleanValue());
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		if (_methodName57.equals(name) &&

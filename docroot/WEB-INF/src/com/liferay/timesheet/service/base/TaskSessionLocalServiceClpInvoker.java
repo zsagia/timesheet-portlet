@@ -117,12 +117,16 @@ public class TaskSessionLocalServiceClpInvoker {
 		_methodName52 = "addTaskSession";
 
 		_methodParameterTypes52 = new String[] {
-				"java.util.Date", "java.util.Date", "long", "long"
+				"long", "java.util.Date", "java.util.Date", "long",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName53 = "addTaskSession";
 
-		_methodParameterTypes53 = new String[] { "java.util.Date", "long", "long" };
+		_methodParameterTypes53 = new String[] {
+				"long", "java.util.Date", "long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 
 		_methodName54 = "getCurrentTaskSession";
 
@@ -246,16 +250,19 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		if (_methodName52.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
-				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue(),
-				((Long)arguments[3]).longValue());
+			return TaskSessionLocalServiceUtil.addTaskSession(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1], (java.util.Date)arguments[2],
+				((Long)arguments[3]).longValue(),
+				(java.lang.String)arguments[4],
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
 		if (_methodName53.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.addTaskSession((java.util.Date)arguments[0],
-				((Long)arguments[1]).longValue(),
-				((Long)arguments[2]).longValue());
+			return TaskSessionLocalServiceUtil.addTaskSession(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue(),
+				(java.lang.String)arguments[3],
+				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
 		if (_methodName54.equals(name) &&

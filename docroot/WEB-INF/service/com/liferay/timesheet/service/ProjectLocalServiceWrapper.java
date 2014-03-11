@@ -346,13 +346,14 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Project addProject(
-		java.lang.String projectName, long creatorId, long departmentId,
-		long parentProjectId, boolean enabled)
+	public com.liferay.timesheet.model.Project addProject(long userId,
+		long departmentId, boolean enabled, long parentProjectId,
+		java.lang.String projectName, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.addProject(projectName, creatorId,
-			departmentId, parentProjectId, enabled);
+		return _projectLocalService.addProject(userId, departmentId, enabled,
+			parentProjectId, projectName, description, serviceContext);
 	}
 
 	@Override

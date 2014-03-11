@@ -118,12 +118,16 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 		_methodName19 = "addTaskSession";
 
 		_methodParameterTypes19 = new String[] {
-				"java.util.Date", "java.util.Date", "long", "long"
+				"long", "java.util.Date", "java.util.Date", "long",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName20 = "addTaskSession";
 
-		_methodParameterTypes20 = new String[] { "java.util.Date", "long", "long" };
+		_methodParameterTypes20 = new String[] {
+				"long", "java.util.Date", "long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 
 		_methodName21 = "getCurrentTaskSession";
 
@@ -689,26 +693,37 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
+	public com.liferay.timesheet.model.TaskSession addTaskSession(long userId,
 		java.util.Date startTime, java.util.Date endTime, long taskId,
-		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(startTime),
+						userId,
+						
+					ClpSerializer.translateInput(startTime),
 						
 					ClpSerializer.translateInput(endTime),
 						
 					taskId,
 						
-					userId
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
 					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.NoSuchUserException) {
+				throw (com.liferay.portal.NoSuchUserException)t;
+			}
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
@@ -727,24 +742,34 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession addTaskSession(
-		java.util.Date startTime, long taskId, long userId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public com.liferay.timesheet.model.TaskSession addTaskSession(long userId,
+		java.util.Date startTime, long taskId, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.NoSuchUserException,
+			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
 					new Object[] {
-						ClpSerializer.translateInput(startTime),
+						userId,
+						
+					ClpSerializer.translateInput(startTime),
 						
 					taskId,
 						
-					userId
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
 					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.NoSuchUserException) {
+				throw (com.liferay.portal.NoSuchUserException)t;
+			}
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;

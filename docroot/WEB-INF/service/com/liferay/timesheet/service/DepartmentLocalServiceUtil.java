@@ -278,10 +278,11 @@ public class DepartmentLocalServiceUtil {
 	}
 
 	public static com.liferay.timesheet.model.Department addDepartment(
-		java.lang.String departmentName, long creatorId)
+		long userId, java.lang.String departmentName,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addDepartment(departmentName, creatorId);
+		return getService().addDepartment(userId, departmentName, serviceContext);
 	}
 
 	public static java.util.List<com.liferay.timesheet.model.Department> getDepartments(

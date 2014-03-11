@@ -116,7 +116,10 @@ public class DepartmentLocalServiceClpInvoker {
 
 		_methodName52 = "addDepartment";
 
-		_methodParameterTypes52 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes52 = new String[] {
+				"long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 
 		_methodName53 = "getDepartment";
 
@@ -230,8 +233,9 @@ public class DepartmentLocalServiceClpInvoker {
 
 		if (_methodName52.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
-			return DepartmentLocalServiceUtil.addDepartment((java.lang.String)arguments[0],
-				((Long)arguments[1]).longValue());
+			return DepartmentLocalServiceUtil.addDepartment(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1],
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
 		}
 
 		if (_methodName53.equals(name) &&

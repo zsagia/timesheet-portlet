@@ -113,7 +113,8 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		_methodName19 = "addTask";
 
 		_methodParameterTypes19 = new String[] {
-				"java.lang.String", "long", "long"
+				"long", "java.lang.String", "long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName20 = "getTaskByTN_CR";
@@ -676,8 +677,10 @@ public class TaskLocalServiceClp implements TaskLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Task addTask(java.lang.String taskName,
-		long creatorId, long projectId)
+	public com.liferay.timesheet.model.Task addTask(long userId,
+		java.lang.String taskName, long projectId,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -686,11 +689,15 @@ public class TaskLocalServiceClp implements TaskLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(taskName),
+						userId,
 						
-					creatorId,
+					ClpSerializer.translateInput(taskName),
 						
-					projectId
+					projectId,
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
 					});
 		}
 		catch (Throwable t) {
