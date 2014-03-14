@@ -12,6 +12,7 @@ import com.liferay.timesheet.TaskSessionCreationException;
 import com.liferay.timesheet.TaskSessionUpdateException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
+import com.liferay.timesheet.util.TimeCalculatorUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
@@ -199,6 +200,60 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 
 		return taskSessions;
+	}
+
+	public String getDayTime() {
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		String dayTime = null;
+
+		try {
+			List<TaskSession> taskSessions =
+				TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
+					TimesheetUtil.getTodayWithoutTime(), userId);
+
+			long time = TimeCalculatorUtil.summerizeDayTime(taskSessions);
+
+			dayTime = TimeCalculatorUtil.getStringFromTime(time);
+		} catch (Exception e) {
+			logger.error("Day time calculation is failed!");
+		}
+
+		return dayTime;
+	}
+
+	public String getMonthTime() {
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		String monthTime = null;
+
+		try {
+			long time = TimeCalculatorUtil.summerizeMonthTime(
+				TimesheetUtil.getDayWithoutTime(new Date()), userId);
+
+			monthTime = TimeCalculatorUtil.getStringFromTime(time);
+		} catch (Exception e) {
+			logger.error("Month time calculation is failed!");
+		}
+
+		return monthTime;
+	}
+
+	public String getWeekTime() {
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		String weekTime = null;
+
+		try {
+			long time =
+				TimeCalculatorUtil.summerizeWeekTime(new Date(), userId);
+
+			weekTime = TimeCalculatorUtil.getStringFromTime(time);
+		} catch (Exception e) {
+			logger.error("Week time calculation is failed!");
+		}
+
+		return weekTime;
 	}
 
 	public Date getTodayWithoutTime() throws Exception {

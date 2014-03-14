@@ -508,6 +508,11 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
+	public long getDuration() throws java.lang.Exception {
+		return _taskSession.getDuration();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

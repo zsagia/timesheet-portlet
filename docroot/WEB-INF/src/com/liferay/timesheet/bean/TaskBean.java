@@ -11,6 +11,7 @@ import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;

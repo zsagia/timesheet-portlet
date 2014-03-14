@@ -19,6 +19,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 
+import java.util.Date;
+
 /**
  * The extended model implementation for the TaskSession service. Represents a row in the &quot;timesheet_TaskSession&quot; database table, with each column mapped to a property of this class.
  *
@@ -41,6 +43,28 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 		Task task = TaskLocalServiceUtil.getTask(getTaskId());
 
 		return task;
+	}
+
+	public long getDuration() throws Exception {
+		Date endTime = getEndTime();
+		Date startTime = getStartTime();
+
+		if (startTime == null) {
+			throw new Exception();
+		}
+
+		if (endTime == null) {
+			endTime = new Date();
+		}
+
+		long endTimeValue = endTime.getTime();
+		long startTimeValue = startTime.getTime();
+
+		if (startTimeValue > endTimeValue) {
+			throw new Exception();
+		}
+
+		return endTimeValue - startTimeValue;
 	}
 
 }

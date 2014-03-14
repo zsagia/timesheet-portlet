@@ -5,37 +5,52 @@
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 	<cc:interface>
 		<cc:attribute name="currentTaskSession" />
+		<cc:attribute name="dayTime" />
+		<cc:attribute name="monthTime" />
 		<cc:attribute name="todayWithoutTime" />
+		<cc:attribute name="weekTime" />
 	</cc:interface>
 
 	<cc:implementation>
-		<aui:layout cssClass="current-task-session">
-			<aui:column cssClass="column-left">
-				<h:outputText value="Today: " />
-				<h:outputText value="#{cc.attrs.todayWithoutTime}">
-					<f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
-				</h:outputText>
-			</aui:column>
+		<h:form id="currentTaskForm">
+			<aui:layout cssClass="current-task-session">
+				<aui:column cssClass="column-left column-300" >
+					<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" readonly="true"
+						showButtonPanel="true" value="#{cc.attrs.todayWithoutTime}" />
 
-			<aui:column cssClass="column-right">
-				<aui:column>
-					<h:outputText value="Current Task: " />
-					<h:outputText  value="#{cc.attrs.currentTaskSession.task.project.projectName}"/>
-					<h:outputText  value=" > "/>
-					<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
+					<span class="summary-time">
+						<h:outputText value="Day:" />
+						<h:outputText value="#{cc.attrs.dayTime}" />
+						<h:outputText value=" | " />
+						<h:outputText value="Week:" />
+						<h:outputText value="#{cc.attrs.weekTime}" />
+						<h:outputText value=" | " />
+						<h:outputText value="Month:" />
+						<h:outputText value="#{cc.attrs.monthTime}" />
+					</span>
 				</aui:column>
 
-				<aui:column>
-					<h:outputText value="Started: " />
-					<h:outputText value="#{cc.attrs.currentTaskSession.startTime}">
-						<f:convertDateTime pattern="HH:mm" type="time"/>
-					</h:outputText>
+				<aui:column cssClass="column-right" rendered="#{cc.attrs.currentTaskSession!=null}">
+					<span>
+						<h:outputText value="Current Task: " />
+						<h:outputText value="#{cc.attrs.currentTaskSession.task.project.projectName}"/>
+						<h:outputText value=" > "/>
+						<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
+					</span>
+
+					<span>
+						<h:outputText value="Started: " />
+						<h:outputText value="#{cc.attrs.currentTaskSession.startTime}">
+							<f:convertDateTime pattern="HH:mm" type="time"/>
+						</h:outputText>
+					</span>
 				</aui:column>
-			</aui:column>
-		</aui:layout>
+			</aui:layout>
+		</h:form>
 	</cc:implementation>
 </ui:component>

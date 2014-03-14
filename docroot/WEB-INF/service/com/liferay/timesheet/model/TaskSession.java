@@ -34,4 +34,6 @@ public interface TaskSession extends TaskSessionModel, PersistedModel {
 	public com.liferay.timesheet.model.Task getTask()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	public long getDuration() throws java.lang.Exception;
 }

@@ -13,38 +13,48 @@
 	<h:head />
 
 	<h:body>
+		<aui:layout>
+			<aui:column columnWidth="50">
+				<components:currentTaskSessionComponent
+					currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
+					dayTime="#{taskSessionSimpleBean.dayTime}"
+					monthTime="#{taskSessionSimpleBean.monthTime}"
+					todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}"
+					weekTime="#{taskSessionSimpleBean.weekTime}" />
+			</aui:column>
+
+			<aui:column columnWidth="50">
+				<components:endTaskComponent
+					actionMethod="#{taskSessionSimpleBean.finishTaskSessionAction}"
+					endTime="#{taskSessionSimpleBean.endTime}"
+					rendered="#{taskSessionSimpleBean.currentTaskSession!=null}" />
+			</aui:column>
+		</aui:layout>
+
 		<h:messages showDetail="true" showSummary="true" />
 
 		<p:tabView id="tabView">  
 			<p:tab id="tab1" title="Creation">
-				<aui:layout>
-					<aui:column>
-						<components:currentTaskSessionComponent
-							currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
-							rendered="#{taskSessionSimpleBean.currentTaskSession!=null}"
-							todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}" />
-					</aui:column>
-
-					<aui:column>
-						<components:endTaskComponent
-							actionMethod="#{taskSessionSimpleBean.finishTaskSessionAction}"
-							endTime="#{taskSessionSimpleBean.endTime}"
-							rendered="#{taskSessionSimpleBean.currentTaskSession!=null}" />
-					</aui:column>
-				</aui:layout>
-
 				<h:form id="taskForm">
 					<aui:layout>
 						<aui:column id="project_column_1">
-							<h:selectOneListbox converter="DepartmentConverter" id="departmentList" style="height:200px"
+							<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
 								value="#{enabledProjectBean.selectedDepartment}" var="d">
 
 								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
 									value="#{taskBean.departmentBean.departments}" var="department" />
 
 								<p:ajax event="change" listener="#{enabledProjectBean.onDepartmentSelect}"
-									update=":#{p:component('project_column_2')}" />
-							</h:selectOneListbox>
+									update=":#{p:component('projectTree')}" />
+							</h:selectOneMenu>
+
+							<p:tree id="projectTree" selection="#{enabledProjectBean.selectedProjectNode}" selectionMode="single"
+								value="#{enabledProjectBean.root}" var="project">
+
+								<p:treeNode>
+									<h:outputText value="#{project}" />
+								</p:treeNode>
+							</p:tree>
 						</aui:column>
 
 						<aui:column id="project_column_2">

@@ -13,6 +13,7 @@ import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -33,6 +34,16 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 	public String departmentName = null;
 
 	public Department selectedDepartment = null;
+
+	public List<Department> departments = null;
+
+	public DepartmentBean() {
+		departments = super.getDepartments();
+
+		if (departments.size() > 0) {
+			selectedDepartment = departments.get(0);
+		}
+	}
 
 	@Override
 	public Object createEntity() throws EntityCreationException {
@@ -144,6 +155,11 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
+	}
+
+	@Override
+	public List<Department> getDepartments() {
+		return departments;
 	}
 
 	public Department getSelectedDepartment() {

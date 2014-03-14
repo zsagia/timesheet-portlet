@@ -424,6 +424,25 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 	}
 
 	@Override
+	public long getDuration() {
+		try {
+			String methodName = "getDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Long returnObj = (Long)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Task getTask() {
 		try {
 			String methodName = "getTask";

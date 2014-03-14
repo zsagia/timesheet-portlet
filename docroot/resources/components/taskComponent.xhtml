@@ -23,16 +23,6 @@
 	<cc:implementation>
 		<aui:layout>
 			<aui:column rendered="#{empty cc.attrs.selectedTask}">
-				<p:tree id="projectTree" selection="#{cc.attrs.selectedProjectNode}" selectionMode="single"
-					value="#{cc.attrs.projectRoot}" var="project">
-
-					<p:treeNode>
-						<h:outputText value="#{project}" />
-					</p:treeNode>
-				</p:tree>
-			</aui:column>
-
-			<aui:column rendered="#{empty cc.attrs.selectedTask}">
 				<aui:fieldset>
 					<aui:field label="Start">
 						<h:inputText id="startTime" value="#{cc.attrs.startTime}">
