@@ -33,7 +33,7 @@
 				<c:when test="#{empty cc.attrs.currentTaskSession}">
 					<h:inputText id="taskName" value="#{cc.attrs.taskName}"></h:inputText>
 
-					<h:commandButton id="startTask" value="Start Task" action="#{cc.attrs.createTaskAction}"></h:commandButton>
+					<h:commandButton id="startTask" value="Start Task" action="#{cc.attrs.createTaskAction}" styleClass="btn btn-primary" />
 
 					<br />
 
@@ -41,7 +41,7 @@
 					<h:inputText id="endTime" value="#{cc.attrs.endTime}">
 						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
 					</h:inputText>
-					<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.finishTaskSessionAction}"></h:commandButton>
+					<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.finishTaskSessionAction}" styleClass="btn btn-primary" />
 				</c:when>
 				<c:otherwise>
 					<h:outputText value="#{cc.attrs.taskName}"></h:outputText>

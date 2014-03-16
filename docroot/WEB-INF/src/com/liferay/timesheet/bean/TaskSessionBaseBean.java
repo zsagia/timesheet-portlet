@@ -5,6 +5,8 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
+import com.liferay.timesheet.EndTimeException;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
 import com.liferay.timesheet.NoSelectedTaskException;
 import com.liferay.timesheet.TaskSessionCloseException;
@@ -14,9 +16,11 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.validator.DateTimeValidatorUtil;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -129,7 +133,20 @@ public abstract class TaskSessionBaseBean implements Serializable{
 			LiferayFacesContext.getInstance();
 
 		try {
+			DateTimeValidatorUtil.validateEndTime(
+				currentTaskSession, new Date());
+
 			finishTaskSession();
+		} catch (EndTimeException ete) {
+			logger.error("Invalid endTime");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Invalid endTime!");
+		} catch (CurrentTaskSessionIsAlreadyEndedException ctsiae) {
+			logger.error("current_task_session_is_already_ended");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"current_task_session_is_already_ended");
 		} catch (NoCurrentTaskSessionException e) {
 			logger.error("No current task session!");
 
@@ -159,13 +176,11 @@ public abstract class TaskSessionBaseBean implements Serializable{
 			throw new NoCurrentTaskSessionException();
 		}
 
-		Date endDate = new Date();
+		Calendar endDate = Calendar.getInstance();
 
-		if (endTime != null) {
-			endDate = endTime;
-		}
+		endDate.set(Calendar.MILLISECOND, 0);
 
-		currentTaskSession.setEndTime(endDate);
+		currentTaskSession.setEndTime(endDate.getTime());
 
 		try {
 			TaskSessionLocalServiceUtil.updateTaskSession(currentTaskSession);
@@ -216,7 +231,7 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 			dayTime = TimeCalculatorUtil.getStringFromTime(time);
 		} catch (Exception e) {
-			logger.error("Day time calculation is failed!");
+			logger.error("Day time calculation is failed!", e);
 		}
 
 		return dayTime;
@@ -229,11 +244,12 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 		try {
 			long time = TimeCalculatorUtil.summerizeMonthTime(
-				TimesheetUtil.getDayWithoutTime(new Date()), userId);
+				TimesheetUtil.getCompanyId(),
+				TimesheetUtil.getTodayWithoutTime(), userId);
 
 			monthTime = TimeCalculatorUtil.getStringFromTime(time);
 		} catch (Exception e) {
-			logger.error("Month time calculation is failed!");
+			logger.error("Month time calculation is failed!", e);
 		}
 
 		return monthTime;
@@ -246,11 +262,13 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 		try {
 			long time =
-				TimeCalculatorUtil.summerizeWeekTime(new Date(), userId);
+				TimeCalculatorUtil.summerizeWeekTime(
+					TimesheetUtil.getCompanyId(),
+					TimesheetUtil.getTodayWithoutTime(), userId);
 
 			weekTime = TimeCalculatorUtil.getStringFromTime(time);
 		} catch (Exception e) {
-			logger.error("Week time calculation is failed!");
+			logger.error("Week time calculation is failed!", e);
 		}
 
 		return weekTime;

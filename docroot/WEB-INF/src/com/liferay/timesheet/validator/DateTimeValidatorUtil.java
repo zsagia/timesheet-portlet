@@ -26,7 +26,7 @@ public class DateTimeValidatorUtil {
 	}
 
 	public static void validateEndTime(
-			TaskSession taskSession, Date endTime)
+			TaskSession taskSession, Date endDate)
 		throws CurrentTaskSessionIsAlreadyEndedException, EndTimeException,
 			NoCurrentTaskSessionException {
 
@@ -34,15 +34,15 @@ public class DateTimeValidatorUtil {
 			throw new NoCurrentTaskSessionException();
 		}
 
-		Date endDate = taskSession.getEndTime();
+		Date endTime = taskSession.getEndTime();
 
-		if (endDate != null) {
+		if (endTime != null) {
 			throw new CurrentTaskSessionIsAlreadyEndedException();
 		}
 
-		Date startDate = taskSession.getStartTime();
+		Date startTime = taskSession.getStartTime();
 
-		if (endTime.before(startDate)) {
+		if (endDate.before(startTime)) {
 			throw new EndTimeException();
 		}
 	}

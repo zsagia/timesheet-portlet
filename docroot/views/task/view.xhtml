@@ -12,22 +12,16 @@
 
 	<h:head />
 
-	<h:body>
-		<aui:layout>
-			<aui:column columnWidth="50">
+	<h:body styleClass="timesheet">
+		<aui:layout styleClass="curernt-task-layout">
+			<aui:column styleClass="current-task-column">
 				<components:currentTaskSessionComponent
+					actionMethod="#{taskSessionSimpleBean.finishTaskSessionAction}"
 					currentTaskSession="#{taskSessionSimpleBean.currentTaskSession}"
 					dayTime="#{taskSessionSimpleBean.dayTime}"
 					monthTime="#{taskSessionSimpleBean.monthTime}"
 					todayWithoutTime="#{taskSessionSimpleBean.todayWithoutTime}"
 					weekTime="#{taskSessionSimpleBean.weekTime}" />
-			</aui:column>
-
-			<aui:column columnWidth="50">
-				<components:endTaskComponent
-					actionMethod="#{taskSessionSimpleBean.finishTaskSessionAction}"
-					endTime="#{taskSessionSimpleBean.endTime}"
-					rendered="#{taskSessionSimpleBean.currentTaskSession!=null}" />
 			</aui:column>
 		</aui:layout>
 

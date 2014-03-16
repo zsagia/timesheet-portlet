@@ -9,6 +9,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 	<cc:interface>
+		<cc:attribute name="actionMethod" 
+			method-signature="java.lang.String action()" />
 		<cc:attribute name="currentTaskSession" />
 		<cc:attribute name="dayTime" />
 		<cc:attribute name="monthTime" />
@@ -19,36 +21,57 @@
 	<cc:implementation>
 		<h:form id="currentTaskForm">
 			<aui:layout cssClass="current-task-session">
-				<aui:column cssClass="column-left column-300" >
+				<aui:column cssClass="current-date-column">
 					<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" readonly="true"
-						showButtonPanel="true" value="#{cc.attrs.todayWithoutTime}" />
+						styleClass="current-date" showButtonPanel="true" value="#{cc.attrs.todayWithoutTime}" />
+				</aui:column>
 
-					<span class="summary-time">
+				<aui:column styleClass="summary-time-column">
+					<label>
 						<h:outputText value="Day:" />
+					</label>
+
+					<span>
 						<h:outputText value="#{cc.attrs.dayTime}" />
-						<h:outputText value=" | " />
+					</span>
+
+					<label>
 						<h:outputText value="Week:" />
+					</label>
+
+					<span>
 						<h:outputText value="#{cc.attrs.weekTime}" />
-						<h:outputText value=" | " />
+					</span>
+
+					<label>
 						<h:outputText value="Month:" />
+					</label>
+
+					<span>
 						<h:outputText value="#{cc.attrs.monthTime}" />
 					</span>
 				</aui:column>
 
-				<aui:column cssClass="column-right" rendered="#{cc.attrs.currentTaskSession!=null}">
-					<span>
+				<aui:column rendered="#{cc.attrs.currentTaskSession!=null}" styleClass="current-task-session-column">
+					<label>
 						<h:outputText value="Current Task: " />
+					</label>
+					<span>
 						<h:outputText value="#{cc.attrs.currentTaskSession.task.project.projectName}"/>
 						<h:outputText value=" > "/>
 						<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
 					</span>
 
-					<span>
+					<label>
 						<h:outputText value="Started: " />
+					</label>
+					<span>
 						<h:outputText value="#{cc.attrs.currentTaskSession.startTime}">
 							<f:convertDateTime pattern="HH:mm" type="time"/>
 						</h:outputText>
 					</span>
+
+					<h:commandButton action="#{cc.attrs.actionMethod}" id="finishTask" styleClass="btn btn-primary" value="Finish" />
 				</aui:column>
 			</aui:layout>
 		</h:form>

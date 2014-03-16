@@ -22,7 +22,8 @@ public class TimeCalculatorUtil {
 		return time;
 	}
 
-	public static long summerizeWeekTime(Date dateOfWeek, long userId)
+	public static long summerizeWeekTime(
+			long companyId, Date dateOfWeek, long userId)
 		throws Exception {
 
 		long time = 0;
@@ -30,38 +31,49 @@ public class TimeCalculatorUtil {
 		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
 
 		for(Date date: daysOfWeek) {
+			Calendar date2 = Calendar.getInstance();
+
+			date2.setTime(date);
+			date2.add(Calendar.DAY_OF_WEEK, 1);
+
 			List<TaskSession> taskSessions =
-				TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-					date, userId);
-			
+				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(
+					companyId, date, date2.getTime(), userId);
+
 			time += summerizeDayTime(taskSessions);
 		}
 
 		return time;
 	}
 
-	public static long summerizeMonthTime(Date dateOfMonth, long userId)
+	public static long summerizeMonthTime(
+			long companyId, Date dateOfMonth, long userId)
 		throws Exception {
 
 		long time = 0;
 
-		Calendar calendar = Calendar.getInstance();
+		Calendar calendarStart = Calendar.getInstance();
+		Calendar calendarEnd = Calendar.getInstance();
 
-		calendar.setTime(dateOfMonth);
+		calendarStart.setTime(dateOfMonth);
+		calendarEnd.setTime(dateOfMonth);
 
-		int first = calendar.getMinimum(Calendar.DAY_OF_MONTH);
-		int last = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int first = calendarStart.getMinimum(Calendar.DAY_OF_MONTH);
+		int last = calendarStart.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-		calendar.set(Calendar.DAY_OF_MONTH, first);
+		calendarStart.set(Calendar.DAY_OF_MONTH, first);
+		calendarEnd.set(Calendar.DAY_OF_MONTH, 1);
+		calendarEnd.add(Calendar.DAY_OF_MONTH, 1);
 
 		for (int i = first; i < last; i++) {
 			List<TaskSession> taskSessions =
-				TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-					calendar.getTime(), userId);
+				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(companyId,
+					calendarStart.getTime(), calendarEnd.getTime(), userId);
 
 			time += summerizeDayTime(taskSessions);
 
-			calendar.add(Calendar.DAY_OF_MONTH, 1);
+			calendarStart.add(Calendar.DAY_OF_MONTH, 1);
+			calendarEnd.add(Calendar.DAY_OF_MONTH, 1);
 		}
 
 		return time;
@@ -80,7 +92,7 @@ public class TimeCalculatorUtil {
 		buffer.append(hours);
 		buffer.append(":");
 
-		if (minutes < 0) {
+		if (minutes < 10) {
 			buffer.append("0");
 		}
 

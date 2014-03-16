@@ -48,21 +48,29 @@ public class TimesheetUtil {
 		return serviceContext;
 	}
 
+	public static long getCompanyId()
+		throws PortalException, SystemException {
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		return liferayFacesContext.getCompanyId();
+	}
+
 	public static User getCurrentUser()
 		throws PortalException, SystemException {
 
-		long userId = getCurrentUserId();
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
 
-		return UserLocalServiceUtil.getUser(userId);
+		return liferayFacesContext.getUser();
 	}
 
 	public static long getCurrentUserId() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
 
-		long userId = Long.valueOf(
-			facesContext.getExternalContext().getRemoteUser());
-
-		return userId;
+		return liferayFacesContext.getUserId();
 	}
 
 	public static Date getTodayWithoutTime() throws ParseException {

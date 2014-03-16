@@ -42,7 +42,7 @@
 					</aui:field>
 				</aui:fieldset>
 
-				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" value="Start Task">
+				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" styleClass="btn btn-primary" value="Start Task">
 					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
 				</h:commandButton>
 			</aui:column>
@@ -59,7 +59,7 @@
 				<h:outputText value=" > " />
 				<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
 
-				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" value="Start Task">
+				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" styleClass="btn btn-primary" value="Start Task">
 					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
 				</h:commandButton>
 			</aui:column>

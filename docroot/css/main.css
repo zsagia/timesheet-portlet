@@ -10,3 +10,40 @@
 	margin: 1px 0px 0px 0px;
 	padding: 1px 5px 1px 24px;
 }
+
+.timesheet .current-task-column {
+	width: 100%;
+}
+
+.timesheet input[type="text"], .timesheet select, .timesheet textarea {
+	border: 1px solid #DDDDDD !important;
+	border-radius: 14px !important;
+	box-shadow: none !important;
+}
+
+.timesheet .current-date-column input{
+	cursor: default !important;
+	font-weight: bold !important;
+	padding-left: 5px !important;
+	width: 256px;
+}
+
+.timesheet .summary-time-column, .timesheet .current-task-session-column,
+.timesheet .current-date-column {
+	display: inline;
+	height: 30px;
+	line-height: 30px;
+}
+
+.timesheet .current-task-session-column {
+	float: right;
+}
+
+.timesheet .summary-time-column span, .timesheet .current-task-session-column span {
+	font-weight: bold;
+}
+
+.timesheet .summary-time-column label, .timesheet .current-task-session-column label {
+	display: inline;
+	padding-left: 10px;
+}
