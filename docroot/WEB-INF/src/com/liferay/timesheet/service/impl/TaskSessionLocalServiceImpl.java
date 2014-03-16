@@ -55,6 +55,7 @@ public class TaskSessionLocalServiceImpl
 
 		Date now = new Date();
 
+		taskSession.setCompanyId(user.getCompanyId());
 		taskSession.setCreateDate(now);
 		taskSession.setDescription(description);
 		taskSession.setEndTime(endTime);
@@ -103,6 +104,16 @@ public class TaskSessionLocalServiceImpl
 
 		List<TaskSession> taskSessions =
 			taskSessionPersistence.findByU_GtS(userId, date);
+
+		return taskSessions;
+	}
+
+	public List<TaskSession> getTaskSessionsByC_I_U(
+			long companyId, Date date1, Date date2, long userId)
+		throws SystemException {
+
+		List<TaskSession> taskSessions =
+			taskSessionFinder.findByC_I_U(companyId, date1, date2, userId);
 
 		return taskSessions;
 	}

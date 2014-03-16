@@ -140,9 +140,15 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		_methodParameterTypes56 = new String[] { "java.util.Date", "long" };
 
-		_methodName57 = "updateTaskSession";
+		_methodName57 = "getTaskSessionsByC_I_U";
 
 		_methodParameterTypes57 = new String[] {
+				"long", "java.util.Date", "java.util.Date", "long"
+			};
+
+		_methodName58 = "updateTaskSession";
+
+		_methodParameterTypes58 = new String[] {
 				"com.liferay.timesheet.model.TaskSession"
 			};
 	}
@@ -284,6 +290,13 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		if (_methodName57.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1], (java.util.Date)arguments[2],
+				((Long)arguments[3]).longValue());
+		}
+
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
@@ -338,4 +351,6 @@ public class TaskSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
 }

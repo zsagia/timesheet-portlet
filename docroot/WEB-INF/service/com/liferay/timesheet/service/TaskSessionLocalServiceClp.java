@@ -140,6 +140,12 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 		_methodName23 = "getTaskSessionsByD_U";
 
 		_methodParameterTypes23 = new String[] { "java.util.Date", "long" };
+
+		_methodName24 = "getTaskSessionsByC_I_U";
+
+		_methodParameterTypes24 = new String[] {
+				"long", "java.util.Date", "java.util.Date", "long"
+			};
 	}
 
 	@Override
@@ -875,6 +881,44 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 		return (java.util.List<com.liferay.timesheet.model.TaskSession>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
+		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] {
+						companyId,
+						
+					ClpSerializer.translateInput(date1),
+						
+					ClpSerializer.translateInput(date2),
+						
+					userId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.TaskSession>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -922,4 +966,6 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

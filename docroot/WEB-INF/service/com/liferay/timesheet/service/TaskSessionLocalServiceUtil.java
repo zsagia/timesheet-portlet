@@ -314,6 +314,13 @@ public class TaskSessionLocalServiceUtil {
 		return getService().getTaskSessionsByD_U(date, userId);
 	}
 
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
+		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getTaskSessionsByC_I_U(companyId, date1, date2, userId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

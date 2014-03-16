@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
  * @author Istvan Sajtos, Zsolt Szabo
  */
 public class TaskSessionFinderUtil {
-	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByD_U(
-		java.util.Date date, long userId, int start, int end) {
-		return getFinder().findByD_U(date, userId, start, end);
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> findByC_I_U(
+		long companyId, java.util.Date date1, java.util.Date date2, long userId) {
+		return getFinder().findByC_I_U(companyId, date1, date2, userId);
 	}
 
 	public static TaskSessionFinder getFinder() {

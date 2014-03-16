@@ -328,6 +328,14 @@ public class TaskSessionLocalServiceWrapper implements TaskSessionLocalService,
 		return _taskSessionLocalService.getTaskSessionsByD_U(date, userId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
+		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.getTaskSessionsByC_I_U(companyId,
+			date1, date2, userId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
