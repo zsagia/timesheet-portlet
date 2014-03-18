@@ -1,5 +1,6 @@
 package com.liferay.timesheet.admin;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.EntityCreationException;
 
@@ -21,7 +22,8 @@ public interface BaseAdmin {
 
 	public void onNodeUnSelect();
 
-	public Object updateEntity(Object entity) throws SystemException;
+	public Object updateEntity(Object entity)
+		throws PortalException, SystemException;
 
 	public String updateEntityAction();
 }

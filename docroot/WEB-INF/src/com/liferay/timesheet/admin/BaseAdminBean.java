@@ -1,9 +1,8 @@
 package com.liferay.timesheet.admin;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Department;
-import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
+import com.liferay.timesheet.service.DepartmentServiceUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,9 +26,9 @@ public abstract class BaseAdminBean implements BaseAdmin {
 		List<Department> departments = null;
 
 		try {
-			departments = DepartmentLocalServiceUtil.getDepartments(
+			departments = DepartmentServiceUtil.getDepartments(
 				liferayFacesContext.getCompanyId());
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			departments = Collections.emptyList();
 		}
 

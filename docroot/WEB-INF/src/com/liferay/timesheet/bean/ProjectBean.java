@@ -3,13 +3,14 @@ package com.liferay.timesheet.bean;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.model.Project;
-import com.liferay.timesheet.service.ProjectLocalServiceUtil;
+import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimesheetUtil;
 
@@ -46,12 +47,14 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	private TreeNode selectedProjectNode = null;
 
+	private Project selectedProject = null;
+
 	public ProjectBean() {
 		root = new ProjectTreeNode(null, null);
 
 		try {
 			generateTreeNodes(false, 0, root);
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			logger.error("Tree generation is failed!");
 		}
 	}
@@ -73,7 +76,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		Project project = null;
 
 		try {
-			project = ProjectLocalServiceUtil.addProject(
+			project = ProjectServiceUtil.addProject(
 				TimesheetUtil.getCurrentUserId(),
 				selectedDepartment.getDepartmentId(), true, selectedProjectId,
 				getProjectName(), description, serviceContext);
@@ -127,7 +130,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		try {
 			generateTreeNodes(
 				false, selectedDepartment.getDepartmentId(), root);
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -151,8 +154,10 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	}
 
 	@Override
-	public Object updateEntity(Object entity) throws SystemException{
-		ProjectLocalServiceUtil.updateProject((Project)entity);
+	public Object updateEntity(Object entity)
+		throws PortalException, SystemException {
+
+		ProjectServiceUtil.updateProject((Project)entity);
 
 		return entity;
 	}
@@ -176,7 +181,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 				logger.debug(
 					"Project is updated: " + project.getProjectName());
 			}
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			logger.error("Creation new project is failed!");
 
 			liferayFacesContext.addGlobalErrorMessage(
@@ -188,7 +193,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	protected void generateTreeNodes(
 			boolean checkEnabled, long departmentId, TreeNode parentNode)
-		throws SystemException {
+		throws PortalException, SystemException {
 
 		if (departmentId > 0) {
 			Project projectNode = ((ProjectTreeNode)parentNode).getProject();
@@ -196,7 +201,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			long projectId =
 				projectNode != null ? projectNode.getProjectId() : 0;
 
-			List<Project> projects = ProjectLocalServiceUtil.getProjectsByD_PP(
+			List<Project> projects = ProjectServiceUtil.getProjectsByD_PP(
 				departmentId, projectId);
 
 			for (Project project: projects) {
@@ -276,6 +281,10 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
 		this.selectedProjectNode = selectedProjectNode;
+
+		if (selectedProjectNode != null) {
+			this.setSelectedProject(((ProjectTreeNode)selectedProjectNode).getProject());
+		}
 	}
 
 	public Department getSelectedDepartment() {
@@ -284,6 +293,14 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	public void setSelectedDepartment(Department selectedDepartment) {
 		this.selectedDepartment = selectedDepartment;
+	}
+
+	public Project getSelectedProject() {
+		return selectedProject;
+	}
+
+	public void setSelectedProject(Project selectedProject) {
+		this.selectedProject = selectedProject;
 	}
 
 }

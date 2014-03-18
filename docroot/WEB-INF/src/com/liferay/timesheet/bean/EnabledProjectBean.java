@@ -3,8 +3,6 @@ package com.liferay.timesheet.bean;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 import com.liferay.timesheet.util.ProjectTreeNode;
 
 import javax.faces.bean.ManagedBean;
@@ -28,7 +26,7 @@ public class EnabledProjectBean extends ProjectBean {
 
 		try {
 			generateTreeNodes(true, 0, getRoot());
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			logger.error("Tree generation is failed!");
 		}
 	}
@@ -39,7 +37,7 @@ public class EnabledProjectBean extends ProjectBean {
 		try {
 			generateTreeNodes(
 				true, getSelectedDepartment().getDepartmentId(), getRoot());
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

@@ -4,12 +4,13 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
-import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
+import com.liferay.timesheet.service.DepartmentServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
@@ -53,7 +54,7 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 			ServiceContext serviceContext =
 				TimesheetUtil.createServiceContext();
 
-			department = DepartmentLocalServiceUtil.addDepartment(
+			department = DepartmentServiceUtil.addDepartment(
 				TimesheetUtil.getCurrentUserId(), getDepartmentName(),
 				serviceContext);
 		} catch (Exception e) {
@@ -118,8 +119,10 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 	}
 	
 	@Override
-	public Object updateEntity(Object entity) throws SystemException{
-		DepartmentLocalServiceUtil.updateDepartment((Department)entity);
+	public Object updateEntity(Object entity)
+		throws SystemException, PortalException{
+
+		DepartmentServiceUtil.updateDepartment((Department)entity);
 
 		return entity;
 	}
@@ -139,11 +142,11 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 					"Project is updated: " +
 						selectedDepartment.getDepartmentName());
 			}
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			logger.error("Department update is failed!");
 
 			liferayFacesContext.addGlobalErrorMessage(
-				" Department update is failed!");
+				"Department update is failed!");
 		}
 
 		return "/views/admin/view.xhtml";
