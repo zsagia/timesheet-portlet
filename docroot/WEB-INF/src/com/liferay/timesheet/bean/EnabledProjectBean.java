@@ -2,7 +2,6 @@ package com.liferay.timesheet.bean;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-
 import com.liferay.timesheet.util.ProjectTreeNode;
 
 import javax.faces.bean.ManagedBean;
@@ -15,11 +14,6 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean(name = "enabledProjectBean")
 @ViewScoped
 public class EnabledProjectBean extends ProjectBean {
-
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(EnabledProjectBean.class);
 
 	public EnabledProjectBean() {
 		setRoot(new ProjectTreeNode(null, null));
@@ -45,5 +39,9 @@ public class EnabledProjectBean extends ProjectBean {
 
 		setSelectedProjectNode(null);
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+		EnabledProjectBean.class);
+	private static final long serialVersionUID = 1L;
 
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 public class TimesheetUtilTest {
 
 	@Test

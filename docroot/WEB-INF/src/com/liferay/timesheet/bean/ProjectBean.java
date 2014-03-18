@@ -15,6 +15,7 @@ import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -29,25 +30,6 @@ import org.primefaces.model.TreeNode;
 @ManagedBean(name = "projectBean")
 @ViewScoped
 public class ProjectBean extends BaseAdminBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(ProjectBean.class);
-
-	private boolean enabled = false;
-
-	private String description = null;
-
-	private Department selectedDepartment = null;
-
-	private String projectName = null;
-
-	private TreeNode root = null;
-
-	private TreeNode selectedProjectNode = null;
-
-	private Project selectedProject = null;
 
 	public ProjectBean() {
 		root = new ProjectTreeNode(null, null);
@@ -70,8 +52,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			selectedProjectId = project.getProjectId();
 		}
 
-		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
+		ServiceContext serviceContext = TimesheetUtil.createServiceContext();
 
 		Project project = null;
 
@@ -113,8 +94,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	public void doEditAction() {
 		setAction(ACTION_EDIT);
 
-		Project project =
-			((ProjectTreeNode)selectedProjectNode).getProject();
+		Project project = ((ProjectTreeNode)selectedProjectNode).getProject();
 
 		projectName = project.getProjectName();
 	}
@@ -122,6 +102,44 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	@Override
 	public void doNewAction() {
 		setActionValues(ACTION_NEW, false, null);
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public Department getSelectedDepartment() {
+		return selectedDepartment;
+	}
+
+	public Project getSelectedProject() {
+		return selectedProject;
+	}
+
+	public TreeNode getSelectedProjectNode() {
+		return selectedProjectNode;
+	}
+
+	public boolean isEnabled() {
+		if (ACTION_NEW.equals(getAction())) {
+			enabled = false;
+		}
+		else if (selectedProjectNode != null) {
+			Project project =
+				((ProjectTreeNode)selectedProjectNode).getProject();
+
+			enabled = project.getEnabled();
+		}
+
+		return enabled;
 	}
 
 	public void onDepartmentSelect() {
@@ -141,8 +159,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	@Override
 	public void onNodeSelect() {
-		Project project =
-			((ProjectTreeNode)selectedProjectNode).getProject();
+		Project project = ((ProjectTreeNode)selectedProjectNode).getProject();
 
 		setActionValues(
 			ACTION_SELECTED, project.getEnabled(), project.getProjectName());
@@ -151,6 +168,38 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	@Override
 	public void onNodeUnSelect() {
 		doNewAction();
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
+	public void setSelectedDepartment(Department selectedDepartment) {
+		this.selectedDepartment = selectedDepartment;
+	}
+
+	public void setSelectedProject(Project selectedProject) {
+		this.selectedProject = selectedProject;
+	}
+
+	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
+		this.selectedProjectNode = selectedProjectNode;
+
+		if (selectedProjectNode != null) {
+			this.setSelectedProject(((ProjectTreeNode)selectedProjectNode).getProject());
+		}
 	}
 
 	@Override
@@ -164,8 +213,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	@Override
 	public String updateEntityAction() {
-		Project project =
-			((ProjectTreeNode)selectedProjectNode).getProject();
+		Project project = ((ProjectTreeNode)selectedProjectNode).getProject();
 
 		project.setEnabled(enabled);
 		project.setDescription(description);
@@ -178,8 +226,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			updateEntity(project);
 
 			if (logger.isDebugEnabled()) {
-				logger.debug(
-					"Project is updated: " + project.getProjectName());
+				logger.debug("Project is updated: " + project.getProjectName());
 			}
 		} catch (Exception e) {
 			logger.error("Creation new project is failed!");
@@ -204,7 +251,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			List<Project> projects = ProjectServiceUtil.getProjectsByD_PP(
 				departmentId, projectId);
 
-			for (Project project: projects) {
+			for (Project project : projects) {
 				boolean enabled = true;
 
 				if (checkEnabled && !project.getEnabled()) {
@@ -233,74 +280,16 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	private static final Logger logger = LoggerFactory.getLogger(
+		ProjectBean.class);
+	private static final long serialVersionUID = 1L;
 
-	public String getProjectName() {
-		return projectName;
-	}
-
-	public TreeNode getRoot() {
-		return root;
-	}
-
-	public TreeNode getSelectedProjectNode() {
-		return selectedProjectNode;
-	}
-
-	public boolean isEnabled() {
-		if (ACTION_NEW.equals(getAction())) {
-			enabled = false;
-		}
-		else if (selectedProjectNode != null) {
-			Project project =
-				((ProjectTreeNode)selectedProjectNode).getProject();
-
-			enabled = project.getEnabled();
-		}
-
-		return enabled;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-
-	public void setRoot(TreeNode root) {
-		this.root = root;
-	}
-
-	public void setSelectedProjectNode(TreeNode selectedProjectNode) {
-		this.selectedProjectNode = selectedProjectNode;
-
-		if (selectedProjectNode != null) {
-			this.setSelectedProject(((ProjectTreeNode)selectedProjectNode).getProject());
-		}
-	}
-
-	public Department getSelectedDepartment() {
-		return selectedDepartment;
-	}
-
-	public void setSelectedDepartment(Department selectedDepartment) {
-		this.selectedDepartment = selectedDepartment;
-	}
-
-	public Project getSelectedProject() {
-		return selectedProject;
-	}
-
-	public void setSelectedProject(Project selectedProject) {
-		this.selectedProject = selectedProject;
-	}
+	private String description = null;
+	private boolean enabled = false;
+	private String projectName = null;
+	private TreeNode root = null;
+	private Department selectedDepartment = null;
+	private Project selectedProject = null;
+	private TreeNode selectedProjectNode = null;
 
 }

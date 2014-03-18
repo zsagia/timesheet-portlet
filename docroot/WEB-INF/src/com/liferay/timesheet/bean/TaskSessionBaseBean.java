@@ -19,42 +19,55 @@ import com.liferay.timesheet.util.TimesheetUtil;
 import com.liferay.timesheet.validator.DateTimeValidatorUtil;
 
 import java.io.Serializable;
-import java.text.ParseException;
+
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-public abstract class TaskSessionBaseBean implements Serializable{
-
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(TaskSessionBaseBean.class);
-
-	private TaskSession currentTaskSession = null;
-
-	private String description = null;
-
-	private Date endTime = null;
-
-	private long selectedTaskId;
-
-	private Date startTime = null;
+public abstract class TaskSessionBaseBean implements Serializable {
 
 	public TaskSessionBaseBean() {
 		init();
 	}
 
-	private void init() {
+	public TaskSession createTaskSession()
+		throws NoSelectedTaskException, TaskSessionCloseException,
+			TaskSessionCreationException {
+
+		if (getSelectedTaskId() == 0) {
+			throw new NoSelectedTaskException();
+		}
+
+		Date startDate = new Date();
+		Date startTime = getStartTime();
+
+		if (startTime != null) {
+			startDate = startTime;
+		}
+
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		try {
-			currentTaskSession =
-				TaskSessionLocalServiceUtil.getCurrentTaskSession(userId);
-		} catch (SystemException e) {
-			logger.error(e);
+			closeCurrentTaskSession(userId, startDate);
+		} catch (SystemException se) {
+			throw new TaskSessionCloseException();
 		}
+
+		TaskSession taskSession = null;
+
+		ServiceContext serviceContext = TimesheetUtil.createServiceContext();
+
+		try {
+			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
+				userId, startDate, getSelectedTaskId(), description,
+				serviceContext);
+		} catch (Exception e) {
+			throw new TaskSessionCreationException();
+		}
+
+		clear();
+
+		return taskSession;
 	}
 
 	public String createTaskSessionAction() {
@@ -88,80 +101,6 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		return "/views/task/view.xhtml";
 	}
 
-	public TaskSession createTaskSession()
-		throws NoSelectedTaskException, TaskSessionCloseException,
-			TaskSessionCreationException {
-
-		if (getSelectedTaskId() == 0) {
-			throw new NoSelectedTaskException();
-		}
-
-		Date startDate = new Date();
-		Date startTime = getStartTime();
-
-		if (startTime != null) {
-			startDate = startTime;
-		}
-
-		long userId = TimesheetUtil.getCurrentUserId();
-
-		try {
-			closeCurrentTaskSession(userId, startDate);
-		} catch (SystemException se) {
-			throw new TaskSessionCloseException();
-		}
-
-		TaskSession taskSession = null;
-	
-		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
-
-		try {
-			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
-				userId, startDate, getSelectedTaskId(), description, serviceContext);
-		} catch (Exception e) {
-			throw new TaskSessionCreationException();
-		}
-
-		clear();
-
-		return taskSession;
-	}
-
-	public String finishTaskSessionAction() {
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
-		try {
-			DateTimeValidatorUtil.validateEndTime(
-				currentTaskSession, new Date());
-
-			finishTaskSession();
-		} catch (EndTimeException ete) {
-			logger.error("Invalid endTime");
-
-			liferayFacesContext.addGlobalErrorMessage(
-				"Invalid endTime!");
-		} catch (CurrentTaskSessionIsAlreadyEndedException ctsiae) {
-			logger.error("current_task_session_is_already_ended");
-
-			liferayFacesContext.addGlobalErrorMessage(
-				"current_task_session_is_already_ended");
-		} catch (NoCurrentTaskSessionException e) {
-			logger.error("No current task session!");
-
-			liferayFacesContext.addGlobalErrorMessage(
-				"No current task session!");
-		} catch (TaskSessionUpdateException e) {
-			logger.error("Unable to update task session!");
-
-			liferayFacesContext.addGlobalErrorMessage(
-				"Unable to update task session!");
-		}
-
-		return "/views/task/view.xhtml";
-	}
-
 	public void finishTaskSession()
 		throws NoCurrentTaskSessionException, TaskSessionUpdateException {
 
@@ -189,32 +128,41 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 	}
 
-	/**
-	 *  Currently it gives back TaskSessions only for the current day.
-	 *  TO DO: Passing date parameter from xhtml, so that it will be more
-	 *  generic.
-	 * @return
-	 * @throws ParseException 
-	 * @throws SystemException 
-	 */
-	public List<TaskSession> getTaskSessionsByD_U() {
-
-		long userId = TimesheetUtil.getCurrentUserId();
-
-		List<TaskSession> taskSessions = null;
+	public String finishTaskSessionAction() {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
 
 		try {
-			taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-				TimesheetUtil.getTodayWithoutTime(), userId);
-		} catch (Exception e) {
-			logger.error("Getting task sessions is failed!");
+			DateTimeValidatorUtil.validateEndTime(
+				currentTaskSession, new Date());
+
+			finishTaskSession();
+		} catch (EndTimeException ete) {
+			logger.error("Invalid endTime");
+
+			liferayFacesContext.addGlobalErrorMessage("Invalid endTime!");
+		} catch (CurrentTaskSessionIsAlreadyEndedException ctsiae) {
+			logger.error("current_task_session_is_already_ended");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"current_task_session_is_already_ended");
+		} catch (NoCurrentTaskSessionException e) {
+			logger.error("No current task session!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"No current task session!");
+		} catch (TaskSessionUpdateException e) {
+			logger.error("Unable to update task session!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Unable to update task session!");
 		}
 
-		if (taskSessions == null) {
-			taskSessions = Collections.emptyList();
-		}
+		return "/views/task/view.xhtml";
+	}
 
-		return taskSessions;
+	public TaskSession getCurrentTaskSession() {
+		return currentTaskSession;
 	}
 
 	public String getDayTime() {
@@ -237,6 +185,14 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		return dayTime;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
 	public String getMonthTime() {
 		long userId = TimesheetUtil.getCurrentUserId();
 
@@ -253,6 +209,46 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		}
 
 		return monthTime;
+	}
+
+	public long getSelectedTaskId() {
+		return selectedTaskId;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	/**
+	 *  Currently it gives back TaskSessions only for the current day.
+	 *  TO DO: Passing date parameter from xhtml, so that it will be more
+	 *  generic.
+	 * @return
+	 * @throws ParseException
+	 * @throws SystemException
+	 */
+	public List<TaskSession> getTaskSessionsByD_U() {
+
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		List<TaskSession> taskSessions = null;
+
+		try {
+			taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
+				TimesheetUtil.getTodayWithoutTime(), userId);
+		} catch (Exception e) {
+			logger.error("Getting task sessions is failed!");
+		}
+
+		if (taskSessions == null) {
+			taskSessions = Collections.emptyList();
+		}
+
+		return taskSessions;
+	}
+
+	public Date getTodayWithoutTime() throws Exception {
+		return TimesheetUtil.getTodayWithoutTime();
 	}
 
 	public String getWeekTime() {
@@ -274,24 +270,12 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		return weekTime;
 	}
 
-	public Date getTodayWithoutTime() throws Exception {
-		return TimesheetUtil.getTodayWithoutTime();
-	}
-
-	public TaskSession getCurrentTaskSession() {
-		return currentTaskSession;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public long getSelectedTaskId() {
-		return selectedTaskId;
-	}
-
 	public void setCurrentTaskSession(TaskSession currentTaskSession) {
 		this.currentTaskSession = currentTaskSession;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setEndTime(Date endTime) {
@@ -300,10 +284,6 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 	public void setSelectedTaskId(long selectedTaskId) {
 		this.selectedTaskId = selectedTaskId;
-	}
-
-	public Date getStartTime() {
-		return startTime;
 	}
 
 	public void setStartTime(Date startTime) {
@@ -330,12 +310,25 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		return currentTaskSession;
 	}
 
-	public String getDescription() {
-		return description;
+	private void init() {
+		long userId = TimesheetUtil.getCurrentUserId();
+
+		try {
+			currentTaskSession =
+				TaskSessionLocalServiceUtil.getCurrentTaskSession(userId);
+		} catch (SystemException e) {
+			logger.error(e);
+		}
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	private static final Logger logger = LoggerFactory.getLogger(
+		TaskSessionBaseBean.class);
+	private static final long serialVersionUID = 1L;
+
+	private TaskSession currentTaskSession = null;
+	private String description = null;
+	private Date endTime = null;
+	private long selectedTaskId;
+	private Date startTime = null;
 
 }

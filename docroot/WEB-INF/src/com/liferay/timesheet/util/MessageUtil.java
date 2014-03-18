@@ -21,6 +21,49 @@ import javax.faces.context.FacesContext;
 
 public class MessageUtil {
 
+	public static ClassLoader getClassLoader() {
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+		if (loader == null) {
+			loader = ClassLoader.getSystemClassLoader();
+		}
+
+		return loader;
+	}
+
+	public static FacesMessage getFacesMessage(
+		Severity severity, String errorMessageVariable,
+		String errorMessageDetailVariable) {
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		String errorMessage = liferayFacesContext.getMessage(
+			errorMessageVariable);
+		String errorMessageDetail = liferayFacesContext.getMessage(
+			errorMessageDetailVariable);
+
+		FacesMessage facesMessage = new FacesMessage(
+			severity, errorMessage, errorMessageDetail);
+
+		return facesMessage;
+	}
+
+	public static Locale getLocale(FacesContext context) {
+		UIViewRoot viewRoot = context.getViewRoot();
+		Locale locale = null;
+
+		if (viewRoot != null) {
+			locale = viewRoot.getLocale();
+		}
+
+		if (locale == null) {
+			locale = Locale.getDefault();
+		}
+
+		return locale;
+	}
+
 	public static FacesMessage getMessage(
 		String bundleName, String resourceId, Object[] params) {
 
@@ -37,7 +80,7 @@ public class MessageUtil {
 			summary = "???" + resourceId + "???";
 		}
 
-		String detail = getString(appBundle, bundleName, 
+		String detail = getString(appBundle, bundleName,
 			resourceId + "_detail", locale, loader, params);
 
 		return new FacesMessage(summary, detail);
@@ -55,7 +98,7 @@ public class MessageUtil {
 		return getString(appBundle, bundle, resourceId, locale, loader, params);
 	}
 
-	public static String getString(String bundle1, String bundle2, 
+	public static String getString(String bundle1, String bundle2,
 		String resourceId, Locale locale, ClassLoader loader, Object[] params) {
 
 		ResourceBundle bundle;
@@ -63,6 +106,7 @@ public class MessageUtil {
 
 		if (bundle1 != null) {
 			bundle = ResourceBundle.getBundle(bundle1, locale, loader);
+
 			if (bundle != null) {
 				try {
 					resource = bundle.getString(resourceId);
@@ -82,49 +126,6 @@ public class MessageUtil {
 		MessageFormat formatter = new MessageFormat(resource, locale);
 
 		return formatter.format(params);
-	}
-
-	public static Locale getLocale(FacesContext context) {
-		UIViewRoot viewRoot = context.getViewRoot();
-		Locale locale = null;
-
-		if (viewRoot != null) {
-			locale = viewRoot.getLocale();
-		}
-
-		if (locale == null) {
-			locale = Locale.getDefault();
-		}
-
-		return locale;
-	}
-
-	public static ClassLoader getClassLoader() {
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-		if (loader == null) {
-			loader = ClassLoader.getSystemClassLoader();
-		}
-
-		return loader;
-	}
-
-	public static FacesMessage getFacesMessage(
-		Severity severity, String errorMessageVariable,
-		String errorMessageDetailVariable) {
-
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance(); 
-
-		String errorMessage = liferayFacesContext.getMessage(
-			errorMessageVariable);
-		String errorMessageDetail = liferayFacesContext.getMessage(
-			errorMessageDetailVariable);
-
-		FacesMessage facesMessage = new FacesMessage(
-			severity, errorMessage, errorMessageDetail);
-
-		return facesMessage;
 	}
 
 }

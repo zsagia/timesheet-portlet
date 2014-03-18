@@ -2,14 +2,12 @@ package com.liferay.timesheet.validator;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.StartTimeException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.MessageUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
@@ -26,9 +24,6 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("StartTimeValidator")
 public class StartTimeValidator implements Validator {
-	
-	private static final Logger logger =
-		LoggerFactory.getLogger(StartTimeValidator.class);
 
 	@Override
 	public void validate(
@@ -46,7 +41,6 @@ public class StartTimeValidator implements Validator {
 						todayWithoutTime, userId);
 
 				if (lastTaskSession != null) {
-
 					DateTimeValidatorUtil.validateStartTime(
 						lastTaskSession, (Date)value);
 				}
@@ -67,5 +61,8 @@ public class StartTimeValidator implements Validator {
 			}
 		}
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+		StartTimeValidator.class);
 
 }
