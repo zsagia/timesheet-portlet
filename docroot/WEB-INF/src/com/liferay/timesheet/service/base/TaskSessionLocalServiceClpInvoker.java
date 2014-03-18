@@ -106,49 +106,49 @@ public class TaskSessionLocalServiceClpInvoker {
 				"com.liferay.timesheet.model.TaskSession"
 			};
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName50 = "getBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes50 = new String[] {  };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName51 = "setBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
+		_methodParameterTypes51 = new String[] { "java.lang.String" };
 
-		_methodName52 = "addTaskSession";
+		_methodName56 = "addTaskSession";
 
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"long", "java.util.Date", "java.util.Date", "long",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName53 = "addTaskSession";
+		_methodName57 = "addTaskSession";
 
-		_methodParameterTypes53 = new String[] {
+		_methodParameterTypes57 = new String[] {
 				"long", "java.util.Date", "long", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName54 = "getCurrentTaskSession";
+		_methodName58 = "getCurrentTaskSession";
 
-		_methodParameterTypes54 = new String[] { "long" };
+		_methodParameterTypes58 = new String[] { "long" };
 
-		_methodName55 = "getLastTaskSessionsByD_U";
+		_methodName59 = "getLastTaskSessionsByD_U";
 
-		_methodParameterTypes55 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes59 = new String[] { "java.util.Date", "long" };
 
-		_methodName56 = "getTaskSessionsByD_U";
+		_methodName60 = "getTaskSessionsByD_U";
 
-		_methodParameterTypes56 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes60 = new String[] { "java.util.Date", "long" };
 
-		_methodName57 = "getTaskSessionsByC_I_U";
+		_methodName61 = "getTaskSessionsByC_I_U";
 
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes61 = new String[] {
 				"long", "java.util.Date", "java.util.Date", "long"
 			};
 
-		_methodName58 = "updateTaskSession";
+		_methodName62 = "updateTaskSession";
 
-		_methodParameterTypes58 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"com.liferay.timesheet.model.TaskSession"
 			};
 	}
@@ -242,20 +242,20 @@ public class TaskSessionLocalServiceClpInvoker {
 			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			TaskSessionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession(((Long)arguments[0]).longValue(),
 				(java.util.Date)arguments[1], (java.util.Date)arguments[2],
 				((Long)arguments[3]).longValue(),
@@ -263,40 +263,40 @@ public class TaskSessionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.addTaskSession(((Long)arguments[0]).longValue(),
 				(java.util.Date)arguments[1], ((Long)arguments[2]).longValue(),
 				(java.lang.String)arguments[3],
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getCurrentTaskSession(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getTaskSessionsByD_U((java.util.Date)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(((Long)arguments[0]).longValue(),
 				(java.util.Date)arguments[1], (java.util.Date)arguments[2],
 				((Long)arguments[3]).longValue());
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
@@ -335,22 +335,22 @@ public class TaskSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
 	private String _methodName58;
 	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }

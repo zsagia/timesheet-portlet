@@ -35,16 +35,12 @@ import java.util.List;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Istvan Sajtos, Zsolt Szabo
+ * @author Istvan Sajtos
+ * @author Zsolt Szabo
  * @see com.liferay.timesheet.service.base.DepartmentLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.DepartmentLocalServiceUtil
  */
 public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.timesheet.service.DepartmentLocalServiceUtil} to access the department local service.
-	 */
 
 	public Department addDepartment(
 			long userId, String departmentName, ServiceContext serviceContext)
@@ -69,7 +65,22 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 
 		departmentPersistence.update(department);
 
+		addDepartmentResources(
+			department, serviceContext.getGroupPermissions(),
+			serviceContext.getGuestPermissions());
+
 		return department;
+	}
+
+	public void addDepartmentResources(
+			Department department, String[] groupPermissions,
+			String[] guestPermissions)
+		throws PortalException, SystemException {
+
+		resourceLocalService.addModelResources(
+			department.getCompanyId(), department.getGroupId(),
+			department.getUserId(), Department.class.getName(),
+			department.getDepartmentId(), groupPermissions, guestPermissions);
 	}
 
 	public Department getDepartment(long departmentId)

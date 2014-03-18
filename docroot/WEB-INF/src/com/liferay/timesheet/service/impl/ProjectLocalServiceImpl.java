@@ -34,7 +34,8 @@ import java.util.List;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Istvan Sajtos, Zsolt Szabo
+ * @author Istvan Sajtos
+ * @author Zsolt Szabo
  * @see com.liferay.timesheet.service.base.ProjectLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.ProjectLocalServiceUtil
  */
@@ -74,7 +75,34 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 
 		projectPersistence.update(project);
 
+		addProjectResources(
+			project, serviceContext.getGroupPermissions(),
+			serviceContext.getGuestPermissions());
+
 		return project;
+	}
+
+	public void addProjectResources(
+			Project project, boolean addGroupPermissions,
+			boolean addGuestPermissions)
+		throws PortalException, SystemException {
+
+		resourceLocalService.addResources(
+			project.getCompanyId(), project.getGroupId(),
+			project.getUserId(), Project.class.getName(),
+			project.getProjectId(), false, addGroupPermissions,
+			addGuestPermissions);
+	}
+
+	public void addProjectResources(
+			Project project, String[] groupPermissions,
+			String[] guestPermissions)
+		throws PortalException, SystemException {
+
+		resourceLocalService.addModelResources(
+			project.getCompanyId(), project.getGroupId(),
+			project.getUserId(), Project.class.getName(),
+			project.getProjectId(), groupPermissions, guestPermissions);
 	}
 
 	public List<Project> getProjects(long parentProjectId)

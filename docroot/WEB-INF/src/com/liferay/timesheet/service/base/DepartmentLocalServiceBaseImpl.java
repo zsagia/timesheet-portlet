@@ -306,6 +306,25 @@ public abstract class DepartmentLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the department remote service.
+	 *
+	 * @return the department remote service
+	 */
+	public com.liferay.timesheet.service.DepartmentService getDepartmentService() {
+		return departmentService;
+	}
+
+	/**
+	 * Sets the department remote service.
+	 *
+	 * @param departmentService the department remote service
+	 */
+	public void setDepartmentService(
+		com.liferay.timesheet.service.DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+
+	/**
 	 * Returns the department persistence.
 	 *
 	 * @return the department persistence
@@ -341,6 +360,25 @@ public abstract class DepartmentLocalServiceBaseImpl
 	public void setProjectLocalService(
 		com.liferay.timesheet.service.ProjectLocalService projectLocalService) {
 		this.projectLocalService = projectLocalService;
+	}
+
+	/**
+	 * Returns the project remote service.
+	 *
+	 * @return the project remote service
+	 */
+	public com.liferay.timesheet.service.ProjectService getProjectService() {
+		return projectService;
+	}
+
+	/**
+	 * Sets the project remote service.
+	 *
+	 * @param projectService the project remote service
+	 */
+	public void setProjectService(
+		com.liferay.timesheet.service.ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 	/**
@@ -632,10 +670,14 @@ public abstract class DepartmentLocalServiceBaseImpl
 
 	@BeanReference(type = com.liferay.timesheet.service.DepartmentLocalService.class)
 	protected com.liferay.timesheet.service.DepartmentLocalService departmentLocalService;
+	@BeanReference(type = com.liferay.timesheet.service.DepartmentService.class)
+	protected com.liferay.timesheet.service.DepartmentService departmentService;
 	@BeanReference(type = DepartmentPersistence.class)
 	protected DepartmentPersistence departmentPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectLocalService.class)
 	protected com.liferay.timesheet.service.ProjectLocalService projectLocalService;
+	@BeanReference(type = com.liferay.timesheet.service.ProjectService.class)
+	protected com.liferay.timesheet.service.ProjectService projectService;
 	@BeanReference(type = ProjectPersistence.class)
 	protected ProjectPersistence projectPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.TaskLocalService.class)

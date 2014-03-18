@@ -357,6 +357,26 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	@Override
+	public void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_projectLocalService.addProjectResources(project, addGroupPermissions,
+			addGuestPermissions);
+	}
+
+	@Override
+	public void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_projectLocalService.addProjectResources(project, groupPermissions,
+			guestPermissions);
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {

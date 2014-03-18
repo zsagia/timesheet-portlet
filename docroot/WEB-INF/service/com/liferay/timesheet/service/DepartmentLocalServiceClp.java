@@ -122,9 +122,16 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName20 = "getDepartments";
+		_methodName20 = "addDepartmentResources";
 
-		_methodParameterTypes20 = new String[] { "long" };
+		_methodParameterTypes20 = new String[] {
+				"com.liferay.timesheet.model.Department", "java.lang.String[][]",
+				"java.lang.String[][]"
+			};
+
+		_methodName21 = "getDepartments";
+
+		_methodParameterTypes21 = new String[] { "long" };
 	}
 
 	@Override
@@ -725,14 +732,52 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 	}
 
 	@Override
+	public void addDepartmentResources(
+		com.liferay.timesheet.model.Department department,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName20,
+				_methodParameterTypes20,
+				new Object[] {
+					ClpSerializer.translateInput(department),
+					
+				ClpSerializer.translateInput(groupPermissions),
+					
+				ClpSerializer.translateInput(guestPermissions)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Department> getDepartments(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] { companyId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { companyId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -794,4 +839,6 @@ public class DepartmentLocalServiceClp implements DepartmentLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 }

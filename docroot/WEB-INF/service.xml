@@ -5,7 +5,7 @@
 
 	<namespace>timesheet</namespace>
 
-	<entity name="Department" local-service="true" remote-service="false">
+	<entity name="Department" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
@@ -40,7 +40,7 @@
 		</finder>
 	</entity>
 
-	<entity name="Project" local-service="true" remote-service="false" uuid="true">
+	<entity name="Project" local-service="true" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 

@@ -345,6 +345,25 @@ public class ProjectLocalServiceUtil {
 			projectName, description, serviceContext);
 	}
 
+	public static void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addProjectResources(project, addGroupPermissions,
+			addGuestPermissions);
+	}
+
+	public static void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addProjectResources(project, groupPermissions, guestPermissions);
+	}
+
 	public static java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {

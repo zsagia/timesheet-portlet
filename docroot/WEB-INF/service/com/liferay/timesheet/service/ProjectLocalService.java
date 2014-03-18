@@ -308,6 +308,18 @@ public interface ProjectLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addProjectResources(
+		com.liferay.timesheet.model.Project project,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)

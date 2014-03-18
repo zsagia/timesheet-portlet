@@ -16,6 +16,7 @@ package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -30,13 +31,16 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.model.DepartmentModel;
+import com.liferay.timesheet.model.DepartmentSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +56,7 @@ import java.util.Map;
  * @see com.liferay.timesheet.model.DepartmentModel
  * @generated
  */
+@JSON(strict = true)
 public class DepartmentModelImpl extends BaseModelImpl<Department>
 	implements DepartmentModel {
 	/*
@@ -88,6 +93,52 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long DEPARTMENTNAME_COLUMN_BITMASK = 2L;
+
+	/**
+	 * Converts the soap model instance into a normal model instance.
+	 *
+	 * @param soapModel the soap model instance to convert
+	 * @return the normal model instance
+	 */
+	public static Department toModel(DepartmentSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
+		Department model = new DepartmentImpl();
+
+		model.setDepartmentId(soapModel.getDepartmentId());
+		model.setGroupId(soapModel.getGroupId());
+		model.setCompanyId(soapModel.getCompanyId());
+		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
+		model.setCreateDate(soapModel.getCreateDate());
+		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setDepartmentName(soapModel.getDepartmentName());
+
+		return model;
+	}
+
+	/**
+	 * Converts the soap model instances into normal model instances.
+	 *
+	 * @param soapModels the soap model instances to convert
+	 * @return the normal model instances
+	 */
+	public static List<Department> toModels(DepartmentSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
+		List<Department> models = new ArrayList<Department>(soapModels.length);
+
+		for (DepartmentSoap soapModel : soapModels) {
+			models.add(toModel(soapModel));
+		}
+
+		return models;
+	}
+
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Department"));
 
@@ -191,6 +242,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		}
 	}
 
+	@JSON
 	@Override
 	public long getDepartmentId() {
 		return _departmentId;
@@ -201,6 +253,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_departmentId = departmentId;
 	}
 
+	@JSON
 	@Override
 	public long getGroupId() {
 		return _groupId;
@@ -211,6 +264,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_groupId = groupId;
 	}
 
+	@JSON
 	@Override
 	public long getCompanyId() {
 		return _companyId;
@@ -233,6 +287,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		return _originalCompanyId;
 	}
 
+	@JSON
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -253,6 +308,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_userUuid = userUuid;
 	}
 
+	@JSON
 	@Override
 	public String getUserName() {
 		if (_userName == null) {
@@ -268,6 +324,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_userName = userName;
 	}
 
+	@JSON
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -278,6 +335,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_createDate = createDate;
 	}
 
+	@JSON
 	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
@@ -288,6 +346,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 		_modifiedDate = modifiedDate;
 	}
 
+	@JSON
 	@Override
 	public String getDepartmentName() {
 		if (_departmentName == null) {

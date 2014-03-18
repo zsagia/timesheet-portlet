@@ -300,6 +300,16 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
 	}
 
 	@Override
+	public void addDepartmentResources(
+		com.liferay.timesheet.model.Department department,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_departmentLocalService.addDepartmentResources(department,
+			groupPermissions, guestPermissions);
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Department> getDepartments(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {

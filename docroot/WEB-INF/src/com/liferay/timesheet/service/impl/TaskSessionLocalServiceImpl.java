@@ -35,6 +35,7 @@ import java.util.List;
  * </p>
  *
  * @author Istvan Sajtos
+ * @author Zsolt Szabo
  * @see com.liferay.timesheet.service.base.TaskSessionLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.TaskSessionLocalServiceUtil
  */

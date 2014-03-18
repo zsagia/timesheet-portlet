@@ -41,6 +41,7 @@ import java.util.Set;
  * </p>
  *
  * @author Istvan Sajtos
+ * @author Zsolt Szabo
  * @see com.liferay.timesheet.service.base.TaskLocalServiceBaseImpl
  * @see com.liferay.timesheet.service.TaskLocalServiceUtil
  */

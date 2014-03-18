@@ -102,32 +102,32 @@ public class TaskLocalServiceClpInvoker {
 				"com.liferay.timesheet.model.Task"
 			};
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName50 = "getBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes50 = new String[] {  };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName51 = "setBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
+		_methodParameterTypes51 = new String[] { "java.lang.String" };
 
-		_methodName52 = "addTask";
+		_methodName56 = "addTask";
 
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"long", "java.lang.String", "long", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName53 = "getTaskByTN_CR";
+		_methodName57 = "getTaskByTN_CR";
 
-		_methodParameterTypes53 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes57 = new String[] { "java.lang.String", "long" };
 
-		_methodName54 = "getTasksByCreatorId";
+		_methodName58 = "getTasksByCreatorId";
 
-		_methodParameterTypes54 = new String[] { "long" };
+		_methodParameterTypes58 = new String[] { "long" };
 
-		_methodName55 = "getTasksByUserId";
+		_methodName59 = "getTasksByUserId";
 
-		_methodParameterTypes55 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -219,20 +219,20 @@ public class TaskLocalServiceClpInvoker {
 			return TaskLocalServiceUtil.updateTask((com.liferay.timesheet.model.Task)arguments[0]);
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return TaskLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			TaskLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return TaskLocalServiceUtil.addTask(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				((Long)arguments[2]).longValue(),
@@ -240,19 +240,19 @@ public class TaskLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			return TaskLocalServiceUtil.getTaskByTN_CR((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return TaskLocalServiceUtil.getTasksByCreatorId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return TaskLocalServiceUtil.getTasksByUserId(((Long)arguments[0]).longValue());
 		}
 
@@ -291,16 +291,16 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
 }

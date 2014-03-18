@@ -16,6 +16,7 @@ package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -31,13 +32,16 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.ProjectModel;
+import com.liferay.timesheet.model.ProjectSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +57,7 @@ import java.util.Map;
  * @see com.liferay.timesheet.model.ProjectModel
  * @generated
  */
+@JSON(strict = true)
 public class ProjectModelImpl extends BaseModelImpl<Project>
 	implements ProjectModel {
 	/*
@@ -98,6 +103,57 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	public static long PARENTPROJECTID_COLUMN_BITMASK = 8L;
 	public static long UUID_COLUMN_BITMASK = 16L;
 	public static long PROJECTNAME_COLUMN_BITMASK = 32L;
+
+	/**
+	 * Converts the soap model instance into a normal model instance.
+	 *
+	 * @param soapModel the soap model instance to convert
+	 * @return the normal model instance
+	 */
+	public static Project toModel(ProjectSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
+		Project model = new ProjectImpl();
+
+		model.setUuid(soapModel.getUuid());
+		model.setProjectId(soapModel.getProjectId());
+		model.setGroupId(soapModel.getGroupId());
+		model.setCompanyId(soapModel.getCompanyId());
+		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
+		model.setCreateDate(soapModel.getCreateDate());
+		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setDepartmentId(soapModel.getDepartmentId());
+		model.setDescription(soapModel.getDescription());
+		model.setEnabled(soapModel.getEnabled());
+		model.setParentProjectId(soapModel.getParentProjectId());
+		model.setProjectName(soapModel.getProjectName());
+
+		return model;
+	}
+
+	/**
+	 * Converts the soap model instances into normal model instances.
+	 *
+	 * @param soapModels the soap model instances to convert
+	 * @return the normal model instances
+	 */
+	public static List<Project> toModels(ProjectSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
+		List<Project> models = new ArrayList<Project>(soapModels.length);
+
+		for (ProjectSoap soapModel : soapModels) {
+			models.add(toModel(soapModel));
+		}
+
+		return models;
+	}
+
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Project"));
 
@@ -236,6 +292,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		}
 	}
 
+	@JSON
 	@Override
 	public String getUuid() {
 		if (_uuid == null) {
@@ -259,6 +316,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@JSON
 	@Override
 	public long getProjectId() {
 		return _projectId;
@@ -269,6 +327,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_projectId = projectId;
 	}
 
+	@JSON
 	@Override
 	public long getGroupId() {
 		return _groupId;
@@ -291,6 +350,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return _originalGroupId;
 	}
 
+	@JSON
 	@Override
 	public long getCompanyId() {
 		return _companyId;
@@ -313,6 +373,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return _originalCompanyId;
 	}
 
+	@JSON
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -333,6 +394,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_userUuid = userUuid;
 	}
 
+	@JSON
 	@Override
 	public String getUserName() {
 		if (_userName == null) {
@@ -348,6 +410,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_userName = userName;
 	}
 
+	@JSON
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -358,6 +421,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_createDate = createDate;
 	}
 
+	@JSON
 	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
@@ -368,6 +432,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_modifiedDate = modifiedDate;
 	}
 
+	@JSON
 	@Override
 	public Long getDepartmentId() {
 		return _departmentId;
@@ -390,6 +455,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return _originalDepartmentId;
 	}
 
+	@JSON
 	@Override
 	public String getDescription() {
 		if (_description == null) {
@@ -405,6 +471,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_description = description;
 	}
 
+	@JSON
 	@Override
 	public Boolean getEnabled() {
 		return _enabled;
@@ -415,6 +482,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		_enabled = enabled;
 	}
 
+	@JSON
 	@Override
 	public Long getParentProjectId() {
 		return _parentProjectId;
@@ -437,6 +505,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		return _originalParentProjectId;
 	}
 
+	@JSON
 	@Override
 	public String getProjectName() {
 		if (_projectName == null) {

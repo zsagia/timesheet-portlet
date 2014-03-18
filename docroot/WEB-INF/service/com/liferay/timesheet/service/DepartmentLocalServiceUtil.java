@@ -285,6 +285,16 @@ public class DepartmentLocalServiceUtil {
 		return getService().addDepartment(userId, departmentName, serviceContext);
 	}
 
+	public static void addDepartmentResources(
+		com.liferay.timesheet.model.Department department,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addDepartmentResources(department, groupPermissions,
+			guestPermissions);
+	}
+
 	public static java.util.List<com.liferay.timesheet.model.Department> getDepartments(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
