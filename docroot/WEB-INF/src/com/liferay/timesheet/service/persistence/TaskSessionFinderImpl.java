@@ -13,6 +13,7 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 	implements TaskSessionFinder {
 
@@ -50,11 +51,11 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 		qPos.add(date2);
 
 		List<Object[]> queriedTaskSessions =
-			(List<Object[]>)QueryUtil.list(
+			(List<Object[]>) QueryUtil.list(
 				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-		List<TaskSession> taskSessions = assembleTaskSessions(
-			queriedTaskSessions);
+		List<TaskSession> taskSessions =
+			assembleTaskSessions(queriedTaskSessions);
 
 		return taskSessions;
 	}
@@ -71,13 +72,13 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 			taskSession.setCompanyId((Long)queriedTaskSession[1]);
 			taskSession.setGroupId((Long)queriedTaskSession[2]);
 			taskSession.setUserId((Long)queriedTaskSession[3]);
-			taskSession.setUserName((String)queriedTaskSession[4]);
-			taskSession.setCreateDate((Date)queriedTaskSession[5]);
-			taskSession.setModifiedDate((Date)queriedTaskSession[6]);
-			taskSession.setStartTime((Date)queriedTaskSession[7]);
-			taskSession.setEndTime((Date)queriedTaskSession[8]);
-			taskSession.setDescription((String)queriedTaskSession[9]);
-			taskSession.setTaskId((Long)queriedTaskSession[10]);
+			taskSession.setUserName((String) queriedTaskSession[4]);
+			taskSession.setCreateDate((Date) queriedTaskSession[5]);
+			taskSession.setModifiedDate((Date) queriedTaskSession[6]);
+			taskSession.setStartTime((Date) queriedTaskSession[7]);
+			taskSession.setEndTime((Date) queriedTaskSession[8]);
+			taskSession.setDescription((String) queriedTaskSession[9]);
+			taskSession.setTaskId((Long) queriedTaskSession[10]);
 
 			taskSessions.add(taskSession);
 		}

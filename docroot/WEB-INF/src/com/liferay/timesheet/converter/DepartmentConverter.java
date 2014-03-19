@@ -10,8 +10,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+
 @FacesConverter("DepartmentConverter")
 public class DepartmentConverter implements Converter {
+
+	private static final Logger logger =
+			LoggerFactory.getLogger(DepartmentConverter.class);
 
 	@Override
 	public Object getAsObject(
@@ -43,8 +47,5 @@ public class DepartmentConverter implements Converter {
 
 		return String.valueOf(((Department)value).getDepartmentId());
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(
-			DepartmentConverter.class);
 
 }

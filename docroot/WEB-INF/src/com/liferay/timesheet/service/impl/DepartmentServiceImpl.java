@@ -66,7 +66,7 @@ public class DepartmentServiceImpl extends DepartmentServiceBaseImpl {
 	}
 
 	public List<Department> getDepartments(long companyId)
-		throws PortalException, SystemException {
+		throws SystemException, PortalException {
 
 		List<Department> departments = departmentLocalService.getDepartments(
 			companyId);
@@ -75,7 +75,7 @@ public class DepartmentServiceImpl extends DepartmentServiceBaseImpl {
 
 		Iterator<Department> iterator = departments.iterator();
 
-		while (iterator.hasNext()) {
+		while(iterator.hasNext()) {
 			Department department = iterator.next();
 
 			if (!DepartmentPermission.contains(

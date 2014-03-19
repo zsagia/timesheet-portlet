@@ -6,6 +6,7 @@ import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
+
 public class DepartmentPermission {
 
 	public static void check(
@@ -33,7 +34,7 @@ public class DepartmentPermission {
 		String actionId) {
 
 		if (permissionChecker.hasOwnerPermission(
-				department.getCompanyId(), Department.class.getName(),
+			department.getCompanyId(), Department.class.getName(),
 			department.getDepartmentId(), department.getUserId(), actionId)) {
 
 			return true;

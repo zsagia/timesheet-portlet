@@ -29,7 +29,7 @@ import com.liferay.timesheet.service.ProjectLocalServiceUtil;
  * @author Istvan Sajtos
  */
 public class TaskImpl extends TaskBaseImpl {
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a task model instance should use the {@link com.liferay.timesheet.model.Task} interface instead.
@@ -37,7 +37,9 @@ public class TaskImpl extends TaskBaseImpl {
 	public TaskImpl() {
 	}
 
-	public Project getProject() throws PortalException, SystemException {
+	public Project getProject()
+		throws PortalException, SystemException {
+
 		return ProjectLocalServiceUtil.getProject(getProjectId());
 	}
 }

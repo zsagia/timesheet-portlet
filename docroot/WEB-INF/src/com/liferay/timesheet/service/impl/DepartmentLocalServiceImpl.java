@@ -84,7 +84,7 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
 	}
 
 	public Department getDepartment(long departmentId)
-		throws NoSuchDepartmentException, SystemException {
+		throws SystemException, NoSuchDepartmentException {
 
 		return departmentPersistence.findByPrimaryKey(departmentId);
 	}

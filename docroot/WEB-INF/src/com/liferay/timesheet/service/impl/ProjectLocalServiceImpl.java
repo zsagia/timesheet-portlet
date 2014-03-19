@@ -40,12 +40,12 @@ import java.util.List;
  * @see com.liferay.timesheet.service.ProjectLocalServiceUtil
  */
 public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.timesheet.service.ProjectLocalServiceUtil} to access the project local service.
 	 */
-
+	
 	public Project addProject(
 			long userId, long departmentId, boolean enabled,
 			long parentProjectId, String projectName, String description,
@@ -88,9 +88,10 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		resourceLocalService.addResources(
-			project.getCompanyId(), project.getGroupId(), project.getUserId(),
-			Project.class.getName(), project.getProjectId(), false,
-			addGroupPermissions, addGuestPermissions);
+			project.getCompanyId(), project.getGroupId(),
+			project.getUserId(), Project.class.getName(),
+			project.getProjectId(), false, addGroupPermissions,
+			addGuestPermissions);
 	}
 
 	public void addProjectResources(
@@ -99,9 +100,9 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		resourceLocalService.addModelResources(
-			project.getCompanyId(), project.getGroupId(), project.getUserId(),
-			Project.class.getName(), project.getProjectId(), groupPermissions,
-			guestPermissions);
+			project.getCompanyId(), project.getGroupId(),
+			project.getUserId(), Project.class.getName(),
+			project.getProjectId(), groupPermissions, guestPermissions);
 	}
 
 	public List<Project> getProjects(long parentProjectId)

@@ -100,8 +100,8 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 	public List<Task> getTasksByUserId(long userId)
 		throws PortalException, SystemException {
 
-		List<TaskSession> taskSessionList = taskSessionPersistence.findByUserId(
-			userId);
+		List<TaskSession> taskSessionList =
+			taskSessionPersistence.findByUserId(userId);
 
 		if (taskSessionList == null) {
 			return Collections.emptyList();

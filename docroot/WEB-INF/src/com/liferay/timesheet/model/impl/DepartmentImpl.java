@@ -24,7 +24,7 @@ package com.liferay.timesheet.model.impl;
  * @author Istvan Sajtos, Zsolt Szabo
  */
 public class DepartmentImpl extends DepartmentBaseImpl {
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a department model instance should use the {@link com.liferay.timesheet.model.Department} interface instead.

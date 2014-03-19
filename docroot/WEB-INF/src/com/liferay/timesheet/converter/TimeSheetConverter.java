@@ -24,6 +24,9 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("TimeSheetConverter")
 public class TimeSheetConverter extends DateTimeConverter {
 
+	private static final Logger logger =
+		LoggerFactory.getLogger(TimeSheetConverter.class);
+
 	public TimeSheetConverter() {
 		setPattern("HHmm");
 		setType("time");
@@ -32,7 +35,7 @@ public class TimeSheetConverter extends DateTimeConverter {
 	@Override
 	public Object getAsObject(
 			FacesContext context, UIComponent component, String value)
-		throws ConverterException {
+		throws ConverterException{
 
 		Date date = null;
 
@@ -45,7 +48,8 @@ public class TimeSheetConverter extends DateTimeConverter {
 
 				todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
 
-				date = TimesheetUtil.addDateToDate(todayWithoutTime, time);
+				date = TimesheetUtil.addDateToDate(
+					todayWithoutTime, time);
 			} catch (ParseException e) {
 				logger.error("date_conversion_is_failed");
 
@@ -68,8 +72,5 @@ public class TimeSheetConverter extends DateTimeConverter {
 
 		return time;
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(
-		TimeSheetConverter.class);
 
 }

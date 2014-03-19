@@ -7,9 +7,17 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
 @ManagedBean
 @RequestScoped
 public class TaskSessionMultipleBean extends TaskSessionBaseBean {
+
+	private static final long serialVersionUID = 6518160458023526615L;
+
+	@ManagedProperty(value="#{param.selectedTaskId}")
+	private long selectedTaskId;
+
+	private Map<Long, Date> startTimes;
 
 	public TaskSessionMultipleBean() {
 		super();
@@ -42,12 +50,5 @@ public class TaskSessionMultipleBean extends TaskSessionBaseBean {
 
 		setStartTimes(new HashMap<Long, Date>());
 	}
-
-	private static final long serialVersionUID = 6518160458023526615L;
-
-	@ManagedProperty(value ="#{param.selectedTaskId}")
-	private long selectedTaskId;
-
-	private Map<Long, Date> startTimes;
 
 }

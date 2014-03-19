@@ -45,7 +45,7 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession addTaskSession(
 			long userId, Date startTime, Date endTime, long taskId,
 			String description, ServiceContext serviceContext)
-		throws NoSuchUserException, SystemException {
+		throws SystemException, NoSuchUserException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long groupId = serviceContext.getScopeGroupId();
@@ -75,7 +75,7 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession addTaskSession(
 			long userId, Date startTime, long taskId, String description,
 			ServiceContext serviceContext)
-		throws NoSuchUserException, SystemException {
+		throws SystemException, NoSuchUserException {
 
 		return addTaskSession(
 			userId, startTime, null, taskId, description, serviceContext);
@@ -90,8 +90,8 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession getLastTaskSessionsByD_U(Date date, long userId)
 		throws SystemException {
 
-		List<TaskSession> taskSessions = taskSessionPersistence.findByU_GtS(
-			userId, date);
+		List<TaskSession> taskSessions =
+			taskSessionPersistence.findByU_GtS(userId, date);
 
 		if ((taskSessions != null) && !taskSessions.isEmpty()) {
 			return taskSessions.get(0);
@@ -100,21 +100,21 @@ public class TaskSessionLocalServiceImpl
 		return null;
 	}
 
-	public List<TaskSession> getTaskSessionsByC_I_U(
-			long companyId, Date date1, Date date2, long userId)
+	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
 		throws SystemException {
 
-		List<TaskSession> taskSessions = taskSessionFinder.findByC_I_U(
-			companyId, date1, date2, userId);
+		List<TaskSession> taskSessions =
+			taskSessionPersistence.findByU_GtS(userId, date);
 
 		return taskSessions;
 	}
 
-	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
+	public List<TaskSession> getTaskSessionsByC_I_U(
+			long companyId, Date date1, Date date2, long userId)
 		throws SystemException {
 
-		List<TaskSession> taskSessions = taskSessionPersistence.findByU_GtS(
-			userId, date);
+		List<TaskSession> taskSessions =
+			taskSessionFinder.findByC_I_U(companyId, date1, date2, userId);
 
 		return taskSessions;
 	}

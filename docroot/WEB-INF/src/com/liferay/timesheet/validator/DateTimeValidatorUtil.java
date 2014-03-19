@@ -7,11 +7,26 @@ import com.liferay.timesheet.StartTimeException;
 import com.liferay.timesheet.model.TaskSession;
 
 import java.text.ParseException;
-
 import java.util.Date;
+
 public class DateTimeValidatorUtil {
 
-	public static void validateEndTime(TaskSession taskSession, Date endDate)
+	public static void validateStartTime(
+			TaskSession taskSession, Date startTime)
+		throws ParseException, StartTimeException {
+
+		Date previousStartTime = taskSession.getStartTime();
+		Date endTime = taskSession.getEndTime();
+
+		if (!previousStartTime.before(startTime) ||
+				((endTime != null) && endTime.after(startTime))) {
+
+			throw new StartTimeException();
+		}
+	}
+
+	public static void validateEndTime(
+			TaskSession taskSession, Date endDate)
 		throws CurrentTaskSessionIsAlreadyEndedException, EndTimeException,
 			NoCurrentTaskSessionException {
 
@@ -29,20 +44,6 @@ public class DateTimeValidatorUtil {
 
 		if (endDate.before(startTime)) {
 			throw new EndTimeException();
-		}
-	}
-
-	public static void validateStartTime(
-			TaskSession taskSession, Date startTime)
-		throws ParseException, StartTimeException {
-
-		Date previousStartTime = taskSession.getStartTime();
-		Date endTime = taskSession.getEndTime();
-
-		if (!previousStartTime.before(startTime) ||
-			((endTime != null) && endTime.after(startTime))) {
-
-			throw new StartTimeException();
 		}
 	}
 

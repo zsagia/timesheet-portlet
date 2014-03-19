@@ -5,12 +5,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 /**
@@ -22,7 +22,6 @@ import javax.faces.context.FacesContext;
 public class TimesheetUtil {
 
 	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
-
 	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
 
 	public static Date addDateToDate(Date date1, Date date2) {
@@ -49,7 +48,9 @@ public class TimesheetUtil {
 		return serviceContext;
 	}
 
-	public static long getCompanyId() throws PortalException, SystemException {
+	public static long getCompanyId()
+		throws PortalException, SystemException {
+
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
@@ -72,25 +73,25 @@ public class TimesheetUtil {
 		return liferayFacesContext.getUserId();
 	}
 
+	public static Date getTodayWithoutTime() throws ParseException {
+		Date today = new Date();
+
+		return getDayWithoutTime(today);
+	}
+
 	public static Date getDayWithoutTime(Date date) throws ParseException {
-		DateFormat dateFormatWithoutTime = new SimpleDateFormat(
-			DATE_FORMAT_WITHOUT_TIME);
+		DateFormat dateFormatWithoutTime =
+			new SimpleDateFormat(DATE_FORMAT_WITHOUT_TIME);
 
 		return dateFormatWithoutTime.parse(dateFormatWithoutTime.format(date));
 	}
 
 	public static long getTimeWithoutDate(Date date) throws ParseException {
-		DateFormat timeFormatWithoutDate = new SimpleDateFormat(
-			TIME_FORMAT_WITHOUT_DATE);
+		DateFormat timeFormatWithoutDate =
+			new SimpleDateFormat(TIME_FORMAT_WITHOUT_DATE);
 
 		return timeFormatWithoutDate.parse(
 			timeFormatWithoutDate.format(date)).getTime();
-	}
-
-	public static Date getTodayWithoutTime() throws ParseException {
-		Date today = new Date();
-
-		return getDayWithoutTime(today);
 	}
 
 }

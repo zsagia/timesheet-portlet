@@ -6,10 +6,17 @@ import com.liferay.timesheet.service.DepartmentServiceUtil;
 
 import java.util.Collections;
 import java.util.List;
+
 public abstract class BaseAdminBean implements BaseAdmin {
+
+	private String action = ACTION_NEW;
 
 	public String getAction() {
 		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 
 	public List<Department> getDepartments() {
@@ -27,11 +34,5 @@ public abstract class BaseAdminBean implements BaseAdmin {
 
 		return departments;
 	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-	private String action = ACTION_NEW;
 
 }

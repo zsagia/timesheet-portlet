@@ -14,7 +14,6 @@ import com.liferay.timesheet.service.DepartmentServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
-
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -27,6 +26,17 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean(name = "departmentBean")
 @ViewScoped
 public class DepartmentBean extends BaseAdminBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(DepartmentBean.class);
+
+	public String departmentName = null;
+
+	public Department selectedDepartment = null;
+
+	public List<Department> departments = null;
 
 	public DepartmentBean() {
 		departments = super.getDepartments();
@@ -89,41 +99,28 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		setActionValues(ACTION_NEW, StringPool.BLANK);
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	@Override
-	public List<Department> getDepartments() {
-		return departments;
-	}
-
-	public Department getSelectedDepartment() {
-		return selectedDepartment;
-	}
-
 	@Override
 	public void onNodeSelect() {
 		setActionValues(
 			ACTION_SELECTED, selectedDepartment.getDepartmentName());
+	}
+	
+	protected void setActionValues(
+		String action, String departmentName) {
+
+		setAction(action);
+
+		this.departmentName = departmentName;
 	}
 
 	@Override
 	public void onNodeUnSelect() {
 		doNewAction();
 	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	public void setSelectedDepartment(Department selectedDepartment) {
-		this.selectedDepartment = selectedDepartment;
-	}
-
+	
 	@Override
 	public Object updateEntity(Object entity)
-		throws PortalException, SystemException {
+		throws SystemException, PortalException{
 
 		DepartmentServiceUtil.updateDepartment((Department)entity);
 
@@ -155,18 +152,25 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		return "/views/admin/view.xhtml";
 	}
 
-	public String departmentName = null;
-	public List<Department> departments = null;
-	public Department selectedDepartment = null;
+	public String getDepartmentName() {
+		return departmentName;
+	}
 
-	protected void setActionValues(String action, String departmentName) {
-		setAction(action);
-
+	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(
-		DepartmentBean.class);
-	private static final long serialVersionUID = 1L;
+	@Override
+	public List<Department> getDepartments() {
+		return departments;
+	}
+
+	public Department getSelectedDepartment() {
+		return selectedDepartment;
+	}
+
+	public void setSelectedDepartment(Department selectedDepartment) {
+		this.selectedDepartment = selectedDepartment;
+	}
 
 }

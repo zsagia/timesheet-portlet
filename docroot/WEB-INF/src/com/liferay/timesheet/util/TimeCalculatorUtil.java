@@ -7,37 +7,40 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 public class TimeCalculatorUtil {
-
-	public static String getStringFromTime(long time) {
-		StringBuffer buffer = new StringBuffer();
-
-		long hours = time / (60 * 60 * 1000);
-		long minutes = (time % (60 * 60 * 1000)) / (60 * 1000);
-
-		if (hours < 10) {
-			buffer.append("0");
-		}
-
-		buffer.append(hours);
-		buffer.append(":");
-
-		if (minutes < 10) {
-			buffer.append("0");
-		}
-
-		buffer.append(minutes);
-
-		return buffer.toString();
-	}
 
 	public static long summerizeDayTime(List<TaskSession> taskSessions)
 		throws Exception {
 
 		long time = 0;
 
-		for (TaskSession taskSession : taskSessions) {
+		for(TaskSession taskSession: taskSessions) {
 			time += taskSession.getDuration();
+		}
+
+		return time;
+	}
+
+	public static long summerizeWeekTime(
+			long companyId, Date dateOfWeek, long userId)
+		throws Exception {
+
+		long time = 0;
+
+		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
+
+		for(Date date: daysOfWeek) {
+			Calendar date2 = Calendar.getInstance();
+
+			date2.setTime(date);
+			date2.add(Calendar.DAY_OF_WEEK, 1);
+
+			List<TaskSession> taskSessions =
+				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(
+					companyId, date, date2.getTime(), userId);
+
+			time += summerizeDayTime(taskSessions);
 		}
 
 		return time;
@@ -76,28 +79,26 @@ public class TimeCalculatorUtil {
 		return time;
 	}
 
-	public static long summerizeWeekTime(
-			long companyId, Date dateOfWeek, long userId)
-		throws Exception {
+	public static String getStringFromTime(long time) {
+		StringBuffer buffer = new StringBuffer();
 
-		long time = 0;
+		long hours = time / (60 * 60 * 1000);
+		long minutes = (time % (60 * 60 * 1000)) / (60 * 1000);
 
-		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
-
-		for (Date date : daysOfWeek) {
-			Calendar date2 = Calendar.getInstance();
-
-			date2.setTime(date);
-			date2.add(Calendar.DAY_OF_WEEK, 1);
-
-			List<TaskSession> taskSessions =
-				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(
-					companyId, date, date2.getTime(), userId);
-
-			time += summerizeDayTime(taskSessions);
+		if (hours < 10) {
+			buffer.append("0");
 		}
 
-		return time;
+		buffer.append(hours);
+		buffer.append(":");
+
+		if (minutes < 10) {
+			buffer.append("0");
+		}
+
+		buffer.append(minutes);
+
+		return buffer.toString();
 	}
 
 	private static List<Date> getDaysOfWeek(Date date) {

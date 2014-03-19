@@ -42,7 +42,7 @@ import java.util.List;
  * @see com.liferay.timesheet.service.ProjectServiceUtil
  */
 public class ProjectServiceImpl extends ProjectServiceBaseImpl {
-
+	
 	public Project addProject(
 			long userId, long departmentId, boolean enabled,
 			long parentProjectId, String projectName, String description,
@@ -68,7 +68,7 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 	}
 
 	public List<Project> getProjects(long companyId)
-		throws PortalException, SystemException {
+		throws SystemException, PortalException {
 
 		List<Project> projects = projectLocalService.getProjects(companyId);
 
@@ -76,11 +76,11 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 
 		Iterator<Project> iterator = projects.iterator();
 
-		while (iterator.hasNext()) {
+		while(iterator.hasNext()) {
 			Project project = iterator.next();
 
 			if (!ProjectPermission.contains(
-					getPermissionChecker(), project, ActionKeys.VIEW)) {
+				getPermissionChecker(), project, ActionKeys.VIEW)) {
 
 				iterator.remove();
 			}
@@ -91,7 +91,7 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 
 	public List<Project> getProjectsByD_PP(
 			long departmentId, long parentProjectId)
-		throws PortalException, SystemException {
+		throws  PortalException, SystemException {
 
 		List<Project> projects = projectLocalService.getProjectsByD_PP(
 			departmentId, parentProjectId);
@@ -100,11 +100,11 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 
 		Iterator<Project> iterator = projects.iterator();
 
-		while (iterator.hasNext()) {
+		while(iterator.hasNext()) {
 			Project project = iterator.next();
 
 			if (!ProjectPermission.contains(
-					getPermissionChecker(), project, ActionKeys.VIEW)) {
+				getPermissionChecker(), project, ActionKeys.VIEW)) {
 
 				iterator.remove();
 			}

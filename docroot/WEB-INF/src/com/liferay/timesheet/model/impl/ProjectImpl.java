@@ -24,7 +24,7 @@ package com.liferay.timesheet.model.impl;
  * @author Istvan Sajtos, Zsolt Szabo
  */
 public class ProjectImpl extends ProjectBaseImpl {
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a project model instance should use the {@link com.liferay.timesheet.model.Project} interface instead.
