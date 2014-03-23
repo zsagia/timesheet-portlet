@@ -2,13 +2,17 @@ package com.liferay.timesheet.converter;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.User;
 import com.liferay.timesheet.util.TimesheetUtil;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,23 +43,34 @@ public class TimeSheetConverter extends DateTimeConverter {
 
 		Date date = null;
 
-		if (Validator.isNotNull(value)) {
-			Date time = null;
-			Date todayWithoutTime = null;
+		try {
+			User user = TimesheetUtil.getCurrentUser();
+			TimeZone userTimeZone = user.getTimeZone();
 
-			try {
-				time = (Date)super.getAsObject(context, component, value);
+			Calendar calendar = CalendarFactoryUtil.getCalendar(userTimeZone);
 
-				todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
+			if (Validator.isNotNull(value)) {
+				int hour = Integer.valueOf(value.substring(0, 2));
+				int minute = Integer.valueOf(
+					value.substring(2, value.length()));
 
-				date = TimesheetUtil.addDateToDate(
-					todayWithoutTime, time);
-			} catch (ParseException e) {
-				logger.error("date_conversion_is_failed");
+				calendar.set(Calendar.HOUR_OF_DAY, hour);
+				calendar.set(Calendar.MINUTE, minute);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
 
-				throw new ConverterException();
+				date = calendar.getTime();
 			}
+			else {
+				date = calendar.getTime();
+			}
+
+		} catch (PortalException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
 		}
+
 
 		return date;
 	}

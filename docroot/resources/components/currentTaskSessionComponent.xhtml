@@ -67,7 +67,7 @@
 					</label>
 					<span>
 						<h:outputText value="#{cc.attrs.currentTaskSession.startTime}">
-							<f:convertDateTime pattern="HH:mm" type="time"/>
+							<f:convertDateTime pattern="HH:mm" type="time" timeZone="#{liferay.user.timeZone}" />
 						</h:outputText>
 					</span>
 

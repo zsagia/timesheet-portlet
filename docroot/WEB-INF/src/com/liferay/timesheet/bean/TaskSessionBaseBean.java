@@ -96,17 +96,10 @@ public abstract class TaskSessionBaseBean implements Serializable{
 			throw new NoSelectedTaskException();
 		}
 
-		Date startDate = new Date();
-		Date startTime = getStartTime();
-
-		if (startTime != null) {
-			startDate = startTime;
-		}
-
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		try {
-			closeCurrentTaskSession(userId, startDate);
+			closeCurrentTaskSession(userId, getStartTime());
 		} catch (SystemException se) {
 			throw new TaskSessionCloseException();
 		}
@@ -118,7 +111,8 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 		try {
 			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
-				userId, startDate, getSelectedTaskId(), description, serviceContext);
+				userId, getStartTime(), getSelectedTaskId(), description,
+				serviceContext);
 		} catch (Exception e) {
 			throw new TaskSessionCreationException();
 		}
