@@ -36,7 +36,7 @@
 							</f:facet>
 
 							<h:outputText value="#{taskSession.startTime}" >
-								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="#{liferay.user.timeZone}" />
 							</h:outputText>
 						</h:column>
 
@@ -46,7 +46,7 @@
 							</f:facet>
 
 							<h:outputText value="#{taskSession.endTime}" >
-								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="#{liferay.user.timeZone}" />
 							</h:outputText>
 						</h:column>
 					</h:dataTable>
