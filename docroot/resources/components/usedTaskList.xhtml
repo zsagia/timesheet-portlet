@@ -24,7 +24,7 @@
 		<h:form id="taskForm">
 			<h:outputText value="Start:"></h:outputText>
 			<h:inputText id="startTime" value="#{cc.attrs.startTime}">
-				<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+				<f:converter converterId="TimeSheetConverter" />
 			</h:inputText>
 
 			<h:outputText value="Taskname:"></h:outputText>
@@ -39,7 +39,7 @@
 
 					<h:outputText value="End:"></h:outputText>
 					<h:inputText id="endTime" value="#{cc.attrs.endTime}">
-						<f:convertDateTime pattern="HHmm"></f:convertDateTime>
+						<f:converter converterId="TimeSheetConverter" />
 					</h:inputText>
 					<h:commandButton id="finishTask" value="Finish Task" action="#{cc.attrs.finishTaskSessionAction}" styleClass="btn btn-primary" />
 				</c:when>
