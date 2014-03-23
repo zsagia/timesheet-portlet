@@ -6,13 +6,10 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
-import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
-
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -30,26 +27,6 @@ import org.primefaces.model.TreeNode;
 @ManagedBean(name = "taskBean")
 @RequestScoped
 public class TaskBean implements Serializable{
-
-	private static final long serialVersionUID = -8412810082872360906L;
-
-	private static Logger logger = LoggerFactory.getLogger(TaskBean.class);
-
-	private String description;
-
-	private String taskName;
-
-	@ManagedProperty(name = "taskSessionSimpleBean",
-		value = "#{taskSessionSimpleBean}")
-	private TaskSessionSimpleBean taskSessionSimpleBean;
-
-	@ManagedProperty(name = "enabledProjectBean",
-		value = "#{enabledProjectBean}")
-	private ProjectBean enabledProjectBean;
-
-	@ManagedProperty(name = "departmentBean",
-		value = "#{departmentBean}")
-	private DepartmentBean departmentBean;
 
 	public String createTaskAction() {
 
@@ -81,16 +58,15 @@ public class TaskBean implements Serializable{
 		Task task = null;
 
 		try {
-			task = TaskLocalServiceUtil.addTask(
-				userId, taskName, selectedProject.getProjectId(), description,
-				serviceContext);
+			task = taskModelBean.createTask(
+				userId, selectedProject.getProjectId(), serviceContext);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("New Task: " + task.getTaskName());
 			}
 
 			taskSessionSimpleBean.setSelectedTaskId(task.getTaskId()); 
-			taskSessionSimpleBean.createTaskSession();
+			taskSessionModelBean.createTaskSession(task.getTaskId());
 		} catch (Exception e) {
 			logger.error(e);
 
@@ -104,46 +80,20 @@ public class TaskBean implements Serializable{
 		return "/views/task/view.xhtml";
 	}
 
-	public List<Task> getTasksByUser() {
-		long userId = TimesheetUtil.getCurrentUserId();
-
-		List<Task> tasksToday = null;
-
-		try {
-			tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
-		} catch (Exception e) {
-			logger.error("Getting tasks for userId: " + userId + " is failed");
-		}
-
-		return tasksToday;
-	}
-
 	protected void clear() {
-		setTaskName(null);
+		taskModelBean.setTaskName(null);
 	}
 
 	public DepartmentBean getDepartmentBean() {
 		return departmentBean;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
 	public ProjectBean getEnabledProjectBean() {
 		return enabledProjectBean;
 	}
 
-	public String getTaskName() {
-		return taskName;
-	}
-
 	public TaskSessionSimpleBean getTaskSessionSimpleBean() {
 		return taskSessionSimpleBean;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public void setDepartmentBean(DepartmentBean departmentBean) {
@@ -154,14 +104,52 @@ public class TaskBean implements Serializable{
 		this.enabledProjectBean = enabledProjectBean;
 	}
 
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
-
 	public void setTaskSessionSimpleBean(
 		TaskSessionSimpleBean taskSessionSimpleBean) {
 
 		this.taskSessionSimpleBean = taskSessionSimpleBean;
 	}
+
+	public TaskModelBean getTaskModelBean() {
+		return taskModelBean;
+	}
+
+	public void setTaskModelBean(TaskModelBean taskModelBean) {
+		this.taskModelBean = taskModelBean;
+	}
+
+	public TaskSessionModelBean getTaskSessionModelBean() {
+		return taskSessionModelBean;
+	}
+
+	public void setTaskSessionModelBean(
+		TaskSessionModelBean taskSessionModelBean) {
+
+		this.taskSessionModelBean = taskSessionModelBean;
+	}
+
+	@ManagedProperty(name = "enabledProjectBean",
+		value = "#{enabledProjectBean}")
+	private ProjectBean enabledProjectBean;
+
+	@ManagedProperty(name = "departmentBean",
+		value = "#{departmentBean}")
+	private DepartmentBean departmentBean;
+
+	@ManagedProperty(name = "taskSessionSimpleBean",
+		value = "#{taskSessionSimpleBean}")
+	private TaskSessionSimpleBean taskSessionSimpleBean;
+
+	@ManagedProperty(name = "taskModelBean",
+		value = "#{taskModelBean}")
+	private TaskModelBean taskModelBean;
+
+	@ManagedProperty(name = "taskSessionModelBean",
+		value = "#{taskSessionModelBean}")
+	private TaskSessionModelBean taskSessionModelBean;
+
+	private static final long serialVersionUID = -8412810082872360906L;
+
+	private static Logger logger = LoggerFactory.getLogger(TaskBean.class);
 
 }

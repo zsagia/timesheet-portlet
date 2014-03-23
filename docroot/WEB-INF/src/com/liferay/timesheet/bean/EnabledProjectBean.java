@@ -41,7 +41,7 @@ public class EnabledProjectBean extends ProjectBean {
 			e.printStackTrace();
 		}
 
-		setActionValues(ACTION_NEW, false, null);
+		setActionValues(ACTION_NEW, false, null, null);
 
 		setSelectedProjectNode(null);
 	}

@@ -5,19 +5,17 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
-import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.TreeNode;
@@ -30,25 +28,6 @@ import org.primefaces.model.TreeNode;
 @ViewScoped
 public class ProjectBean extends BaseAdminBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(ProjectBean.class);
-
-	private boolean enabled = false;
-
-	private String description = null;
-
-	private Department selectedDepartment = null;
-
-	private String projectName = null;
-
-	private TreeNode root = null;
-
-	private TreeNode selectedProjectNode = null;
-
-	private Project selectedProject = null;
-
 	public ProjectBean() {
 		root = new ProjectTreeNode(null, null);
 
@@ -59,51 +38,25 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		}
 	}
 
-	@Override
-	public Object createEntity() throws EntityCreationException {
-		long selectedProjectId = 0;
-
-		if (selectedProjectNode != null) {
-			Project project =
-				((ProjectTreeNode)selectedProjectNode).getProject();
-
-			selectedProjectId = project.getProjectId();
-		}
-
-		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
-
-		Project project = null;
-
-		try {
-			project = ProjectServiceUtil.addProject(
-				TimesheetUtil.getCurrentUserId(),
-				selectedDepartment.getDepartmentId(), true, selectedProjectId,
-				getProjectName(), description, serviceContext);
-		} catch (Exception e) {
-			throw new EntityCreationException();
-		}
-
-		return project;
-	}
-
-	@Override
-	public String createEntityAction() {
+	public String createProjectAction() {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
 		try {
-			Project project = (Project)createEntity();
+			
+			
+			Project project = projectModelBean.createProject(
+				selectedDepartment, selectedProject);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
 					"New project is created: " + project.getProjectName());
 			}
-		} catch (EntityCreationException e) {
-			logger.error("Creation new project is failed!");
+		} catch (Exception e) {
+			logger.error("Creation new project is failed!", e);
 
 			liferayFacesContext.addGlobalErrorMessage(
-				"Creation new project is failed!");
+				"Project exception", "Creation new project is failed!");
 		}
 
 		return "/views/admin/view.xhtml";
@@ -116,12 +69,12 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		Project project =
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
-		projectName = project.getProjectName();
+		projectModelBean.setProjectName(project.getProjectName());
 	}
 
 	@Override
 	public void doNewAction() {
-		setActionValues(ACTION_NEW, false, null);
+		setActionValues(ACTION_NEW, false, null, null);
 	}
 
 	public void onDepartmentSelect() {
@@ -134,7 +87,7 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			e.printStackTrace();
 		}
 
-		setActionValues(ACTION_NEW, false, null);
+		setActionValues(ACTION_NEW, false, null, null);
 
 		selectedProjectNode = null;
 	}
@@ -145,7 +98,8 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
 		setActionValues(
-			ACTION_SELECTED, project.getEnabled(), project.getProjectName());
+			ACTION_SELECTED, project.getEnabled(), project.getProjectName(),
+			project.getDescription());
 	}
 
 	@Override
@@ -153,29 +107,19 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		doNewAction();
 	}
 
-	@Override
-	public Object updateEntity(Object entity)
-		throws PortalException, SystemException {
-
-		ProjectServiceUtil.updateProject((Project)entity);
-
-		return entity;
-	}
-
-	@Override
-	public String updateEntityAction() {
+	public String updateProjectAction() {
 		Project project =
 			((ProjectTreeNode)selectedProjectNode).getProject();
 
-		project.setEnabled(enabled);
-		project.setDescription(description);
-		project.setProjectName(projectName);
+		project.setEnabled(projectModelBean.isEnabled());
+		project.setDescription(projectModelBean.getDescription());
+		project.setProjectName(projectModelBean.getProjectName());
 
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
 		try {
-			updateEntity(project);
+			projectModelBean.updateProject(project);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
@@ -224,21 +168,13 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	}
 
 	protected void setActionValues(
-		String action, boolean enabled, String projectName) {
+		String action, boolean enabled, String projectName, String description) {
 
 		setAction(action);
 
-		this.projectName = projectName;
-
-		this.enabled = enabled;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getProjectName() {
-		return projectName;
+		projectModelBean.setDescription(description);
+		projectModelBean.setEnabled(enabled);
+		projectModelBean.setProjectName(projectName);
 	}
 
 	public TreeNode getRoot() {
@@ -251,28 +187,16 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 
 	public boolean isEnabled() {
 		if (ACTION_NEW.equals(getAction())) {
-			enabled = false;
+			projectModelBean.setEnabled(false);
 		}
 		else if (selectedProjectNode != null) {
 			Project project =
 				((ProjectTreeNode)selectedProjectNode).getProject();
 
-			enabled = project.getEnabled();
+			projectModelBean.setEnabled(project.getEnabled());
 		}
 
-		return enabled;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+		return projectModelBean.isEnabled();
 	}
 
 	public void setRoot(TreeNode root) {
@@ -283,7 +207,8 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 		this.selectedProjectNode = selectedProjectNode;
 
 		if (selectedProjectNode != null) {
-			this.setSelectedProject(((ProjectTreeNode)selectedProjectNode).getProject());
+			this.setSelectedProject(
+				((ProjectTreeNode)selectedProjectNode).getProject());
 		}
 	}
 
@@ -302,5 +227,30 @@ public class ProjectBean extends BaseAdminBean implements Serializable {
 	public void setSelectedProject(Project selectedProject) {
 		this.selectedProject = selectedProject;
 	}
+
+	public ProjectModelBean getProjectModelBean() {
+		return projectModelBean;
+	}
+
+	public void setProjectModelBean(ProjectModelBean projectModelBean) {
+		this.projectModelBean = projectModelBean;
+	}
+
+	private Department selectedDepartment = null;
+
+	private TreeNode root = null;
+
+	private TreeNode selectedProjectNode = null;
+
+	private Project selectedProject = null;
+
+	@ManagedProperty(name = "projectModelBean",
+		value = "#{projectModelBean}")
+	private ProjectModelBean projectModelBean;
+
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(ProjectBean.class);
 
 }

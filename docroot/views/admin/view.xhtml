@@ -51,9 +51,9 @@
 								<aui:field label="Department name:">
 									<p:inputText id="departmentName" rendered="#{departmentBean.action!='selected'}" required="false"
 										requiredMessage="Department name is required!"
-										value="#{departmentBean.departmentName}" />
+										value="#{departmentBean.departmentModelBean.departmentName}" />
 
-									<p:outputLabel rendered="#{departmentBean.action=='selected'}" value="#{departmentBean.departmentName}" />
+									<p:outputLabel rendered="#{departmentBean.action=='selected'}" value="#{departmentBean.departmentModelBean.departmentName}" />
 								</aui:field>
 
 								<liferay-security:permissionsURL
@@ -66,11 +66,11 @@
 								</liferay-security:permissionsURL>
 							</aui:fieldset>
 
-							<h:commandButton action="#{departmentBean.createEntityAction}" id="btnDepartmentAction1"
+							<h:commandButton action="#{departmentBean.createDepartmentAction}" id="btnDepartmentAction1"
 								rendered="#{(departmentBean.action=='new') and (adminPermissionBean.checkAddDepartment())}"
 								styleClass="btn btn-primary" value="Add Department" />
 
-							<h:commandButton action="#{departmentBean.updateEntityAction}" id="btnDepartmentAction2"
+							<h:commandButton action="#{departmentBean.updateDepartmentAction}" id="btnDepartmentAction2"
 								rendered="#{(departmentBean.action=='edit') and (adminPermissionBean.checkUpdateDepartment(departmentBean.selectedDepartment))}"
 								styleClass="btn btn-primary" value="Update Department" />
 						</aui:column>
@@ -125,23 +125,23 @@
 							<aui:fieldset>
 								<aui:field label="Project name">
 									<p:inputText id="projectName1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.projectName}" />
+										value="#{projectBean.projectModelBean.projectName}" />
 									<p:outputLabel id="projectName2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.projectName}" />
+										value="#{projectBean.projectModelBean.projectName}" />
 								</aui:field>
 
 								<aui:field label="Enabled">
 									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.enabled}" />
+										value="#{projectBean.projectModelBean.enabled}" />
 									<p:outputLabel id="enabledProject2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.enabled}" />
+										value="#{projectBean.projectModelBean.enabled}" />
 								</aui:field>
 
 								<aui:field label="Description">
 									<h:inputTextarea id="description1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.description}" />
+										value="#{projectBean.projectModelBean.description}" />
 									<h:outputText id="description2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.description}" />
+										value="#{projectBean.projectModelBean.description}" />
 								</aui:field>
 
 								<liferay-security:permissionsURL
@@ -154,10 +154,10 @@
 								</liferay-security:permissionsURL>
 							</aui:fieldset>
 
-							<h:commandButton action="#{projectBean.createEntityAction}" id="btnProjectAction1"
+							<h:commandButton action="#{projectBean.createProjectAction}" id="btnProjectAction1"
 								rendered="#{projectBean.action=='new'}" value="Add Project" />
 
-							<h:commandButton action="#{projectBean.updateEntityAction}" id="btnProjectAction2"
+							<h:commandButton action="#{projectBean.updateProjectAction}" id="btnProjectAction2"
 								rendered="#{projectBean.action=='edit'}" value="Update Project" />
 						</aui:column>
 					</aui:layout>

@@ -11,6 +11,12 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class TaskSessionMultipleBean extends TaskSessionBaseBean {
+	
+	public String createTaskSessionAction() {
+		getTaskSessionModelBean().setStartTime(getStartTime());
+
+		return super.createTaskSessionAction();
+	}
 
 	private static final long serialVersionUID = 6518160458023526615L;
 
@@ -45,8 +51,8 @@ public class TaskSessionMultipleBean extends TaskSessionBaseBean {
 		this.startTimes = startTimes;
 	}
 
-	protected void clear() {
-		super.clear();
+	public void clear() {
+		getTaskSessionModelBean().clear();
 
 		setStartTimes(new HashMap<Long, Date>());
 	}

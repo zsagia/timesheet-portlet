@@ -54,20 +54,20 @@
 						<aui:column id="project_column_2">
 							<components:taskComponent
 								actionMethod="#{taskBean.createTaskAction}"
-								description="#{taskBean.description}"
+								description="#{taskBean.taskModelBean.description}"
 								projectRoot="#{enabledProjectBean.root}"
 								selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
-								startTime="#{taskSessionSimpleBean.startTime}"
-								taskName="#{taskBean.taskName}" />
+								startTime="#{taskSessionSimpleBean.taskSessionModelBean.startTime}"
+								taskName="#{taskBean.taskModelBean.taskName}" />
 						</aui:column>
 					</aui:layout>
 				</h:form>
 
 				<h:form id="taskSessionForm">
-					<ui:repeat value="#{taskBean.tasksByUser}" var="task">
+					<ui:repeat value="#{taskBean.taskModelBean.tasksByUser}" var="task">
 						<components:taskComponent
 							actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
-							description="#{taskBean.description}"
+							description="#{taskBean.taskModelBean.description}"
 							selectedTask="#{task}"
 							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
 					</ui:repeat>

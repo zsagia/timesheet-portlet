@@ -4,19 +4,14 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.timesheet.EntityCreationException;
 import com.liferay.timesheet.admin.BaseAdminBean;
 import com.liferay.timesheet.model.Department;
-import com.liferay.timesheet.service.DepartmentServiceUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -27,17 +22,6 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class DepartmentBean extends BaseAdminBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(DepartmentBean.class);
-
-	public String departmentName = null;
-
-	public Department selectedDepartment = null;
-
-	public List<Department> departments = null;
-
 	public DepartmentBean() {
 		departments = super.getDepartments();
 
@@ -46,31 +30,12 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		}
 	}
 
-	@Override
-	public Object createEntity() throws EntityCreationException {
-		Department department = null;
-
-		try {
-			ServiceContext serviceContext =
-				TimesheetUtil.createServiceContext();
-
-			department = DepartmentServiceUtil.addDepartment(
-				TimesheetUtil.getCurrentUserId(), getDepartmentName(),
-				serviceContext);
-		} catch (Exception e) {
-			logger.error("Department creation is failed!");
-		}
-
-		return department;
-	}
-
-	@Override
-	public String createEntityAction() {
+	public String createDepartmentAction() {
 		LiferayFacesContext liferayFacesContext =
 				LiferayFacesContext.getInstance();
 
 		try {
-			Department department = (Department)createEntity();
+			Department department = departmentModelBean.createDepartment();
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
@@ -91,7 +56,8 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 	public void doEditAction() {
 		setAction(ACTION_EDIT);
 
-		departmentName = selectedDepartment.getDepartmentName();
+		departmentModelBean.setDepartmentName(
+			selectedDepartment.getDepartmentName());
 	}
 
 	@Override
@@ -104,38 +70,33 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		setActionValues(
 			ACTION_SELECTED, selectedDepartment.getDepartmentName());
 	}
-	
+
 	protected void setActionValues(
 		String action, String departmentName) {
 
 		setAction(action);
 
-		this.departmentName = departmentName;
+		departmentModelBean.setDepartmentName(departmentName);
 	}
 
 	@Override
 	public void onNodeUnSelect() {
 		doNewAction();
 	}
-	
-	@Override
-	public Object updateEntity(Object entity)
-		throws SystemException, PortalException{
 
-		DepartmentServiceUtil.updateDepartment((Department)entity);
-
-		return entity;
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
 	}
 
-	@Override
-	public String updateEntityAction() {
-		selectedDepartment.setDepartmentName(departmentName);
+	public String updateDepartmentAction() {
+		selectedDepartment.setDepartmentName(
+			departmentModelBean.departmentName);
 
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
 		try {
-			updateEntity(selectedDepartment);
+			departmentModelBean.updateDepartment(selectedDepartment);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(
@@ -152,15 +113,6 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 		return "/views/admin/view.xhtml";
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	@Override
 	public List<Department> getDepartments() {
 		return departments;
 	}
@@ -172,5 +124,26 @@ public class DepartmentBean extends BaseAdminBean implements Serializable {
 	public void setSelectedDepartment(Department selectedDepartment) {
 		this.selectedDepartment = selectedDepartment;
 	}
+
+	public DepartmentModelBean getDepartmentModelBean() {
+		return departmentModelBean;
+	}
+
+	public void setDepartmentModelBean(DepartmentModelBean departmentModelBean) {
+		this.departmentModelBean = departmentModelBean;
+	}
+
+	public Department selectedDepartment = null;
+
+	public List<Department> departments = null;
+
+	@ManagedProperty(name = "departmentModelBean",
+		value = "#{departmentModelBean}")
+	private DepartmentModelBean departmentModelBean;
+
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(DepartmentBean.class);
 
 }
