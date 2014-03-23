@@ -2,8 +2,6 @@ package com.liferay.timesheet.converter;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
@@ -58,19 +56,15 @@ public class TimeSheetConverter extends DateTimeConverter {
 				calendar.set(Calendar.MINUTE, minute);
 				calendar.set(Calendar.SECOND, 0);
 				calendar.set(Calendar.MILLISECOND, 0);
-
-				date = calendar.getTime();
-			}
-			else {
-				date = calendar.getTime();
 			}
 
-		} catch (PortalException e) {
-			e.printStackTrace();
-		} catch (SystemException e) {
-			e.printStackTrace();
+			date = calendar.getTime();
+
+		} catch (Exception e) {
+			logger.error("date_conversion_is_failed", e);
+
+			throw new ConverterException();
 		}
-
 
 		return date;
 	}
