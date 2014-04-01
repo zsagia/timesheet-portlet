@@ -50,6 +50,9 @@ public class StartTimeValidator implements Validator {
 					DateTimeValidatorUtil.validateStartTime(
 						lastTaskSession, (Date)value);
 				}
+				else {
+					DateTimeValidatorUtil.validateWorkStart((Date)value);
+				}
 			} catch (StartTimeException ste) {
 				logger.error(
 					"another_task_is_already_recorded_in_the_given_period",
