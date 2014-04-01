@@ -4,6 +4,7 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
 import com.liferay.timesheet.EndTimeException;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
@@ -13,11 +14,13 @@ import com.liferay.timesheet.TaskSessionCreationException;
 import com.liferay.timesheet.TaskSessionUpdateException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
+import com.liferay.timesheet.util.PortletPropsValues;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 import com.liferay.timesheet.validator.DateTimeValidatorUtil;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +81,37 @@ public abstract class TaskSessionBaseBean implements Serializable{
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
+		Date endDate = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		Date today = calendar.getTime();
+		long userId = TimesheetUtil.getCurrentUserId();
+
 		try {
+			List<TaskSession> taskSessions = 
+				TaskSessionLocalServiceUtil.getTaskSessionsByD_U(today, userId);
+
+			long allWorkToday = 0;
+
+			for (TaskSession taskSession : taskSessions) {
+				allWorkToday += taskSession.getDuration();
+			}
+
+			long maxWorkRestriction = Long.valueOf(
+				PortletPropsValues.RESTRICTIONS_WORKDURATIOIN_MAX);
+
+			if (allWorkToday > maxWorkRestriction) {
+				/* Placeholder for notification sending code. */
+
+				long difference = allWorkToday - maxWorkRestriction;
+				/* setting endTime */
+			}
+
 			DateTimeValidatorUtil.validateEndTime(
 				currentTaskSession, new Date());
 
@@ -103,6 +136,10 @@ public abstract class TaskSessionBaseBean implements Serializable{
 
 			liferayFacesContext.addGlobalErrorMessage(
 				"Unable to update task session!");
+		} catch (SystemException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return "/views/task/view.xhtml";
