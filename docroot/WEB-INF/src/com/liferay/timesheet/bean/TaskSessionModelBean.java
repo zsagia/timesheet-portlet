@@ -54,6 +54,10 @@ public class TaskSessionModelBean implements Serializable {
 			throw new NoSelectedTaskException();
 		}
 
+		if (getStartTime() == null) {
+			setStartTime(new Date());
+		}
+
 		long userId = TimesheetUtil.getCurrentUserId();
 
 		try {
