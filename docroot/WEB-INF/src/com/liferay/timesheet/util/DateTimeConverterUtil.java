@@ -5,7 +5,6 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
-import com.liferay.timesheet.converter.TimeSheetConverter;
 
 import java.util.Calendar;
 import java.util.Date;

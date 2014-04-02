@@ -6,7 +6,6 @@ import com.liferay.timesheet.NoCurrentTaskSessionException;
 import com.liferay.timesheet.StartTimeException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.util.DateTimeConverterUtil;
-import com.liferay.timesheet.util.PortletPropsKeys;
 import com.liferay.timesheet.util.PortletPropsValues;
 
 import java.text.ParseException;
