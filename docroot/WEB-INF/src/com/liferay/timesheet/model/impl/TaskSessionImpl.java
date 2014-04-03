@@ -29,6 +29,7 @@ import java.util.Date;
  * </p>
  *
  * @author Istvan Sajtos
+ * @author Zsolt Szabo
  */
 public class TaskSessionImpl extends TaskSessionBaseImpl {
 	/**
@@ -46,6 +47,10 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 	}
 
 	public long getDuration() throws Exception {
+		return getDuration(new Date());
+	}
+
+	public long getDuration(Date endTimeForOpenTask) throws Exception {
 		Date endTime = getEndTime();
 		Date startTime = getStartTime();
 
@@ -54,7 +59,7 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 		}
 
 		if (endTime == null) {
-			endTime = new Date();
+			endTime = endTimeForOpenTask;
 		}
 
 		long endTimeValue = endTime.getTime();

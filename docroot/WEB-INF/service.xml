@@ -194,12 +194,15 @@
 	</entity>
 
 	<exceptions>
+		<exception>EarliestStartTime</exception>
 		<exception>EndTime</exception>
 		<exception>EntityCreation</exception>
 		<exception>NoCurrentTaskSession</exception>
 		<exception>NoSelectedTask</exception>
 		<exception>StartTime</exception>
+		<exception>StartEndTime</exception>
 		<exception>TaskSessionClose</exception>
 		<exception>TaskSessionUpdate</exception>
+		<exception>WorkDuration</exception>
 	</exceptions>
 </service-builder>
