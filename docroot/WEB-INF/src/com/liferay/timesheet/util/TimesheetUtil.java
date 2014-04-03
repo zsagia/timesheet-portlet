@@ -3,6 +3,7 @@ package com.liferay.timesheet.util;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -10,6 +11,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -77,10 +79,15 @@ public class TimesheetUtil {
 	}
 
 	public static Date getDayWithoutTime(Date date) throws ParseException {
-		DateFormat dateFormatWithoutTime =
-			new SimpleDateFormat(DATE_FORMAT_WITHOUT_TIME);
+		Calendar calendar = CalendarFactoryUtil.getCalendar();
 
-		return dateFormatWithoutTime.parse(dateFormatWithoutTime.format(date));
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		return calendar.getTime();
 	}
 
 	public static long getTimeWithoutDate(Date date) throws ParseException {

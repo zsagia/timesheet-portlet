@@ -15,7 +15,7 @@ import javax.faces.convert.FacesConverter;
 public class DepartmentConverter implements Converter {
 
 	private static final Logger logger =
-			LoggerFactory.getLogger(DepartmentConverter.class);
+		LoggerFactory.getLogger(DepartmentConverter.class);
 
 	@Override
 	public Object getAsObject(
@@ -31,7 +31,7 @@ public class DepartmentConverter implements Converter {
 			department = DepartmentLocalServiceUtil.getDepartment(
 				Long.parseLong(value));
 		} catch (Exception e) {
-			logger.error("Conversion error");
+			logger.error("Conversion error", e);
 		}
 
 		return department;

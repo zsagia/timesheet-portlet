@@ -13,10 +13,17 @@ public class TimeCalculatorUtil {
 	public static long summerizeDayTime(List<TaskSession> taskSessions)
 		throws Exception {
 
+		return summerizeDayTime(taskSessions, new Date());
+	}
+
+	public static long summerizeDayTime(
+			List<TaskSession> taskSessions, Date endTime)
+		throws Exception {
+
 		long time = 0;
 
 		for(TaskSession taskSession: taskSessions) {
-			time += taskSession.getDuration();
+			time += taskSession.getDuration(endTime);
 		}
 
 		return time;

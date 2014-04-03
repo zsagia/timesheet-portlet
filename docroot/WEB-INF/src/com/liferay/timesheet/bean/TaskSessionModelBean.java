@@ -84,7 +84,7 @@ public class TaskSessionModelBean implements Serializable {
 		return taskSession;
 	}
 
-	public void finishTaskSession()
+	public void finishTaskSession(Date endTime)
 		throws NoCurrentTaskSessionException, TaskSessionUpdateException {
 
 		long userId = TimesheetUtil.getCurrentUserId();
@@ -98,11 +98,15 @@ public class TaskSessionModelBean implements Serializable {
 			throw new NoCurrentTaskSessionException();
 		}
 
-		Calendar endDate = Calendar.getInstance();
+		if (endTime == null) {
+			Calendar endDate = Calendar.getInstance();
 
-		endDate.set(Calendar.MILLISECOND, 0);
+			endDate.set(Calendar.MILLISECOND, 0);
 
-		currentTaskSession.setEndTime(endDate.getTime());
+			endTime = endDate.getTime();
+		}
+
+		currentTaskSession.setEndTime(endTime);
 
 		try {
 			TaskSessionLocalServiceUtil.updateTaskSession(currentTaskSession);

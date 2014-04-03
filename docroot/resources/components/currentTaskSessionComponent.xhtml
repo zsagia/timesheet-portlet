@@ -71,6 +71,11 @@
 						</h:outputText>
 					</span>
 
+					<h:inputText id="endTime" value="#{cc.attrs.currentTaskSession.endTime}">
+						<f:converter converterId="TimeSheetConverter" />
+						<f:validator validatorId="EndTimeValidator" />
+					</h:inputText>
+
 					<h:commandButton action="#{cc.attrs.actionMethod}" id="finishTask" styleClass="btn btn-primary" value="Finish" />
 				</aui:column>
 			</aui:layout>

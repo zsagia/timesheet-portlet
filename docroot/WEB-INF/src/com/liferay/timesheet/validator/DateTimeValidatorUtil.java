@@ -1,18 +1,18 @@
 package com.liferay.timesheet.validator;
 
 import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
+import com.liferay.timesheet.EarliestStartTimeException;
 import com.liferay.timesheet.EndTimeException;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
+import com.liferay.timesheet.StartEndTimeException;
 import com.liferay.timesheet.StartTimeException;
+import com.liferay.timesheet.WorkDurationException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.util.DateTimeConverterUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
 
 import java.text.ParseException;
 import java.util.Date;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.validator.ValidatorException;
 
 /**
 * @author Zsolt Szabo
@@ -22,7 +22,7 @@ public class DateTimeValidatorUtil {
 
 	public static void validateStartTime(
 			TaskSession taskSession, Date startTime)
-		throws ParseException, StartTimeException {
+		throws ParseException, StartTimeException, EarliestStartTimeException {
 
 		Date previousStartTime = taskSession.getStartTime();
 		Date endTime = taskSession.getEndTime();
@@ -31,19 +31,6 @@ public class DateTimeValidatorUtil {
 				((endTime != null) && endTime.after(startTime))) {
 
 			throw new StartTimeException();
-		}
-
-		Date latestEndRestriction = 
-			DateTimeConverterUtil.getDateFromMilitaryTime(
-				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
-
-		if (startTime.after(latestEndRestriction)) {
-			throw new ValidatorException(new FacesMessage(
-				"The given time exceeds the restriction defined for "
-				+ "finishing work: " 
-				+ PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST));
-
-			/* Placeholder for notification sending code. */
 		}
 	}
 
@@ -69,24 +56,38 @@ public class DateTimeValidatorUtil {
 		}
 	}
 
-	public static void validateWorkStart(Date workStart) {
-		Date earliestStartRestriction = DateTimeConverterUtil.
-			getDateFromMilitaryTime(PortletPropsValues.
-				RESTRICTIONS_STARTTIME_EARLIEST);
-		Date latestStartRestriction = DateTimeConverterUtil.
-			getDateFromMilitaryTime(PortletPropsValues.
-				RESTRICTIONS_BASETIME_START);
+	public static void validateLatestEndTime(Date workStart)
+		throws StartEndTimeException {
 
-		if (workStart.before(earliestStartRestriction) ||
-			workStart.after(latestStartRestriction)) {
+		Date latestEndTimeRestriction =
+			DateTimeConverterUtil.getDateFromMilitaryTime(
+				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
 
-			throw new ValidatorException(new FacesMessage(
-				"The given time doesn't fit the time frame defined for work "
-				+ "start: " 
-				+ PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST + "-"
-				+ PortletPropsValues.RESTRICTIONS_BASETIME_START));
+		if (workStart.after(latestEndTimeRestriction)) {
+			throw new StartEndTimeException();
+		}
+	}
 
-			/* Placeholder for notification sending code. */
+	public static void validateWorkStart(Date workStart)
+		throws EarliestStartTimeException {
+
+		Date earliestStartRestriction =
+			DateTimeConverterUtil.getDateFromMilitaryTime(
+				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+
+		if (workStart.before(earliestStartRestriction)) {
+			throw new EarliestStartTimeException();
+		}
+	}
+
+	public static void validateWorkDuration(long allWorkToday)
+		throws WorkDurationException {
+	
+		long maxWorkRestriction = Long.valueOf(
+			PortletPropsValues.RESTRICTIONS_WORKDURATIOIN_MAX) * 1000 * 60;
+
+		if (allWorkToday > maxWorkRestriction) {
+			throw new WorkDurationException();
 		}
 	}
 

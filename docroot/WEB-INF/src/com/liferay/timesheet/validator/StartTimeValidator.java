@@ -2,13 +2,19 @@ package com.liferay.timesheet.validator;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.timesheet.EarliestStartTimeException;
+import com.liferay.timesheet.StartEndTimeException;
 import com.liferay.timesheet.StartTimeException;
+import com.liferay.timesheet.WorkDurationException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.MessageUtil;
+import com.liferay.timesheet.util.PortletPropsValues;
+import com.liferay.timesheet.util.TimeCalculatorUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -36,6 +42,8 @@ public class StartTimeValidator implements Validator {
 		if (value != null) {
 			long userId = TimesheetUtil.getCurrentUserId();
 
+			FacesMessage facesMessage = null;
+
 			try {
 				Date todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
 
@@ -44,7 +52,15 @@ public class StartTimeValidator implements Validator {
 						todayWithoutTime, userId);
 
 				if (lastTaskSession != null) {
+					List<TaskSession> taskSessionList =
+						TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
+							todayWithoutTime, userId);
 
+					DateTimeValidatorUtil.validateWorkDuration(
+						TimeCalculatorUtil.summerizeDayTime(
+							taskSessionList, (Date)value));
+
+					DateTimeValidatorUtil.validateLatestEndTime((Date)value);
 					DateTimeValidatorUtil.validateStartTime(
 						lastTaskSession, (Date)value);
 				}
@@ -52,19 +68,36 @@ public class StartTimeValidator implements Validator {
 					DateTimeValidatorUtil.validateWorkStart((Date)value);
 				}
 			} catch (StartTimeException ste) {
-				logger.error(
-					"another_task_is_already_recorded_in_the_given_period",
-					ste);
-
-				FacesMessage facesMessage = MessageUtil.getFacesMessage(
+				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
 					"start_session_validation_error",
-					"another_task_is_already_recorded" +
-						"_in_the_given_period");
-
-				throw new ValidatorException(facesMessage);
+					"another_task_is_already_recorded"
+						+ "_in_the_given_period");
+			} catch (EarliestStartTimeException este) {
+				facesMessage = MessageUtil.getFacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"start_session_validation_error",
+					"the_given_time_does_not_fit_the_time_frame_defined_for_"
+						+ "work_start "
+						+ PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+			} catch (StartEndTimeException sete) {
+				facesMessage = MessageUtil.getFacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"start_session_validation_error",
+					"The given time exceeds the restriction defined for "
+						+ "starting work: "
+						+ PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
+			} catch (WorkDurationException wde) {
+				facesMessage = MessageUtil.getFacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"end_session_validation_error",
+					"work_time_duration_exception");
 			} catch (Exception e) {
 				logger.error(e);
+			}
+
+			if (facesMessage != null) {
+				throw new ValidatorException(facesMessage);
 			}
 		}
 	}
