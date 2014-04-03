@@ -111,6 +111,7 @@
 		<column name="description" type="String" />
 		<column name="projectId" type="long" />
 		<column name="taskName" type="String" />
+		<column name="type" type="int" />
 
 		<!-- Order -->
 
@@ -122,6 +123,10 @@
 
 		<finder name="ProjectId" return-type="Collection">
 			<finder-column name="projectId" />
+		</finder>
+
+		<finder name="Type" return-type="Collection">
+			<finder-column name="type" />
 		</finder>
 
 		<finder name="TN_CR" return-type="Task">
