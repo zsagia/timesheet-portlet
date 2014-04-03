@@ -293,6 +293,10 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("com.liferay.timesheet.EarliestStartTimeException")) {
+			return new com.liferay.timesheet.EarliestStartTimeException();
+		}
+
 		if (className.equals("com.liferay.timesheet.EndTimeException")) {
 			return new com.liferay.timesheet.EndTimeException();
 		}
@@ -310,6 +314,10 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.NoSelectedTaskException();
 		}
 
+		if (className.equals("com.liferay.timesheet.StartEndTimeException")) {
+			return new com.liferay.timesheet.StartEndTimeException();
+		}
+
 		if (className.equals("com.liferay.timesheet.StartTimeException")) {
 			return new com.liferay.timesheet.StartTimeException();
 		}
@@ -320,6 +328,10 @@ public class ClpSerializer {
 
 		if (className.equals("com.liferay.timesheet.TaskSessionUpdateException")) {
 			return new com.liferay.timesheet.TaskSessionUpdateException();
+		}
+
+		if (className.equals("com.liferay.timesheet.WorkDurationException")) {
+			return new com.liferay.timesheet.WorkDurationException();
 		}
 
 		if (className.equals("com.liferay.timesheet.NoSuchDepartmentException")) {

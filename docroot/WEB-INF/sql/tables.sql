@@ -35,7 +35,8 @@ create table timesheet_Task (
 	modifiedDate DATE null,
 	description VARCHAR(75) null,
 	projectId LONG,
-	taskName VARCHAR(75) null
+	taskName VARCHAR(75) null,
+	type_ INTEGER
 );
 
 create table timesheet_TaskSession (

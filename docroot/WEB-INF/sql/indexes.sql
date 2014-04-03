@@ -13,6 +13,7 @@ create index IX_61D96719 on timesheet_Task (departmentId);
 create index IX_6A90776C on timesheet_Task (projectId);
 create index IX_D0DE61DB on timesheet_Task (taskName, creatorId);
 create index IX_ED5CDD36 on timesheet_Task (taskName, userId);
+create index IX_E006107D on timesheet_Task (type_);
 create index IX_39208692 on timesheet_Task (userId);
 
 create index IX_817C6465 on timesheet_TaskSession (departmentId, userId);

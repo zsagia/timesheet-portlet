@@ -69,9 +69,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "description", Types.VARCHAR },
 			{ "projectId", Types.BIGINT },
-			{ "taskName", Types.VARCHAR }
+			{ "taskName", Types.VARCHAR },
+			{ "type_", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null,type_ INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Task";
 	public static final String ORDER_BY_JPQL = " ORDER BY task.taskName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Task.taskName ASC";
@@ -90,7 +91,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long PROJECTID_COLUMN_BITMASK = 2L;
 	public static long TASKNAME_COLUMN_BITMASK = 4L;
-	public static long USERID_COLUMN_BITMASK = 8L;
+	public static long TYPE_COLUMN_BITMASK = 8L;
+	public static long USERID_COLUMN_BITMASK = 16L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
 
@@ -141,6 +143,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
+		attributes.put("type", getType());
 
 		return attributes;
 	}
@@ -205,6 +208,12 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		if (taskName != null) {
 			setTaskName(taskName);
+		}
+
+		Integer type = (Integer)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
 		}
 	}
 
@@ -379,6 +388,28 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return GetterUtil.getString(_originalTaskName);
 	}
 
+	@Override
+	public int getType() {
+		return _type;
+	}
+
+	@Override
+	public void setType(int type) {
+		_columnBitmask |= TYPE_COLUMN_BITMASK;
+
+		if (!_setOriginalType) {
+			_setOriginalType = true;
+
+			_originalType = _type;
+		}
+
+		_type = type;
+	}
+
+	public int getOriginalType() {
+		return _originalType;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -420,6 +451,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		taskImpl.setDescription(getDescription());
 		taskImpl.setProjectId(getProjectId());
 		taskImpl.setTaskName(getTaskName());
+		taskImpl.setType(getType());
 
 		taskImpl.resetOriginalValues();
 
@@ -484,6 +516,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		taskModelImpl._originalTaskName = taskModelImpl._taskName;
 
+		taskModelImpl._originalType = taskModelImpl._type;
+
+		taskModelImpl._setOriginalType = false;
+
 		taskModelImpl._columnBitmask = 0;
 	}
 
@@ -543,12 +579,14 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			taskCacheModel.taskName = null;
 		}
 
+		taskCacheModel.type = getType();
+
 		return taskCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
@@ -570,6 +608,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		sb.append(getProjectId());
 		sb.append(", taskName=");
 		sb.append(getTaskName());
+		sb.append(", type=");
+		sb.append(getType());
 		sb.append("}");
 
 		return sb.toString();
@@ -577,7 +617,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -623,6 +663,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			"<column><column-name>taskName</column-name><column-value><![CDATA[");
 		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>type</column-name><column-value><![CDATA[");
+		sb.append(getType());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -649,6 +693,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private boolean _setOriginalProjectId;
 	private String _taskName;
 	private String _originalTaskName;
+	private int _type;
+	private int _originalType;
+	private boolean _setOriginalType;
 	private long _columnBitmask;
 	private Task _escapedModel;
 }

@@ -84,6 +84,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
+		attributes.put("type", getType());
 
 		return attributes;
 	}
@@ -148,6 +149,12 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 		if (taskName != null) {
 			setTaskName(taskName);
+		}
+
+		Integer type = (Integer)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
 		}
 	}
 
@@ -392,6 +399,29 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
+	public int getType() {
+		return _type;
+	}
+
+	@Override
+	public void setType(int type) {
+		_type = type;
+
+		if (_taskRemoteModel != null) {
+			try {
+				Class<?> clazz = _taskRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setType", int.class);
+
+				method.invoke(_taskRemoteModel, type);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Project getProject() {
 		try {
 			String methodName = "getProject";
@@ -489,6 +519,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		clone.setDescription(getDescription());
 		clone.setProjectId(getProjectId());
 		clone.setTaskName(getTaskName());
+		clone.setType(getType());
 
 		return clone;
 	}
@@ -535,7 +566,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{taskId=");
 		sb.append(getTaskId());
@@ -557,6 +588,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getProjectId());
 		sb.append(", taskName=");
 		sb.append(getTaskName());
+		sb.append(", type=");
+		sb.append(getType());
 		sb.append("}");
 
 		return sb.toString();
@@ -564,7 +597,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.timesheet.model.Task");
@@ -610,6 +643,10 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			"<column><column-name>taskName</column-name><column-value><![CDATA[");
 		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>type</column-name><column-value><![CDATA[");
+		sb.append(getType());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -627,5 +664,6 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	private String _description;
 	private long _projectId;
 	private String _taskName;
+	private int _type;
 	private BaseModel<?> _taskRemoteModel;
 }

@@ -36,4 +36,7 @@ public interface TaskSession extends TaskSessionModel, PersistedModel {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public long getDuration() throws java.lang.Exception;
+
+	public long getDuration(java.util.Date endTimeForOpenTask)
+		throws java.lang.Exception;
 }

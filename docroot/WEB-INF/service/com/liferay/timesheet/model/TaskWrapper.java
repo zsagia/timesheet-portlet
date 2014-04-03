@@ -59,6 +59,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
+		attributes.put("type", getType());
 
 		return attributes;
 	}
@@ -123,6 +124,12 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 
 		if (taskName != null) {
 			setTaskName(taskName);
+		}
+
+		Integer type = (Integer)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
 		}
 	}
 
@@ -366,6 +373,26 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	@Override
 	public void setTaskName(java.lang.String taskName) {
 		_task.setTaskName(taskName);
+	}
+
+	/**
+	* Returns the type of this task.
+	*
+	* @return the type of this task
+	*/
+	@Override
+	public int getType() {
+		return _task.getType();
+	}
+
+	/**
+	* Sets the type of this task.
+	*
+	* @param type the type of this task
+	*/
+	@Override
+	public void setType(int type) {
+		_task.setType(type);
 	}
 
 	@Override

@@ -461,6 +461,25 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		}
 	}
 
+	@Override
+	public long getDuration(java.util.Date endTimeForOpenTask) {
+		try {
+			String methodName = "getDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.Date.class };
+
+			Object[] parameterValues = new Object[] { endTimeForOpenTask };
+
+			Long returnObj = (Long)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
 	public BaseModel<?> getTaskSessionRemoteModel() {
 		return _taskSessionRemoteModel;
 	}

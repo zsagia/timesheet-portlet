@@ -233,6 +233,20 @@ public interface TaskModel extends BaseModel<Task>, GroupedModel {
 	 */
 	public void setTaskName(String taskName);
 
+	/**
+	 * Returns the type of this task.
+	 *
+	 * @return the type of this task
+	 */
+	public int getType();
+
+	/**
+	 * Sets the type of this task.
+	 *
+	 * @param type the type of this task
+	 */
+	public void setType(int type);
+
 	@Override
 	public boolean isNew();
 

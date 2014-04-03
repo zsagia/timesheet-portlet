@@ -513,6 +513,12 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
+	public long getDuration(java.util.Date endTimeForOpenTask)
+		throws java.lang.Exception {
+		return _taskSession.getDuration(endTimeForOpenTask);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
