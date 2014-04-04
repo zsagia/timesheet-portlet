@@ -31,7 +31,5 @@ public interface Task extends TaskModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.timesheet.model.impl.TaskImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public com.liferay.timesheet.model.Project getProject()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+	public com.liferay.timesheet.model.Project getProject();
 }

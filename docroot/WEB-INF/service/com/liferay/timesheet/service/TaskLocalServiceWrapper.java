@@ -283,17 +283,19 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	@Override
 	public com.liferay.timesheet.model.Task addTask(long userId,
 		java.lang.String taskName, long projectId,
-		java.lang.String description,
+		java.lang.String description, int taskType,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _taskLocalService.addTask(userId, taskName, projectId,
-			description, serviceContext);
+			description, taskType, serviceContext);
 	}
 
 	@Override
 	public com.liferay.timesheet.model.Task getTaskByTN_CR(
-		java.lang.String taskName, long creatorId) {
+		java.lang.String taskName, long creatorId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _taskLocalService.getTaskByTN_CR(taskName, creatorId);
 	}
 
@@ -306,11 +308,25 @@ public class TaskLocalServiceWrapper implements TaskLocalService,
 	}
 
 	@Override
+	public com.liferay.timesheet.model.Task getTaskByType(int taskType)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskLocalService.getTaskByType(taskType);
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
 		long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _taskLocalService.getTasksByUserId(userId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByU_T(
+		long userId, int taskType)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskLocalService.getTasksByU_T(userId, taskType);
 	}
 
 	/**

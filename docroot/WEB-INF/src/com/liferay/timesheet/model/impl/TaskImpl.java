@@ -14,8 +14,6 @@
 
 package com.liferay.timesheet.model.impl;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 
@@ -37,9 +35,14 @@ public class TaskImpl extends TaskBaseImpl {
 	public TaskImpl() {
 	}
 
-	public Project getProject()
-		throws PortalException, SystemException {
+	public Project getProject() {
 
-		return ProjectLocalServiceUtil.getProject(getProjectId());
+		Project project = null;
+
+		try {
+			project = ProjectLocalServiceUtil.getProject(getProjectId());
+		} catch (Exception e) {}
+
+		return project;
 	}
 }

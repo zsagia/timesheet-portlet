@@ -84,7 +84,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
-		attributes.put("type", getType());
+		attributes.put("taskType", getTaskType());
 
 		return attributes;
 	}
@@ -151,10 +151,10 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 			setTaskName(taskName);
 		}
 
-		Integer type = (Integer)attributes.get("type");
+		Integer taskType = (Integer)attributes.get("taskType");
 
-		if (type != null) {
-			setType(type);
+		if (taskType != null) {
+			setTaskType(taskType);
 		}
 	}
 
@@ -399,21 +399,21 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
-	public int getType() {
-		return _type;
+	public int getTaskType() {
+		return _taskType;
 	}
 
 	@Override
-	public void setType(int type) {
-		_type = type;
+	public void setTaskType(int taskType) {
+		_taskType = taskType;
 
 		if (_taskRemoteModel != null) {
 			try {
 				Class<?> clazz = _taskRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setType", int.class);
+				Method method = clazz.getMethod("setTaskType", int.class);
 
-				method.invoke(_taskRemoteModel, type);
+				method.invoke(_taskRemoteModel, taskType);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -519,7 +519,7 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		clone.setDescription(getDescription());
 		clone.setProjectId(getProjectId());
 		clone.setTaskName(getTaskName());
-		clone.setType(getType());
+		clone.setTaskType(getTaskType());
 
 		return clone;
 	}
@@ -588,8 +588,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getProjectId());
 		sb.append(", taskName=");
 		sb.append(getTaskName());
-		sb.append(", type=");
-		sb.append(getType());
+		sb.append(", taskType=");
+		sb.append(getTaskType());
 		sb.append("}");
 
 		return sb.toString();
@@ -644,8 +644,8 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>type</column-name><column-value><![CDATA[");
-		sb.append(getType());
+			"<column><column-name>taskType</column-name><column-value><![CDATA[");
+		sb.append(getTaskType());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -664,6 +664,6 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	private String _description;
 	private long _projectId;
 	private String _taskName;
-	private int _type;
+	private int _taskType;
 	private BaseModel<?> _taskRemoteModel;
 }

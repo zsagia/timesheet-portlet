@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -50,7 +49,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The persistence implementation for the task service.
@@ -573,65 +571,67 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	private static final String _FINDER_COLUMN_PROJECTID_PROJECTID_2 = "task.projectId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_TYPE = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_TASKTYPE = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByType",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTaskType",
 			new String[] {
 				Integer.class.getName(),
 				
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TYPE = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TASKTYPE =
+		new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByType",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTaskType",
 			new String[] { Integer.class.getName() },
-			TaskModelImpl.TYPE_COLUMN_BITMASK |
+			TaskModelImpl.TASKTYPE_COLUMN_BITMASK |
 			TaskModelImpl.TASKNAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_TYPE = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_TASKTYPE = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByType",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTaskType",
 			new String[] { Integer.class.getName() });
 
 	/**
-	 * Returns all the tasks where type = &#63;.
+	 * Returns all the tasks where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @return the matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Task> findByType(int type) throws SystemException {
-		return findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<Task> findByTaskType(int taskType) throws SystemException {
+		return findByTaskType(taskType, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
 	}
 
 	/**
-	 * Returns a range of all the tasks where type = &#63;.
+	 * Returns a range of all the tasks where taskType = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param start the lower bound of the range of tasks
 	 * @param end the upper bound of the range of tasks (not inclusive)
 	 * @return the range of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Task> findByType(int type, int start, int end)
+	public List<Task> findByTaskType(int taskType, int start, int end)
 		throws SystemException {
-		return findByType(type, start, end, null);
+		return findByTaskType(taskType, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the tasks where type = &#63;.
+	 * Returns an ordered range of all the tasks where taskType = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param start the lower bound of the range of tasks
 	 * @param end the upper bound of the range of tasks (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -639,7 +639,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Task> findByType(int type, int start, int end,
+	public List<Task> findByTaskType(int taskType, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -648,12 +648,12 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TYPE;
-			finderArgs = new Object[] { type };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TASKTYPE;
+			finderArgs = new Object[] { taskType };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_TYPE;
-			finderArgs = new Object[] { type, start, end, orderByComparator };
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_TASKTYPE;
+			finderArgs = new Object[] { taskType, start, end, orderByComparator };
 		}
 
 		List<Task> list = (List<Task>)FinderCacheUtil.getResult(finderPath,
@@ -661,7 +661,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (Task task : list) {
-				if ((type != task.getType())) {
+				if ((taskType != task.getTaskType())) {
 					list = null;
 
 					break;
@@ -682,7 +682,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			query.append(_SQL_SELECT_TASK_WHERE);
 
-			query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			query.append(_FINDER_COLUMN_TASKTYPE_TASKTYPE_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -704,7 +704,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(type);
+				qPos.add(taskType);
 
 				if (!pagination) {
 					list = (List<Task>)QueryUtil.list(q, getDialect(), start,
@@ -737,18 +737,19 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the first task in the ordered set where type = &#63;.
+	 * Returns the first task in the ordered set where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Task findByType_First(int type, OrderByComparator orderByComparator)
+	public Task findByTaskType_First(int taskType,
+		OrderByComparator orderByComparator)
 		throws NoSuchTaskException, SystemException {
-		Task task = fetchByType_First(type, orderByComparator);
+		Task task = fetchByTaskType_First(taskType, orderByComparator);
 
 		if (task != null) {
 			return task;
@@ -758,8 +759,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("type=");
-		msg.append(type);
+		msg.append("taskType=");
+		msg.append(taskType);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -767,17 +768,17 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the first task in the ordered set where type = &#63;.
+	 * Returns the first task in the ordered set where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching task, or <code>null</code> if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Task fetchByType_First(int type, OrderByComparator orderByComparator)
-		throws SystemException {
-		List<Task> list = findByType(type, 0, 1, orderByComparator);
+	public Task fetchByTaskType_First(int taskType,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<Task> list = findByTaskType(taskType, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -787,18 +788,19 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the last task in the ordered set where type = &#63;.
+	 * Returns the last task in the ordered set where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Task findByType_Last(int type, OrderByComparator orderByComparator)
+	public Task findByTaskType_Last(int taskType,
+		OrderByComparator orderByComparator)
 		throws NoSuchTaskException, SystemException {
-		Task task = fetchByType_Last(type, orderByComparator);
+		Task task = fetchByTaskType_Last(taskType, orderByComparator);
 
 		if (task != null) {
 			return task;
@@ -808,8 +810,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("type=");
-		msg.append(type);
+		msg.append("taskType=");
+		msg.append(taskType);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -817,23 +819,24 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the last task in the ordered set where type = &#63;.
+	 * Returns the last task in the ordered set where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching task, or <code>null</code> if a matching task could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Task fetchByType_Last(int type, OrderByComparator orderByComparator)
-		throws SystemException {
-		int count = countByType(type);
+	public Task fetchByTaskType_Last(int taskType,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByTaskType(taskType);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Task> list = findByType(type, count - 1, count, orderByComparator);
+		List<Task> list = findByTaskType(taskType, count - 1, count,
+				orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -843,17 +846,17 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Returns the tasks before and after the current task in the ordered set where type = &#63;.
+	 * Returns the tasks before and after the current task in the ordered set where taskType = &#63;.
 	 *
 	 * @param taskId the primary key of the current task
-	 * @param type the type
+	 * @param taskType the task type
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next task
 	 * @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Task[] findByType_PrevAndNext(long taskId, int type,
+	public Task[] findByTaskType_PrevAndNext(long taskId, int taskType,
 		OrderByComparator orderByComparator)
 		throws NoSuchTaskException, SystemException {
 		Task task = findByPrimaryKey(taskId);
@@ -865,12 +868,12 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			Task[] array = new TaskImpl[3];
 
-			array[0] = getByType_PrevAndNext(session, task, type,
+			array[0] = getByTaskType_PrevAndNext(session, task, taskType,
 					orderByComparator, true);
 
 			array[1] = task;
 
-			array[2] = getByType_PrevAndNext(session, task, type,
+			array[2] = getByTaskType_PrevAndNext(session, task, taskType,
 					orderByComparator, false);
 
 			return array;
@@ -883,8 +886,8 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		}
 	}
 
-	protected Task getByType_PrevAndNext(Session session, Task task, int type,
-		OrderByComparator orderByComparator, boolean previous) {
+	protected Task getByTaskType_PrevAndNext(Session session, Task task,
+		int taskType, OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -897,7 +900,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		query.append(_SQL_SELECT_TASK_WHERE);
 
-		query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+		query.append(_FINDER_COLUMN_TASKTYPE_TASKTYPE_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -967,7 +970,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(type);
+		qPos.add(taskType);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(task);
@@ -988,31 +991,31 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	}
 
 	/**
-	 * Removes all the tasks where type = &#63; from the database.
+	 * Removes all the tasks where taskType = &#63; from the database.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeByType(int type) throws SystemException {
-		for (Task task : findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-				null)) {
+	public void removeByTaskType(int taskType) throws SystemException {
+		for (Task task : findByTaskType(taskType, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null)) {
 			remove(task);
 		}
 	}
 
 	/**
-	 * Returns the number of tasks where type = &#63;.
+	 * Returns the number of tasks where taskType = &#63;.
 	 *
-	 * @param type the type
+	 * @param taskType the task type
 	 * @return the number of matching tasks
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByType(int type) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_TYPE;
+	public int countByTaskType(int taskType) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_TASKTYPE;
 
-		Object[] finderArgs = new Object[] { type };
+		Object[] finderArgs = new Object[] { taskType };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -1022,7 +1025,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 			query.append(_SQL_COUNT_TASK_WHERE);
 
-			query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			query.append(_FINDER_COLUMN_TASKTYPE_TASKTYPE_2);
 
 			String sql = query.toString();
 
@@ -1035,7 +1038,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(type);
+				qPos.add(taskType);
 
 				count = (Long)q.uniqueResult();
 
@@ -1054,7 +1057,531 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_TYPE_TYPE_2 = "task.type = ?";
+	private static final String _FINDER_COLUMN_TASKTYPE_TASKTYPE_2 = "task.taskType = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_U_T = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByU_T",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_U_T = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByU_T",
+			new String[] { Long.class.getName(), Integer.class.getName() },
+			TaskModelImpl.USERID_COLUMN_BITMASK |
+			TaskModelImpl.TASKTYPE_COLUMN_BITMASK |
+			TaskModelImpl.TASKNAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_U_T = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
+			TaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_T",
+			new String[] { Long.class.getName(), Integer.class.getName() });
+
+	/**
+	 * Returns all the tasks where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @return the matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<Task> findByU_T(long userId, int taskType)
+		throws SystemException {
+		return findByU_T(userId, taskType, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the tasks where userId = &#63; and taskType = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param start the lower bound of the range of tasks
+	 * @param end the upper bound of the range of tasks (not inclusive)
+	 * @return the range of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<Task> findByU_T(long userId, int taskType, int start, int end)
+		throws SystemException {
+		return findByU_T(userId, taskType, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the tasks where userId = &#63; and taskType = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.TaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param start the lower bound of the range of tasks
+	 * @param end the upper bound of the range of tasks (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<Task> findByU_T(long userId, int taskType, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_U_T;
+			finderArgs = new Object[] { userId, taskType };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_U_T;
+			finderArgs = new Object[] {
+					userId, taskType,
+					
+					start, end, orderByComparator
+				};
+		}
+
+		List<Task> list = (List<Task>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (Task task : list) {
+				if ((userId != task.getUserId()) ||
+						(taskType != task.getTaskType())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(4 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(4);
+			}
+
+			query.append(_SQL_SELECT_TASK_WHERE);
+
+			query.append(_FINDER_COLUMN_U_T_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_T_TASKTYPE_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(TaskModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(taskType);
+
+				if (!pagination) {
+					list = (List<Task>)QueryUtil.list(q, getDialect(), start,
+							end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<Task>(list);
+				}
+				else {
+					list = (List<Task>)QueryUtil.list(q, getDialect(), start,
+							end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first task in the ordered set where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Task findByU_T_First(long userId, int taskType,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = fetchByU_T_First(userId, taskType, orderByComparator);
+
+		if (task != null) {
+			return task;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(", taskType=");
+		msg.append(taskType);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTaskException(msg.toString());
+	}
+
+	/**
+	 * Returns the first task in the ordered set where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching task, or <code>null</code> if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Task fetchByU_T_First(long userId, int taskType,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<Task> list = findByU_T(userId, taskType, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last task in the ordered set where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Task findByU_T_Last(long userId, int taskType,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = fetchByU_T_Last(userId, taskType, orderByComparator);
+
+		if (task != null) {
+			return task;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(", taskType=");
+		msg.append(taskType);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTaskException(msg.toString());
+	}
+
+	/**
+	 * Returns the last task in the ordered set where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching task, or <code>null</code> if a matching task could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Task fetchByU_T_Last(long userId, int taskType,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByU_T(userId, taskType);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<Task> list = findByU_T(userId, taskType, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the tasks before and after the current task in the ordered set where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param taskId the primary key of the current task
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next task
+	 * @throws com.liferay.timesheet.NoSuchTaskException if a task with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Task[] findByU_T_PrevAndNext(long taskId, long userId, int taskType,
+		OrderByComparator orderByComparator)
+		throws NoSuchTaskException, SystemException {
+		Task task = findByPrimaryKey(taskId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Task[] array = new TaskImpl[3];
+
+			array[0] = getByU_T_PrevAndNext(session, task, userId, taskType,
+					orderByComparator, true);
+
+			array[1] = task;
+
+			array[2] = getByU_T_PrevAndNext(session, task, userId, taskType,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Task getByU_T_PrevAndNext(Session session, Task task,
+		long userId, int taskType, OrderByComparator orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TASK_WHERE);
+
+		query.append(_FINDER_COLUMN_U_T_USERID_2);
+
+		query.append(_FINDER_COLUMN_U_T_TASKTYPE_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TaskModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(userId);
+
+		qPos.add(taskType);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(task);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<Task> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the tasks where userId = &#63; and taskType = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByU_T(long userId, int taskType)
+		throws SystemException {
+		for (Task task : findByU_T(userId, taskType, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null)) {
+			remove(task);
+		}
+	}
+
+	/**
+	 * Returns the number of tasks where userId = &#63; and taskType = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param taskType the task type
+	 * @return the number of matching tasks
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByU_T(long userId, int taskType) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_U_T;
+
+		Object[] finderArgs = new Object[] { userId, taskType };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TASK_WHERE);
+
+			query.append(_FINDER_COLUMN_U_T_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_T_TASKTYPE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(taskType);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_T_USERID_2 = "task.userId = ? AND ";
+	private static final String _FINDER_COLUMN_U_T_TASKTYPE_2 = "task.taskType = ?";
 	public static final FinderPath FINDER_PATH_FETCH_BY_TN_CR = new FinderPath(TaskModelImpl.ENTITY_CACHE_ENABLED,
 			TaskModelImpl.FINDER_CACHE_ENABLED, TaskImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByTN_CR",
@@ -2141,17 +2668,37 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 			}
 
 			if ((taskModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TYPE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { taskModelImpl.getOriginalType() };
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TASKTYPE.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { taskModelImpl.getOriginalTaskType() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPE, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TYPE,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TASKTYPE, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TASKTYPE,
 					args);
 
-				args = new Object[] { taskModelImpl.getType() };
+				args = new Object[] { taskModelImpl.getTaskType() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPE, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TYPE,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TASKTYPE, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TASKTYPE,
+					args);
+			}
+
+			if ((taskModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_U_T.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						taskModelImpl.getOriginalUserId(),
+						taskModelImpl.getOriginalTaskType()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_T, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_U_T,
+					args);
+
+				args = new Object[] {
+						taskModelImpl.getUserId(), taskModelImpl.getTaskType()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_T, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_U_T,
 					args);
 			}
 
@@ -2205,7 +2752,7 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		taskImpl.setDescription(task.getDescription());
 		taskImpl.setProjectId(task.getProjectId());
 		taskImpl.setTaskName(task.getTaskName());
-		taskImpl.setType(task.getType());
+		taskImpl.setTaskType(task.getTaskType());
 
 		return taskImpl;
 	}
@@ -2480,11 +3027,6 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 		return count.intValue();
 	}
 
-	@Override
-	protected Set<String> getBadColumnNames() {
-		return _badColumnNames;
-	}
-
 	/**
 	 * Initializes the task persistence.
 	 */
@@ -2527,9 +3069,6 @@ public class TaskPersistenceImpl extends BasePersistenceImpl<Task>
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(TaskPersistenceImpl.class);
-	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"type"
-			});
 	private static Task _nullTask = new TaskImpl() {
 			@Override
 			public Object clone() {

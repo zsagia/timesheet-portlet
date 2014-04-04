@@ -273,17 +273,19 @@ public class TaskLocalServiceUtil {
 
 	public static com.liferay.timesheet.model.Task addTask(long userId,
 		java.lang.String taskName, long projectId,
-		java.lang.String description,
+		java.lang.String description, int taskType,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addTask(userId, taskName, projectId, description,
+				   .addTask(userId, taskName, projectId, description, taskType,
 			serviceContext);
 	}
 
 	public static com.liferay.timesheet.model.Task getTaskByTN_CR(
-		java.lang.String taskName, long creatorId) {
+		java.lang.String taskName, long creatorId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getTaskByTN_CR(taskName, creatorId);
 	}
 
@@ -294,11 +296,23 @@ public class TaskLocalServiceUtil {
 		return getService().getTasksByCreatorId(creatorId);
 	}
 
+	public static com.liferay.timesheet.model.Task getTaskByType(int taskType)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTaskByType(taskType);
+	}
+
 	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
 		long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getTasksByUserId(userId);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByU_T(
+		long userId, int taskType)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTasksByU_T(userId, taskType);
 	}
 
 	public static void clearService() {

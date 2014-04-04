@@ -70,9 +70,7 @@
 			<basic name="description" />
 			<basic name="projectId" />
 			<basic name="taskName" />
-			<basic name="type">
-				<column name="TYPE_" />
-			</basic>
+			<basic name="taskType" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

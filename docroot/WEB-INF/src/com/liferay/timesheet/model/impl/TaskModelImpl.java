@@ -70,9 +70,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			{ "description", Types.VARCHAR },
 			{ "projectId", Types.BIGINT },
 			{ "taskName", Types.VARCHAR },
-			{ "type_", Types.INTEGER }
+			{ "taskType", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null,type_ INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null,taskType INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Task";
 	public static final String ORDER_BY_JPQL = " ORDER BY task.taskName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Task.taskName ASC";
@@ -91,7 +91,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long PROJECTID_COLUMN_BITMASK = 2L;
 	public static long TASKNAME_COLUMN_BITMASK = 4L;
-	public static long TYPE_COLUMN_BITMASK = 8L;
+	public static long TASKTYPE_COLUMN_BITMASK = 8L;
 	public static long USERID_COLUMN_BITMASK = 16L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
@@ -143,7 +143,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
-		attributes.put("type", getType());
+		attributes.put("taskType", getTaskType());
 
 		return attributes;
 	}
@@ -210,10 +210,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			setTaskName(taskName);
 		}
 
-		Integer type = (Integer)attributes.get("type");
+		Integer taskType = (Integer)attributes.get("taskType");
 
-		if (type != null) {
-			setType(type);
+		if (taskType != null) {
+			setTaskType(taskType);
 		}
 	}
 
@@ -389,25 +389,25 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	}
 
 	@Override
-	public int getType() {
-		return _type;
+	public int getTaskType() {
+		return _taskType;
 	}
 
 	@Override
-	public void setType(int type) {
-		_columnBitmask |= TYPE_COLUMN_BITMASK;
+	public void setTaskType(int taskType) {
+		_columnBitmask |= TASKTYPE_COLUMN_BITMASK;
 
-		if (!_setOriginalType) {
-			_setOriginalType = true;
+		if (!_setOriginalTaskType) {
+			_setOriginalTaskType = true;
 
-			_originalType = _type;
+			_originalTaskType = _taskType;
 		}
 
-		_type = type;
+		_taskType = taskType;
 	}
 
-	public int getOriginalType() {
-		return _originalType;
+	public int getOriginalTaskType() {
+		return _originalTaskType;
 	}
 
 	public long getColumnBitmask() {
@@ -451,7 +451,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		taskImpl.setDescription(getDescription());
 		taskImpl.setProjectId(getProjectId());
 		taskImpl.setTaskName(getTaskName());
-		taskImpl.setType(getType());
+		taskImpl.setTaskType(getTaskType());
 
 		taskImpl.resetOriginalValues();
 
@@ -516,9 +516,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 		taskModelImpl._originalTaskName = taskModelImpl._taskName;
 
-		taskModelImpl._originalType = taskModelImpl._type;
+		taskModelImpl._originalTaskType = taskModelImpl._taskType;
 
-		taskModelImpl._setOriginalType = false;
+		taskModelImpl._setOriginalTaskType = false;
 
 		taskModelImpl._columnBitmask = 0;
 	}
@@ -579,7 +579,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			taskCacheModel.taskName = null;
 		}
 
-		taskCacheModel.type = getType();
+		taskCacheModel.taskType = getTaskType();
 
 		return taskCacheModel;
 	}
@@ -608,8 +608,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		sb.append(getProjectId());
 		sb.append(", taskName=");
 		sb.append(getTaskName());
-		sb.append(", type=");
-		sb.append(getType());
+		sb.append(", taskType=");
+		sb.append(getTaskType());
 		sb.append("}");
 
 		return sb.toString();
@@ -664,8 +664,8 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		sb.append(getTaskName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>type</column-name><column-value><![CDATA[");
-		sb.append(getType());
+			"<column><column-name>taskType</column-name><column-value><![CDATA[");
+		sb.append(getTaskType());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -693,9 +693,9 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private boolean _setOriginalProjectId;
 	private String _taskName;
 	private String _originalTaskName;
-	private int _type;
-	private int _originalType;
-	private boolean _setOriginalType;
+	private int _taskType;
+	private int _originalTaskType;
+	private boolean _setOriginalTaskType;
 	private long _columnBitmask;
 	private Task _escapedModel;
 }

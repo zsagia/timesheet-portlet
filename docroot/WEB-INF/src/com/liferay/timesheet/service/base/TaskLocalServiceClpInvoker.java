@@ -113,7 +113,7 @@ public class TaskLocalServiceClpInvoker {
 		_methodName56 = "addTask";
 
 		_methodParameterTypes56 = new String[] {
-				"long", "java.lang.String", "long", "java.lang.String",
+				"long", "java.lang.String", "long", "java.lang.String", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -125,9 +125,17 @@ public class TaskLocalServiceClpInvoker {
 
 		_methodParameterTypes58 = new String[] { "long" };
 
-		_methodName59 = "getTasksByUserId";
+		_methodName59 = "getTaskByType";
 
-		_methodParameterTypes59 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "int" };
+
+		_methodName60 = "getTasksByUserId";
+
+		_methodParameterTypes60 = new String[] { "long" };
+
+		_methodName61 = "getTasksByU_T";
+
+		_methodParameterTypes61 = new String[] { "long", "int" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,7 +245,8 @@ public class TaskLocalServiceClpInvoker {
 				(java.lang.String)arguments[1],
 				((Long)arguments[2]).longValue(),
 				(java.lang.String)arguments[3],
-				(com.liferay.portal.service.ServiceContext)arguments[4]);
+				((Integer)arguments[4]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
 		if (_methodName57.equals(name) &&
@@ -253,7 +262,18 @@ public class TaskLocalServiceClpInvoker {
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return TaskLocalServiceUtil.getTaskByType(((Integer)arguments[0]).intValue());
+		}
+
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return TaskLocalServiceUtil.getTasksByUserId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByU_T(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -303,4 +323,8 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 }

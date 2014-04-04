@@ -59,7 +59,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 		attributes.put("description", getDescription());
 		attributes.put("projectId", getProjectId());
 		attributes.put("taskName", getTaskName());
-		attributes.put("type", getType());
+		attributes.put("taskType", getTaskType());
 
 		return attributes;
 	}
@@ -126,10 +126,10 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 			setTaskName(taskName);
 		}
 
-		Integer type = (Integer)attributes.get("type");
+		Integer taskType = (Integer)attributes.get("taskType");
 
-		if (type != null) {
-			setType(type);
+		if (taskType != null) {
+			setTaskType(taskType);
 		}
 	}
 
@@ -376,23 +376,23 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	/**
-	* Returns the type of this task.
+	* Returns the task type of this task.
 	*
-	* @return the type of this task
+	* @return the task type of this task
 	*/
 	@Override
-	public int getType() {
-		return _task.getType();
+	public int getTaskType() {
+		return _task.getTaskType();
 	}
 
 	/**
-	* Sets the type of this task.
+	* Sets the task type of this task.
 	*
-	* @param type the type of this task
+	* @param taskType the task type of this task
 	*/
 	@Override
-	public void setType(int type) {
-		_task.setType(type);
+	public void setTaskType(int taskType) {
+		_task.setTaskType(taskType);
 	}
 
 	@Override
@@ -500,9 +500,7 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Project getProject()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+	public com.liferay.timesheet.model.Project getProject() {
 		return _task.getProject();
 	}
 

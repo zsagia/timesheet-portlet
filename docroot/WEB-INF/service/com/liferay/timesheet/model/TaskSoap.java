@@ -40,7 +40,7 @@ public class TaskSoap implements Serializable {
 		soapModel.setDescription(model.getDescription());
 		soapModel.setProjectId(model.getProjectId());
 		soapModel.setTaskName(model.getTaskName());
-		soapModel.setType(model.getType());
+		soapModel.setTaskType(model.getTaskType());
 
 		return soapModel;
 	}
@@ -173,12 +173,12 @@ public class TaskSoap implements Serializable {
 		_taskName = taskName;
 	}
 
-	public int getType() {
-		return _type;
+	public int getTaskType() {
+		return _taskType;
 	}
 
-	public void setType(int type) {
-		_type = type;
+	public void setTaskType(int taskType) {
+		_taskType = taskType;
 	}
 
 	private long _taskId;
@@ -191,5 +191,5 @@ public class TaskSoap implements Serializable {
 	private String _description;
 	private long _projectId;
 	private String _taskName;
-	private int _type;
+	private int _taskType;
 }

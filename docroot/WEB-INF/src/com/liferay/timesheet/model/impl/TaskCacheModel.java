@@ -59,8 +59,8 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 		sb.append(projectId);
 		sb.append(", taskName=");
 		sb.append(taskName);
-		sb.append(", type=");
-		sb.append(type);
+		sb.append(", taskType=");
+		sb.append(taskType);
 		sb.append("}");
 
 		return sb.toString();
@@ -112,7 +112,7 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 			taskImpl.setTaskName(taskName);
 		}
 
-		taskImpl.setType(type);
+		taskImpl.setTaskType(taskType);
 
 		taskImpl.resetOriginalValues();
 
@@ -131,7 +131,7 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 		description = objectInput.readUTF();
 		projectId = objectInput.readLong();
 		taskName = objectInput.readUTF();
-		type = objectInput.readInt();
+		taskType = objectInput.readInt();
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 			objectOutput.writeUTF(taskName);
 		}
 
-		objectOutput.writeInt(type);
+		objectOutput.writeInt(taskType);
 	}
 
 	public long taskId;
@@ -181,5 +181,5 @@ public class TaskCacheModel implements CacheModel<Task>, Externalizable {
 	public String description;
 	public long projectId;
 	public String taskName;
-	public int type;
+	public int taskType;
 }
