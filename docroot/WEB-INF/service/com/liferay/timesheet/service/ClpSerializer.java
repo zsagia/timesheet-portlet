@@ -305,6 +305,10 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.EntityCreationException();
 		}
 
+		if (className.equals("com.liferay.timesheet.FutureStartTimeException")) {
+			return new com.liferay.timesheet.FutureStartTimeException();
+		}
+
 		if (className.equals(
 					"com.liferay.timesheet.NoCurrentTaskSessionException")) {
 			return new com.liferay.timesheet.NoCurrentTaskSessionException();

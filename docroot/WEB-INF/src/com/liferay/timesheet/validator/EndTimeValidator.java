@@ -4,6 +4,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
 import com.liferay.timesheet.EndTimeException;
+import com.liferay.timesheet.FutureStartTimeException;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
 import com.liferay.timesheet.StartEndTimeException;
 import com.liferay.timesheet.WorkDurationException;
@@ -26,7 +27,7 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("EndTimeValidator")
 public class EndTimeValidator implements Validator {
-	
+
 	private static final Logger logger =
 		LoggerFactory.getLogger(EndTimeValidator.class);
 
@@ -41,7 +42,12 @@ public class EndTimeValidator implements Validator {
 			FacesMessage facesMessage = null;
 
 			try {
+				Date endTime = (Date)value;
+				Date now = new Date();
 				Date today = TimesheetUtil.getTodayWithoutTime();
+
+				DateTimeValidatorUtil.validateFutureStartTime(endTime, now);
+				DateTimeValidatorUtil.validateLatestEndTime(endTime);
 
 				TaskSession lastTaskSession =
 					TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U(
@@ -49,7 +55,7 @@ public class EndTimeValidator implements Validator {
 
 				if (lastTaskSession != null) {
 					DateTimeValidatorUtil.validateEndTime(
-						lastTaskSession, (Date)value);
+						lastTaskSession, endTime);
 
 					List<TaskSession> taskSessionList =
 						TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
@@ -57,9 +63,7 @@ public class EndTimeValidator implements Validator {
 
 					DateTimeValidatorUtil.validateWorkDuration(
 						TimeCalculatorUtil.summerizeDayTime(
-							taskSessionList, (Date)value));
-
-					DateTimeValidatorUtil.validateLatestEndTime((Date)value);
+							taskSessionList, endTime));
 				}
 
 			} catch (EndTimeException ete) {
@@ -68,6 +72,11 @@ public class EndTimeValidator implements Validator {
 					"end_session_validation_error",
 					"another_task_is_already_recorded"
 						+ "_in_the_given_period");
+			} catch (FutureStartTimeException fste) {
+				facesMessage = MessageUtil.getFacesMessage(
+						FacesMessage.SEVERITY_ERROR,
+						"start_session_validation_error",
+						"task_is_not_startable_in_the_future");
 			} catch (NoCurrentTaskSessionException nctse) {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,

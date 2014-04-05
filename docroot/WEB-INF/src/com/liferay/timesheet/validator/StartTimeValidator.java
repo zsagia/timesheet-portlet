@@ -3,6 +3,7 @@ package com.liferay.timesheet.validator;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.EarliestStartTimeException;
+import com.liferay.timesheet.FutureStartTimeException;
 import com.liferay.timesheet.StartEndTimeException;
 import com.liferay.timesheet.StartTimeException;
 import com.liferay.timesheet.WorkDurationException;
@@ -30,7 +31,7 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("StartTimeValidator")
 public class StartTimeValidator implements Validator {
-	
+
 	private static final Logger logger =
 		LoggerFactory.getLogger(StartTimeValidator.class);
 
@@ -41,31 +42,35 @@ public class StartTimeValidator implements Validator {
 
 		if (value != null) {
 			long userId = TimesheetUtil.getCurrentUserId();
+			Date startTime = (Date)value;
+			Date now = new Date();
 
 			FacesMessage facesMessage = null;
 
 			try {
-				Date todayWithoutTime = TimesheetUtil.getTodayWithoutTime();
+				DateTimeValidatorUtil.validateFutureStartTime(startTime, now);
+				DateTimeValidatorUtil.validateLatestEndTime(startTime);
+
+				Date today = TimesheetUtil.getTodayWithoutTime();
 
 				TaskSession lastTaskSession =
 					TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U(
-						todayWithoutTime, userId);
+						today, userId);
 
 				if (lastTaskSession != null) {
 					List<TaskSession> taskSessionList =
 						TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-							todayWithoutTime, userId);
+							today, userId);
 
 					DateTimeValidatorUtil.validateWorkDuration(
 						TimeCalculatorUtil.summerizeDayTime(
-							taskSessionList, (Date)value));
+							taskSessionList, startTime));
 
-					DateTimeValidatorUtil.validateLatestEndTime((Date)value);
 					DateTimeValidatorUtil.validateStartTime(
-						lastTaskSession, (Date)value);
+						lastTaskSession, startTime);
 				}
 				else {
-					DateTimeValidatorUtil.validateWorkStart((Date)value);
+					DateTimeValidatorUtil.validateWorkStart(startTime);
 				}
 			} catch (StartTimeException ste) {
 				facesMessage = MessageUtil.getFacesMessage(
@@ -80,6 +85,11 @@ public class StartTimeValidator implements Validator {
 					"the_given_time_does_not_fit_the_time_frame_defined_for_"
 						+ "work_start "
 						+ PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+			} catch (FutureStartTimeException fste) {
+				facesMessage = MessageUtil.getFacesMessage(
+						FacesMessage.SEVERITY_ERROR,
+						"start_session_validation_error",
+						"task_is_not_startable_in_the_future");
 			} catch (StartEndTimeException sete) {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,

@@ -3,6 +3,7 @@ package com.liferay.timesheet.validator;
 import com.liferay.timesheet.CurrentTaskSessionIsAlreadyEndedException;
 import com.liferay.timesheet.EarliestStartTimeException;
 import com.liferay.timesheet.EndTimeException;
+import com.liferay.timesheet.FutureStartTimeException;
 import com.liferay.timesheet.NoCurrentTaskSessionException;
 import com.liferay.timesheet.StartEndTimeException;
 import com.liferay.timesheet.StartTimeException;
@@ -53,6 +54,15 @@ public class DateTimeValidatorUtil {
 
 		if (endDate.before(startTime)) {
 			throw new EndTimeException();
+		}
+	}
+
+	public static void validateFutureStartTime(
+			Date startTime, Date now)
+		throws FutureStartTimeException {
+
+		if (startTime.after(now)) {
+			throw new FutureStartTimeException();
 		}
 	}
 

@@ -202,6 +202,7 @@
 		<exception>EarliestStartTime</exception>
 		<exception>EndTime</exception>
 		<exception>EntityCreation</exception>
+		<exception>FutureStartTime</exception>
 		<exception>NoCurrentTaskSession</exception>
 		<exception>NoSelectedTask</exception>
 		<exception>StartTime</exception>
