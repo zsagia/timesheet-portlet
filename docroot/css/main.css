@@ -39,11 +39,37 @@
 	float: right;
 }
 
-.timesheet .summary-time-column span, .timesheet .current-task-session-column span {
+.timesheet .summary-time-column span, .timesheet .current-task-session-column span,
+.timesheet .task-column-list span {
+	color: #009AE5;
 	font-weight: bold;
 }
 
-.timesheet .summary-time-column label, .timesheet .current-task-session-column label {
+.timesheet .summary-time-column label, .timesheet .current-task-session-column label,
+.timesheet .task-column-list label {
 	display: inline;
 	padding-left: 10px;
+}
+
+.timesheet .task-column-list input[type="text"]{
+	height: 18px;
+	width: 80px;
+}
+
+.timesheet .project-tree.ui-widget-content {
+	border: none;
+}
+
+.timesheet .field-content {
+	margin: 10px 0;
+}
+
+.timesheet .field-content .aui-field-element label {
+	font-weight: 600;
+	padding-left: 10px;
+}
+
+.timesheet .task-row {
+	display: inline-block;
+	min-width: 400px;
 }

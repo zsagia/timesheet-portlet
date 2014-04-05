@@ -22,7 +22,7 @@
 
 	<cc:implementation>
 		<aui:layout>
-			<aui:column rendered="#{empty cc.attrs.selectedTask}">
+			<aui:column rendered="#{empty cc.attrs.selectedTask}" styleClass="task-column">
 				<aui:fieldset>
 					<aui:field label="Start">
 						<h:inputText id="startTime" value="#{cc.attrs.startTime}">
@@ -47,17 +47,27 @@
 				</h:commandButton>
 			</aui:column>
 
-			<aui:column rendered="#{not empty cc.attrs.selectedTask}">
-				<h:outputText value="Start: " />
+			<aui:column rendered="#{not empty cc.attrs.selectedTask}" styleClass="task-column-list">
+				<label>
+					<h:outputText value="Start: " />
+				</label>
 
 				<h:inputText id="startTime" value="#{cc.attrs.startTime}">
 					<f:converter converterId="TimeSheetConverter" />
 					<f:validator validatorId="StartTimeValidator" />
 				</h:inputText>
 
-				<h:outputText value="#{cc.attrs.selectedTask.project.projectName}" rendered="#{not empty cc.attrs.selectedTask.project}" />
-				<h:outputText value=" > " />
-				<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
+				<div class="task-row">
+					<label class="projectLabel" >
+						<h:outputText value="#{cc.attrs.selectedTask.project.projectName}" rendered="#{not empty cc.attrs.selectedTask.project}"/>
+					</label>
+					<span>
+						<h:outputText value=" > " />
+					</span>
+					<label class="taslLabel">
+						<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
+					</label>
+				</div>
 
 				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" styleClass="btn btn-primary" value="Start Task">
 					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />

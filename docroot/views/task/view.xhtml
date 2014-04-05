@@ -13,6 +13,8 @@
 	<h:head />
 
 	<h:body styleClass="timesheet">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
 		<aui:layout styleClass="curernt-task-layout">
 			<aui:column styleClass="current-task-column">
 				<components:currentTaskSessionComponent
@@ -25,53 +27,57 @@
 			</aui:column>
 		</aui:layout>
 
-		<h:messages showDetail="true" showSummary="true" />
-
 		<p:tabView id="tabView">  
 			<p:tab id="tab1" title="Creation">
-				<h:form id="taskForm">
-					<aui:layout>
-						<aui:column id="project_column_1">
-							<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
-								value="#{enabledProjectBean.selectedDepartment}" var="d">
+				<aui:layout>
+					<aui:column columnWidth="30" id="project_column_1" styleClass="project-column">
+						<h:form id="taskForm">
+							<aui:column>
+								<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
+									value="#{enabledProjectBean.selectedDepartment}" var="d">
 
-								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
-									value="#{taskBean.departmentBean.departments}" var="department" />
+									<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
+										value="#{taskBean.departmentBean.departments}" var="department" />
+	
+									<p:ajax event="change" listener="#{enabledProjectBean.onDepartmentSelect}"
+										update=":#{p:component('projectTree')}" />
+								</h:selectOneMenu>
+	
+								<p:tree id="projectTree" selection="#{enabledProjectBean.selectedProjectNode}" selectionMode="single"
+									value="#{enabledProjectBean.root}" var="project">
+	
+									<p:treeNode>
+										<h:outputText value="#{project}" />
+									</p:treeNode>
+								</p:tree>
+							</aui:column>
 
-								<p:ajax event="change" listener="#{enabledProjectBean.onDepartmentSelect}"
-									update=":#{p:component('projectTree')}" />
-							</h:selectOneMenu>
+							<aui:column id="project_column_2">
+								<components:taskComponent
+									actionMethod="#{taskBean.createTaskAction}"
+									description="#{taskBean.taskModelBean.description}"
+									projectRoot="#{enabledProjectBean.root}"
+									selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
+									startTime="#{taskSessionSimpleBean.taskSessionModelBean.startTime}"
+									taskName="#{taskBean.taskModelBean.taskName}" />
+							</aui:column>
+						</h:form>
+					</aui:column>
 
-							<p:tree id="projectTree" selection="#{enabledProjectBean.selectedProjectNode}" selectionMode="single"
-								value="#{enabledProjectBean.root}" var="project">
-
-								<p:treeNode>
-									<h:outputText value="#{project}" />
-								</p:treeNode>
-							</p:tree>
-						</aui:column>
-
-						<aui:column id="project_column_2">
-							<components:taskComponent
-								actionMethod="#{taskBean.createTaskAction}"
-								description="#{taskBean.taskModelBean.description}"
-								projectRoot="#{enabledProjectBean.root}"
-								selectedProjectNode="#{enabledProjectBean.selectedProjectNode}"
-								startTime="#{taskSessionSimpleBean.taskSessionModelBean.startTime}"
-								taskName="#{taskBean.taskModelBean.taskName}" />
-						</aui:column>
-					</aui:layout>
-				</h:form>
-
-				<h:form id="taskSessionForm">
-					<ui:repeat value="#{taskBean.taskModelBean.tasksByUser}" var="task">
-						<components:taskComponent
-							actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
-							description="#{taskBean.taskModelBean.description}"
-							selectedTask="#{task}"
-							startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
-					</ui:repeat>
-				</h:form>
+					<aui:column columnWidth="20">
+					</aui:column>
+					<aui:column columnWidth="50">
+						<h:form id="taskSessionForm">
+							<ui:repeat value="#{taskBean.taskModelBean.tasksByUser}" var="task">
+								<components:taskComponent
+									actionMethod="#{taskSessionMultipleBean.createTaskSessionAction}"
+									description="#{taskBean.taskModelBean.description}"
+									selectedTask="#{task}"
+									startTime="#{taskSessionMultipleBean.startTimes[task.taskId]}" />
+							</ui:repeat>
+						</h:form>
+					</aui:column>
+				</aui:layout>
 			</p:tab>
 
 			<p:tab id="tab2" title="Daily View">
