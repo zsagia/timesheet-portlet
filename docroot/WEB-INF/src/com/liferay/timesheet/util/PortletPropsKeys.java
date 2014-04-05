@@ -11,6 +11,9 @@ public interface PortletPropsKeys {
 	public static final String RESTRICTIONS_BASETIME_START =
 		"restrictions.basetime.start";
 
+	public static final String RESTRICTIONS_BREAKTIME_DURATION =
+		"restrictions.breaktime.duration";
+
 	public static final String RESTRICTIONS_ENDTIME_LATEST =
 		"restrictions.endtime.latest";
 

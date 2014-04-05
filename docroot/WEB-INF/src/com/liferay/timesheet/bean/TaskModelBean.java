@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
+import com.liferay.timesheet.util.TaskConstants;
 import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
@@ -28,7 +29,8 @@ public class TaskModelBean implements Serializable {
 		throws PortalException, SystemException {
 
 		return TaskLocalServiceUtil.addTask(
-			userId, taskName, projectId, description, serviceContext);
+			userId, taskName, projectId, description,
+			TaskConstants.GENERAL_TASK, serviceContext);
 	}
 
 	public List<Task> getTasksByUser() {
@@ -38,8 +40,14 @@ public class TaskModelBean implements Serializable {
 
 		try {
 			tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
+
+			Task lunchTask = TaskLocalServiceUtil.getTaskByType(
+				TaskConstants.LUNCH_TASK);
+
+			tasksToday.add(0, lunchTask);
 		} catch (Exception e) {
-			logger.error("Getting tasks for userId: " + userId + " is failed");
+			logger.error(
+				"Getting tasks for userId: " + userId + " is failed", e);
 		}
 
 		return tasksToday;

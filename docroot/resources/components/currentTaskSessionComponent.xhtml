@@ -57,7 +57,7 @@
 						<h:outputText value="Current Task: " />
 					</label>
 					<span>
-						<h:outputText value="#{cc.attrs.currentTaskSession.task.project.projectName}"/>
+						<h:outputText value="#{cc.attrs.currentTaskSession.task.project.projectName}" rendered="#{not empty cc.attrs.selectedTask.project}" />
 						<h:outputText value=" > "/>
 						<h:outputText value="#{cc.attrs.currentTaskSession.task.taskName}" />
 					</span>

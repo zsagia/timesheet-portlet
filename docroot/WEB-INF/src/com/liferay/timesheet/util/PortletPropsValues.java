@@ -15,6 +15,10 @@ public class PortletPropsValues {
 		GetterUtil.getString(PortletProps.get(
 			PortletPropsKeys.RESTRICTIONS_BASETIME_START));
 
+	public static final String RESTRICTIONS_BREAKTIME_DURATION =
+		GetterUtil.getString(PortletProps.get(
+			PortletPropsKeys.RESTRICTIONS_BREAKTIME_DURATION));
+
 	public static final String RESTRICTIONS_ENDTIME_LATEST =
 		GetterUtil.getString(PortletProps.get(
 			PortletPropsKeys.RESTRICTIONS_ENDTIME_LATEST));

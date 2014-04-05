@@ -55,7 +55,7 @@
 					<f:validator validatorId="StartTimeValidator" />
 				</h:inputText>
 
-				<h:outputText value="#{cc.attrs.selectedTask.project.projectName}" />
+				<h:outputText value="#{cc.attrs.selectedTask.project.projectName}" rendered="#{not empty cc.attrs.selectedTask.project}" />
 				<h:outputText value=" > " />
 				<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
 
