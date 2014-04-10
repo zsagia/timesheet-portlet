@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * The contents of this file are subject to the terms of the Liferay Enterprise
  * Subscription License ("License"). You may not use this file except in
@@ -17,23 +17,23 @@ package com.liferay.timesheet;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
-public class NoSelectedTaskException extends PortalException {
+public class TSNoCurrentTaskSessionException extends PortalException {
 
-	public NoSelectedTaskException() {
+	public TSNoCurrentTaskSessionException() {
 		super();
 	}
 
-	public NoSelectedTaskException(String msg) {
+	public TSNoCurrentTaskSessionException(String msg) {
 		super(msg);
 	}
 
-	public NoSelectedTaskException(String msg, Throwable cause) {
+	public TSNoCurrentTaskSessionException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public NoSelectedTaskException(Throwable cause) {
+	public TSNoCurrentTaskSessionException(Throwable cause) {
 		super(cause);
 	}
 

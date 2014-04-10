@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class StratTimeRestricitionException extends PortalException {
+public class TSEarliestStartTimeException extends PortalException {
 
-	public StratTimeRestricitionException() {
+	public TSEarliestStartTimeException() {
 		super();
 	}
 
-	public StratTimeRestricitionException(String msg) {
+	public TSEarliestStartTimeException(String msg) {
 		super(msg);
 	}
 
-	public StratTimeRestricitionException(String msg, Throwable cause) {
+	public TSEarliestStartTimeException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public StratTimeRestricitionException(Throwable cause) {
+	public TSEarliestStartTimeException(Throwable cause) {
 		super(cause);
 	}
 

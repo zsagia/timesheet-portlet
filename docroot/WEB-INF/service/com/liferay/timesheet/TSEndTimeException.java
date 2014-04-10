@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * The contents of this file are subject to the terms of the Liferay Enterprise
  * Subscription License ("License"). You may not use this file except in
@@ -17,23 +17,23 @@ package com.liferay.timesheet;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Istvan Sajtos
+ * @author Istvan Sajtos, Zsolt Szabo
  */
-public class EndTimeException extends PortalException {
+public class TSEndTimeException extends PortalException {
 
-	public EndTimeException() {
+	public TSEndTimeException() {
 		super();
 	}
 
-	public EndTimeException(String msg) {
+	public TSEndTimeException(String msg) {
 		super(msg);
 	}
 
-	public EndTimeException(String msg, Throwable cause) {
+	public TSEndTimeException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public EndTimeException(Throwable cause) {
+	public TSEndTimeException(Throwable cause) {
 		super(cause);
 	}
 

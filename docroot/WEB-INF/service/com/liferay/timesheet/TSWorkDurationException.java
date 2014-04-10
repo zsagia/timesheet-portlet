@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class WorkDurationException extends PortalException {
+public class TSWorkDurationException extends PortalException {
 
-	public WorkDurationException() {
+	public TSWorkDurationException() {
 		super();
 	}
 
-	public WorkDurationException(String msg) {
+	public TSWorkDurationException(String msg) {
 		super(msg);
 	}
 
-	public WorkDurationException(String msg, Throwable cause) {
+	public TSWorkDurationException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public WorkDurationException(Throwable cause) {
+	public TSWorkDurationException(Throwable cause) {
 		super(cause);
 	}
 

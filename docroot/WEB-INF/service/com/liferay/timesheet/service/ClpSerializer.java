@@ -293,49 +293,52 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
-		if (className.equals("com.liferay.timesheet.EarliestStartTimeException")) {
-			return new com.liferay.timesheet.EarliestStartTimeException();
+		if (className.equals(
+					"com.liferay.timesheet.TSEarliestStartTimeException")) {
+			return new com.liferay.timesheet.TSEarliestStartTimeException();
 		}
 
-		if (className.equals("com.liferay.timesheet.EndTimeException")) {
-			return new com.liferay.timesheet.EndTimeException();
+		if (className.equals("com.liferay.timesheet.TSEndTimeException")) {
+			return new com.liferay.timesheet.TSEndTimeException();
 		}
 
-		if (className.equals("com.liferay.timesheet.EntityCreationException")) {
-			return new com.liferay.timesheet.EntityCreationException();
+		if (className.equals("com.liferay.timesheet.TSEntityCreationException")) {
+			return new com.liferay.timesheet.TSEntityCreationException();
 		}
 
-		if (className.equals("com.liferay.timesheet.FutureStartTimeException")) {
-			return new com.liferay.timesheet.FutureStartTimeException();
+		if (className.equals("com.liferay.timesheet.TSFutureStartTimeException")) {
+			return new com.liferay.timesheet.TSFutureStartTimeException();
 		}
 
 		if (className.equals(
-					"com.liferay.timesheet.NoCurrentTaskSessionException")) {
-			return new com.liferay.timesheet.NoCurrentTaskSessionException();
+					"com.liferay.timesheet.TSNoCurrentTaskSessionException")) {
+			return new com.liferay.timesheet.TSNoCurrentTaskSessionException();
 		}
 
-		if (className.equals("com.liferay.timesheet.NoSelectedTaskException")) {
-			return new com.liferay.timesheet.NoSelectedTaskException();
+		if (className.equals("com.liferay.timesheet.TSNoSelectedTaskException")) {
+			return new com.liferay.timesheet.TSNoSelectedTaskException();
 		}
 
-		if (className.equals("com.liferay.timesheet.StartEndTimeException")) {
-			return new com.liferay.timesheet.StartEndTimeException();
+		if (className.equals("com.liferay.timesheet.TSStartEndTimeException")) {
+			return new com.liferay.timesheet.TSStartEndTimeException();
 		}
 
-		if (className.equals("com.liferay.timesheet.StartTimeException")) {
-			return new com.liferay.timesheet.StartTimeException();
+		if (className.equals("com.liferay.timesheet.TSStartTimeException")) {
+			return new com.liferay.timesheet.TSStartTimeException();
 		}
 
-		if (className.equals("com.liferay.timesheet.TaskSessionCloseException")) {
-			return new com.liferay.timesheet.TaskSessionCloseException();
+		if (className.equals(
+					"com.liferay.timesheet.TSTaskSessionCloseException")) {
+			return new com.liferay.timesheet.TSTaskSessionCloseException();
 		}
 
-		if (className.equals("com.liferay.timesheet.TaskSessionUpdateException")) {
-			return new com.liferay.timesheet.TaskSessionUpdateException();
+		if (className.equals(
+					"com.liferay.timesheet.TSTaskSessionUpdateException")) {
+			return new com.liferay.timesheet.TSTaskSessionUpdateException();
 		}
 
-		if (className.equals("com.liferay.timesheet.WorkDurationException")) {
-			return new com.liferay.timesheet.WorkDurationException();
+		if (className.equals("com.liferay.timesheet.TSWorkDurationException")) {
+			return new com.liferay.timesheet.TSWorkDurationException();
 		}
 
 		if (className.equals("com.liferay.timesheet.NoSuchDepartmentException")) {

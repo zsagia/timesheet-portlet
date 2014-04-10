@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class EarliestStartTimeException extends PortalException {
+public class TSFutureStartTimeException extends PortalException {
 
-	public EarliestStartTimeException() {
+	public TSFutureStartTimeException() {
 		super();
 	}
 
-	public EarliestStartTimeException(String msg) {
+	public TSFutureStartTimeException(String msg) {
 		super(msg);
 	}
 
-	public EarliestStartTimeException(String msg, Throwable cause) {
+	public TSFutureStartTimeException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public EarliestStartTimeException(Throwable cause) {
+	public TSFutureStartTimeException(Throwable cause) {
 		super(cause);
 	}
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * The contents of this file are subject to the terms of the Liferay Enterprise
  * Subscription License ("License"). You may not use this file except in
@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class TaskSessionCloseException extends PortalException {
+public class TSNoSelectedTaskException extends PortalException {
 
-	public TaskSessionCloseException() {
+	public TSNoSelectedTaskException() {
 		super();
 	}
 
-	public TaskSessionCloseException(String msg) {
+	public TSNoSelectedTaskException(String msg) {
 		super(msg);
 	}
 
-	public TaskSessionCloseException(String msg, Throwable cause) {
+	public TSNoSelectedTaskException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public TaskSessionCloseException(Throwable cause) {
+	public TSNoSelectedTaskException(Throwable cause) {
 		super(cause);
 	}
 

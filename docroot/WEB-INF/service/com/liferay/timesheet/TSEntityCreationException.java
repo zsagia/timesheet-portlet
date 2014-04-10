@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class FutureStartTimeException extends PortalException {
+public class TSEntityCreationException extends PortalException {
 
-	public FutureStartTimeException() {
+	public TSEntityCreationException() {
 		super();
 	}
 
-	public FutureStartTimeException(String msg) {
+	public TSEntityCreationException(String msg) {
 		super(msg);
 	}
 
-	public FutureStartTimeException(String msg, Throwable cause) {
+	public TSEntityCreationException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public FutureStartTimeException(Throwable cause) {
+	public TSEntityCreationException(Throwable cause) {
 		super(cause);
 	}
 

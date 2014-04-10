@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * The contents of this file are subject to the terms of the Liferay Enterprise
  * Subscription License ("License"). You may not use this file except in
@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class TaskSessionCreationException extends PortalException {
+public class TSStartTimeException extends PortalException {
 
-	public TaskSessionCreationException() {
+	public TSStartTimeException() {
 		super();
 	}
 
-	public TaskSessionCreationException(String msg) {
+	public TSStartTimeException(String msg) {
 		super(msg);
 	}
 
-	public TaskSessionCreationException(String msg, Throwable cause) {
+	public TSStartTimeException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public TaskSessionCreationException(Throwable cause) {
+	public TSStartTimeException(Throwable cause) {
 		super(cause);
 	}
 

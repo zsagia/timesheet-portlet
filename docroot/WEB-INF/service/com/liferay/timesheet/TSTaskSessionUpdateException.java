@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Istvan Sajtos, Zsolt Szabo
  */
-public class StartEndTimeException extends PortalException {
+public class TSTaskSessionUpdateException extends PortalException {
 
-	public StartEndTimeException() {
+	public TSTaskSessionUpdateException() {
 		super();
 	}
 
-	public StartEndTimeException(String msg) {
+	public TSTaskSessionUpdateException(String msg) {
 		super(msg);
 	}
 
-	public StartEndTimeException(String msg, Throwable cause) {
+	public TSTaskSessionUpdateException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public StartEndTimeException(Throwable cause) {
+	public TSTaskSessionUpdateException(Throwable cause) {
 		super(cause);
 	}
 
