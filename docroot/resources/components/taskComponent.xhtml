@@ -10,11 +10,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 	<cc:interface>
-		<cc:attribute name="actionMethod" 
+		<cc:attribute name="actionMethod"
 			method-signature="java.lang.String action()" />
-		<cc:attribute name="description" />	
-		<cc:attribute name="projectRoot" />
-		<cc:attribute name="selectedProjectNode" />
+		<cc:attribute name="description" />
 		<cc:attribute name="selectedTask" />
 		<cc:attribute name="startTime" />
 		<cc:attribute name="taskName" />
@@ -69,7 +67,7 @@
 					</label>
 				</div>
 
-				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" styleClass="btn btn-primary" value="Start Task">
+				<h:commandButton action="#{cc.attrs.actionMethod}"  id="startTask" styleClass="btn btn-primary" value="Start Task">
 					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
 				</h:commandButton>
 			</aui:column>

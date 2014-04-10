@@ -11,7 +11,7 @@
 	xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
 
 	<cc:interface>
-		<cc:attribute name="taskBean" required="true" />
+		<cc:attribute name="taskSessionList" required="true" />
 	</cc:interface>
 
 	<cc:implementation>
@@ -20,7 +20,7 @@
 				<h:form id="taskSessionListForm">
 					<h:dataTable headerClass="portlet-section-header results-header"
 						rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
-						value="#{taskSessionSimpleBean.taskSessionModelBean.taskSessionsByD_U}" var="taskSession">
+						value="#{cc.attrs.taskSessionList}" var="taskSession">
 
 						<h:column>
 							<f:facet name="header">
@@ -50,12 +50,6 @@
 							</h:outputText>
 						</h:column>
 					</h:dataTable>
-				</h:form>
-			</aui:column>
-
-			<aui:column>
-				<h:form id="navigation">
-					<h:commandLink action="#{viewController.showView}" value="Show start task session panel" />
 				</h:form>
 			</aui:column>
 		</aui:layout>

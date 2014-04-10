@@ -13,6 +13,7 @@
 			method-signature="java.lang.String action()" />
 		<cc:attribute name="currentTaskSession" />
 		<cc:attribute name="dayTime" />
+		<cc:attribute name="endTime" />
 		<cc:attribute name="monthTime" />
 		<cc:attribute name="todayWithoutTime" />
 		<cc:attribute name="weekTime" />
@@ -71,7 +72,7 @@
 						</h:outputText>
 					</span>
 
-					<h:inputText id="endTime" value="#{cc.attrs.currentTaskSession.endTime}">
+					<h:inputText id="endTime" value="#{cc.attrs.endTime}">
 						<f:converter converterId="TimeSheetConverter" />
 						<f:validator validatorId="EndTimeValidator" />
 					</h:inputText>

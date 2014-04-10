@@ -25,53 +25,53 @@
 				<h:form id="departmentForm">
 					<aui:layout>
 						<aui:column id="department_column_1">
-							<h:selectOneListbox converter="DepartmentConverter" id="departmentList" style="height:200px"
-								value="#{departmentBean.selectedDepartment}" var="d">
+							<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
+								value="#{adminManagedBean.departmentViewBean.selectedDepartment}" var="d">
 
 								<f:selectItems itemValue="#{department}" itemLabel="#{department.departmentName}"
-									value="#{departmentBean.departments}" var="department" />
+									value="#{adminManagedBean.departmentViewBean.departmentList}" var="department" />
 
-								<p:ajax event="change" listener="#{departmentBean.onNodeSelect}"
+								<p:ajax event="change" listener="#{adminManagedBean.departmentViewBean.onNodeSelect(adminManagedBean.departmentModelBean)}"
 									update=":#{p:component('department_column_2')}" />
-							</h:selectOneListbox>
+							</h:selectOneMenu>
 						</aui:column>
 
 						<aui:column id="department_column_2">
-							<p:menubar rendered="#{departmentBean.selectedDepartment!=null}">
-								<p:menuitem action="#{departmentBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
-									rendered="#{adminPermissionBean.checkAddDepartment()}"
+							<p:menubar rendered="#{adminManagedBean.departmentViewBean.selectedDepartment!=null}">
+								<p:menuitem action="#{adminManagedBean.departmentViewBean.doNewAction(adminManagedBean.departmentModelBean)}"
+									icon="ui-icon-new" id="newMenuItem" rendered="#{adminPermissionBean.checkAddDepartment()}"
 									update=":#{p:component('department_column_2')}" value="New" />
 
-								<p:menuitem action="#{departmentBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
-									rendered="#{adminPermissionBean.checkUpdateDepartment(departmentBean.selectedDepartment)}"
+								<p:menuitem action="#{adminManagedBean.departmentViewBean.doEditAction(adminManagedBean.departmentModelBean)}"
+									icon="ui-icon-edit" id="editMenuItem" rendered="#{adminPermissionBean.checkUpdateDepartment(departmentViewBean.selectedDepartment)}"
 									update=":#{p:component('department_column_2')}" value="Edit" />	
 							</p:menubar>
 
 							<aui:fieldset>
 								<aui:field label="Department name:">
-									<p:inputText id="departmentName" rendered="#{departmentBean.action!='selected'}" required="false"
+									<p:inputText id="departmentName" rendered="#{adminManagedBean.departmentViewBean.action!='selected'}" required="false"
 										requiredMessage="Department name is required!"
-										value="#{departmentBean.departmentModelBean.departmentName}" />
+										value="#{adminManagedBean.departmentModelBean.departmentName}" />
 
-									<p:outputLabel rendered="#{departmentBean.action=='selected'}" value="#{departmentBean.departmentModelBean.departmentName}" />
+									<p:outputLabel rendered="#{adminManagedBean.departmentViewBean.action=='selected'}" value="#{adminManagedBean.departmentModelBean.departmentName}" />
 								</aui:field>
 
 								<liferay-security:permissionsURL
-									rendered="#{(departmentBean.action!='new') and (adminPermissionBean.checkPermissionsDepartment(departmentBean.selectedDepartment))}"
+									rendered="#{(adminManagedBean.departmentViewBean.action!='new') and (adminPermissionBean.checkPermissionsDepartment(adminManagedBean.departmentViewBean.selectedDepartment))}"
 									modelResource="com.liferay.timesheet.model.Department"
 									modelResourceDescription="Department"
 									redirect="#{currentPageRenderURL}"
-									resourcePrimKey="#{departmentBean.selectedDepartment.departmentId}" >
+									resourcePrimKey="#{adminManagedBean.departmentViewBean.selectedDepartment.departmentId}" >
 										Permissions
 								</liferay-security:permissionsURL>
 							</aui:fieldset>
 
-							<h:commandButton action="#{departmentBean.createDepartmentAction}" id="btnDepartmentAction1"
-								rendered="#{(departmentBean.action=='new') and (adminPermissionBean.checkAddDepartment())}"
+							<h:commandButton action="#{adminManagedBean.createDepartmentAction}" id="btnDepartmentAction1"
+								rendered="#{(adminManagedBean.departmentViewBean.action=='new') and (adminPermissionBean.checkAddDepartment())}"
 								styleClass="btn btn-primary" value="Add Department" />
 
-							<h:commandButton action="#{departmentBean.updateDepartmentAction}" id="btnDepartmentAction2"
-								rendered="#{(departmentBean.action=='edit') and (adminPermissionBean.checkUpdateDepartment(departmentBean.selectedDepartment))}"
+							<h:commandButton action="#{adminManagedBean.updateDepartmentAction}" id="btnDepartmentAction2"
+								rendered="#{(adminManagedBean.departmentViewBean.action=='edit') and (adminPermissionBean.checkUpdateDepartment(adminManagedBean.departmentViewBean.selectedDepartment))}"
 								styleClass="btn btn-primary" value="Update Department" />
 						</aui:column>
 					</aui:layout>
@@ -82,30 +82,32 @@
 				<h:form id="treeForm">
 					<aui:layout id="layout">
 						<aui:column id="project_column_1">
-							<h:selectOneListbox converter="DepartmentConverter" id="departmentsList" value="#{projectBean.selectedDepartment}">
+							<h:selectOneMenu converter="DepartmentConverter" id="departmentsList" value="#{adminManagedBean.projectViewBean.selectedDepartment}">
 								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
-									value="#{projectBean.departments}" var="department" />
+									value="#{adminManagedBean.departmentViewBean.departmentList}" var="department" />
 
-								<p:ajax event="change" listener="#{projectBean.onDepartmentSelect}"
+								<p:ajax event="change" listener="#{adminManagedBean.projectViewBean.onDepartmentSelect(adminManagedBean.projectModelBean)}"
 									update=":#{p:component('project_column_2')}, :#{p:component('project_column_3')}" />
-							</h:selectOneListbox>
+							</h:selectOneMenu>
 						</aui:column>
 						<aui:column id="project_column_2">
 							<p:contextMenu for="projectTree" id="menu">
-								<p:menuitem action="#{projectBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}" icon="ui-icon-new" id="newMenuItem"
 									update=":#{p:component('project_column_3')}" value="New" />
 
-								<p:menuitem action="#{projectBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
+								<p:menuitem action="#adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}" icon="ui-icon-edit" id="editMenuItem"
 									update=":#{p:component('project_column_3')}" value="Edit" />
 							</p:contextMenu>
 
 							<p:tree draggable="true" droppable="true" dragdropScope="demo" id="projectTree"
-								selection="#{projectBean.selectedProjectNode}" selectionMode="single"
-								value="#{projectBean.root}" var="project">
+								selection="#{adminManagedBean.projectViewBean.selectedProjectNode}" selectionMode="single"
+								value="#{adminManagedBean.projectViewBean.root}" var="project">
 
-								<p:ajax event="unselect" listener="#{projectBean.onNodeUnSelect}" update=":#{p:component('project_column_3')}" />
+								<p:ajax event="unselect" listener="#{adminManagedBean.projectViewBean.onNodeUnSelect(adminManagedBean.projectModelBean)}"
+									update=":#{p:component('project_column_3')}" />
 
-								<p:ajax event="select" listener="#{projectBean.onNodeSelect}" update=":#{p:component('project_column_3')}" />
+								<p:ajax event="select" listener="#{adminManagedBean.projectViewBean.onNodeSelect(adminManagedBean.projectModelBean)}"
+									update=":#{p:component('project_column_3')}" />
 
 								<p:treeNode>
 									<h:outputText value="#{project}" />
@@ -114,51 +116,51 @@
 						</aui:column>
 
 						<aui:column id="project_column_3">
-							<p:menubar rendered="#{projectBean.selectedProjectNode!=null}">
-								<p:menuitem action="#{projectBean.doNewAction}" icon="ui-icon-new" id="newMenuItem"
+							<p:menubar rendered="#{adminManagedBean.projectViewBean.selectedProjectNode!=null}">
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}" icon="ui-icon-new" id="newMenuItem"
 									update=":#{p:component('project_column_3')}" value="New" />
 
-								<p:menuitem action="#{projectBean.doEditAction}" icon="ui-icon-edit" id="editMenuItem"
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}" icon="ui-icon-edit" id="editMenuItem"
 									update=":#{p:component('project_column_3')}" value="Edit" />
 							</p:menubar>
 
 							<aui:fieldset>
 								<aui:field label="Project name">
-									<p:inputText id="projectName1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.projectModelBean.projectName}" />
-									<p:outputLabel id="projectName2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.projectModelBean.projectName}" />
+									<p:inputText id="projectName1" rendered="#{adminManagedBean.projectViewBean.action!='selected'}"
+										value="#{adminManagedBean.projectModelBean.projectName}" />
+									<p:outputLabel id="projectName2" rendered="#{adminManagedBean.projectViewBean.action=='selected'}"
+										value="#{adminManagedBean.projectModelBean.projectName}" />
 								</aui:field>
 
 								<aui:field label="Enabled">
-									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.projectModelBean.enabled}" />
-									<p:outputLabel id="enabledProject2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.projectModelBean.enabled}" />
+									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{adminManagedBean.projectViewBean.action!='selected'}"
+										value="#{adminManagedBean.projectModelBean.enabled}" />
+									<p:outputLabel id="enabledProject2" rendered="#{adminManagedBean.projectViewBean=='selected'}"
+										value="#{adminManagedBean.projectModelBean.enabled}" />
 								</aui:field>
 
 								<aui:field label="Description">
-									<h:inputTextarea id="description1" rendered="#{projectBean.action!='selected'}"
-										value="#{projectBean.projectModelBean.description}" />
-									<h:outputText id="description2" rendered="#{projectBean.action=='selected'}"
-										value="#{projectBean.projectModelBean.description}" />
+									<h:inputTextarea id="description1" rendered="#{adminManagedBean.projectViewBean.action!='selected'}"
+										value="#{adminManagedBean.projectModelBean.description}" />
+									<h:outputText id="description2" rendered="#{adminManagedBean.projectViewBean.action=='selected'}"
+										value="#{adminManagedBean.projectModelBean.description}" />
 								</aui:field>
 
 								<liferay-security:permissionsURL
-									rendered="#{(projectBean.action!='new') and (adminPermissionBean.checkPermissionsProject(projectBean.selectedProject))}"
+									rendered="#{(adminManagedBean.projectViewBean.action!='new') and (adminPermissionBean.checkPermissionsProject(projectBean.selectedProject))}"
 									modelResource="com.liferay.timesheet.model.Project"
 									modelResourceDescription="Project"
 									redirect="#{currentPageRenderURL}"
-									resourcePrimKey="#{projectBean.selectedProject.projectId}" >
+									resourcePrimKey="#{adminManagedBean.projectViewBean.selectedProject.projectId}" >
 										Permissions
 								</liferay-security:permissionsURL>
 							</aui:fieldset>
 
-							<h:commandButton action="#{projectBean.createProjectAction}" id="btnProjectAction1"
-								rendered="#{projectBean.action=='new'}" value="Add Project" />
+							<h:commandButton action="#{adminManagedBean.createProjectAction}" id="btnProjectAction1"
+								rendered="#{adminManagedBean.projectViewBean.action=='new'}" value="Add Project" />
 
-							<h:commandButton action="#{projectBean.updateProjectAction}" id="btnProjectAction2"
-								rendered="#{projectBean.action=='edit'}" value="Update Project" />
+							<h:commandButton action="#{adminManagedBean.updateProjectAction}" id="btnProjectAction2"
+								rendered="#{adminManagedBean.projectViewBean.action=='edit'}" value="Update Project" />
 						</aui:column>
 					</aui:layout>
 				</h:form>
