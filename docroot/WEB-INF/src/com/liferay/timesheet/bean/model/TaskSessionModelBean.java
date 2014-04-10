@@ -2,13 +2,13 @@ package com.liferay.timesheet.bean.model;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.timesheet.NoCurrentTaskSessionException;
-import com.liferay.timesheet.NoSelectedTaskException;
-import com.liferay.timesheet.TaskSessionCloseException;
-import com.liferay.timesheet.TaskSessionCreationException;
-import com.liferay.timesheet.TaskSessionUpdateException;
+import com.liferay.timesheet.TSNoCurrentTaskSessionException;
+import com.liferay.timesheet.TSNoSelectedTaskException;
+import com.liferay.timesheet.TSTaskSessionCloseException;
+import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimesheetUtil;
@@ -55,11 +55,10 @@ public class TaskSessionModelBean implements Serializable {
 	}
 
 	public TaskSession createTaskSession(long selectedTaskId)
-		throws NoSelectedTaskException, TaskSessionCloseException,
-			TaskSessionCreationException {
+		throws PortalException {
 
 		if (selectedTaskId == 0) {
-			throw new NoSelectedTaskException();
+			throw new TSNoSelectedTaskException();
 		}
 
 		if (getStartTime() == null) {
@@ -71,7 +70,7 @@ public class TaskSessionModelBean implements Serializable {
 		try {
 			closeCurrentTaskSession(userId, getStartTime());
 		} catch (SystemException se) {
-			throw new TaskSessionCloseException();
+			throw new TSTaskSessionCloseException();
 		}
 
 		TaskSession taskSession = null;
@@ -84,7 +83,7 @@ public class TaskSessionModelBean implements Serializable {
 				userId, getStartTime(), selectedTaskId, description,
 				serviceContext);
 		} catch (Exception e) {
-			throw new TaskSessionCreationException();
+			throw new TSTaskSessionUpdateException();
 		}
 
 		clear();
@@ -93,7 +92,7 @@ public class TaskSessionModelBean implements Serializable {
 	}
 
 	public void finishTaskSession()
-		throws NoCurrentTaskSessionException, TaskSessionUpdateException {
+		throws PortalException {
 
 		long userId = TimesheetUtil.getCurrentUserId();
 
@@ -103,7 +102,7 @@ public class TaskSessionModelBean implements Serializable {
 			currentTaskSession =
 				TaskSessionLocalServiceUtil.getCurrentTaskSession(userId);
 		} catch (SystemException se) {
-			throw new NoCurrentTaskSessionException();
+			throw new TSNoCurrentTaskSessionException();
 		}
 
 		if (endTime == null) {
@@ -119,7 +118,7 @@ public class TaskSessionModelBean implements Serializable {
 		try {
 			TaskSessionLocalServiceUtil.updateTaskSession(currentTaskSession);
 		} catch (SystemException e) {
-			throw new TaskSessionUpdateException();
+			throw new TSTaskSessionUpdateException();
 		}
 
 		clear();

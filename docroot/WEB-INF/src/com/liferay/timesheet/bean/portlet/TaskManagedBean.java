@@ -3,12 +3,12 @@ package com.liferay.timesheet.bean.portlet;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.timesheet.NoCurrentTaskSessionException;
-import com.liferay.timesheet.NoSelectedTaskException;
-import com.liferay.timesheet.TaskSessionCloseException;
-import com.liferay.timesheet.TaskSessionCreationException;
-import com.liferay.timesheet.TaskSessionUpdateException;
+import com.liferay.timesheet.TSNoCurrentTaskSessionException;
+import com.liferay.timesheet.TSNoSelectedTaskException;
+import com.liferay.timesheet.TSTaskSessionCloseException;
+import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.bean.model.TaskModelBean;
 import com.liferay.timesheet.bean.model.TaskSessionModelBean;
 import com.liferay.timesheet.bean.view.TaskViewBean;
@@ -93,7 +93,7 @@ public class TaskManagedBean implements Serializable {
 		return "/views/task/view.xhtml";
 	}
 
-	public String createTaskSessionAction() {
+	public String createTaskSessionAction() throws PortalException {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
@@ -114,16 +114,16 @@ public class TaskManagedBean implements Serializable {
 				logger.debug(
 					"Started taskSession: " + taskSession.getTaskSessionId());
 			}
-		} catch (NoSelectedTaskException e) {
+		} catch (TSNoSelectedTaskException e) {
 			logger.error("Unable to select task!");
 
 			liferayFacesContext.addGlobalErrorMessage("Unable to select task!");
-		} catch (TaskSessionCloseException e) {
+		} catch (TSTaskSessionCloseException e) {
 			logger.error("Closing current task session is failed!");
 
 			liferayFacesContext.addGlobalErrorMessage(
 				"Closing current task session is failed!");
-		} catch (TaskSessionCreationException e) {
+		} catch (TSTaskSessionUpdateException e) {
 			logger.error(
 				"Unable to add task session for task: " + selectedTaskId);
 
@@ -142,12 +142,12 @@ public class TaskManagedBean implements Serializable {
 			taskSessionModelBean.finishTaskSession();
 	
 			taskViewBean.setCurrentTaskSession(null);
-		} catch (NoCurrentTaskSessionException e) {
+		} catch (TSNoCurrentTaskSessionException e) {
 			logger.error("No current task session!");
 
 			liferayFacesContext.addGlobalErrorMessage(
 				"No current task session!");
-		} catch (TaskSessionUpdateException e) {
+		} catch (TSTaskSessionUpdateException e) {
 			logger.error("Unable to update task session!");
 
 			liferayFacesContext.addGlobalErrorMessage(
