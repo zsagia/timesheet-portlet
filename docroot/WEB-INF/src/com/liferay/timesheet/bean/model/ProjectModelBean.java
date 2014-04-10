@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean;
+package com.liferay.timesheet.bean.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -78,9 +78,7 @@ public class ProjectModelBean implements Serializable {
 	}
 
 	private boolean enabled = false;
-
 	private String description = null;
-
 	private String projectName = null;
 
 	private static final long serialVersionUID = 4411045587555113969L;

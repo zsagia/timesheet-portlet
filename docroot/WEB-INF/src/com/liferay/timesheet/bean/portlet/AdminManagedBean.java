@@ -1,0 +1,181 @@
+package com.liferay.timesheet.bean.portlet;
+
+import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.timesheet.bean.model.DepartmentModelBean;
+import com.liferay.timesheet.bean.model.ProjectModelBean;
+import com.liferay.timesheet.bean.view.DepartmentViewBean;
+import com.liferay.timesheet.bean.view.ProjectViewBean;
+import com.liferay.timesheet.model.Department;
+import com.liferay.timesheet.model.Project;
+import com.liferay.timesheet.util.ProjectTreeNode;
+
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+
+@ManagedBean
+@RequestScoped
+public class AdminManagedBean implements Serializable {
+
+	public String createDepartmentAction() {
+		LiferayFacesContext liferayFacesContext =
+				LiferayFacesContext.getInstance();
+
+		try {
+			Department department = departmentModelBean.createDepartment();
+
+			departmentViewBean.init();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"New department is created: " +
+						department.getDepartmentName());
+			}
+		} catch (Exception e) {
+			logger.error("Creation new department is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Creation new department is failed!");
+		}
+
+		return "/views/admin/view.xhtml";
+	}
+
+	public String createProjectAction() {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			Project project = projectModelBean.createProject(
+				projectViewBean.getSelectedDepartment(),
+				projectViewBean.getSelectedProject());
+
+			projectViewBean.init();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"New project is created: " + project.getProjectName());
+			}
+		} catch (Exception e) {
+			logger.error("Creation new project is failed!", e);
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Project exception", "Creation new project is failed!");
+		}
+
+		return "/views/admin/view.xhtml";
+	}
+
+	public String updateDepartmentAction() {
+		Department selectedDepartment =
+			departmentViewBean.getSelectedDepartment();
+
+		selectedDepartment.setDepartmentName(
+			departmentModelBean.departmentName);
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			departmentModelBean.updateDepartment(selectedDepartment);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"Project is updated: " +
+						selectedDepartment.getDepartmentName());
+			}
+		} catch (Exception e) {
+			logger.error("Department update is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Department update is failed!");
+		}
+
+		return "/views/admin/view.xhtml";
+	}
+
+	public String updateProjectAction() {
+		Project project =
+			((ProjectTreeNode)projectViewBean.getSelectedProjectNode())
+				.getProject();
+
+		project.setEnabled(projectModelBean.isEnabled());
+		project.setDescription(projectModelBean.getDescription());
+		project.setProjectName(projectModelBean.getProjectName());
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			projectModelBean.updateProject(project);
+
+			projectViewBean.init();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"Project is updated: " + project.getProjectName());
+			}
+		} catch (Exception e) {
+			logger.error("Creation new project is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Project update is failed!");
+		}
+
+		return "/views/admin/view.xhtml";
+	}
+
+	public DepartmentModelBean getDepartmentModelBean() {
+		return departmentModelBean;
+	}
+
+	public void setDepartmentModelBean(DepartmentModelBean departmentModelBean) {
+		this.departmentModelBean = departmentModelBean;
+	}
+
+	public ProjectModelBean getProjectModelBean() {
+		return projectModelBean;
+	}
+
+	public void setProjectModelBean(ProjectModelBean projectModelBean) {
+		this.projectModelBean = projectModelBean;
+	}
+
+	public DepartmentViewBean getDepartmentViewBean() {
+		return departmentViewBean;
+	}
+
+	public void setDepartmentViewBean(DepartmentViewBean departmentViewBean) {
+		this.departmentViewBean = departmentViewBean;
+	}
+
+	public ProjectViewBean getProjectViewBean() {
+		return projectViewBean;
+	}
+
+	public void setProjectViewBean(ProjectViewBean projectViewBean) {
+		this.projectViewBean = projectViewBean;
+	}
+
+	@ManagedProperty(name = "departmentViewBean",
+		value = "#{departmentViewBean}")
+	private DepartmentViewBean departmentViewBean;
+	@ManagedProperty(name = "projectViewBean",
+		value = "#{projectViewBean}")
+	private ProjectViewBean projectViewBean;
+	@ManagedProperty(name = "departmentModelBean",
+		value = "#{departmentModelBean}")
+	private DepartmentModelBean departmentModelBean;
+	@ManagedProperty(name = "projectModelBean",
+		value = "#{projectModelBean}")
+	private ProjectModelBean projectModelBean;
+
+	private static final long serialVersionUID = 3679608295250497309L;
+	private static Logger logger = LoggerFactory.getLogger(
+		AdminManagedBean.class);
+
+}

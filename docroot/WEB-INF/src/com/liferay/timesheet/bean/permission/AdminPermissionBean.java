@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean;
+package com.liferay.timesheet.bean.permission;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.theme.ThemeDisplay;

@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean;
+package com.liferay.timesheet.bean.model;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -70,11 +70,9 @@ public class TaskModelBean implements Serializable {
 	}
 
 	private String description;
-
 	private String taskName;
 
 	private static final long serialVersionUID = 4961368400508391281L;
-	
 	private static Logger logger = LoggerFactory.getLogger(TaskModelBean.class);
 
 }

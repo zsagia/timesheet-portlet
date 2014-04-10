@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean;
+package com.liferay.timesheet.bean.model;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -18,8 +18,11 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -30,6 +33,11 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean(name = "taskSessionModelBean")
 @ViewScoped
 public class TaskSessionModelBean implements Serializable {
+
+	@PostConstruct
+	public void init() {
+		startTimes = new HashMap<Long, Date>();
+	}
 
 	public TaskSession closeCurrentTaskSession(long userId, Date endDate)
 		throws SystemException {
@@ -84,7 +92,7 @@ public class TaskSessionModelBean implements Serializable {
 		return taskSession;
 	}
 
-	public void finishTaskSession(Date endTime)
+	public void finishTaskSession()
 		throws NoCurrentTaskSessionException, TaskSessionUpdateException {
 
 		long userId = TimesheetUtil.getCurrentUserId();
@@ -113,6 +121,8 @@ public class TaskSessionModelBean implements Serializable {
 		} catch (SystemException e) {
 			throw new TaskSessionUpdateException();
 		}
+
+		clear();
 	}
 
 	/**
@@ -168,18 +178,25 @@ public class TaskSessionModelBean implements Serializable {
 	}
 
 	public void clear() {
-		setStartTime(null);
-		setEndTime(null);
+		endTime = null;
+		startTime = null;
+		startTimes = new HashMap<Long, Date>();
+	}
+
+	public Map<Long, Date> getStartTimes() {
+		return startTimes;
+	}
+
+	public void setStartTimes(Map<Long, Date> startTimes) {
+		this.startTimes = startTimes;
 	}
 
 	private String description = null;
-
 	private Date endTime = null;
-
 	private Date startTime = null;
+	private Map<Long, Date> startTimes;
 
 	private static final long serialVersionUID = -2671767034731473059L;
-
 	private static final Logger logger =
 		LoggerFactory.getLogger(TaskSessionModelBean.class);
 

@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean;
+package com.liferay.timesheet.bean.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -43,10 +43,6 @@ public class DepartmentModelBean implements Serializable {
 		return entity;
 	}
 
-	private static final long serialVersionUID = 1L;
-
-	public String departmentName = null;
-
 	public String getDepartmentName() {
 		return departmentName;
 	}
@@ -54,5 +50,9 @@ public class DepartmentModelBean implements Serializable {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
+
+	public String departmentName = null;
+
+	private static final long serialVersionUID = 1L;
 
 }
