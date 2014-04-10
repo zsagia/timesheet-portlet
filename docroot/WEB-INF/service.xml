@@ -199,16 +199,16 @@
 	</entity>
 
 	<exceptions>
-		<exception>EarliestStartTime</exception>
-		<exception>EndTime</exception>
-		<exception>EntityCreation</exception>
-		<exception>FutureStartTime</exception>
-		<exception>NoCurrentTaskSession</exception>
-		<exception>NoSelectedTask</exception>
-		<exception>StartTime</exception>
-		<exception>StartEndTime</exception>
-		<exception>TaskSessionClose</exception>
-		<exception>TaskSessionUpdate</exception>
-		<exception>WorkDuration</exception>
+		<exception>TSEarliestStartTime</exception>
+		<exception>TSEndTime</exception>
+		<exception>TSEntityCreation</exception>
+		<exception>TSFutureStartTime</exception>
+		<exception>TSNoCurrentTaskSession</exception>
+		<exception>TSNoSelectedTask</exception>
+		<exception>TSStartTime</exception>
+		<exception>TSStartEndTime</exception>
+		<exception>TSTaskSessionClose</exception>
+		<exception>TSTaskSessionUpdate</exception>
+		<exception>TSWorkDuration</exception>
 	</exceptions>
 </service-builder>
