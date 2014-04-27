@@ -1,17 +1,15 @@
 package com.liferay.timesheet.bean.view;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.timesheet.bean.model.ProjectModelBean;
-import com.liferay.timesheet.model.Department;
 import com.liferay.timesheet.model.Project;
-import com.liferay.timesheet.service.DepartmentServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
+import com.liferay.timesheet.util.TimesheetUtil;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -20,28 +18,37 @@ import javax.faces.bean.ViewScoped;
 public class ProjectViewBean
 	extends AbstractEntityViewBean implements Serializable {
 
-	@PostConstruct
-	public void init() {
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
+	public ProjectViewBean() {
 		try {
-			setDepartmentList(DepartmentServiceUtil.getDepartments(
-					liferayFacesContext.getCompanyId()));
+			init();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void init() throws Exception {
+		try {
+			setOwnerGroupList(GroupServiceUtil.getGroups(
+				TimesheetUtil.getCompanyId(), 0, false));
 
-				if (getDepartmentList().size() > 0) {
-					setSelectedDepartment(getDepartmentList().get(0));
+				if (getOwnerGroupList().size() > 0) {
+					setSelectedOwnerGroup(getOwnerGroupList().get(0));
 
 					setRoot(new ProjectTreeNode(null, null));
 
 					generateTreeNodes(
-						false, getSelectedDepartment().getDepartmentId(),
+						false, getSelectedOwnerGroup().getGroupId(),
 						getRoot());
 				}
 		} catch (Exception e) {
-			List<Department> departmnetList = Collections.emptyList();
+			LiferayFacesContext liferayFacesContext =
+				LiferayFacesContext.getInstance();
 
-			setDepartmentList(departmnetList);
+			liferayFacesContext.addMessage(
+				"Warning", FacesMessage.SEVERITY_WARN,
+				"You need to create an Organization for this function!");
+
+			throw e;
 		}
 	}
 
@@ -62,12 +69,12 @@ public class ProjectViewBean
 		setActionValues(ACTION_NEW, false, null, null, (ProjectModelBean)bean);
 	}
 
-	public void onDepartmentSelect(Object bean) {
+	public void onOwnerGroupSelect(Object bean) {
 		setRoot(new ProjectTreeNode(null, null));
 
 		try {
 			generateTreeNodes(
-				false, getSelectedDepartment().getDepartmentId(), getRoot());
+				false, getSelectedOwnerGroup().getGroupId(), getRoot());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -16,77 +16,20 @@
 	<h:head />
 
 	<h:body>
-		<h:messages showSummary="true" showDetail="true" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 		<portlet:renderURL var="currentPageRenderURL" />
 
 		<p:tabView id="tabView">
-			<p:tab id="tab1" rendered="#{adminPermissionBean.checkViewDepartment()}" title="Department">
-				<h:form id="departmentForm">
-					<aui:layout>
-						<aui:column id="department_column_1">
-							<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
-								value="#{adminManagedBean.departmentViewBean.selectedDepartment}" var="d">
-
-								<f:selectItems itemValue="#{department}" itemLabel="#{department.departmentName}"
-									value="#{adminManagedBean.departmentViewBean.departmentList}" var="department" />
-
-								<p:ajax event="change" listener="#{adminManagedBean.departmentViewBean.onNodeSelect(adminManagedBean.departmentModelBean)}"
-									update=":#{p:component('department_column_2')}" />
-							</h:selectOneMenu>
-						</aui:column>
-
-						<aui:column id="department_column_2">
-							<p:menubar rendered="#{adminManagedBean.departmentViewBean.selectedDepartment!=null}">
-								<p:menuitem action="#{adminManagedBean.departmentViewBean.doNewAction(adminManagedBean.departmentModelBean)}"
-									icon="ui-icon-new" id="newMenuItem" rendered="#{adminPermissionBean.checkAddDepartment()}"
-									update=":#{p:component('department_column_2')}" value="New" />
-
-								<p:menuitem action="#{adminManagedBean.departmentViewBean.doEditAction(adminManagedBean.departmentModelBean)}"
-									icon="ui-icon-edit" id="editMenuItem" rendered="#{adminPermissionBean.checkUpdateDepartment(departmentViewBean.selectedDepartment)}"
-									update=":#{p:component('department_column_2')}" value="Edit" />	
-							</p:menubar>
-
-							<aui:fieldset>
-								<aui:field label="Department name:">
-									<p:inputText id="departmentName" rendered="#{adminManagedBean.departmentViewBean.action!='selected'}" required="false"
-										requiredMessage="Department name is required!"
-										value="#{adminManagedBean.departmentModelBean.departmentName}" />
-
-									<p:outputLabel rendered="#{adminManagedBean.departmentViewBean.action=='selected'}" value="#{adminManagedBean.departmentModelBean.departmentName}" />
-								</aui:field>
-
-								<liferay-security:permissionsURL
-									rendered="#{(adminManagedBean.departmentViewBean.action!='new') and (adminPermissionBean.checkPermissionsDepartment(adminManagedBean.departmentViewBean.selectedDepartment))}"
-									modelResource="com.liferay.timesheet.model.Department"
-									modelResourceDescription="Department"
-									redirect="#{currentPageRenderURL}"
-									resourcePrimKey="#{adminManagedBean.departmentViewBean.selectedDepartment.departmentId}" >
-										Permissions
-								</liferay-security:permissionsURL>
-							</aui:fieldset>
-
-							<h:commandButton action="#{adminManagedBean.createDepartmentAction}" id="btnDepartmentAction1"
-								rendered="#{(adminManagedBean.departmentViewBean.action=='new') and (adminPermissionBean.checkAddDepartment())}"
-								styleClass="btn btn-primary" value="Add Department" />
-
-							<h:commandButton action="#{adminManagedBean.updateDepartmentAction}" id="btnDepartmentAction2"
-								rendered="#{(adminManagedBean.departmentViewBean.action=='edit') and (adminPermissionBean.checkUpdateDepartment(adminManagedBean.departmentViewBean.selectedDepartment))}"
-								styleClass="btn btn-primary" value="Update Department" />
-						</aui:column>
-					</aui:layout>
-				</h:form>
-			</p:tab>
-
-			<p:tab id="tab2" rendered="#{adminPermissionBean.checkViewProject()}" title="Project">
+			<p:tab id="tab1" rendered="#{adminPermissionBean.checkViewProject()}" title="Project">
 				<h:form id="treeForm">
 					<aui:layout id="layout">
 						<aui:column id="project_column_1">
-							<h:selectOneMenu converter="DepartmentConverter" id="departmentsList" value="#{adminManagedBean.projectViewBean.selectedDepartment}">
-								<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
-									value="#{adminManagedBean.departmentViewBean.departmentList}" var="department" />
+							<h:selectOneMenu converter="OwnerGroupConverter" id="ownerGroupsList" value="#{adminManagedBean.projectViewBean.selectedOwnerGroup}">
+								<f:selectItems itemLabel="#{ownerGroup.name}" itemValue="#{ownerGroup}"
+									value="#{adminManagedBean.projectViewBean.ownerGroupList}" var="ownerGroup" />
 
-								<p:ajax event="change" listener="#{adminManagedBean.projectViewBean.onDepartmentSelect(adminManagedBean.projectModelBean)}"
+								<p:ajax event="change" listener="#{adminManagedBean.projectViewBean.onOwnerGroupSelect(adminManagedBean.projectModelBean)}"
 									update=":#{p:component('project_column_2')}, :#{p:component('project_column_3')}" />
 							</h:selectOneMenu>
 						</aui:column>
@@ -166,7 +109,7 @@
 				</h:form>
 			</p:tab>
 
-			<p:tab id="tab3" title="Task" rendered="#{adminPermissionBean.checkViewTask()}">
+			<p:tab id="tab2" title="Task" rendered="#{adminPermissionBean.checkViewTask()}">
 				<h:panelGrid cellpadding="10" columns="2">
 
 				</h:panelGrid>

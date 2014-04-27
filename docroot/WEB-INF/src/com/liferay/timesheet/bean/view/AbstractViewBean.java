@@ -2,7 +2,7 @@ package com.liferay.timesheet.bean.view;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.timesheet.model.Department;
+import com.liferay.portal.model.Group;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectServiceUtil;
@@ -17,17 +17,17 @@ import org.primefaces.model.TreeNode;
 public abstract class AbstractViewBean implements Serializable {
 
 	protected void generateTreeNodes(
-			boolean checkEnabled, long departmentId, TreeNode parentNode)
+			boolean checkEnabled, long ownerGroupId, TreeNode parentNode)
 		throws PortalException, SystemException {
 
-		if (departmentId > 0) {
+		if (ownerGroupId > 0) {
 			Project projectNode = ((ProjectTreeNode)parentNode).getProject();
 
 			long projectId =
 				projectNode != null ? projectNode.getProjectId() : 0;
 
-			List<Project> projects = ProjectServiceUtil.getProjectsByD_PP(
-				departmentId, projectId);
+			List<Project> projects = ProjectServiceUtil.getProjectsByO_PP(
+				ownerGroupId, projectId);
 
 			for (Project project: projects) {
 				boolean enabled = true;
@@ -42,26 +42,10 @@ public abstract class AbstractViewBean implements Serializable {
 
 					((ProjectTreeNode)treeNode).setProject(project);
 
-					generateTreeNodes(checkEnabled, departmentId, treeNode);
+					generateTreeNodes(checkEnabled, ownerGroupId, treeNode);
 				}
 			}
 		}
-	}
-
-	public List<Department> getDepartmentList() {
-		return departmentList;
-	}
-
-	public void setDepartmentList(List<Department> departmentList) {
-		this.departmentList = departmentList;
-	}
-
-	public Department getSelectedDepartment() {
-		return selectedDepartment;
-	}
-
-	public void setSelectedDepartment(Department selectedDepartment) {
-		this.selectedDepartment = selectedDepartment;
 	}
 
 	public Project getSelectedProject() {
@@ -109,11 +93,27 @@ public abstract class AbstractViewBean implements Serializable {
 		this.todayWithoutTime = todayWithoutTime;
 	}
 
+	public List<Group> getOwnerGroupList() {
+		return ownerGroupList;
+	}
+
+	public void setOwnerGroupList(List<Group> ownerGroupList) {
+		this.ownerGroupList = ownerGroupList;
+	}
+
+	public Group getSelectedOwnerGroup() {
+		return selectedOwnerGroup;
+	}
+
+	public void setSelectedOwnerGroup(Group selectedOwnerGroup) {
+		this.selectedOwnerGroup = selectedOwnerGroup;
+	}
+
 	private Date todayWithoutTime = null;
 	private TaskSession currentTaskSession = null;
-	private List<Department> departmentList = null;
+	private List<Group> ownerGroupList = null;
 	private TreeNode root = null;
-	private Department selectedDepartment = null;
+	private Group selectedOwnerGroup = null;
 	private Project selectedProject = null;
 	private TreeNode selectedProjectNode = null;
 

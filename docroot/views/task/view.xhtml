@@ -13,7 +13,7 @@
 	<h:head />
 
 	<h:body styleClass="timesheet">
-		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:messages id="messages" showDetail="true" autoUpdate="false" closable="true" />
 
 		<aui:layout id="currentTaskLayout" styleClass="current-task-layout">
 			<aui:column styleClass="current-task-column">
@@ -34,13 +34,13 @@
 					<aui:column columnWidth="45" id="project_column_1" styleClass="project-column">
 						<h:form id="taskForm">
 							<aui:column>
-								<h:selectOneMenu converter="DepartmentConverter" id="departmentList"
-									value="#{taskManagedBean.taskViewBean.selectedDepartment}" var="d">
+								<h:selectOneMenu converter="OwnerGroupConverter" id="ownerGroupList"
+									value="#{taskManagedBean.taskViewBean.selectedOwnerGroup}" var="d">
 
-									<f:selectItems itemLabel="#{department.departmentName}" itemValue="#{department}"
-										value="#{taskManagedBean.taskViewBean.departmentList}" var="department" />
+									<f:selectItems itemLabel="#{ownerGroup.name}" itemValue="#{ownerGroup}"
+										value="#{taskManagedBean.taskViewBean.ownerGroupList}" var="ownerGroup" />
 	
-									<p:ajax event="change" listener="#{taskManagedBean.taskViewBean.onDepartmentSelect}"
+									<p:ajax event="change" listener="#{taskManagedBean.taskViewBean.onOwnerGroupSelect}"
 										update=":#{p:component('projectTree')}" />
 								</h:selectOneMenu>
 	

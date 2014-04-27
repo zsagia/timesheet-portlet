@@ -1,9 +1,8 @@
 package com.liferay.timesheet.bean.view;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
-import com.liferay.timesheet.model.Department;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.timesheet.model.TaskSession;
-import com.liferay.timesheet.service.DepartmentServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
@@ -25,9 +24,6 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 	}
 
 	public void init() {
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
 		try {
 			setTodayWithoutTime(TimesheetUtil.getTodayWithoutTime());
 
@@ -35,21 +31,22 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 				TaskSessionLocalServiceUtil.getCurrentTaskSession(
 					TimesheetUtil.getCurrentUserId()));
 
-			setDepartmentList(DepartmentServiceUtil.getDepartments(
-				liferayFacesContext.getCompanyId()));
+			setOwnerGroupList(GroupServiceUtil.getGroups(
+				TimesheetUtil.getCompanyId(), 0, false));
 
-			if (getDepartmentList().size() > 0) {
-				setSelectedDepartment(getDepartmentList().get(0));
+			if (getOwnerGroupList().size() > 0) {
+				setSelectedOwnerGroup(getOwnerGroupList().get(0));
 
 				setRoot(new ProjectTreeNode(null, null));
 
 				generateTreeNodes(
-					true, getSelectedDepartment().getDepartmentId(), getRoot());
+					true, getSelectedOwnerGroup().getGroupId(),
+					getRoot());
 			}
 		} catch (Exception e) {
-			List<Department> departmnetList = Collections.emptyList();
+			List<Group> ownerGroupList = Collections.emptyList();
 
-			setDepartmentList(departmnetList);
+			setOwnerGroupList(ownerGroupList);
 		}
 	}
 
@@ -78,19 +75,18 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 	public String getWeekTime() throws Exception {
 		long userId = TimesheetUtil.getCurrentUserId();
 
-		long time =
-			TimeCalculatorUtil.summerizeWeekTime(
-				TimesheetUtil.getCompanyId(),
-				TimesheetUtil.getTodayWithoutTime(), userId);
+		long time = TimeCalculatorUtil.summerizeWeekTime(
+			TimesheetUtil.getCompanyId(),
+			TimesheetUtil.getTodayWithoutTime(), userId);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
 	}
 
-	public void onDepartmentSelect() throws Exception {
+	public void onOwnerGroupSelect() throws Exception {
 		setRoot(new ProjectTreeNode(null, null));
 
 		generateTreeNodes(
-			true, getSelectedDepartment().getDepartmentId(), getRoot());
+			true, getSelectedOwnerGroup().getGroupId(), getRoot());
 
 		setSelectedProjectNode(null);
 	}
