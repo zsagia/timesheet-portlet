@@ -5,41 +5,6 @@
 
 	<namespace>timesheet</namespace>
 
-	<entity name="Department" local-service="true" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="departmentId" type="long" primary="true" />
-
-		<!-- Group instance -->
-
-		<column name="groupId" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="departmentName" type="String" />
-
-		<!-- Order -->
-
-		<order>
-			<order-column name="departmentName" order-by="asc" />
-		</order>
-
-		<!-- Finder methods -->
-
-		<finder name="CompanyId" return-type="Collection">
-			<finder-column name="companyId" />
-		</finder>
-	</entity>
-
 	<entity name="Project" local-service="true" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
@@ -60,9 +25,9 @@
 
 		<!-- Other fields -->
 
-		<column name="departmentId" type="Long" />
 		<column name="description" type="String" />
 		<column name="enabled" type="Boolean" />
+		<column name="ownerGroupId" type="Long" />
 		<column name="parentProjectId" type="Long" />
 		<column name="projectName" type="String" />
 
@@ -74,12 +39,12 @@
 
 		<!-- Finder methods -->
 
-		<finder name="DepartmentId" return-type="Collection">
-			<finder-column name="departmentId" />
+		<finder name="OwnerGroupId" return-type="Collection">
+			<finder-column name="ownerGroupId" />
 		</finder>
 
-		<finder name="D_PP" return-type="Collection">
-			<finder-column name="departmentId" />
+		<finder name="O_PP" return-type="Collection">
+			<finder-column name="ownerGroupId" />
 			<finder-column name="parentProjectId" />
 		</finder>
 
@@ -194,6 +159,12 @@
 
 		<finder name="U_GtS" return-type="Collection">
 			<finder-column name="userId" />
+			<finder-column name="startTime" comparator="&gt;" />
+		</finder>
+
+		<finder name="U_T_GtS" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="taskId" />
 			<finder-column name="startTime" comparator="&gt;" />
 		</finder>
 	</entity>
