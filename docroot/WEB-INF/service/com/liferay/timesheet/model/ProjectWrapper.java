@@ -58,9 +58,9 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("departmentId", getDepartmentId());
 		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
+		attributes.put("ownerGroupId", getOwnerGroupId());
 		attributes.put("parentProjectId", getParentProjectId());
 		attributes.put("projectName", getProjectName());
 
@@ -117,12 +117,6 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 			setModifiedDate(modifiedDate);
 		}
 
-		Long departmentId = (Long)attributes.get("departmentId");
-
-		if (departmentId != null) {
-			setDepartmentId(departmentId);
-		}
-
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
@@ -133,6 +127,12 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 
 		if (enabled != null) {
 			setEnabled(enabled);
+		}
+
+		Long ownerGroupId = (Long)attributes.get("ownerGroupId");
+
+		if (ownerGroupId != null) {
+			setOwnerGroupId(ownerGroupId);
 		}
 
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
@@ -351,26 +351,6 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
-	* Returns the department ID of this project.
-	*
-	* @return the department ID of this project
-	*/
-	@Override
-	public java.lang.Long getDepartmentId() {
-		return _project.getDepartmentId();
-	}
-
-	/**
-	* Sets the department ID of this project.
-	*
-	* @param departmentId the department ID of this project
-	*/
-	@Override
-	public void setDepartmentId(java.lang.Long departmentId) {
-		_project.setDepartmentId(departmentId);
-	}
-
-	/**
 	* Returns the description of this project.
 	*
 	* @return the description of this project
@@ -408,6 +388,26 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	@Override
 	public void setEnabled(java.lang.Boolean enabled) {
 		_project.setEnabled(enabled);
+	}
+
+	/**
+	* Returns the owner group ID of this project.
+	*
+	* @return the owner group ID of this project
+	*/
+	@Override
+	public java.lang.Long getOwnerGroupId() {
+		return _project.getOwnerGroupId();
+	}
+
+	/**
+	* Sets the owner group ID of this project.
+	*
+	* @param ownerGroupId the owner group ID of this project
+	*/
+	@Override
+	public void setOwnerGroupId(java.lang.Long ownerGroupId) {
+		_project.setOwnerGroupId(ownerGroupId);
 	}
 
 	/**

@@ -18,8 +18,6 @@ import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
 import com.liferay.timesheet.service.ClpSerializer;
-import com.liferay.timesheet.service.DepartmentLocalServiceUtil;
-import com.liferay.timesheet.service.DepartmentServiceUtil;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
@@ -40,9 +38,6 @@ public class ClpMessageListener extends BaseMessageListener {
 
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
-			DepartmentLocalServiceUtil.clearService();
-
-			DepartmentServiceUtil.clearService();
 			ProjectLocalServiceUtil.clearService();
 
 			ProjectServiceUtil.clearService();

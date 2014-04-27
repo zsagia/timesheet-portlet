@@ -24,7 +24,6 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectService;
-import com.liferay.timesheet.service.persistence.DepartmentPersistence;
 import com.liferay.timesheet.service.persistence.ProjectPersistence;
 import com.liferay.timesheet.service.persistence.TaskPersistence;
 import com.liferay.timesheet.service.persistence.TaskSessionFinder;
@@ -51,63 +50,6 @@ public abstract class ProjectServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * Never modify or reference this class directly. Always use {@link com.liferay.timesheet.service.ProjectServiceUtil} to access the project remote service.
 	 */
-
-	/**
-	 * Returns the department local service.
-	 *
-	 * @return the department local service
-	 */
-	public com.liferay.timesheet.service.DepartmentLocalService getDepartmentLocalService() {
-		return departmentLocalService;
-	}
-
-	/**
-	 * Sets the department local service.
-	 *
-	 * @param departmentLocalService the department local service
-	 */
-	public void setDepartmentLocalService(
-		com.liferay.timesheet.service.DepartmentLocalService departmentLocalService) {
-		this.departmentLocalService = departmentLocalService;
-	}
-
-	/**
-	 * Returns the department remote service.
-	 *
-	 * @return the department remote service
-	 */
-	public com.liferay.timesheet.service.DepartmentService getDepartmentService() {
-		return departmentService;
-	}
-
-	/**
-	 * Sets the department remote service.
-	 *
-	 * @param departmentService the department remote service
-	 */
-	public void setDepartmentService(
-		com.liferay.timesheet.service.DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
-	/**
-	 * Returns the department persistence.
-	 *
-	 * @return the department persistence
-	 */
-	public DepartmentPersistence getDepartmentPersistence() {
-		return departmentPersistence;
-	}
-
-	/**
-	 * Sets the department persistence.
-	 *
-	 * @param departmentPersistence the department persistence
-	 */
-	public void setDepartmentPersistence(
-		DepartmentPersistence departmentPersistence) {
-		this.departmentPersistence = departmentPersistence;
-	}
 
 	/**
 	 * Returns the project local service.
@@ -429,12 +371,6 @@ public abstract class ProjectServiceBaseImpl extends BaseServiceImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.timesheet.service.DepartmentLocalService.class)
-	protected com.liferay.timesheet.service.DepartmentLocalService departmentLocalService;
-	@BeanReference(type = com.liferay.timesheet.service.DepartmentService.class)
-	protected com.liferay.timesheet.service.DepartmentService departmentService;
-	@BeanReference(type = DepartmentPersistence.class)
-	protected DepartmentPersistence departmentPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectLocalService.class)
 	protected com.liferay.timesheet.service.ProjectLocalService projectLocalService;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectService.class)

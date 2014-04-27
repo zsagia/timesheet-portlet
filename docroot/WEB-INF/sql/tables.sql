@@ -18,9 +18,9 @@ create table timesheet_Project (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	departmentId LONG,
 	description VARCHAR(75) null,
 	enabled BOOLEAN,
+	ownerGroupId LONG,
 	parentProjectId LONG,
 	projectName VARCHAR(75) null
 );
@@ -35,7 +35,7 @@ create table timesheet_Task (
 	modifiedDate DATE null,
 	description VARCHAR(75) null,
 	projectId LONG,
-	taskName VARCHAR(75) null,
+	taskName VARCHAR(255) null,
 	taskType INTEGER
 );
 

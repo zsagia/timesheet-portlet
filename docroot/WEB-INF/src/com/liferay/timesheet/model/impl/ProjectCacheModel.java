@@ -55,12 +55,12 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", departmentId=");
-		sb.append(departmentId);
 		sb.append(", description=");
 		sb.append(description);
 		sb.append(", enabled=");
 		sb.append(enabled);
+		sb.append(", ownerGroupId=");
+		sb.append(ownerGroupId);
 		sb.append(", parentProjectId=");
 		sb.append(parentProjectId);
 		sb.append(", projectName=");
@@ -107,8 +107,6 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 			projectImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		projectImpl.setDepartmentId(departmentId);
-
 		if (description == null) {
 			projectImpl.setDescription(StringPool.BLANK);
 		}
@@ -117,6 +115,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		}
 
 		projectImpl.setEnabled(enabled);
+		projectImpl.setOwnerGroupId(ownerGroupId);
 		projectImpl.setParentProjectId(parentProjectId);
 
 		if (projectName == null) {
@@ -141,9 +140,9 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		departmentId = objectInput.readLong();
 		description = objectInput.readUTF();
 		enabled = objectInput.readBoolean();
+		ownerGroupId = objectInput.readLong();
 		parentProjectId = objectInput.readLong();
 		projectName = objectInput.readUTF();
 	}
@@ -172,7 +171,6 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(departmentId);
 
 		if (description == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -182,6 +180,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		}
 
 		objectOutput.writeBoolean(enabled);
+		objectOutput.writeLong(ownerGroupId);
 		objectOutput.writeLong(parentProjectId);
 
 		if (projectName == null) {
@@ -200,9 +199,9 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public Long departmentId;
 	public String description;
 	public Boolean enabled;
+	public Long ownerGroupId;
 	public Long parentProjectId;
 	public String projectName;
 }

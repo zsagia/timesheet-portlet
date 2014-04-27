@@ -7,26 +7,6 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
-	<mapped-superclass class="com.liferay.timesheet.model.impl.DepartmentModelImpl">
-		<attributes>
-			<id name="departmentId" />
-			<basic name="groupId" />
-			<basic name="companyId" />
-			<basic name="userId" />
-			<basic name="userName" />
-			<basic name="createDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="modifiedDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="departmentName" />
-			<transient name="modelAttributes" />
-			<transient name="primaryKey" />
-			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
-		</attributes>
-	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.ProjectModelImpl">
 		<attributes>
 			<id name="projectId" />
@@ -43,9 +23,9 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="departmentId" />
 			<basic name="description" />
 			<basic name="enabled" />
+			<basic name="ownerGroupId" />
 			<basic name="parentProjectId" />
 			<basic name="projectName" />
 			<transient name="modelAttributes" />
@@ -104,10 +84,6 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<entity class="com.liferay.timesheet.model.impl.DepartmentImpl" name="Department">
-		<table name="timesheet_Department" />
-		<attributes />
-	</entity>
 	<entity class="com.liferay.timesheet.model.impl.ProjectImpl" name="Project">
 		<table name="timesheet_Project" />
 		<attributes />

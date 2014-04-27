@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
-import com.liferay.timesheet.model.DepartmentClp;
 import com.liferay.timesheet.model.ProjectClp;
 import com.liferay.timesheet.model.TaskClp;
 import com.liferay.timesheet.model.TaskSessionClp;
@@ -105,10 +104,6 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
-		if (oldModelClassName.equals(DepartmentClp.class.getName())) {
-			return translateInputDepartment(oldModel);
-		}
-
 		if (oldModelClassName.equals(ProjectClp.class.getName())) {
 			return translateInputProject(oldModel);
 		}
@@ -134,16 +129,6 @@ public class ClpSerializer {
 		}
 
 		return newList;
-	}
-
-	public static Object translateInputDepartment(BaseModel<?> oldModel) {
-		DepartmentClp oldClpModel = (DepartmentClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getDepartmentRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
 	}
 
 	public static Object translateInputProject(BaseModel<?> oldModel) {
@@ -192,11 +177,6 @@ public class ClpSerializer {
 		Class<?> oldModelClass = oldModel.getClass();
 
 		String oldModelClassName = oldModelClass.getName();
-
-		if (oldModelClassName.equals(
-					"com.liferay.timesheet.model.impl.DepartmentImpl")) {
-			return translateOutputDepartment(oldModel);
-		}
 
 		if (oldModelClassName.equals(
 					"com.liferay.timesheet.model.impl.ProjectImpl")) {
@@ -341,10 +321,6 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.TSWorkDurationException();
 		}
 
-		if (className.equals("com.liferay.timesheet.NoSuchDepartmentException")) {
-			return new com.liferay.timesheet.NoSuchDepartmentException();
-		}
-
 		if (className.equals("com.liferay.timesheet.NoSuchProjectException")) {
 			return new com.liferay.timesheet.NoSuchProjectException();
 		}
@@ -358,16 +334,6 @@ public class ClpSerializer {
 		}
 
 		return throwable;
-	}
-
-	public static Object translateOutputDepartment(BaseModel<?> oldModel) {
-		DepartmentClp newModel = new DepartmentClp();
-
-		newModel.setModelAttributes(oldModel.getModelAttributes());
-
-		newModel.setDepartmentRemoteModel(oldModel);
-
-		return newModel;
 	}
 
 	public static Object translateOutputProject(BaseModel<?> oldModel) {

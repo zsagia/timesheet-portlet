@@ -47,7 +47,7 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 	 */
 	
 	public Project addProject(
-			long userId, long departmentId, boolean enabled,
+			long userId, long ownerGroupId, boolean enabled,
 			long parentProjectId, String projectName, String description,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -63,7 +63,7 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 
 		project.setCompanyId(user.getCompanyId());
 		project.setCreateDate(now);
-		project.setDepartmentId(departmentId);
+		project.setOwnerGroupId(ownerGroupId);
 		project.setDescription(description);
 		project.setEnabled(enabled);
 		project.setGroupId(groupId);
@@ -111,17 +111,17 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		return projectPersistence.findByParentProjectId(parentProjectId);
 	}
 
-	public List<Project> getProjectsByD_PP(
-			long departmentId, long parentProjectId)
+	public List<Project> getProjectsByO_PP(
+			long ownerGroupId, long parentProjectId)
 		throws SystemException {
 
-		return projectPersistence.findByD_PP(departmentId, parentProjectId);
+		return projectPersistence.findByO_PP(ownerGroupId, parentProjectId);
 	}
 
-	public List<Project> getProjectsByDepartmentId(long departmentId)
+	public List<Project> getProjectsByOwnerGroupId(long ownerGroupId)
 		throws SystemException {
 
-		return projectPersistence.findByDepartmentId(departmentId);
+		return projectPersistence.findByOwnerGroupId(ownerGroupId);
 	}
 
 }

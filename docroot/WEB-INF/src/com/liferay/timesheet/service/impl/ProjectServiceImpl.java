@@ -89,12 +89,12 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 		return projects;
 	}
 
-	public List<Project> getProjectsByD_PP(
-			long departmentId, long parentProjectId)
+	public List<Project> getProjectsByO_PP(
+			long organizationId, long parentProjectId)
 		throws  PortalException, SystemException {
 
-		List<Project> projects = projectLocalService.getProjectsByD_PP(
-			departmentId, parentProjectId);
+		List<Project> projects = projectLocalService.getProjectsByO_PP(
+			organizationId, parentProjectId);
 
 		projects = ListUtil.copy(projects);
 

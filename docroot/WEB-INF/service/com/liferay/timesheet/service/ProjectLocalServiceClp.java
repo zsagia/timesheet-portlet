@@ -154,11 +154,11 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 
 		_methodParameterTypes26 = new String[] { "long" };
 
-		_methodName27 = "getProjectsByD_PP";
+		_methodName27 = "getProjectsByO_PP";
 
 		_methodParameterTypes27 = new String[] { "long", "long" };
 
-		_methodName28 = "getProjectsByDepartmentId";
+		_methodName28 = "getProjectsByOwnerGroupId";
 
 		_methodParameterTypes28 = new String[] { "long" };
 	}
@@ -841,7 +841,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 
 	@Override
 	public com.liferay.timesheet.model.Project addProject(long userId,
-		long departmentId, boolean enabled, long parentProjectId,
+		long ownerGroupId, boolean enabled, long parentProjectId,
 		java.lang.String projectName, java.lang.String description,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -854,7 +854,7 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 					new Object[] {
 						userId,
 						
-					departmentId,
+					ownerGroupId,
 						
 					enabled,
 						
@@ -996,15 +996,15 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
-		long departmentId, long parentProjectId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
+		long ownerGroupId, long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName27,
 					_methodParameterTypes27,
-					new Object[] { departmentId, parentProjectId });
+					new Object[] { ownerGroupId, parentProjectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1026,14 +1026,14 @@ public class ProjectLocalServiceClp implements ProjectLocalService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
-		long departmentId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByOwnerGroupId(
+		long ownerGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28, new Object[] { departmentId });
+					_methodParameterTypes28, new Object[] { ownerGroupId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

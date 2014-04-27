@@ -92,7 +92,8 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 			true);
 	public static long ENDTIME_COLUMN_BITMASK = 1L;
 	public static long STARTTIME_COLUMN_BITMASK = 2L;
-	public static long USERID_COLUMN_BITMASK = 4L;
+	public static long TASKID_COLUMN_BITMASK = 4L;
+	public static long USERID_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.TaskSession"));
 
@@ -376,7 +377,19 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 
 	@Override
 	public void setTaskId(long taskId) {
+		_columnBitmask |= TASKID_COLUMN_BITMASK;
+
+		if (!_setOriginalTaskId) {
+			_setOriginalTaskId = true;
+
+			_originalTaskId = _taskId;
+		}
+
 		_taskId = taskId;
+	}
+
+	public long getOriginalTaskId() {
+		return _originalTaskId;
 	}
 
 	public long getColumnBitmask() {
@@ -480,6 +493,10 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 		taskSessionModelImpl._originalEndTime = taskSessionModelImpl._endTime;
 
 		taskSessionModelImpl._originalStartTime = taskSessionModelImpl._startTime;
+
+		taskSessionModelImpl._originalTaskId = taskSessionModelImpl._taskId;
+
+		taskSessionModelImpl._setOriginalTaskId = false;
 
 		taskSessionModelImpl._columnBitmask = 0;
 	}
@@ -662,6 +679,8 @@ public class TaskSessionModelImpl extends BaseModelImpl<TaskSession>
 	private Date _startTime;
 	private Date _originalStartTime;
 	private long _taskId;
+	private long _originalTaskId;
+	private boolean _setOriginalTaskId;
 	private long _columnBitmask;
 	private TaskSession _escapedModel;
 }

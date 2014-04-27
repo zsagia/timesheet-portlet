@@ -207,20 +207,6 @@ public interface ProjectModel extends BaseModel<Project>, StagedGroupedModel {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the department ID of this project.
-	 *
-	 * @return the department ID of this project
-	 */
-	public Long getDepartmentId();
-
-	/**
-	 * Sets the department ID of this project.
-	 *
-	 * @param departmentId the department ID of this project
-	 */
-	public void setDepartmentId(Long departmentId);
-
-	/**
 	 * Returns the description of this project.
 	 *
 	 * @return the description of this project
@@ -248,6 +234,20 @@ public interface ProjectModel extends BaseModel<Project>, StagedGroupedModel {
 	 * @param enabled the enabled of this project
 	 */
 	public void setEnabled(Boolean enabled);
+
+	/**
+	 * Returns the owner group ID of this project.
+	 *
+	 * @return the owner group ID of this project
+	 */
+	public Long getOwnerGroupId();
+
+	/**
+	 * Sets the owner group ID of this project.
+	 *
+	 * @param ownerGroupId the owner group ID of this project
+	 */
+	public void setOwnerGroupId(Long ownerGroupId);
 
 	/**
 	 * Returns the parent project ID of this project.

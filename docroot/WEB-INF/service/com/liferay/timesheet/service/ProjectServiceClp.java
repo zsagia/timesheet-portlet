@@ -47,7 +47,7 @@ public class ProjectServiceClp implements ProjectService {
 
 		_methodParameterTypes5 = new String[] { "long" };
 
-		_methodName6 = "getProjectsByD_PP";
+		_methodName6 = "getProjectsByO_PP";
 
 		_methodParameterTypes6 = new String[] { "long", "long" };
 
@@ -227,8 +227,8 @@ public class ProjectServiceClp implements ProjectService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
-		long departmentId, long parentProjectId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
+		long organizationId, long parentProjectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -236,7 +236,7 @@ public class ProjectServiceClp implements ProjectService {
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName6,
 					_methodParameterTypes6,
-					new Object[] { departmentId, parentProjectId });
+					new Object[] { organizationId, parentProjectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

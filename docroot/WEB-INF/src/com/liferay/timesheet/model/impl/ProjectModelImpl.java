@@ -75,13 +75,13 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "departmentId", Types.BIGINT },
 			{ "description", Types.VARCHAR },
 			{ "enabled", Types.BOOLEAN },
+			{ "ownerGroupId", Types.BIGINT },
 			{ "parentProjectId", Types.BIGINT },
 			{ "projectName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,departmentId LONG,description VARCHAR(75) null,enabled BOOLEAN,parentProjectId LONG,projectName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,enabled BOOLEAN,ownerGroupId LONG,parentProjectId LONG,projectName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Project";
 	public static final String ORDER_BY_JPQL = " ORDER BY project.projectName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Project.projectName ASC";
@@ -98,8 +98,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Project"),
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
-	public static long DEPARTMENTID_COLUMN_BITMASK = 2L;
-	public static long GROUPID_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long OWNERGROUPID_COLUMN_BITMASK = 4L;
 	public static long PARENTPROJECTID_COLUMN_BITMASK = 8L;
 	public static long UUID_COLUMN_BITMASK = 16L;
 	public static long PROJECTNAME_COLUMN_BITMASK = 32L;
@@ -125,9 +125,9 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setDepartmentId(soapModel.getDepartmentId());
 		model.setDescription(soapModel.getDescription());
 		model.setEnabled(soapModel.getEnabled());
+		model.setOwnerGroupId(soapModel.getOwnerGroupId());
 		model.setParentProjectId(soapModel.getParentProjectId());
 		model.setProjectName(soapModel.getProjectName());
 
@@ -202,9 +202,9 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("departmentId", getDepartmentId());
 		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
+		attributes.put("ownerGroupId", getOwnerGroupId());
 		attributes.put("parentProjectId", getParentProjectId());
 		attributes.put("projectName", getProjectName());
 
@@ -261,12 +261,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long departmentId = (Long)attributes.get("departmentId");
-
-		if (departmentId != null) {
-			setDepartmentId(departmentId);
-		}
-
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
@@ -277,6 +271,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		if (enabled != null) {
 			setEnabled(enabled);
+		}
+
+		Long ownerGroupId = (Long)attributes.get("ownerGroupId");
+
+		if (ownerGroupId != null) {
+			setOwnerGroupId(ownerGroupId);
 		}
 
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
@@ -434,29 +434,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@JSON
 	@Override
-	public Long getDepartmentId() {
-		return _departmentId;
-	}
-
-	@Override
-	public void setDepartmentId(Long departmentId) {
-		_columnBitmask |= DEPARTMENTID_COLUMN_BITMASK;
-
-		if (!_setOriginalDepartmentId) {
-			_setOriginalDepartmentId = true;
-
-			_originalDepartmentId = _departmentId;
-		}
-
-		_departmentId = departmentId;
-	}
-
-	public Long getOriginalDepartmentId() {
-		return _originalDepartmentId;
-	}
-
-	@JSON
-	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return StringPool.BLANK;
@@ -480,6 +457,29 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	@Override
 	public void setEnabled(Boolean enabled) {
 		_enabled = enabled;
+	}
+
+	@JSON
+	@Override
+	public Long getOwnerGroupId() {
+		return _ownerGroupId;
+	}
+
+	@Override
+	public void setOwnerGroupId(Long ownerGroupId) {
+		_columnBitmask |= OWNERGROUPID_COLUMN_BITMASK;
+
+		if (!_setOriginalOwnerGroupId) {
+			_setOriginalOwnerGroupId = true;
+
+			_originalOwnerGroupId = _ownerGroupId;
+		}
+
+		_ownerGroupId = ownerGroupId;
+	}
+
+	public Long getOriginalOwnerGroupId() {
+		return _originalOwnerGroupId;
 	}
 
 	@JSON
@@ -568,9 +568,9 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		projectImpl.setUserName(getUserName());
 		projectImpl.setCreateDate(getCreateDate());
 		projectImpl.setModifiedDate(getModifiedDate());
-		projectImpl.setDepartmentId(getDepartmentId());
 		projectImpl.setDescription(getDescription());
 		projectImpl.setEnabled(getEnabled());
+		projectImpl.setOwnerGroupId(getOwnerGroupId());
 		projectImpl.setParentProjectId(getParentProjectId());
 		projectImpl.setProjectName(getProjectName());
 
@@ -633,9 +633,9 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		projectModelImpl._setOriginalCompanyId = false;
 
-		projectModelImpl._originalDepartmentId = projectModelImpl._departmentId;
+		projectModelImpl._originalOwnerGroupId = projectModelImpl._ownerGroupId;
 
-		projectModelImpl._setOriginalDepartmentId = false;
+		projectModelImpl._setOriginalOwnerGroupId = false;
 
 		projectModelImpl._originalParentProjectId = projectModelImpl._parentProjectId;
 
@@ -690,8 +690,6 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			projectCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		projectCacheModel.departmentId = getDepartmentId();
-
 		projectCacheModel.description = getDescription();
 
 		String description = projectCacheModel.description;
@@ -701,6 +699,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		}
 
 		projectCacheModel.enabled = getEnabled();
+
+		projectCacheModel.ownerGroupId = getOwnerGroupId();
 
 		projectCacheModel.parentProjectId = getParentProjectId();
 
@@ -735,12 +735,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", departmentId=");
-		sb.append(getDepartmentId());
 		sb.append(", description=");
 		sb.append(getDescription());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
+		sb.append(", ownerGroupId=");
+		sb.append(getOwnerGroupId());
 		sb.append(", parentProjectId=");
 		sb.append(getParentProjectId());
 		sb.append(", projectName=");
@@ -791,16 +791,16 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>departmentId</column-name><column-value><![CDATA[");
-		sb.append(getDepartmentId());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
 		sb.append(getEnabled());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>ownerGroupId</column-name><column-value><![CDATA[");
+		sb.append(getOwnerGroupId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>parentProjectId</column-name><column-value><![CDATA[");
@@ -834,11 +834,11 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private Long _departmentId;
-	private Long _originalDepartmentId;
-	private boolean _setOriginalDepartmentId;
 	private String _description;
 	private Boolean _enabled;
+	private Long _ownerGroupId;
+	private Long _originalOwnerGroupId;
+	private boolean _setOriginalOwnerGroupId;
 	private Long _parentProjectId;
 	private Long _originalParentProjectId;
 	private boolean _setOriginalParentProjectId;

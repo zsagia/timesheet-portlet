@@ -24,56 +24,56 @@ import java.util.Arrays;
  */
 public class ProjectServiceClpInvoker {
 	public ProjectServiceClpInvoker() {
-		_methodName34 = "getBeanIdentifier";
+		_methodName28 = "getBeanIdentifier";
 
-		_methodParameterTypes34 = new String[] {  };
+		_methodParameterTypes28 = new String[] {  };
 
-		_methodName35 = "setBeanIdentifier";
+		_methodName29 = "setBeanIdentifier";
 
-		_methodParameterTypes35 = new String[] { "java.lang.String" };
+		_methodParameterTypes29 = new String[] { "java.lang.String" };
 
-		_methodName40 = "addProject";
+		_methodName34 = "addProject";
 
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes34 = new String[] {
 				"long", "long", "boolean", "long", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName41 = "getProject";
+		_methodName35 = "getProject";
 
-		_methodParameterTypes41 = new String[] { "long" };
+		_methodParameterTypes35 = new String[] { "long" };
 
-		_methodName42 = "getProjects";
+		_methodName36 = "getProjects";
 
-		_methodParameterTypes42 = new String[] { "long" };
+		_methodParameterTypes36 = new String[] { "long" };
 
-		_methodName43 = "getProjectsByD_PP";
+		_methodName37 = "getProjectsByO_PP";
 
-		_methodParameterTypes43 = new String[] { "long", "long" };
+		_methodParameterTypes37 = new String[] { "long", "long" };
 
-		_methodName44 = "updateProject";
+		_methodName38 = "updateProject";
 
-		_methodParameterTypes44 = new String[] {
+		_methodParameterTypes38 = new String[] {
 				"com.liferay.timesheet.model.Project"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName28.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
 			return ProjectServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName29.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
 			ProjectServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName34.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
 			return ProjectServiceUtil.addProject(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Boolean)arguments[2]).booleanValue(),
@@ -82,42 +82,42 @@ public class ProjectServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName35.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
 			return ProjectServiceUtil.getProject(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName36.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
 			return ProjectServiceUtil.getProjects(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName43.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
-			return ProjectServiceUtil.getProjectsByD_PP(((Long)arguments[0]).longValue(),
+		if (_methodName37.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+			return ProjectServiceUtil.getProjectsByO_PP(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName44.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+		if (_methodName38.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
 			return ProjectServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
 	}
 
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
 	private String _methodName34;
 	private String[] _methodParameterTypes34;
 	private String _methodName35;
 	private String[] _methodParameterTypes35;
-	private String _methodName40;
-	private String[] _methodParameterTypes40;
-	private String _methodName41;
-	private String[] _methodParameterTypes41;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
-	private String _methodName43;
-	private String[] _methodParameterTypes43;
-	private String _methodName44;
-	private String[] _methodParameterTypes44;
+	private String _methodName36;
+	private String[] _methodParameterTypes36;
+	private String _methodName37;
+	private String[] _methodParameterTypes37;
+	private String _methodName38;
+	private String[] _methodParameterTypes38;
 }

@@ -109,10 +109,10 @@ public class ProjectServiceSoap {
 		}
 	}
 
-	public static com.liferay.timesheet.model.ProjectSoap[] getProjectsByD_PP(
-		long departmentId, long parentProjectId) throws RemoteException {
+	public static com.liferay.timesheet.model.ProjectSoap[] getProjectsByO_PP(
+		long organizationId, long parentProjectId) throws RemoteException {
 		try {
-			java.util.List<com.liferay.timesheet.model.Project> returnValue = ProjectServiceUtil.getProjectsByD_PP(departmentId,
+			java.util.List<com.liferay.timesheet.model.Project> returnValue = ProjectServiceUtil.getProjectsByO_PP(organizationId,
 					parentProjectId);
 
 			return com.liferay.timesheet.model.ProjectSoap.toSoapModels(returnValue);

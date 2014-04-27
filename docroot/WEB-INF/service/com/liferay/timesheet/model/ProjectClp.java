@@ -83,9 +83,9 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("departmentId", getDepartmentId());
 		attributes.put("description", getDescription());
 		attributes.put("enabled", getEnabled());
+		attributes.put("ownerGroupId", getOwnerGroupId());
 		attributes.put("parentProjectId", getParentProjectId());
 		attributes.put("projectName", getProjectName());
 
@@ -142,12 +142,6 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 			setModifiedDate(modifiedDate);
 		}
 
-		Long departmentId = (Long)attributes.get("departmentId");
-
-		if (departmentId != null) {
-			setDepartmentId(departmentId);
-		}
-
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
@@ -158,6 +152,12 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 
 		if (enabled != null) {
 			setEnabled(enabled);
+		}
+
+		Long ownerGroupId = (Long)attributes.get("ownerGroupId");
+
+		if (ownerGroupId != null) {
+			setOwnerGroupId(ownerGroupId);
 		}
 
 		Long parentProjectId = (Long)attributes.get("parentProjectId");
@@ -368,29 +368,6 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	}
 
 	@Override
-	public Long getDepartmentId() {
-		return _departmentId;
-	}
-
-	@Override
-	public void setDepartmentId(Long departmentId) {
-		_departmentId = departmentId;
-
-		if (_projectRemoteModel != null) {
-			try {
-				Class<?> clazz = _projectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setDepartmentId", Long.class);
-
-				method.invoke(_projectRemoteModel, departmentId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -429,6 +406,29 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 				Method method = clazz.getMethod("setEnabled", Boolean.class);
 
 				method.invoke(_projectRemoteModel, enabled);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public Long getOwnerGroupId() {
+		return _ownerGroupId;
+	}
+
+	@Override
+	public void setOwnerGroupId(Long ownerGroupId) {
+		_ownerGroupId = ownerGroupId;
+
+		if (_projectRemoteModel != null) {
+			try {
+				Class<?> clazz = _projectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setOwnerGroupId", Long.class);
+
+				method.invoke(_projectRemoteModel, ownerGroupId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -565,9 +565,9 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setDepartmentId(getDepartmentId());
 		clone.setDescription(getDescription());
 		clone.setEnabled(getEnabled());
+		clone.setOwnerGroupId(getOwnerGroupId());
 		clone.setParentProjectId(getParentProjectId());
 		clone.setProjectName(getProjectName());
 
@@ -634,12 +634,12 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", departmentId=");
-		sb.append(getDepartmentId());
 		sb.append(", description=");
 		sb.append(getDescription());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
+		sb.append(", ownerGroupId=");
+		sb.append(getOwnerGroupId());
 		sb.append(", parentProjectId=");
 		sb.append(getParentProjectId());
 		sb.append(", projectName=");
@@ -690,16 +690,16 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>departmentId</column-name><column-value><![CDATA[");
-		sb.append(getDepartmentId());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
 		sb.append(getEnabled());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>ownerGroupId</column-name><column-value><![CDATA[");
+		sb.append(getOwnerGroupId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>parentProjectId</column-name><column-value><![CDATA[");
@@ -724,9 +724,9 @@ public class ProjectClp extends BaseModelImpl<Project> implements Project {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private Long _departmentId;
 	private String _description;
 	private Boolean _enabled;
+	private Long _ownerGroupId;
 	private Long _parentProjectId;
 	private String _projectName;
 	private BaseModel<?> _projectRemoteModel;

@@ -2,6 +2,10 @@ create index IX_1B6563E3 on timesheet_Department (companyId);
 
 create index IX_8BA46E73 on timesheet_Project (departmentId);
 create index IX_62216527 on timesheet_Project (departmentId, parentProjectId);
+create index IX_81C4F2D4 on timesheet_Project (organizationId);
+create index IX_23E00EE6 on timesheet_Project (organizationId, parentProjectId);
+create index IX_5DA849AD on timesheet_Project (ownerGroupId);
+create index IX_CBFC252D on timesheet_Project (ownerGroupId, parentProjectId);
 create index IX_F1CF7648 on timesheet_Project (parentProjectId);
 create index IX_F508FA42 on timesheet_Project (uuid_);
 create index IX_6ABD6CA6 on timesheet_Project (uuid_, companyId);
@@ -23,3 +27,5 @@ create index IX_AD36F903 on timesheet_TaskSession (startTime, endTime);
 create index IX_2C1C7C24 on timesheet_TaskSession (userId);
 create unique index IX_FC7413D4 on timesheet_TaskSession (userId, endTime);
 create index IX_19221F9B on timesheet_TaskSession (userId, startTime);
+create index IX_640EE27 on timesheet_TaskSession (userId, taskId, startTime);
+create index IX_73375DB8 on timesheet_TaskSession (userId, taskId, startTime, startTime);

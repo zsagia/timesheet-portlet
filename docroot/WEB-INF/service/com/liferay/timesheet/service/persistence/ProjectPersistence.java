@@ -387,181 +387,181 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the projects where departmentId = &#63;.
+	* Returns all the projects where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @return the matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByDepartmentId(
-		java.lang.Long departmentId)
+	public java.util.List<com.liferay.timesheet.model.Project> findByOwnerGroupId(
+		java.lang.Long ownerGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the projects where departmentId = &#63;.
+	* Returns a range of all the projects where ownerGroupId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param start the lower bound of the range of projects
 	* @param end the upper bound of the range of projects (not inclusive)
 	* @return the range of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByDepartmentId(
-		java.lang.Long departmentId, int start, int end)
+	public java.util.List<com.liferay.timesheet.model.Project> findByOwnerGroupId(
+		java.lang.Long ownerGroupId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the projects where departmentId = &#63;.
+	* Returns an ordered range of all the projects where ownerGroupId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param start the lower bound of the range of projects
 	* @param end the upper bound of the range of projects (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByDepartmentId(
-		java.lang.Long departmentId, int start, int end,
+	public java.util.List<com.liferay.timesheet.model.Project> findByOwnerGroupId(
+		java.lang.Long ownerGroupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the first project in the ordered set where departmentId = &#63;.
+	* Returns the first project in the ordered set where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project findByDepartmentId_First(
-		java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project findByOwnerGroupId_First(
+		java.lang.Long ownerGroupId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Returns the first project in the ordered set where departmentId = &#63;.
+	* Returns the first project in the ordered set where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching project, or <code>null</code> if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project fetchByDepartmentId_First(
-		java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project fetchByOwnerGroupId_First(
+		java.lang.Long ownerGroupId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the last project in the ordered set where departmentId = &#63;.
+	* Returns the last project in the ordered set where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project findByDepartmentId_Last(
-		java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project findByOwnerGroupId_Last(
+		java.lang.Long ownerGroupId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Returns the last project in the ordered set where departmentId = &#63;.
+	* Returns the last project in the ordered set where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching project, or <code>null</code> if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project fetchByDepartmentId_Last(
-		java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project fetchByOwnerGroupId_Last(
+		java.lang.Long ownerGroupId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the projects before and after the current project in the ordered set where departmentId = &#63;.
+	* Returns the projects before and after the current project in the ordered set where ownerGroupId = &#63;.
 	*
 	* @param projectId the primary key of the current project
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project[] findByDepartmentId_PrevAndNext(
-		long projectId, java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project[] findByOwnerGroupId_PrevAndNext(
+		long projectId, java.lang.Long ownerGroupId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Removes all the projects where departmentId = &#63; from the database.
+	* Removes all the projects where ownerGroupId = &#63; from the database.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByDepartmentId(java.lang.Long departmentId)
+	public void removeByOwnerGroupId(java.lang.Long ownerGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of projects where departmentId = &#63;.
+	* Returns the number of projects where ownerGroupId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @return the number of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByDepartmentId(java.lang.Long departmentId)
+	public int countByOwnerGroupId(java.lang.Long ownerGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @return the matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByD_PP(
-		java.lang.Long departmentId, java.lang.Long parentProjectId)
+	public java.util.List<com.liferay.timesheet.model.Project> findByO_PP(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns a range of all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param start the lower bound of the range of projects
 	* @param end the upper bound of the range of projects (not inclusive)
 	* @return the range of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByD_PP(
-		java.lang.Long departmentId, java.lang.Long parentProjectId, int start,
+	public java.util.List<com.liferay.timesheet.model.Project> findByO_PP(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId, int start,
 		int end) throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns an ordered range of all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param start the lower bound of the range of projects
 	* @param end the upper bound of the range of projects (not inclusive)
@@ -569,110 +569,110 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	* @return the ordered range of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.timesheet.model.Project> findByD_PP(
-		java.lang.Long departmentId, java.lang.Long parentProjectId, int start,
+	public java.util.List<com.liferay.timesheet.model.Project> findByO_PP(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId, int start,
 		int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the first project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the first project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project findByD_PP_First(
-		java.lang.Long departmentId, java.lang.Long parentProjectId,
+	public com.liferay.timesheet.model.Project findByO_PP_First(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Returns the first project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the first project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching project, or <code>null</code> if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project fetchByD_PP_First(
-		java.lang.Long departmentId, java.lang.Long parentProjectId,
+	public com.liferay.timesheet.model.Project fetchByO_PP_First(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the last project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the last project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project findByD_PP_Last(
-		java.lang.Long departmentId, java.lang.Long parentProjectId,
+	public com.liferay.timesheet.model.Project findByO_PP_Last(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Returns the last project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the last project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching project, or <code>null</code> if a matching project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project fetchByD_PP_Last(
-		java.lang.Long departmentId, java.lang.Long parentProjectId,
+	public com.liferay.timesheet.model.Project fetchByO_PP_Last(
+		java.lang.Long ownerGroupId, java.lang.Long parentProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the projects before and after the current project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the projects before and after the current project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
 	* @param projectId the primary key of the current project
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next project
 	* @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.timesheet.model.Project[] findByD_PP_PrevAndNext(
-		long projectId, java.lang.Long departmentId,
+	public com.liferay.timesheet.model.Project[] findByO_PP_PrevAndNext(
+		long projectId, java.lang.Long ownerGroupId,
 		java.lang.Long parentProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.timesheet.NoSuchProjectException;
 
 	/**
-	* Removes all the projects where departmentId = &#63; and parentProjectId = &#63; from the database.
+	* Removes all the projects where ownerGroupId = &#63; and parentProjectId = &#63; from the database.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByD_PP(java.lang.Long departmentId,
+	public void removeByO_PP(java.lang.Long ownerGroupId,
 		java.lang.Long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of projects where departmentId = &#63; and parentProjectId = &#63;.
+	* Returns the number of projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	*
-	* @param departmentId the department ID
+	* @param ownerGroupId the owner group ID
 	* @param parentProjectId the parent project ID
 	* @return the number of matching projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByD_PP(java.lang.Long departmentId,
+	public int countByO_PP(java.lang.Long ownerGroupId,
 		java.lang.Long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 

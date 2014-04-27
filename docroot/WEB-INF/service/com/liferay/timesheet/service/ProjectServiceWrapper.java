@@ -83,11 +83,11 @@ public class ProjectServiceWrapper implements ProjectService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
-		long departmentId, long parentProjectId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
+		long organizationId, long parentProjectId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _projectService.getProjectsByD_PP(departmentId, parentProjectId);
+		return _projectService.getProjectsByO_PP(organizationId, parentProjectId);
 	}
 
 	@Override

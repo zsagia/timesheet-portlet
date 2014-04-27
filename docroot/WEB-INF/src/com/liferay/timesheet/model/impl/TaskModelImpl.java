@@ -72,7 +72,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 			{ "taskName", Types.VARCHAR },
 			{ "taskType", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(75) null,taskType INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table timesheet_Task (taskId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,description VARCHAR(75) null,projectId LONG,taskName VARCHAR(255) null,taskType INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table timesheet_Task";
 	public static final String ORDER_BY_JPQL = " ORDER BY task.taskName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY timesheet_Task.taskName ASC";

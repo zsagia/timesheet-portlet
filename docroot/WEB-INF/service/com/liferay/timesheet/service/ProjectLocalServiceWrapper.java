@@ -347,12 +347,12 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 
 	@Override
 	public com.liferay.timesheet.model.Project addProject(long userId,
-		long departmentId, boolean enabled, long parentProjectId,
+		long ownerGroupId, boolean enabled, long parentProjectId,
 		java.lang.String projectName, java.lang.String description,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.addProject(userId, departmentId, enabled,
+		return _projectLocalService.addProject(userId, ownerGroupId, enabled,
 			parentProjectId, projectName, description, serviceContext);
 	}
 
@@ -384,18 +384,18 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByD_PP(
-		long departmentId, long parentProjectId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
+		long ownerGroupId, long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.getProjectsByD_PP(departmentId,
+		return _projectLocalService.getProjectsByO_PP(ownerGroupId,
 			parentProjectId);
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByDepartmentId(
-		long departmentId)
+	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByOwnerGroupId(
+		long ownerGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.getProjectsByDepartmentId(departmentId);
+		return _projectLocalService.getProjectsByOwnerGroupId(ownerGroupId);
 	}
 
 	/**

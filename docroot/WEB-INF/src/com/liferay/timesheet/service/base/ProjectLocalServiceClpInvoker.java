@@ -122,45 +122,45 @@ public class ProjectLocalServiceClpInvoker {
 				"com.liferay.timesheet.model.Project"
 			};
 
-		_methodName54 = "getBeanIdentifier";
+		_methodName48 = "getBeanIdentifier";
 
-		_methodParameterTypes54 = new String[] {  };
+		_methodParameterTypes48 = new String[] {  };
 
-		_methodName55 = "setBeanIdentifier";
+		_methodName49 = "setBeanIdentifier";
 
-		_methodParameterTypes55 = new String[] { "java.lang.String" };
+		_methodParameterTypes49 = new String[] { "java.lang.String" };
 
-		_methodName60 = "addProject";
+		_methodName54 = "addProject";
 
-		_methodParameterTypes60 = new String[] {
+		_methodParameterTypes54 = new String[] {
 				"long", "long", "boolean", "long", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName61 = "addProjectResources";
+		_methodName55 = "addProjectResources";
 
-		_methodParameterTypes61 = new String[] {
+		_methodParameterTypes55 = new String[] {
 				"com.liferay.timesheet.model.Project", "boolean", "boolean"
 			};
 
-		_methodName62 = "addProjectResources";
+		_methodName56 = "addProjectResources";
 
-		_methodParameterTypes62 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"com.liferay.timesheet.model.Project", "java.lang.String[][]",
 				"java.lang.String[][]"
 			};
 
-		_methodName63 = "getProjects";
+		_methodName57 = "getProjects";
 
-		_methodParameterTypes63 = new String[] { "long" };
+		_methodParameterTypes57 = new String[] { "long" };
 
-		_methodName64 = "getProjectsByD_PP";
+		_methodName58 = "getProjectsByO_PP";
 
-		_methodParameterTypes64 = new String[] { "long", "long" };
+		_methodParameterTypes58 = new String[] { "long", "long" };
 
-		_methodName65 = "getProjectsByDepartmentId";
+		_methodName59 = "getProjectsByOwnerGroupId";
 
-		_methodParameterTypes65 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -276,20 +276,20 @@ public class ProjectLocalServiceClpInvoker {
 			return ProjectLocalServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return ProjectLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
 			ProjectLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+		if (_methodName54.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
 			return ProjectLocalServiceUtil.addProject(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Boolean)arguments[2]).booleanValue(),
@@ -298,8 +298,8 @@ public class ProjectLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
 			ProjectLocalServiceUtil.addProjectResources((com.liferay.timesheet.model.Project)arguments[0],
 				((Boolean)arguments[1]).booleanValue(),
 				((Boolean)arguments[2]).booleanValue());
@@ -307,8 +307,8 @@ public class ProjectLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			ProjectLocalServiceUtil.addProjectResources((com.liferay.timesheet.model.Project)arguments[0],
 				(java.lang.String[])arguments[1],
 				(java.lang.String[])arguments[2]);
@@ -316,20 +316,20 @@ public class ProjectLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			return ProjectLocalServiceUtil.getProjects(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjectsByD_PP(((Long)arguments[0]).longValue(),
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return ProjectLocalServiceUtil.getProjectsByO_PP(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjectsByDepartmentId(((Long)arguments[0]).longValue());
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return ProjectLocalServiceUtil.getProjectsByOwnerGroupId(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -375,20 +375,20 @@ public class ProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes18;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
 	private String _methodName54;
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
-	private String _methodName60;
-	private String[] _methodParameterTypes60;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
-	private String _methodName62;
-	private String[] _methodParameterTypes62;
-	private String _methodName63;
-	private String[] _methodParameterTypes63;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
 }

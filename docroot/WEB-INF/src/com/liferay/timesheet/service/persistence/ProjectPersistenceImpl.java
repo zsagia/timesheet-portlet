@@ -1449,69 +1449,69 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "project.uuid = ? AND ";
 	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(project.uuid IS NULL OR project.uuid = '') AND ";
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "project.companyId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_DEPARTMENTID =
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_OWNERGROUPID =
 		new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByDepartmentId",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByOwnerGroupId",
 			new String[] {
 				Long.class.getName(),
 				
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENTID =
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERGROUPID =
 		new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByDepartmentId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByOwnerGroupId",
 			new String[] { Long.class.getName() },
-			ProjectModelImpl.DEPARTMENTID_COLUMN_BITMASK |
+			ProjectModelImpl.OWNERGROUPID_COLUMN_BITMASK |
 			ProjectModelImpl.PROJECTNAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_DEPARTMENTID = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_OWNERGROUPID = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDepartmentId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByOwnerGroupId",
 			new String[] { Long.class.getName() });
 
 	/**
-	 * Returns all the projects where departmentId = &#63;.
+	 * Returns all the projects where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @return the matching projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByDepartmentId(Long departmentId)
+	public List<Project> findByOwnerGroupId(Long ownerGroupId)
 		throws SystemException {
-		return findByDepartmentId(departmentId, QueryUtil.ALL_POS,
+		return findByOwnerGroupId(ownerGroupId, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the projects where departmentId = &#63;.
+	 * Returns a range of all the projects where ownerGroupId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @return the range of matching projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByDepartmentId(Long departmentId, int start,
+	public List<Project> findByOwnerGroupId(Long ownerGroupId, int start,
 		int end) throws SystemException {
-		return findByDepartmentId(departmentId, start, end, null);
+		return findByOwnerGroupId(ownerGroupId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the projects where departmentId = &#63;.
+	 * Returns an ordered range of all the projects where ownerGroupId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1519,7 +1519,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByDepartmentId(Long departmentId, int start,
+	public List<Project> findByOwnerGroupId(Long ownerGroupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1528,13 +1528,13 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENTID;
-			finderArgs = new Object[] { departmentId };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERGROUPID;
+			finderArgs = new Object[] { ownerGroupId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_DEPARTMENTID;
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_OWNERGROUPID;
 			finderArgs = new Object[] {
-					departmentId,
+					ownerGroupId,
 					
 					start, end, orderByComparator
 				};
@@ -1545,7 +1545,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (Project project : list) {
-				if (!Validator.equals(departmentId, project.getDepartmentId())) {
+				if (!Validator.equals(ownerGroupId, project.getOwnerGroupId())) {
 					list = null;
 
 					break;
@@ -1566,7 +1566,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			query.append(_SQL_SELECT_PROJECT_WHERE);
 
-			query.append(_FINDER_COLUMN_DEPARTMENTID_DEPARTMENTID_2);
+			query.append(_FINDER_COLUMN_OWNERGROUPID_OWNERGROUPID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -1588,7 +1588,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(departmentId.longValue());
+				qPos.add(ownerGroupId.longValue());
 
 				if (!pagination) {
 					list = (List<Project>)QueryUtil.list(q, getDialect(),
@@ -1621,19 +1621,19 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the first project in the ordered set where departmentId = &#63;.
+	 * Returns the first project in the ordered set where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching project
 	 * @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project findByDepartmentId_First(Long departmentId,
+	public Project findByOwnerGroupId_First(Long ownerGroupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
-		Project project = fetchByDepartmentId_First(departmentId,
+		Project project = fetchByOwnerGroupId_First(ownerGroupId,
 				orderByComparator);
 
 		if (project != null) {
@@ -1644,8 +1644,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("departmentId=");
-		msg.append(departmentId);
+		msg.append("ownerGroupId=");
+		msg.append(ownerGroupId);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1653,17 +1653,17 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the first project in the ordered set where departmentId = &#63;.
+	 * Returns the first project in the ordered set where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching project, or <code>null</code> if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project fetchByDepartmentId_First(Long departmentId,
+	public Project fetchByOwnerGroupId_First(Long ownerGroupId,
 		OrderByComparator orderByComparator) throws SystemException {
-		List<Project> list = findByDepartmentId(departmentId, 0, 1,
+		List<Project> list = findByOwnerGroupId(ownerGroupId, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1674,19 +1674,19 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the last project in the ordered set where departmentId = &#63;.
+	 * Returns the last project in the ordered set where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching project
 	 * @throws com.liferay.timesheet.NoSuchProjectException if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project findByDepartmentId_Last(Long departmentId,
+	public Project findByOwnerGroupId_Last(Long ownerGroupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
-		Project project = fetchByDepartmentId_Last(departmentId,
+		Project project = fetchByOwnerGroupId_Last(ownerGroupId,
 				orderByComparator);
 
 		if (project != null) {
@@ -1697,8 +1697,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("departmentId=");
-		msg.append(departmentId);
+		msg.append("ownerGroupId=");
+		msg.append(ownerGroupId);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1706,23 +1706,23 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the last project in the ordered set where departmentId = &#63;.
+	 * Returns the last project in the ordered set where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching project, or <code>null</code> if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project fetchByDepartmentId_Last(Long departmentId,
+	public Project fetchByOwnerGroupId_Last(Long ownerGroupId,
 		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByDepartmentId(departmentId);
+		int count = countByOwnerGroupId(ownerGroupId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Project> list = findByDepartmentId(departmentId, count - 1, count,
+		List<Project> list = findByOwnerGroupId(ownerGroupId, count - 1, count,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1733,18 +1733,18 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the projects before and after the current project in the ordered set where departmentId = &#63;.
+	 * Returns the projects before and after the current project in the ordered set where ownerGroupId = &#63;.
 	 *
 	 * @param projectId the primary key of the current project
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next project
 	 * @throws com.liferay.timesheet.NoSuchProjectException if a project with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project[] findByDepartmentId_PrevAndNext(long projectId,
-		Long departmentId, OrderByComparator orderByComparator)
+	public Project[] findByOwnerGroupId_PrevAndNext(long projectId,
+		Long ownerGroupId, OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
 		Project project = findByPrimaryKey(projectId);
 
@@ -1755,13 +1755,13 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			Project[] array = new ProjectImpl[3];
 
-			array[0] = getByDepartmentId_PrevAndNext(session, project,
-					departmentId, orderByComparator, true);
+			array[0] = getByOwnerGroupId_PrevAndNext(session, project,
+					ownerGroupId, orderByComparator, true);
 
 			array[1] = project;
 
-			array[2] = getByDepartmentId_PrevAndNext(session, project,
-					departmentId, orderByComparator, false);
+			array[2] = getByOwnerGroupId_PrevAndNext(session, project,
+					ownerGroupId, orderByComparator, false);
 
 			return array;
 		}
@@ -1773,8 +1773,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		}
 	}
 
-	protected Project getByDepartmentId_PrevAndNext(Session session,
-		Project project, Long departmentId,
+	protected Project getByOwnerGroupId_PrevAndNext(Session session,
+		Project project, Long ownerGroupId,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -1788,7 +1788,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		query.append(_SQL_SELECT_PROJECT_WHERE);
 
-		query.append(_FINDER_COLUMN_DEPARTMENTID_DEPARTMENTID_2);
+		query.append(_FINDER_COLUMN_OWNERGROUPID_OWNERGROUPID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -1858,7 +1858,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(departmentId.longValue());
+		qPos.add(ownerGroupId.longValue());
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(project);
@@ -1879,32 +1879,32 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Removes all the projects where departmentId = &#63; from the database.
+	 * Removes all the projects where ownerGroupId = &#63; from the database.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeByDepartmentId(Long departmentId)
+	public void removeByOwnerGroupId(Long ownerGroupId)
 		throws SystemException {
-		for (Project project : findByDepartmentId(departmentId,
+		for (Project project : findByOwnerGroupId(ownerGroupId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(project);
 		}
 	}
 
 	/**
-	 * Returns the number of projects where departmentId = &#63;.
+	 * Returns the number of projects where ownerGroupId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @return the number of matching projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByDepartmentId(Long departmentId) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_DEPARTMENTID;
+	public int countByOwnerGroupId(Long ownerGroupId) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_OWNERGROUPID;
 
-		Object[] finderArgs = new Object[] { departmentId };
+		Object[] finderArgs = new Object[] { ownerGroupId };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -1914,7 +1914,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			query.append(_SQL_COUNT_PROJECT_WHERE);
 
-			query.append(_FINDER_COLUMN_DEPARTMENTID_DEPARTMENTID_2);
+			query.append(_FINDER_COLUMN_OWNERGROUPID_OWNERGROUPID_2);
 
 			String sql = query.toString();
 
@@ -1927,7 +1927,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(departmentId.longValue());
+				qPos.add(ownerGroupId.longValue());
 
 				count = (Long)q.uniqueResult();
 
@@ -1946,51 +1946,51 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_DEPARTMENTID_DEPARTMENTID_2 = "project.departmentId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_D_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+	private static final String _FINDER_COLUMN_OWNERGROUPID_OWNERGROUPID_2 = "project.ownerGroupId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_O_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByD_PP",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByO_PP",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_D_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_O_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByD_PP",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByO_PP",
 			new String[] { Long.class.getName(), Long.class.getName() },
-			ProjectModelImpl.DEPARTMENTID_COLUMN_BITMASK |
+			ProjectModelImpl.OWNERGROUPID_COLUMN_BITMASK |
 			ProjectModelImpl.PARENTPROJECTID_COLUMN_BITMASK |
 			ProjectModelImpl.PROJECTNAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_D_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_O_PP = new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByD_PP",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByO_PP",
 			new String[] { Long.class.getName(), Long.class.getName() });
 
 	/**
-	 * Returns all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @return the matching projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByD_PP(Long departmentId, Long parentProjectId)
+	public List<Project> findByO_PP(Long ownerGroupId, Long parentProjectId)
 		throws SystemException {
-		return findByD_PP(departmentId, parentProjectId, QueryUtil.ALL_POS,
+		return findByO_PP(ownerGroupId, parentProjectId, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns a range of all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
@@ -1998,19 +1998,19 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByD_PP(Long departmentId, Long parentProjectId,
+	public List<Project> findByO_PP(Long ownerGroupId, Long parentProjectId,
 		int start, int end) throws SystemException {
-		return findByD_PP(departmentId, parentProjectId, start, end, null);
+		return findByO_PP(ownerGroupId, parentProjectId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the projects where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns an ordered range of all the projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.ProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
@@ -2019,7 +2019,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Project> findByD_PP(Long departmentId, Long parentProjectId,
+	public List<Project> findByO_PP(Long ownerGroupId, Long parentProjectId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
 		boolean pagination = true;
@@ -2029,13 +2029,13 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_D_PP;
-			finderArgs = new Object[] { departmentId, parentProjectId };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_O_PP;
+			finderArgs = new Object[] { ownerGroupId, parentProjectId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_D_PP;
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_O_PP;
 			finderArgs = new Object[] {
-					departmentId, parentProjectId,
+					ownerGroupId, parentProjectId,
 					
 					start, end, orderByComparator
 				};
@@ -2046,7 +2046,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (Project project : list) {
-				if (!Validator.equals(departmentId, project.getDepartmentId()) ||
+				if (!Validator.equals(ownerGroupId, project.getOwnerGroupId()) ||
 						!Validator.equals(parentProjectId,
 							project.getParentProjectId())) {
 					list = null;
@@ -2069,9 +2069,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			query.append(_SQL_SELECT_PROJECT_WHERE);
 
-			query.append(_FINDER_COLUMN_D_PP_DEPARTMENTID_2);
+			query.append(_FINDER_COLUMN_O_PP_OWNERGROUPID_2);
 
-			query.append(_FINDER_COLUMN_D_PP_PARENTPROJECTID_2);
+			query.append(_FINDER_COLUMN_O_PP_PARENTPROJECTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -2093,7 +2093,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(departmentId.longValue());
+				qPos.add(ownerGroupId.longValue());
 
 				qPos.add(parentProjectId.longValue());
 
@@ -2128,9 +2128,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the first project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the first project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching project
@@ -2138,10 +2138,10 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project findByD_PP_First(Long departmentId, Long parentProjectId,
+	public Project findByO_PP_First(Long ownerGroupId, Long parentProjectId,
 		OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
-		Project project = fetchByD_PP_First(departmentId, parentProjectId,
+		Project project = fetchByO_PP_First(ownerGroupId, parentProjectId,
 				orderByComparator);
 
 		if (project != null) {
@@ -2152,8 +2152,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("departmentId=");
-		msg.append(departmentId);
+		msg.append("ownerGroupId=");
+		msg.append(ownerGroupId);
 
 		msg.append(", parentProjectId=");
 		msg.append(parentProjectId);
@@ -2164,18 +2164,18 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the first project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the first project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching project, or <code>null</code> if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project fetchByD_PP_First(Long departmentId, Long parentProjectId,
+	public Project fetchByO_PP_First(Long ownerGroupId, Long parentProjectId,
 		OrderByComparator orderByComparator) throws SystemException {
-		List<Project> list = findByD_PP(departmentId, parentProjectId, 0, 1,
+		List<Project> list = findByO_PP(ownerGroupId, parentProjectId, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2186,9 +2186,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the last project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the last project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching project
@@ -2196,10 +2196,10 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project findByD_PP_Last(Long departmentId, Long parentProjectId,
+	public Project findByO_PP_Last(Long ownerGroupId, Long parentProjectId,
 		OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
-		Project project = fetchByD_PP_Last(departmentId, parentProjectId,
+		Project project = fetchByO_PP_Last(ownerGroupId, parentProjectId,
 				orderByComparator);
 
 		if (project != null) {
@@ -2210,8 +2210,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("departmentId=");
-		msg.append(departmentId);
+		msg.append("ownerGroupId=");
+		msg.append(ownerGroupId);
 
 		msg.append(", parentProjectId=");
 		msg.append(parentProjectId);
@@ -2222,24 +2222,24 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the last project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the last project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching project, or <code>null</code> if a matching project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project fetchByD_PP_Last(Long departmentId, Long parentProjectId,
+	public Project fetchByO_PP_Last(Long ownerGroupId, Long parentProjectId,
 		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByD_PP(departmentId, parentProjectId);
+		int count = countByO_PP(ownerGroupId, parentProjectId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Project> list = findByD_PP(departmentId, parentProjectId,
+		List<Project> list = findByO_PP(ownerGroupId, parentProjectId,
 				count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2250,10 +2250,10 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Returns the projects before and after the current project in the ordered set where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the projects before and after the current project in the ordered set where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
 	 * @param projectId the primary key of the current project
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next project
@@ -2261,7 +2261,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Project[] findByD_PP_PrevAndNext(long projectId, Long departmentId,
+	public Project[] findByO_PP_PrevAndNext(long projectId, Long ownerGroupId,
 		Long parentProjectId, OrderByComparator orderByComparator)
 		throws NoSuchProjectException, SystemException {
 		Project project = findByPrimaryKey(projectId);
@@ -2273,12 +2273,12 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			Project[] array = new ProjectImpl[3];
 
-			array[0] = getByD_PP_PrevAndNext(session, project, departmentId,
+			array[0] = getByO_PP_PrevAndNext(session, project, ownerGroupId,
 					parentProjectId, orderByComparator, true);
 
 			array[1] = project;
 
-			array[2] = getByD_PP_PrevAndNext(session, project, departmentId,
+			array[2] = getByO_PP_PrevAndNext(session, project, ownerGroupId,
 					parentProjectId, orderByComparator, false);
 
 			return array;
@@ -2291,8 +2291,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		}
 	}
 
-	protected Project getByD_PP_PrevAndNext(Session session, Project project,
-		Long departmentId, Long parentProjectId,
+	protected Project getByO_PP_PrevAndNext(Session session, Project project,
+		Long ownerGroupId, Long parentProjectId,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -2306,9 +2306,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		query.append(_SQL_SELECT_PROJECT_WHERE);
 
-		query.append(_FINDER_COLUMN_D_PP_DEPARTMENTID_2);
+		query.append(_FINDER_COLUMN_O_PP_OWNERGROUPID_2);
 
-		query.append(_FINDER_COLUMN_D_PP_PARENTPROJECTID_2);
+		query.append(_FINDER_COLUMN_O_PP_PARENTPROJECTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -2378,7 +2378,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(departmentId.longValue());
+		qPos.add(ownerGroupId.longValue());
 
 		qPos.add(parentProjectId.longValue());
 
@@ -2401,35 +2401,35 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 	}
 
 	/**
-	 * Removes all the projects where departmentId = &#63; and parentProjectId = &#63; from the database.
+	 * Removes all the projects where ownerGroupId = &#63; and parentProjectId = &#63; from the database.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeByD_PP(Long departmentId, Long parentProjectId)
+	public void removeByO_PP(Long ownerGroupId, Long parentProjectId)
 		throws SystemException {
-		for (Project project : findByD_PP(departmentId, parentProjectId,
+		for (Project project : findByO_PP(ownerGroupId, parentProjectId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(project);
 		}
 	}
 
 	/**
-	 * Returns the number of projects where departmentId = &#63; and parentProjectId = &#63;.
+	 * Returns the number of projects where ownerGroupId = &#63; and parentProjectId = &#63;.
 	 *
-	 * @param departmentId the department ID
+	 * @param ownerGroupId the owner group ID
 	 * @param parentProjectId the parent project ID
 	 * @return the number of matching projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByD_PP(Long departmentId, Long parentProjectId)
+	public int countByO_PP(Long ownerGroupId, Long parentProjectId)
 		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_D_PP;
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_O_PP;
 
-		Object[] finderArgs = new Object[] { departmentId, parentProjectId };
+		Object[] finderArgs = new Object[] { ownerGroupId, parentProjectId };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -2439,9 +2439,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 			query.append(_SQL_COUNT_PROJECT_WHERE);
 
-			query.append(_FINDER_COLUMN_D_PP_DEPARTMENTID_2);
+			query.append(_FINDER_COLUMN_O_PP_OWNERGROUPID_2);
 
-			query.append(_FINDER_COLUMN_D_PP_PARENTPROJECTID_2);
+			query.append(_FINDER_COLUMN_O_PP_PARENTPROJECTID_2);
 
 			String sql = query.toString();
 
@@ -2454,7 +2454,7 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(departmentId.longValue());
+				qPos.add(ownerGroupId.longValue());
 
 				qPos.add(parentProjectId.longValue());
 
@@ -2475,8 +2475,8 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_D_PP_DEPARTMENTID_2 = "project.departmentId = ? AND ";
-	private static final String _FINDER_COLUMN_D_PP_PARENTPROJECTID_2 = "project.parentProjectId = ?";
+	private static final String _FINDER_COLUMN_O_PP_OWNERGROUPID_2 = "project.ownerGroupId = ? AND ";
+	private static final String _FINDER_COLUMN_O_PP_PARENTPROJECTID_2 = "project.parentProjectId = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_PARENTPROJECTID =
 		new FinderPath(ProjectModelImpl.ENTITY_CACHE_ENABLED,
 			ProjectModelImpl.FINDER_CACHE_ENABLED, ProjectImpl.class,
@@ -3300,42 +3300,42 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 			}
 
 			if ((projectModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENTID.getColumnBitmask()) != 0) {
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERGROUPID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						projectModelImpl.getOriginalDepartmentId()
+						projectModelImpl.getOriginalOwnerGroupId()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DEPARTMENTID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OWNERGROUPID,
 					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENTID,
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERGROUPID,
 					args);
 
-				args = new Object[] { projectModelImpl.getDepartmentId() };
+				args = new Object[] { projectModelImpl.getOwnerGroupId() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DEPARTMENTID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OWNERGROUPID,
 					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENTID,
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERGROUPID,
 					args);
 			}
 
 			if ((projectModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_D_PP.getColumnBitmask()) != 0) {
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_O_PP.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						projectModelImpl.getOriginalDepartmentId(),
+						projectModelImpl.getOriginalOwnerGroupId(),
 						projectModelImpl.getOriginalParentProjectId()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_D_PP, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_D_PP,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_O_PP, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_O_PP,
 					args);
 
 				args = new Object[] {
-						projectModelImpl.getDepartmentId(),
+						projectModelImpl.getOwnerGroupId(),
 						projectModelImpl.getParentProjectId()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_D_PP, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_D_PP,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_O_PP, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_O_PP,
 					args);
 			}
 
@@ -3386,9 +3386,9 @@ public class ProjectPersistenceImpl extends BasePersistenceImpl<Project>
 		projectImpl.setUserName(project.getUserName());
 		projectImpl.setCreateDate(project.getCreateDate());
 		projectImpl.setModifiedDate(project.getModifiedDate());
-		projectImpl.setDepartmentId(project.getDepartmentId());
 		projectImpl.setDescription(project.getDescription());
 		projectImpl.setEnabled(project.getEnabled());
+		projectImpl.setOwnerGroupId(project.getOwnerGroupId());
 		projectImpl.setParentProjectId(project.getParentProjectId());
 		projectImpl.setProjectName(project.getProjectName());
 
