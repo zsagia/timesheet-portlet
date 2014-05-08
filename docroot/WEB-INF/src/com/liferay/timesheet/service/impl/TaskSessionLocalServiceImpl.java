@@ -87,7 +87,7 @@ public class TaskSessionLocalServiceImpl
 		return taskSessionPersistence.fetchByU_E(userId, null);
 	}
 
-	public TaskSession getLastTaskSessionsByD_U(Date date, long userId)
+	public TaskSession getLastTaskSessionsByU_D(long userId, Date date)
 		throws SystemException {
 
 		List<TaskSession> taskSessions =
@@ -100,7 +100,7 @@ public class TaskSessionLocalServiceImpl
 		return null;
 	}
 
-	public List<TaskSession> getTaskSessionsByD_U(Date date, long userId)
+	public List<TaskSession> getTaskSessionsByU_D(long userId, Date date)
 		throws SystemException {
 
 		List<TaskSession> taskSessions =
@@ -109,12 +109,32 @@ public class TaskSessionLocalServiceImpl
 		return taskSessions;
 	}
 
-	public List<TaskSession> getTaskSessionsByC_I_U(
-			long companyId, Date date1, Date date2, long userId)
+	public List<TaskSession> getTaskSessionsByU_T_D(
+			long userId, long taskId, Date date)
 		throws SystemException {
 
 		List<TaskSession> taskSessions =
-			taskSessionFinder.findByC_I_U(companyId, date1, date2, userId);
+			taskSessionPersistence.findByU_T_GtS(userId, taskId, date);
+
+		return taskSessions;
+	}
+
+	public List<TaskSession> getTaskSessionsByC_U_I(
+			long companyId, long userId, Date date1, Date date2)
+		throws SystemException {
+
+		List<TaskSession> taskSessions =
+			taskSessionFinder.findByC_U_I(companyId, userId, date1, date2);
+
+		return taskSessions;
+	}
+
+	public List<TaskSession> getTaskSessionsByU_T_I(
+			long userId, long taskId, Date date1, Date date2)
+		throws SystemException {
+
+		List<TaskSession> taskSessions =
+			taskSessionFinder.findByU_T_I(userId, taskId, date1, date2);
 
 		return taskSessions;
 	}

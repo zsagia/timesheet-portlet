@@ -89,30 +89,6 @@ public class ProjectServiceImpl extends ProjectServiceBaseImpl {
 		return projects;
 	}
 
-	public List<Project> getProjectsByO_PP(
-			long organizationId, long parentProjectId)
-		throws  PortalException, SystemException {
-
-		List<Project> projects = projectLocalService.getProjectsByO_PP(
-			organizationId, parentProjectId);
-
-		projects = ListUtil.copy(projects);
-
-		Iterator<Project> iterator = projects.iterator();
-
-		while(iterator.hasNext()) {
-			Project project = iterator.next();
-
-			if (!ProjectPermission.contains(
-				getPermissionChecker(), project, ActionKeys.VIEW)) {
-
-				iterator.remove();
-			}
-		}
-
-		return projects;
-	}
-
 	public Project updateProject(Project project)
 		throws PortalException, SystemException {
 

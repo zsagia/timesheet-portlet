@@ -14,8 +14,18 @@
 
 package com.liferay.timesheet.model.impl;
 
+import com.liferay.faces.util.lang.StringPool;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Project;
+import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
+import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
+import com.liferay.timesheet.util.TimeCalculatorUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The extended model implementation for the Task service. Represents a row in the &quot;timesheet_Task&quot; database table, with each column mapped to a property of this class.
@@ -25,6 +35,7 @@ import com.liferay.timesheet.service.ProjectLocalServiceUtil;
  * </p>
  *
  * @author Istvan Sajtos
+ * @author Zsolt Szabo
  */
 public class TaskImpl extends TaskBaseImpl {
 	/*
@@ -35,8 +46,35 @@ public class TaskImpl extends TaskBaseImpl {
 	public TaskImpl() {
 	}
 
-	public Project getProject() {
+	public long getDuration(long userId, Date date)
+		throws SystemException, Exception {
 
+		return TimeCalculatorUtil.summerizeTime(
+			getTaskSessionList(
+				userId, date, TimeSheetUtil.getIncrementedDay(date)));
+	}
+
+	public long getDuration(long userId, Date date1, Date date2)
+		throws SystemException, Exception {
+
+		return TimeCalculatorUtil.summerizeTime(
+			getTaskSessionList(userId, date1, date2));
+	}
+
+	public String getFormattedDuration(long userId, Date date)
+		throws SystemException, Exception {
+
+		return TimeCalculatorUtil.getStringFromTime(getDuration(userId, date));
+	}
+
+	public String getFormattedDuration(long userId, Date date1, Date date2)
+		throws SystemException, Exception {
+
+		return TimeCalculatorUtil.getStringFromTime(
+			getDuration(userId, date1, date2));
+	}
+
+	public Project getProject() {
 		Project project = null;
 
 		try {
@@ -45,4 +83,43 @@ public class TaskImpl extends TaskBaseImpl {
 
 		return project;
 	}
+
+	public String getProjectName() {
+		Project project = getProject();
+
+		if (project == null) {
+			return StringPool.BLANK;
+		}
+
+		return project.getProjectName();
+	}
+
+	public List<TaskSession> getTaskSessionList(
+		long userId, Date date) throws SystemException {
+
+		List<TaskSession> taskSessionList =
+			TaskSessionLocalServiceUtil.getTaskSessionsByU_T_D(
+				userId, getTaskId(), date);
+
+		if (taskSessionList == null) {
+			taskSessionList = Collections.emptyList();
+		}
+
+		return taskSessionList;
+	}
+
+	public List<TaskSession> getTaskSessionList(
+		long userId, Date date1, Date date2) throws SystemException {
+
+		List<TaskSession> taskSessionList =
+			TaskSessionLocalServiceUtil.getTaskSessionsByU_T_I(
+				userId, getTaskId(), date1, date2);
+
+		if (taskSessionList == null) {
+			taskSessionList = Collections.emptyList();
+		}
+
+		return taskSessionList;
+	}
+
 }

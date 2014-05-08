@@ -21,7 +21,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.base.TaskLocalServiceBaseImpl;
-import com.liferay.timesheet.util.TaskConstants;
+import com.liferay.timesheet.util.TimeSheetConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,7 +103,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 	public List<Task> getTasksByUserId(long userId)
 		throws PortalException, SystemException {
 
-		return getTasksByU_T(userId, TaskConstants.GENERAL_TASK);
+		return getTasksByU_T(userId, TimeSheetConstants.TASK_GENERAL);
 	}
 
 	public List<Task> getTasksByU_T(long userId, int taskType)
@@ -134,5 +134,65 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
 		return taskList;
 	}
+
+	public List<Task> getTasksByU_D(long userId, Date day)
+		throws PortalException, SystemException {
+
+		List<TaskSession> taskSessionList =
+			taskSessionLocalService.getTaskSessionsByU_D(userId, day);
+
+		if (taskSessionList == null) {
+			return Collections.emptyList();
+		}
+
+		Set<Long> taskIds = new HashSet<Long>();
+
+		List<Task> taskList = new ArrayList<Task>();
+
+		for (TaskSession taskSession : taskSessionList) {
+			Task task = taskSession.getTask();
+
+			long taskId = task.getTaskId();
+
+			if (!taskIds.contains(taskId)) {
+				taskIds.add(taskId);
+
+				taskList.add(task);
+			}
+		}
+
+		return taskList;
+	}
+
+	public List<Task> getTasksByC_U_I(
+			long companyId, long userId, Date date1, Date date2)
+		throws PortalException, SystemException {
+
+			List<TaskSession> taskSessionList =
+				taskSessionLocalService.getTaskSessionsByC_U_I(
+					companyId, userId, date1, date2);
+
+			if (taskSessionList == null) {
+				return Collections.emptyList();
+			}
+
+			Set<Long> taskIds = new HashSet<Long>();
+
+			List<Task> taskList = new ArrayList<Task>();
+
+			for (TaskSession taskSession : taskSessionList) {
+				Task task = taskSession.getTask();
+
+				long taskId = task.getTaskId();
+
+				if (!taskIds.contains(taskId)) {
+					taskIds.add(taskId);
+
+					taskList.add(task);
+				}
+			}
+
+			return taskList;
+		}
 
 }
