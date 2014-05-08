@@ -22,11 +22,6 @@
 	<cc:implementation>
 		<h:form id="currentTaskForm">
 			<aui:layout cssClass="current-task-session">
-				<aui:column cssClass="current-date-column">
-					<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" readonly="true"
-						styleClass="current-date" showButtonPanel="true" value="#{cc.attrs.todayWithoutTime}" />
-				</aui:column>
-
 				<aui:column styleClass="summary-time-column">
 					<label>
 						<h:outputText value="Day:" />
