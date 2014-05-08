@@ -17,17 +17,20 @@ import java.util.List;
 public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 	implements TaskSessionFinder {
 
-	public static String FIND_BY_COMPANYID_INTERVAL_USERID =
-		TaskSessionFinder.class.getName() + ".findByC_I_U";
+	public static String FIND_BY_COMPANYID_USERID_INTERVAL =
+		TaskSessionFinder.class.getName() + ".findByC_U_I";
 
-	public List<TaskSession> findByC_I_U(
-		long companyId, Date date1, Date date2, long userId) {
+	public static String FIND_BY_TASKID_USERID_INTERVAL =
+			TaskSessionFinder.class.getName() + ".findByU_T_I";
+
+	public List<TaskSession> findByC_U_I(
+		long companyId, long userId, Date date1, Date date2) {
 
 		Session session = null;
 
 		session = openSession();
 
-		String sql = CustomSQLUtil.get(FIND_BY_COMPANYID_INTERVAL_USERID);
+		String sql = CustomSQLUtil.get(FIND_BY_COMPANYID_USERID_INTERVAL);
 
 		SQLQuery q = session.createSQLQuery(sql);
 
@@ -59,6 +62,46 @@ public class TaskSessionFinderImpl extends BasePersistenceImpl<TaskSession>
 
 		return taskSessions;
 	}
+	
+	public List<TaskSession> findByU_T_I(
+			long userId, long taskId, Date date1, Date date2) {
+
+			Session session = null;
+
+			session = openSession();
+
+			String sql = CustomSQLUtil.get(FIND_BY_TASKID_USERID_INTERVAL);
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar("taskSessionId", Type.LONG);
+			q.addScalar("companyId", Type.LONG);
+			q.addScalar("groupId", Type.LONG);
+			q.addScalar("userId", Type.LONG);
+			q.addScalar("userName", Type.STRING);
+			q.addScalar("createDate", Type.TIMESTAMP);
+			q.addScalar("modifiedDate", Type.TIMESTAMP);
+			q.addScalar("startTime", Type.TIMESTAMP);
+			q.addScalar("endTime", Type.TIMESTAMP);
+			q.addScalar("description", Type.STRING);
+			q.addScalar("taskId", Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(userId);
+			qPos.add(taskId);
+			qPos.add(date1);
+			qPos.add(date2);
+
+			List<Object[]> queriedTaskSessions =
+				(List<Object[]>) QueryUtil.list(
+					q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			List<TaskSession> taskSessions =
+				assembleTaskSessions(queriedTaskSessions);
+
+			return taskSessions;
+		}
 
 	private List<TaskSession> assembleTaskSessions(
 		List<Object[]> queriedTaskSessions) {

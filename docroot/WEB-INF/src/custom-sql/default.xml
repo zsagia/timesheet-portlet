@@ -17,7 +17,7 @@
 			ASC
 		]]>
 	</sql>
-	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByC_I_U">
+	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByC_U_I">
 		<![CDATA[
 			SELECT
 				timesheet_taskSession.taskSessionId AS taskSessionId,
@@ -36,7 +36,7 @@
 			WHERE
 				(timesheet_taskSession.companyId = ?) AND
 				(timesheet_taskSession.userId = ?) AND
-				(( timesheet_taskSession.startTime > ?) AND ( timesheet_taskSession.startTime < ?))
+				(( timesheet_taskSession.startTime >= ?) AND ( timesheet_taskSession.startTime < ?))
 			ORDER BY
 				timesheet_taskSession.startTime
 			ASC
