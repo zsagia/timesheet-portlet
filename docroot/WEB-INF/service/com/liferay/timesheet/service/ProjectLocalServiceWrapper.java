@@ -383,21 +383,6 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		return _projectLocalService.getProjects(parentProjectId);
 	}
 
-	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long ownerGroupId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.getProjectsByO_PP(ownerGroupId,
-			parentProjectId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByOwnerGroupId(
-		long ownerGroupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _projectLocalService.getProjectsByOwnerGroupId(ownerGroupId);
-	}
-
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

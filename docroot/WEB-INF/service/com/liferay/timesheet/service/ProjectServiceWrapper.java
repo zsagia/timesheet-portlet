@@ -83,14 +83,6 @@ public class ProjectServiceWrapper implements ProjectService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long organizationId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _projectService.getProjectsByO_PP(organizationId, parentProjectId);
-	}
-
-	@Override
 	public com.liferay.timesheet.model.Project updateProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.PortalException,

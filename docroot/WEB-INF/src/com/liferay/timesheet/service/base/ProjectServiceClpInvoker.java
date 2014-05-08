@@ -47,13 +47,9 @@ public class ProjectServiceClpInvoker {
 
 		_methodParameterTypes36 = new String[] { "long" };
 
-		_methodName37 = "getProjectsByO_PP";
+		_methodName37 = "updateProject";
 
-		_methodParameterTypes37 = new String[] { "long", "long" };
-
-		_methodName38 = "updateProject";
-
-		_methodParameterTypes38 = new String[] {
+		_methodParameterTypes37 = new String[] {
 				"com.liferay.timesheet.model.Project"
 			};
 	}
@@ -94,12 +90,6 @@ public class ProjectServiceClpInvoker {
 
 		if (_methodName37.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
-			return ProjectServiceUtil.getProjectsByO_PP(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue());
-		}
-
-		if (_methodName38.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
 			return ProjectServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
 		}
 
@@ -118,6 +108,4 @@ public class ProjectServiceClpInvoker {
 	private String[] _methodParameterTypes36;
 	private String _methodName37;
 	private String[] _methodParameterTypes37;
-	private String _methodName38;
-	private String[] _methodParameterTypes38;
 }

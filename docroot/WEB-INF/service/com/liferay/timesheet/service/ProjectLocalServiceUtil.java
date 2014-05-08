@@ -370,18 +370,6 @@ public class ProjectLocalServiceUtil {
 		return getService().getProjects(parentProjectId);
 	}
 
-	public static java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long ownerGroupId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getProjectsByO_PP(ownerGroupId, parentProjectId);
-	}
-
-	public static java.util.List<com.liferay.timesheet.model.Project> getProjectsByOwnerGroupId(
-		long ownerGroupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getProjectsByOwnerGroupId(ownerGroupId);
-	}
-
 	public static void clearService() {
 		_service = null;
 	}

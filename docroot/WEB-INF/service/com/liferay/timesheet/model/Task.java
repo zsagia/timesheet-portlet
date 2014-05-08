@@ -31,5 +31,34 @@ public interface Task extends TaskModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.timesheet.model.impl.TaskImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public long getDuration(long userId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
+	public long getDuration(long userId, java.util.Date date1,
+		java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
 	public com.liferay.timesheet.model.Project getProject();
+
+	public java.lang.String getProjectName();
+
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

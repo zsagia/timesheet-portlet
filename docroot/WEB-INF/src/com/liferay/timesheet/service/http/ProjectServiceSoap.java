@@ -109,21 +109,6 @@ public class ProjectServiceSoap {
 		}
 	}
 
-	public static com.liferay.timesheet.model.ProjectSoap[] getProjectsByO_PP(
-		long organizationId, long parentProjectId) throws RemoteException {
-		try {
-			java.util.List<com.liferay.timesheet.model.Project> returnValue = ProjectServiceUtil.getProjectsByO_PP(organizationId,
-					parentProjectId);
-
-			return com.liferay.timesheet.model.ProjectSoap.toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.timesheet.model.ProjectSoap updateProject(
 		com.liferay.timesheet.model.ProjectSoap project)
 		throws RemoteException {

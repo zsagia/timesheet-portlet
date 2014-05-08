@@ -133,18 +133,28 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 
 		_methodParameterTypes21 = new String[] { "long" };
 
-		_methodName22 = "getLastTaskSessionsByD_U";
+		_methodName22 = "getLastTaskSessionsByU_D";
 
-		_methodParameterTypes22 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes22 = new String[] { "long", "java.util.Date" };
 
-		_methodName23 = "getTaskSessionsByD_U";
+		_methodName23 = "getTaskSessionsByU_D";
 
-		_methodParameterTypes23 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes23 = new String[] { "long", "java.util.Date" };
 
-		_methodName24 = "getTaskSessionsByC_I_U";
+		_methodName24 = "getTaskSessionsByU_T_D";
 
-		_methodParameterTypes24 = new String[] {
-				"long", "java.util.Date", "java.util.Date", "long"
+		_methodParameterTypes24 = new String[] { "long", "long", "java.util.Date" };
+
+		_methodName25 = "getTaskSessionsByC_U_I";
+
+		_methodParameterTypes25 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
+			};
+
+		_methodName26 = "getTaskSessionsByU_T_I";
+
+		_methodParameterTypes26 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
 			};
 	}
 
@@ -822,15 +832,15 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName22,
 					_methodParameterTypes22,
-					new Object[] { ClpSerializer.translateInput(date), userId });
+					new Object[] { userId, ClpSerializer.translateInput(date) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -852,15 +862,15 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName23,
 					_methodParameterTypes23,
-					new Object[] { ClpSerializer.translateInput(date), userId });
+					new Object[] { userId, ClpSerializer.translateInput(date) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -882,8 +892,8 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
-		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_D(
+		long userId, long taskId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
@@ -891,13 +901,87 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName24,
 					_methodParameterTypes24,
 					new Object[] {
+						userId,
+						
+					taskId,
+						
+					ClpSerializer.translateInput(date)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.TaskSession>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
+					new Object[] {
 						companyId,
+						
+					userId,
 						
 					ClpSerializer.translateInput(date1),
 						
-					ClpSerializer.translateInput(date2),
+					ClpSerializer.translateInput(date2)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.TaskSession>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_I(
+		long userId, long taskId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
+					new Object[] {
+						userId,
 						
-					userId
+					taskId,
+						
+					ClpSerializer.translateInput(date1),
+						
+					ClpSerializer.translateInput(date2)
 					});
 		}
 		catch (Throwable t) {
@@ -968,4 +1052,8 @@ public class TaskSessionLocalServiceClp implements TaskSessionLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 }

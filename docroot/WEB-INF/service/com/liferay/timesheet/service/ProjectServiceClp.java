@@ -47,13 +47,9 @@ public class ProjectServiceClp implements ProjectService {
 
 		_methodParameterTypes5 = new String[] { "long" };
 
-		_methodName6 = "getProjectsByO_PP";
+		_methodName6 = "updateProject";
 
-		_methodParameterTypes6 = new String[] { "long", "long" };
-
-		_methodName7 = "updateProject";
-
-		_methodParameterTypes7 = new String[] {
+		_methodParameterTypes6 = new String[] {
 				"com.liferay.timesheet.model.Project"
 			};
 	}
@@ -227,41 +223,6 @@ public class ProjectServiceClp implements ProjectService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long organizationId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6,
-					new Object[] { organizationId, parentProjectId });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.List<com.liferay.timesheet.model.Project>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
 	public com.liferay.timesheet.model.Project updateProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -269,8 +230,8 @@ public class ProjectServiceClp implements ProjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
 					new Object[] { ClpSerializer.translateInput(project) });
 		}
 		catch (Throwable t) {
@@ -309,6 +270,4 @@ public class ProjectServiceClp implements ProjectService {
 	private String[] _methodParameterTypes5;
 	private String _methodName6;
 	private String[] _methodParameterTypes6;
-	private String _methodName7;
-	private String[] _methodParameterTypes7;
 }

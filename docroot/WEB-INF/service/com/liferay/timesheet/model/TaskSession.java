@@ -37,6 +37,8 @@ public interface TaskSession extends TaskSessionModel, PersistedModel {
 
 	public long getDuration() throws java.lang.Exception;
 
+	public java.lang.String getFormattedDuration() throws java.lang.Exception;
+
 	public long getDuration(java.util.Date endTimeForOpenTask)
 		throws java.lang.Exception;
 }

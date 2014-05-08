@@ -500,8 +500,58 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
+	public long getDuration(long userId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return _task.getDuration(userId, date);
+	}
+
+	@Override
+	public long getDuration(long userId, java.util.Date date1,
+		java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return _task.getDuration(userId, date1, date2);
+	}
+
+	@Override
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return _task.getFormattedDuration(userId, date);
+	}
+
+	@Override
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return _task.getFormattedDuration(userId, date1, date2);
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Project getProject() {
 		return _task.getProject();
+	}
+
+	@Override
+	public java.lang.String getProjectName() {
+		return _task.getProjectName();
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _task.getTaskSessionList(userId, date);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _task.getTaskSessionList(userId, date1, date2);
 	}
 
 	@Override

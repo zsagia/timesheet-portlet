@@ -110,18 +110,4 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 
 		return projectPersistence.findByParentProjectId(parentProjectId);
 	}
-
-	public List<Project> getProjectsByO_PP(
-			long ownerGroupId, long parentProjectId)
-		throws SystemException {
-
-		return projectPersistence.findByO_PP(ownerGroupId, parentProjectId);
-	}
-
-	public List<Project> getProjectsByOwnerGroupId(long ownerGroupId)
-		throws SystemException {
-
-		return projectPersistence.findByOwnerGroupId(ownerGroupId);
-	}
-
 }

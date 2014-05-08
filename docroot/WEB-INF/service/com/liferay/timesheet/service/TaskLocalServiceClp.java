@@ -136,6 +136,16 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		_methodName24 = "getTasksByU_T";
 
 		_methodParameterTypes24 = new String[] { "long", "int" };
+
+		_methodName25 = "getTasksByU_D";
+
+		_methodParameterTypes25 = new String[] { "long", "java.util.Date" };
+
+		_methodName26 = "getTasksByC_U_I";
+
+		_methodParameterTypes26 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
+			};
 	}
 
 	@Override
@@ -902,6 +912,84 @@ public class TaskLocalServiceClp implements TaskLocalService {
 		return (java.util.List<com.liferay.timesheet.model.Task>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByU_D(
+		long userId, java.util.Date day)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
+					new Object[] { userId, ClpSerializer.translateInput(day) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.Task>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
+					new Object[] {
+						companyId,
+						
+					userId,
+						
+					ClpSerializer.translateInput(date1),
+						
+					ClpSerializer.translateInput(date2)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.timesheet.model.Task>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -951,4 +1039,8 @@ public class TaskLocalServiceClp implements TaskLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 }

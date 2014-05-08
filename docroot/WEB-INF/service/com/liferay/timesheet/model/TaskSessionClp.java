@@ -480,6 +480,25 @@ public class TaskSessionClp extends BaseModelImpl<TaskSession>
 		}
 	}
 
+	@Override
+	public java.lang.String getFormattedDuration() {
+		try {
+			String methodName = "getFormattedDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
 	public BaseModel<?> getTaskSessionRemoteModel() {
 		return _taskSessionRemoteModel;
 	}

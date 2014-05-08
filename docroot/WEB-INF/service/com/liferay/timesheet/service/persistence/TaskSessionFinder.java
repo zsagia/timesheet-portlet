@@ -18,6 +18,9 @@ package com.liferay.timesheet.service.persistence;
  * @author Istvan Sajtos, Zsolt Szabo
  */
 public interface TaskSessionFinder {
-	public java.util.List<com.liferay.timesheet.model.TaskSession> findByC_I_U(
-		long companyId, java.util.Date date1, java.util.Date date2, long userId);
+	public java.util.List<com.liferay.timesheet.model.TaskSession> findByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2);
+
+	public java.util.List<com.liferay.timesheet.model.TaskSession> findByU_T_I(
+		long userId, long taskId, java.util.Date date1, java.util.Date date2);
 }

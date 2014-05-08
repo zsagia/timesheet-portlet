@@ -132,23 +132,33 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		_methodParameterTypes52 = new String[] { "long" };
 
-		_methodName53 = "getLastTaskSessionsByD_U";
+		_methodName53 = "getLastTaskSessionsByU_D";
 
-		_methodParameterTypes53 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes53 = new String[] { "long", "java.util.Date" };
 
-		_methodName54 = "getTaskSessionsByD_U";
+		_methodName54 = "getTaskSessionsByU_D";
 
-		_methodParameterTypes54 = new String[] { "java.util.Date", "long" };
+		_methodParameterTypes54 = new String[] { "long", "java.util.Date" };
 
-		_methodName55 = "getTaskSessionsByC_I_U";
+		_methodName55 = "getTaskSessionsByU_T_D";
 
-		_methodParameterTypes55 = new String[] {
-				"long", "java.util.Date", "java.util.Date", "long"
-			};
+		_methodParameterTypes55 = new String[] { "long", "long", "java.util.Date" };
 
-		_methodName56 = "updateTaskSession";
+		_methodName56 = "getTaskSessionsByC_U_I";
 
 		_methodParameterTypes56 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
+			};
+
+		_methodName57 = "getTaskSessionsByU_T_I";
+
+		_methodParameterTypes57 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
+			};
+
+		_methodName58 = "updateTaskSession";
+
+		_methodParameterTypes58 = new String[] {
 				"com.liferay.timesheet.model.TaskSession"
 			};
 	}
@@ -278,25 +288,38 @@ public class TaskSessionLocalServiceClpInvoker {
 
 		if (_methodName53.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U((java.util.Date)arguments[0],
-				((Long)arguments[1]).longValue());
+			return TaskSessionLocalServiceUtil.getLastTaskSessionsByU_D(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1]);
 		}
 
 		if (_methodName54.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getTaskSessionsByD_U((java.util.Date)arguments[0],
-				((Long)arguments[1]).longValue());
+			return TaskSessionLocalServiceUtil.getTaskSessionsByU_D(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1]);
 		}
 
 		if (_methodName55.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
-			return TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(((Long)arguments[0]).longValue(),
-				(java.util.Date)arguments[1], (java.util.Date)arguments[2],
-				((Long)arguments[3]).longValue());
+			return TaskSessionLocalServiceUtil.getTaskSessionsByU_T_D(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(), (java.util.Date)arguments[2]);
 		}
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(), (java.util.Date)arguments[2],
+				(java.util.Date)arguments[3]);
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return TaskSessionLocalServiceUtil.getTaskSessionsByU_T_I(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(), (java.util.Date)arguments[2],
+				(java.util.Date)arguments[3]);
+		}
+
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return TaskSessionLocalServiceUtil.updateTaskSession((com.liferay.timesheet.model.TaskSession)arguments[0]);
 		}
 
@@ -353,4 +376,8 @@ public class TaskSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
 }

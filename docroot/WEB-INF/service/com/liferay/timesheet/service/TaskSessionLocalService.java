@@ -267,17 +267,27 @@ public interface TaskSessionLocalService extends BaseLocalService,
 		long userId) throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
-		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_D(
+		long userId, long taskId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_I(
+		long userId, long taskId, java.util.Date date1, java.util.Date date2)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }

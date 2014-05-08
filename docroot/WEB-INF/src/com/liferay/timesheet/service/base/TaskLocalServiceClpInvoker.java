@@ -136,6 +136,16 @@ public class TaskLocalServiceClpInvoker {
 		_methodName55 = "getTasksByU_T";
 
 		_methodParameterTypes55 = new String[] { "long", "int" };
+
+		_methodName56 = "getTasksByU_D";
+
+		_methodParameterTypes56 = new String[] { "long", "java.util.Date" };
+
+		_methodName57 = "getTasksByC_U_I";
+
+		_methodParameterTypes57 = new String[] {
+				"long", "long", "java.util.Date", "java.util.Date"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -276,6 +286,19 @@ public class TaskLocalServiceClpInvoker {
 				((Integer)arguments[1]).intValue());
 		}
 
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByU_D(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1]);
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByC_U_I(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(), (java.util.Date)arguments[2],
+				(java.util.Date)arguments[3]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -327,4 +350,8 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
 }

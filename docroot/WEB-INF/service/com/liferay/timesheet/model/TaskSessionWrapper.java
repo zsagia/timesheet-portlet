@@ -513,6 +513,11 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
+	public java.lang.String getFormattedDuration() throws java.lang.Exception {
+		return _taskSession.getFormattedDuration();
+	}
+
+	@Override
 	public long getDuration(java.util.Date endTimeForOpenTask)
 		throws java.lang.Exception {
 		return _taskSession.getDuration(endTimeForOpenTask);

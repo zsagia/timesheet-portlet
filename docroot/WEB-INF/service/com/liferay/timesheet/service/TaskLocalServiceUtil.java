@@ -315,6 +315,20 @@ public class TaskLocalServiceUtil {
 		return getService().getTasksByU_T(userId, taskType);
 	}
 
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByU_D(
+		long userId, java.util.Date day)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTasksByU_D(userId, day);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Task> getTasksByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTasksByC_U_I(companyId, userId, date1, date2);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

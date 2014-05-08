@@ -153,14 +153,6 @@ public class ProjectLocalServiceClpInvoker {
 		_methodName57 = "getProjects";
 
 		_methodParameterTypes57 = new String[] { "long" };
-
-		_methodName58 = "getProjectsByO_PP";
-
-		_methodParameterTypes58 = new String[] { "long", "long" };
-
-		_methodName59 = "getProjectsByOwnerGroupId";
-
-		_methodParameterTypes59 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -321,17 +313,6 @@ public class ProjectLocalServiceClpInvoker {
 			return ProjectLocalServiceUtil.getProjects(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjectsByO_PP(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue());
-		}
-
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return ProjectLocalServiceUtil.getProjectsByOwnerGroupId(((Long)arguments[0]).longValue());
-		}
-
 		throw new UnsupportedOperationException();
 	}
 
@@ -387,8 +368,4 @@ public class ProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
-	private String _methodName58;
-	private String[] _methodParameterTypes58;
-	private String _methodName59;
-	private String[] _methodParameterTypes59;
 }

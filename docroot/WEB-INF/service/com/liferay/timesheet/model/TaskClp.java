@@ -440,6 +440,156 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 		}
 	}
 
+	@Override
+	public long getDuration(long userId, java.util.Date date1,
+		java.util.Date date2) {
+		try {
+			String methodName = "getDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date1, date2 };
+
+			Long returnObj = (Long)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date) {
+		try {
+			String methodName = "getFormattedDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date) {
+		try {
+			String methodName = "getTaskSessionList";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date };
+
+			java.util.List<com.liferay.timesheet.model.TaskSession> returnObj = (java.util.List<com.liferay.timesheet.model.TaskSession>)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getProjectName() {
+		try {
+			String methodName = "getProjectName";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public long getDuration(long userId, java.util.Date date) {
+		try {
+			String methodName = "getDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date };
+
+			Long returnObj = (Long)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getFormattedDuration(long userId,
+		java.util.Date date1, java.util.Date date2) {
+		try {
+			String methodName = "getFormattedDuration";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date1, date2 };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
+		long userId, java.util.Date date1, java.util.Date date2) {
+		try {
+			String methodName = "getTaskSessionList";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					long.class, java.util.Date.class, java.util.Date.class
+				};
+
+			Object[] parameterValues = new Object[] { userId, date1, date2 };
+
+			java.util.List<com.liferay.timesheet.model.TaskSession> returnObj = (java.util.List<com.liferay.timesheet.model.TaskSession>)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
 	public BaseModel<?> getTaskRemoteModel() {
 		return _taskRemoteModel;
 	}

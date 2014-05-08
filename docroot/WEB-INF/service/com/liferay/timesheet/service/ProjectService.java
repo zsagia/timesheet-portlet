@@ -83,12 +83,6 @@ public interface ProjectService extends BaseService, InvokableService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long organizationId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
 	public com.liferay.timesheet.model.Project updateProject(
 		com.liferay.timesheet.model.Project project)
 		throws com.liferay.portal.kernel.exception.PortalException,

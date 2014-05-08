@@ -302,23 +302,35 @@ public class TaskSessionLocalServiceUtil {
 		return getService().getCurrentTaskSession(userId);
 	}
 
-	public static com.liferay.timesheet.model.TaskSession getLastTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public static com.liferay.timesheet.model.TaskSession getLastTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getLastTaskSessionsByD_U(date, userId);
+		return getService().getLastTaskSessionsByU_D(userId, date);
 	}
 
-	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTaskSessionsByD_U(date, userId);
+		return getService().getTaskSessionsByU_D(userId, date);
 	}
 
-	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
-		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_D(
+		long userId, long taskId, java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTaskSessionsByU_T_D(userId, taskId, date);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .getTaskSessionsByC_I_U(companyId, date1, date2, userId);
+				   .getTaskSessionsByC_U_I(companyId, userId, date1, date2);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_I(
+		long userId, long taskId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTaskSessionsByU_T_I(userId, taskId, date1, date2);
 	}
 
 	public static void clearService() {

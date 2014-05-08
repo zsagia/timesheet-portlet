@@ -315,25 +315,41 @@ public class TaskSessionLocalServiceWrapper implements TaskSessionLocalService,
 	}
 
 	@Override
-	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public com.liferay.timesheet.model.TaskSession getLastTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSessionLocalService.getLastTaskSessionsByD_U(date, userId);
+		return _taskSessionLocalService.getLastTaskSessionsByU_D(userId, date);
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByD_U(
-		java.util.Date date, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_D(
+		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSessionLocalService.getTaskSessionsByD_U(date, userId);
+		return _taskSessionLocalService.getTaskSessionsByU_D(userId, date);
 	}
 
 	@Override
-	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_I_U(
-		long companyId, java.util.Date date1, java.util.Date date2, long userId)
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_D(
+		long userId, long taskId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _taskSessionLocalService.getTaskSessionsByC_I_U(companyId,
-			date1, date2, userId);
+		return _taskSessionLocalService.getTaskSessionsByU_T_D(userId, taskId,
+			date);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByC_U_I(
+		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.getTaskSessionsByC_U_I(companyId,
+			userId, date1, date2);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionsByU_T_I(
+		long userId, long taskId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _taskSessionLocalService.getTaskSessionsByU_T_I(userId, taskId,
+			date1, date2);
 	}
 
 	/**

@@ -324,14 +324,4 @@ public interface ProjectLocalService extends BaseLocalService,
 	public java.util.List<com.liferay.timesheet.model.Project> getProjects(
 		long parentProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByO_PP(
-		long ownerGroupId, long parentProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Project> getProjectsByOwnerGroupId(
-		long ownerGroupId)
-		throws com.liferay.portal.kernel.exception.SystemException;
 }
