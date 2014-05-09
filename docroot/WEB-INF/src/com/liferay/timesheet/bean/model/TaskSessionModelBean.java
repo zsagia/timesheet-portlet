@@ -11,15 +11,12 @@ import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -36,6 +33,12 @@ public class TaskSessionModelBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		startTimes = new HashMap<Long, Date>();
+	}
+
+	public void clear() {
+		endTime = null;
+		startTime = null;
 		startTimes = new HashMap<Long, Date>();
 	}
 
@@ -65,7 +68,7 @@ public class TaskSessionModelBean implements Serializable {
 			setStartTime(new Date());
 		}
 
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		try {
 			closeCurrentTaskSession(userId, getStartTime());
@@ -76,7 +79,7 @@ public class TaskSessionModelBean implements Serializable {
 		TaskSession taskSession = null;
 
 		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		try {
 			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
@@ -94,7 +97,7 @@ public class TaskSessionModelBean implements Serializable {
 	public void finishTaskSession()
 		throws PortalException {
 
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		TaskSession currentTaskSession = null;
 
@@ -124,34 +127,6 @@ public class TaskSessionModelBean implements Serializable {
 		clear();
 	}
 
-	/**
-	 *  Currently it gives back TaskSessions only for the current day.
-	 *  TO DO: Passing date parameter from xhtml, so that it will be more
-	 *  generic.
-	 * @return
-	 * @throws ParseException 
-	 * @throws SystemException 
-	 */
-	public List<TaskSession> getTaskSessionsByD_U() {
-
-		long userId = TimesheetUtil.getCurrentUserId();
-
-		List<TaskSession> taskSessions = null;
-
-		try {
-			taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-				TimesheetUtil.getTodayWithoutTime(), userId);
-		} catch (Exception e) {
-			logger.error("Getting task sessions is failed!");
-		}
-
-		if (taskSessions == null) {
-			taskSessions = Collections.emptyList();
-		}
-
-		return taskSessions;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -174,12 +149,6 @@ public class TaskSessionModelBean implements Serializable {
 
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
-	}
-
-	public void clear() {
-		endTime = null;
-		startTime = null;
-		startTimes = new HashMap<Long, Date>();
 	}
 
 	public Map<Long, Date> getStartTimes() {

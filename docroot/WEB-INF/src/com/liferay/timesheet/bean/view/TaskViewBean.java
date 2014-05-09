@@ -1,15 +1,13 @@
 package com.liferay.timesheet.bean.view;
 
-import com.liferay.portal.model.Group;
-import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.timesheet.model.TaskSession;
+import com.liferay.timesheet.primefaces.ProjectTreeNode;
+import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.ProjectTreeNode;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -25,70 +23,50 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 
 	public void init() {
 		try {
-			setTodayWithoutTime(TimesheetUtil.getTodayWithoutTime());
+			setTodayWithoutTime(TimeSheetUtil.getTodayWithoutTime());
 
 			setCurrentTaskSession(
 				TaskSessionLocalServiceUtil.getCurrentTaskSession(
-					TimesheetUtil.getCurrentUserId()));
+					TimeSheetUtil.getCurrentUserId()));
 
-			setOwnerGroupList(GroupServiceUtil.getGroups(
-				TimesheetUtil.getCompanyId(), 0, false));
+			setRoot(new ProjectTreeNode(null, null));
 
-			if (getOwnerGroupList().size() > 0) {
-				setSelectedOwnerGroup(getOwnerGroupList().get(0));
-
-				setRoot(new ProjectTreeNode(null, null));
-
-				generateTreeNodes(
-					true, getSelectedOwnerGroup().getGroupId(),
-					getRoot());
-			}
+			TreeNodeUtil.generateProjectTreeNodes(true, getRoot());
 		} catch (Exception e) {
-			List<Group> ownerGroupList = Collections.emptyList();
-
-			setOwnerGroupList(ownerGroupList);
+			
 		}
 	}
 
 	public String getDayTime() throws Exception {
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		List<TaskSession> taskSessions =
-			TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-				TimesheetUtil.getTodayWithoutTime(), userId);
+			TaskSessionLocalServiceUtil.getTaskSessionsByU_D(
+				userId, TimeSheetUtil.getTodayWithoutTime());
 
-		long time = TimeCalculatorUtil.summerizeDayTime(taskSessions);
+		long time = TimeCalculatorUtil.summerizeTime(taskSessions);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	public String getMonthTime() throws Exception {
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		long time = TimeCalculatorUtil.summerizeMonthTime(
-			TimesheetUtil.getCompanyId(),
-			TimesheetUtil.getTodayWithoutTime(), userId);
+			TimeSheetUtil.getCompanyId(),
+			TimeSheetUtil.getTodayWithoutTime(), userId);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	public String getWeekTime() throws Exception {
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		long time = TimeCalculatorUtil.summerizeWeekTime(
-			TimesheetUtil.getCompanyId(),
-			TimesheetUtil.getTodayWithoutTime(), userId);
+			TimeSheetUtil.getCompanyId(),
+			TimeSheetUtil.getTodayWithoutTime(), userId);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
-	}
-
-	public void onOwnerGroupSelect() throws Exception {
-		setRoot(new ProjectTreeNode(null, null));
-
-		generateTreeNodes(
-			true, getSelectedOwnerGroup().getGroupId(), getRoot());
-
-		setSelectedProjectNode(null);
 	}
 
 	private static final long serialVersionUID = -1159224264202167114L;

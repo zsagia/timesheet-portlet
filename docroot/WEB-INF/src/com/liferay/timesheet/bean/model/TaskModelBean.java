@@ -7,8 +7,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
-import com.liferay.timesheet.util.TaskConstants;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.util.TimeSheetConstants;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,11 +30,11 @@ public class TaskModelBean implements Serializable {
 
 		return TaskLocalServiceUtil.addTask(
 			userId, taskName, projectId, description,
-			TaskConstants.GENERAL_TASK, serviceContext);
+			TimeSheetConstants.TASK_GENERAL, serviceContext);
 	}
 
 	public List<Task> getTasksByUser() {
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		List<Task> tasksToday = null;
 
@@ -42,7 +42,7 @@ public class TaskModelBean implements Serializable {
 			tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
 
 			Task lunchTask = TaskLocalServiceUtil.getTaskByType(
-				TaskConstants.LUNCH_TASK);
+				TimeSheetConstants.TASK_LUNCH);
 
 			tasksToday.add(0, lunchTask);
 		} catch (Exception e) {

@@ -6,7 +6,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.bean.model.ProjectModelBean;
 import com.liferay.timesheet.bean.view.ProjectViewBean;
 import com.liferay.timesheet.model.Project;
-import com.liferay.timesheet.util.ProjectTreeNode;
+import com.liferay.timesheet.primefaces.ProjectTreeNode;
 
 import java.io.Serializable;
 
@@ -24,7 +24,6 @@ public class AdminManagedBean implements Serializable {
 
 		try {
 			Project project = projectModelBean.createProject(
-				projectViewBean.getSelectedOwnerGroup(),
 				projectViewBean.getSelectedProject());
 
 			projectViewBean.init();

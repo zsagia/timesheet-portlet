@@ -4,6 +4,8 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.OrganizationConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.TSNoCurrentTaskSessionException;
 import com.liferay.timesheet.TSNoSelectedTaskException;
@@ -15,8 +17,9 @@ import com.liferay.timesheet.bean.view.TaskViewBean;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
-import com.liferay.timesheet.util.ProjectTreeNode;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.primefaces.ProjectTreeNode;
+import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.UserUtil;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -39,7 +42,7 @@ import org.primefaces.model.TreeNode;
 public class TaskManagedBean implements Serializable {
 
 	public String createTaskAction() {
-		long userId = TimesheetUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		TreeNode selectedProjectNode = null;
 		Project selectedProject = null;
@@ -48,7 +51,7 @@ public class TaskManagedBean implements Serializable {
 			LiferayFacesContext.getInstance();
 
 		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		try {
 			selectedProjectNode = taskViewBean.getSelectedProjectNode();
@@ -157,6 +160,11 @@ public class TaskManagedBean implements Serializable {
 		}
 
 		return "/views/task/view.xhtml";
+	}
+
+	public boolean isLeader() throws SystemException, PortalException {
+		return UserUtil.isLeader(TimeSheetUtil.getCompanyId(),
+			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
 	}
 
 	protected void clear() {

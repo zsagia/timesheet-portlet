@@ -2,11 +2,10 @@ package com.liferay.timesheet.bean.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectServiceUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
 
@@ -21,8 +20,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class ProjectModelBean implements Serializable {
 
-	public Project createProject(
-			Group selectedOwnerGroup, Project selectedProject)
+	public Project createProject(Project selectedProject)
 		throws PortalException, SystemException {
 
 		long selectedProjectId = 0;
@@ -32,13 +30,12 @@ public class ProjectModelBean implements Serializable {
 		}
 
 		ServiceContext serviceContext =
-			TimesheetUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		Project project = null;
 
 		project = ProjectServiceUtil.addProject(
-			TimesheetUtil.getCurrentUserId(),
-			selectedOwnerGroup.getGroupId(), true,
+			TimeSheetUtil.getCurrentUserId(),0, true,
 			selectedProjectId, projectName, description,
 			serviceContext);
 

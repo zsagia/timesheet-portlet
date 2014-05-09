@@ -1,5 +1,6 @@
 package com.liferay.timesheet.util;
 
+import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
@@ -10,47 +11,26 @@ import java.util.List;
 
 public class TimeCalculatorUtil {
 
-	public static long summerizeDayTime(List<TaskSession> taskSessions)
-		throws Exception {
+	public static String getStringFromTime(long time) {
+		StringBuffer buffer = new StringBuffer();
 
-		return summerizeDayTime(taskSessions, new Date());
-	}
+		long hours = time / (60 * 60 * 1000);
+		long minutes = (time % (60 * 60 * 1000)) / (60 * 1000);
 
-	public static long summerizeDayTime(
-			List<TaskSession> taskSessions, Date endTime)
-		throws Exception {
-
-		long time = 0;
-
-		for(TaskSession taskSession: taskSessions) {
-			time += taskSession.getDuration(endTime);
+		if (hours < 10) {
+			buffer.append("0");
 		}
 
-		return time;
-	}
+		buffer.append(hours);
+		buffer.append(":");
 
-	public static long summerizeWeekTime(
-			long companyId, Date dateOfWeek, long userId)
-		throws Exception {
-
-		long time = 0;
-
-		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
-
-		for(Date date: daysOfWeek) {
-			Calendar date2 = Calendar.getInstance();
-
-			date2.setTime(date);
-			date2.add(Calendar.DAY_OF_WEEK, 1);
-
-			List<TaskSession> taskSessions =
-				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(
-					companyId, date, date2.getTime(), userId);
-
-			time += summerizeDayTime(taskSessions);
+		if (minutes < 10) {
+			buffer.append("0");
 		}
 
-		return time;
+		buffer.append(minutes);
+
+		return buffer.toString();
 	}
 
 	public static long summerizeMonthTime(
@@ -74,10 +54,11 @@ public class TimeCalculatorUtil {
 
 		for (int i = first; i < last; i++) {
 			List<TaskSession> taskSessions =
-				TaskSessionLocalServiceUtil.getTaskSessionsByC_I_U(companyId,
-					calendarStart.getTime(), calendarEnd.getTime(), userId);
+				TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(
+					companyId, userId, calendarStart.getTime(),
+					calendarEnd.getTime());
 
-			time += summerizeDayTime(taskSessions);
+			time += summerizeTime(taskSessions);
 
 			calendarStart.add(Calendar.DAY_OF_MONTH, 1);
 			calendarEnd.add(Calendar.DAY_OF_MONTH, 1);
@@ -86,26 +67,71 @@ public class TimeCalculatorUtil {
 		return time;
 	}
 
-	public static String getStringFromTime(long time) {
-		StringBuffer buffer = new StringBuffer();
+	public static long summerizeTime(List<TaskSession> taskSessions)
+		throws Exception {
 
-		long hours = time / (60 * 60 * 1000);
-		long minutes = (time % (60 * 60 * 1000)) / (60 * 1000);
+		return summerizeTime(taskSessions, new Date());
+	}
 
-		if (hours < 10) {
-			buffer.append("0");
+	public static long summerizeTime(
+			List<TaskSession> taskSessions, boolean breaks)
+		throws Exception {
+
+		return summerizeTime(taskSessions, new Date(), breaks);
+	}
+
+	public static long summerizeTime(
+			List<TaskSession> taskSessions, Date endTime)
+		throws Exception {
+
+		return summerizeTime(taskSessions, endTime, true);
+	}
+
+	public static long summerizeTime(
+			List<TaskSession> taskSessions, Date endTime, boolean breaks)
+		throws Exception {
+
+		long time = 0;
+
+		for(TaskSession taskSession: taskSessions) {
+			Task task = taskSession.getTask();
+
+			int type = task.getTaskType();
+
+			if (!breaks && ((type != TimeSheetConstants.TASK_GENERAL) &&
+				(type != TimeSheetConstants.TASK_MANDATORY_BREAK))) {
+
+				continue;
+			}
+
+			time += taskSession.getDuration(endTime);
 		}
 
-		buffer.append(hours);
-		buffer.append(":");
+		return time;
+	}
 
-		if (minutes < 10) {
-			buffer.append("0");
+	public static long summerizeWeekTime(
+			long companyId, Date dateOfWeek, long userId)
+		throws Exception {
+
+		long time = 0;
+
+		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
+
+		for(Date date: daysOfWeek) {
+			Calendar date2 = Calendar.getInstance();
+
+			date2.setTime(date);
+			date2.add(Calendar.DAY_OF_WEEK, 1);
+
+			List<TaskSession> taskSessions =
+				TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(
+					companyId, userId, date, date2.getTime());
+
+			time += summerizeTime(taskSessions);
 		}
 
-		buffer.append(minutes);
-
-		return buffer.toString();
+		return time;
 	}
 
 	private static List<Date> getDaysOfWeek(Date date) {

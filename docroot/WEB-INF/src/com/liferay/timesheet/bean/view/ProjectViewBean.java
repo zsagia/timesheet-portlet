@@ -1,15 +1,12 @@
 package com.liferay.timesheet.bean.view;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
-import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.timesheet.bean.model.ProjectModelBean;
 import com.liferay.timesheet.model.Project;
-import com.liferay.timesheet.util.ProjectTreeNode;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.primefaces.ProjectTreeNode;
+import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -25,31 +22,11 @@ public class ProjectViewBean
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void init() throws Exception {
-		try {
-			setOwnerGroupList(GroupServiceUtil.getGroups(
-				TimesheetUtil.getCompanyId(), 0, false));
+		setRoot(new ProjectTreeNode(null, null));
 
-				if (getOwnerGroupList().size() > 0) {
-					setSelectedOwnerGroup(getOwnerGroupList().get(0));
-
-					setRoot(new ProjectTreeNode(null, null));
-
-					generateTreeNodes(
-						false, getSelectedOwnerGroup().getGroupId(),
-						getRoot());
-				}
-		} catch (Exception e) {
-			LiferayFacesContext liferayFacesContext =
-				LiferayFacesContext.getInstance();
-
-			liferayFacesContext.addMessage(
-				"Warning", FacesMessage.SEVERITY_WARN,
-				"You need to create an Organization for this function!");
-
-			throw e;
-		}
+		TreeNodeUtil.generateProjectTreeNodes(false, getRoot());
 	}
 
 	@Override
@@ -73,8 +50,7 @@ public class ProjectViewBean
 		setRoot(new ProjectTreeNode(null, null));
 
 		try {
-			generateTreeNodes(
-				false, getSelectedOwnerGroup().getGroupId(), getRoot());
+			TreeNodeUtil.generateProjectTreeNodes(false, getRoot());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
