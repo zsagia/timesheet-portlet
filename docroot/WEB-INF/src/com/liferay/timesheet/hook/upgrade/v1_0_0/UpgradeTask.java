@@ -8,7 +8,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
-import com.liferay.timesheet.util.TaskConstants;
+import com.liferay.timesheet.util.TimeSheetConstants;
 
 /**
  * @author Istvan Sajtos
@@ -29,9 +29,9 @@ public class UpgradeTask extends UpgradeProcess {
 		long defaultUserId = UserLocalServiceUtil.getDefaultUserId(companyId);
 
 		TaskLocalServiceUtil.addTask(defaultUserId, "Lunch Break", 0, null,
-			TaskConstants.LUNCH_TASK, serviceContext);
+			TimeSheetConstants.TASK_LUNCH, serviceContext);
 		TaskLocalServiceUtil.addTask(defaultUserId, "10min Break", 0, null,
-			TaskConstants.BREAK_TASK, serviceContext);
+			TimeSheetConstants.TASK_BREAK, serviceContext);
 	}
 
 }

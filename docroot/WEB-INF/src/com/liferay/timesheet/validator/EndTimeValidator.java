@@ -3,7 +3,7 @@ package com.liferay.timesheet.validator;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
-import com.liferay.timesheet.util.TimesheetUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -17,29 +17,29 @@ public class EndTimeValidator extends AbstractValidator {
 	@Override
 	public void doValidate(Date time) throws Exception {
 		if (time != null) {
-			long userId = TimesheetUtil.getCurrentUserId();
+			long userId = TimeSheetUtil.getCurrentUserId();
 
 			Date endTime = time;
 			Date now = new Date();
-			Date today = TimesheetUtil.getTodayWithoutTime();
+			Date today = TimeSheetUtil.getTodayWithoutTime();
 
 			TimeSheetValidatorUtil.validateFutureStartTime(endTime, now);
 			TimeSheetValidatorUtil.validateLatestEndTime(endTime);
 
 			TaskSession lastTaskSession =
-				TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U(
-					today, userId);
+				TaskSessionLocalServiceUtil.getLastTaskSessionsByU_D(
+					userId, today);
 
 			if (lastTaskSession != null) {
 				TimeSheetValidatorUtil.validateEndTime(
 					lastTaskSession, endTime);
 
 				List<TaskSession> taskSessionList =
-					TaskSessionLocalServiceUtil.getTaskSessionsByD_U(
-						today, userId);
+					TaskSessionLocalServiceUtil.getTaskSessionsByU_D(
+						userId, today);
 
 				TimeSheetValidatorUtil.validateWorkDuration(
-					TimeCalculatorUtil.summerizeDayTime(
+					TimeCalculatorUtil.summerizeTime(
 						taskSessionList, endTime));
 			}
 		}

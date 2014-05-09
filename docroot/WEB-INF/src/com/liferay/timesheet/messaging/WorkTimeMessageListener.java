@@ -42,8 +42,9 @@ public class WorkTimeMessageListener extends BaseMessageListener {
 			Date today = calendar.getTime();
 
 			TaskSession lastTaskSession =
-				TaskSessionLocalServiceUtil.getLastTaskSessionsByD_U(
-					today, user.getUserId());
+				TaskSessionLocalServiceUtil.getLastTaskSessionsByU_D(
+					user.getUserId(), today);
+
 			Date lastEndTime = lastTaskSession.getEndTime();
 
 			Date baseTimeEndRestriction = 
