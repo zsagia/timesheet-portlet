@@ -1,4 +1,4 @@
-package com.liferay.timesheet.util;
+package com.liferay.timesheet.primefaces;
 
 import com.liferay.timesheet.model.Project;
 
