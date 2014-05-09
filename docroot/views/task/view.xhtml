@@ -38,14 +38,14 @@
 											<p:tree id="projectTree" selection="#{taskManagedBean.taskViewBean.selectedProjectNode}" 
 												selectionMode="single"
 												value="#{taskManagedBean.taskViewBean.root}" var="project">
-				
+
 												<p:treeNode>
 													<h:outputText value="#{project}" />
 												</p:treeNode>
 											</p:tree>
 										</aui:field>
 									</aui:column>
-		
+
 									<aui:column id="project_column_2">
 										<components:taskComponent
 											actionMethod="#{taskManagedBean.createTaskAction}"
@@ -55,7 +55,7 @@
 									</aui:column>
 								</h:form>
 							</aui:column>
-		
+
 							<aui:column columnWidth="55">
 								<h:form id="taskSessionForm">
 									<ui:repeat value="#{taskManagedBean.taskModelBean.tasksByUser}" var="task">
@@ -69,14 +69,14 @@
 							</aui:column>
 						</aui:layout>
 					</p:tab>
-		
+
 					<p:tab id="tab2" title="My Statistics">
 						<components:statistics
 							controllerBean="#{myStatisticsViewBean}"
 							controllerName="myStatistics"
 						/>
 					</p:tab>
-		
+
 					<p:tab id="tab3" title="User Statistics" rendered="#{taskManagedBean.isLeader()}">
 						<components:statistics
 							controllerBean="#{userStatisticsViewBean}"
