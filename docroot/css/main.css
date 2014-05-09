@@ -11,6 +11,27 @@
 	padding: 1px 5px 1px 24px;
 }
 
+.timesheet .ui-widget-header, .timesheet .ui-tabs-nav {
+	background: none !important;
+}
+
+.timesheet .ui-tabs > ul {
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.timesheet .ui-tabs-nav > li {
+	margin-bottom: -1px;
+	background-image: -moz-linear-gradient(top, white, #f2f2f2);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#f2f2f2));
+	background-image: -webkit-linear-gradient(top, white, #f2f2f2);
+	background-image: -o-linear-gradient(top, white, #f2f2f2);
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+}
+
+.timesheet .ui-tabs-nav > li.ui-tabs-selected {
+	 margin-bottom: -1px !important;
+}
+
 .timesheet .current-task-column {
 	width: 100%;
 }
@@ -28,11 +49,38 @@
 	width: 256px;
 }
 
+.timesheet .current-task-session {
+	min-height: 40px;
+}
+
+.timesheet .current-task-session-content {
+	min-height: 50px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #f9f9f9;
+	background-image: -moz-linear-gradient(top, white, #f2f2f2);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#f2f2f2));
+	background-image: -webkit-linear-gradient(top, white, #f2f2f2);
+	background-image: -o-linear-gradient(top, white, #f2f2f2);
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF2F2F2', GradientType=0);
+	border: 1px solid #d4d4d4;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	*zoom: 1;
+}
+
 .timesheet .summary-time-column, .timesheet .current-task-session-column,
 .timesheet .current-date-column {
 	display: inline;
 	height: 30px;
 	line-height: 30px;
+	margin-top: 10px;
 }
 
 .timesheet .current-task-session-column {
@@ -51,11 +99,6 @@
 	padding-left: 10px;
 }
 
-.timesheet .task-column-list input[type="text"]{
-	height: 18px;
-	width: 80px;
-}
-
 .timesheet .project-tree.ui-widget-content {
 	border: none;
 }
@@ -72,4 +115,27 @@
 .timesheet .task-row {
 	display: inline-block;
 	min-width: 400px;
+}
+
+.timesheet .end-time, .timesheet .start-time{
+	margin-bottom: 0 !important;
+	padding: 4px 15px !important;
+	width: 40px;
+}
+
+.timesheet .task-column-content .description,
+.timesheet .task-column-content .task-name {
+	width: 380px;
+}
+
+.timesheet .task-column-list-content input.btn {
+	margin-right: 12px;
+}
+
+.timesheet .ui-tabs .ui-tabs-panel {
+	padding: 0;
+}
+
+.timesheet input.btn-finish{
+	margin: 0 0 0 12px !important;
 }

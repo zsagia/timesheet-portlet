@@ -26,61 +26,65 @@
 					todayWithoutTime="#{taskManagedBean.taskViewBean.todayWithoutTime}"
 					weekTime="#{taskManagedBean.taskViewBean.weekTime}" />
 			</aui:column>
+
+			<aui:column columnWidth="100">
+				<p:tabView id="tabView">  
+					<p:tab id="tab1" title="Creation">
+						<aui:layout>
+							<aui:column columnWidth="45" id="project_column_1" styleClass="project-column">
+								<h:form id="taskForm">
+									<aui:column>
+										<aui:field label="Projects">
+											<p:tree id="projectTree" selection="#{taskManagedBean.taskViewBean.selectedProjectNode}" 
+												selectionMode="single"
+												value="#{taskManagedBean.taskViewBean.root}" var="project">
+				
+												<p:treeNode>
+													<h:outputText value="#{project}" />
+												</p:treeNode>
+											</p:tree>
+										</aui:field>
+									</aui:column>
+		
+									<aui:column id="project_column_2">
+										<components:taskComponent
+											actionMethod="#{taskManagedBean.createTaskAction}"
+											description="#{taskManagedBean.taskModelBean.description}"
+											startTime="#{taskManagedBean.taskSessionModelBean.startTime}"
+											taskName="#{taskManagedBean.taskModelBean.taskName}" />
+									</aui:column>
+								</h:form>
+							</aui:column>
+		
+							<aui:column columnWidth="55">
+								<h:form id="taskSessionForm">
+									<ui:repeat value="#{taskManagedBean.taskModelBean.tasksByUser}" var="task">
+										<components:taskComponent
+											actionMethod="#{taskManagedBean.createTaskSessionAction}"
+											description="#{taskManagedBean.taskSessionModelBean.description}"
+											selectedTask="#{task}"
+											startTime="#{taskManagedBean.taskSessionModelBean.startTimes[task.taskId]}" />
+									</ui:repeat>
+								</h:form>
+							</aui:column>
+						</aui:layout>
+					</p:tab>
+		
+					<p:tab id="tab2" title="My Statistics">
+						<components:statistics
+							controllerBean="#{myStatisticsViewBean}"
+							controllerName="myStatistics"
+						/>
+					</p:tab>
+		
+					<p:tab id="tab3" title="User Statistics" rendered="#{taskManagedBean.isLeader()}">
+						<components:statistics
+							controllerBean="#{userStatisticsViewBean}"
+							controllerName="userStatistics"
+						/>
+					</p:tab>
+				</p:tabView>
+			</aui:column>
 		</aui:layout>
-
-		<p:tabView id="tabView">  
-			<p:tab id="tab1" title="Creation">
-				<aui:layout>
-					<aui:column columnWidth="45" id="project_column_1" styleClass="project-column">
-						<h:form id="taskForm">
-							<aui:column>
-								<p:tree id="projectTree" selection="#{taskManagedBean.taskViewBean.selectedProjectNode}" 
-									selectionMode="single"
-									value="#{taskManagedBean.taskViewBean.root}" var="project">
-	
-									<p:treeNode>
-										<h:outputText value="#{project}" />
-									</p:treeNode>
-								</p:tree>
-							</aui:column>
-
-							<aui:column id="project_column_2">
-								<components:taskComponent
-									actionMethod="#{taskManagedBean.createTaskAction}"
-									description="#{taskManagedBean.taskModelBean.description}"
-									startTime="#{taskManagedBean.taskSessionModelBean.startTime}"
-									taskName="#{taskManagedBean.taskModelBean.taskName}" />
-							</aui:column>
-						</h:form>
-					</aui:column>
-
-					<aui:column columnWidth="55">
-						<h:form id="taskSessionForm">
-							<ui:repeat value="#{taskManagedBean.taskModelBean.tasksByUser}" var="task">
-								<components:taskComponent
-									actionMethod="#{taskManagedBean.createTaskSessionAction}"
-									description="#{taskManagedBean.taskSessionModelBean.description}"
-									selectedTask="#{task}"
-									startTime="#{taskManagedBean.taskSessionModelBean.startTimes[task.taskId]}" />
-							</ui:repeat>
-						</h:form>
-					</aui:column>
-				</aui:layout>
-			</p:tab>
-
-			<p:tab id="tab2" title="My Statistics">
-				<components:statistics
-					controllerBean="#{myStatisticsViewBean}"
-					controllerName="myStatistics"
-				/>
-			</p:tab>
-
-			<p:tab id="tab3" title="User Statistics" rendered="#{taskManagedBean.isLeader()}">
-				<components:statistics
-					controllerBean="#{userStatisticsViewBean}"
-					controllerName="userStatistics"
-				/>
-			</p:tab>
-		</p:tabView>
 	</h:body>
 </f:view>

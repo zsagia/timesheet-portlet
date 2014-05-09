@@ -67,12 +67,12 @@
 						</h:outputText>
 					</span>
 
-					<h:inputText id="endTime" value="#{cc.attrs.endTime}">
+					<h:inputText id="endTime" styleClass="time end-time" value="#{cc.attrs.endTime}">
 						<f:converter converterId="TimeSheetConverter" />
 						<f:validator validatorId="EndTimeValidator" />
 					</h:inputText>
 
-					<h:commandButton action="#{cc.attrs.actionMethod}" id="finishTask" styleClass="btn btn-primary" value="Finish" />
+					<h:commandButton action="#{cc.attrs.actionMethod}" id="finishTask" styleClass="btn btn-primary btn-finish" value="Finish" />
 				</aui:column>
 			</aui:layout>
 		</h:form>

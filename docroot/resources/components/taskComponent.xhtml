@@ -23,20 +23,20 @@
 			<aui:column rendered="#{empty cc.attrs.selectedTask}" styleClass="task-column">
 				<aui:fieldset>
 					<aui:field label="Start">
-						<h:inputText id="startTime" value="#{cc.attrs.startTime}">
+						<h:inputText id="startTime" maxlength="5" styleClass="start-time" value="#{cc.attrs.startTime}">
 							<f:converter converterId="TimeSheetConverter" />
 							<f:validator validatorId="StartTimeValidator" />
 						</h:inputText>
 					</aui:field>
 
 					<aui:field label="Taskname">
-						<h:inputText id="taskName" value="#{cc.attrs.taskName}" required="true">
+						<h:inputText id="taskName" required="true" styleClass="task-name" value="#{cc.attrs.taskName}">
 							<f:validateRequired />
 						</h:inputText>
 					</aui:field>
 
 					<aui:field label="Description">
-						<h:inputTextarea id="description" value="#{cc.attrs.description}" />
+						<h:inputTextarea id="description" styleClass="description" value="#{cc.attrs.description}" />
 					</aui:field>
 				</aui:fieldset>
 
@@ -46,11 +46,11 @@
 			</aui:column>
 
 			<aui:column rendered="#{not empty cc.attrs.selectedTask}" styleClass="task-column-list">
-				<label>
-					<h:outputText value="Start: " />
-				</label>
+				<h:commandButton action="#{cc.attrs.actionMethod}" id="startTask" styleClass="btn btn-primary" value="Start Task">
+					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
+				</h:commandButton>
 
-				<h:inputText id="startTime" value="#{cc.attrs.startTime}">
+				<h:inputText id="startTime" styleClass="time start-time" value="#{cc.attrs.startTime}">
 					<f:converter converterId="TimeSheetConverter" />
 					<f:validator validatorId="StartTimeValidator" />
 				</h:inputText>
@@ -66,10 +66,6 @@
 						<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
 					</label>
 				</div>
-
-				<h:commandButton action="#{cc.attrs.actionMethod}"  id="startTask" styleClass="btn btn-primary" value="Start Task">
-					<f:param name="selectedTaskId" value="#{cc.attrs.selectedTask.taskId}" />
-				</h:commandButton>
 			</aui:column>
 		</aui:layout>
 	</cc:implementation>
