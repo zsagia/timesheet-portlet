@@ -18,7 +18,7 @@ import java.util.Date;
 * @author Zsolt Szabo
 */
 
-public class TimesheetUtil {
+public class TimeSheetUtil {
 
 	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
 	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
@@ -96,6 +96,19 @@ public class TimesheetUtil {
 
 		return timeFormatWithoutDate.parse(
 			timeFormatWithoutDate.format(date)).getTime();
+	}
+
+	public static Date getIncrementedDay(Date day) {
+		Calendar calendar = CalendarFactoryUtil.getCalendar();
+
+		calendar.setTime(day);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.add(Calendar.DATE, 1);
+
+		return calendar.getTime();
 	}
 
 }
