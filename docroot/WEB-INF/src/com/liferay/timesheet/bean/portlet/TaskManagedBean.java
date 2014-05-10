@@ -13,6 +13,7 @@ import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.bean.model.TaskModelBean;
 import com.liferay.timesheet.bean.model.TaskSessionModelBean;
+import com.liferay.timesheet.bean.view.EditTaskViewBean;
 import com.liferay.timesheet.bean.view.TaskViewBean;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
@@ -162,6 +163,29 @@ public class TaskManagedBean implements Serializable {
 		return "/views/task/view.xhtml";
 	}
 
+	public String updateTaskAction() {
+		Task editedTask = editTaskViewBean.getEditedTask();
+		ProjectTreeNode selectedProjectTreeNode =
+			editTaskViewBean.getSelectedProjectNode();
+
+		String taskName = editTaskViewBean.getTaskName();
+
+		Project selectedProject = null;
+
+		if (selectedProjectTreeNode != null) {
+			selectedProject = selectedProjectTreeNode.getProject();
+		}
+
+		try {
+			taskModelBean.updateTask(
+				editedTask, taskName, selectedProject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "/views/task/view.xhtml";
+	}
+
 	public boolean isLeader() throws SystemException, PortalException {
 		return UserUtil.isLeader(TimeSheetUtil.getCompanyId(),
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
@@ -205,8 +229,20 @@ public class TaskManagedBean implements Serializable {
 		this.selectedTaskId = selectedTaskId;
 	}
 
+	public EditTaskViewBean getEditTaskViewBean() {
+		return editTaskViewBean;
+	}
+
+	public void setEditTaskViewBean(EditTaskViewBean editTaskViewBean) {
+		this.editTaskViewBean = editTaskViewBean;
+	}
+
 	@ManagedProperty(value="#{param.selectedTaskId}")
 	private long selectedTaskId = 0;
+
+	@ManagedProperty(name = "editTaskViewBean",
+		value = "#{editTaskViewBean}")
+	private EditTaskViewBean editTaskViewBean;
 	@ManagedProperty(name = "taskViewBean",
 		value = "#{taskViewBean}")
 	private TaskViewBean taskViewBean;

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<cc:interface>
+		<cc:attribute name="headerName" />
+		<cc:attribute name="projectNode" />
+		<cc:attribute name="projectTree" />
+		<cc:attribute name="taskName" />
+		<cc:attribute name="actionMethod"
+			method-signature="java.lang.String action()" />
+	</cc:interface>
+
+	<cc:implementation>
+		<p:dialog header="#{cc.attrs.headerName}" id="dialog" modal="true" showEffect="fade" widgetVar="editTaskDialog">
+			<h:form>
+				<p:outputPanel id="editTaskPanel">
+					<aui:field label="Projects">
+						<p:tree id="editProjectTree" selection="#{cc.attrs.projectNode}" 
+							selectionMode="single" value="#{cc.attrs.projectTree}" var="project">
+
+							<p:treeNode>
+								<h:outputText value="#{project}" />
+							</p:treeNode>
+						</p:tree>
+					</aui:field>
+
+					<aui:field label="Taskname">
+						<h:inputText id="taskName" required="true" styleClass="task-name" value="#{cc.attrs.taskName}">
+							<f:converter converterId="StringTrimmer" />
+							<f:validateRequired />
+						</h:inputText>
+					</aui:field>
+
+					<h:commandButton action="#{cc.attrs.actionMethod}" id="btnUpdateTask" styleClass="btn btn-primary"
+						value="Submit" />
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+	</cc:implementation>
+</ui:component>

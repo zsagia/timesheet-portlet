@@ -114,17 +114,21 @@
 
 .timesheet .task-row {
 	display: inline-block;
-	min-width: 400px;
 }
 
-.timesheet .end-time, .timesheet .start-time{
+.timesheet .task-column-list-content .ui-icon {
+	float: right;
+	margin-top: 15px;
+}
+
+.timesheet .end-time, .timesheet .start-time {
 	margin-bottom: 0 !important;
 	padding: 4px 15px !important;
 	width: 40px;
 }
 
 .timesheet .task-column-content .description,
-.timesheet .task-column-content .task-name {
+.timesheet .task-name {
 	width: 380px;
 }
 

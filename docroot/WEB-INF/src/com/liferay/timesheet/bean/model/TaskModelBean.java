@@ -5,6 +5,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
@@ -52,6 +53,20 @@ public class TaskModelBean implements Serializable {
 
 		return tasksToday;
 	}
+
+	public Task updateTask(
+			Task task, String taskName, Project project)
+		throws PortalException, SystemException {
+
+		task.setTaskName(taskName);
+
+		if (project != null) {
+			task.setProjectId(project.getProjectId());
+		}
+
+		return TaskLocalServiceUtil.updateTask(task);
+	}
+
 
 	public String getDescription() {
 		return description;
