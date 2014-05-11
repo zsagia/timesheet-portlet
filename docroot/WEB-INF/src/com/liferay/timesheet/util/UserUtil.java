@@ -44,14 +44,14 @@ public class UserUtil {
 			TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(
 				companyId, userId, date, now);
 
-		return TimeCalculatorUtil.summerizeTime(taskSessions);
+		return DateTimeCalculatorUtil.summerizeTime(taskSessions);
 	}
 
 	public static String getFormattedDuration(
 			long companyId, long userId, Date date, Date now)
 		throws Exception {
 
-		return TimeCalculatorUtil.getStringFromTime(
+		return DateTimeCalculatorUtil.getStringFromTime(
 			getDuration(companyId, userId, date, now));
 	}
 

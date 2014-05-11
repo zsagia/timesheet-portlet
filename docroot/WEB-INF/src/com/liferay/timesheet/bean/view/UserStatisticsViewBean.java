@@ -6,6 +6,7 @@ import com.liferay.portal.model.OrganizationConstants;
 import com.liferay.portal.model.User;
 import com.liferay.timesheet.primefaces.UserTreeNode;
 import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.TimeSheetUtil;
 import com.liferay.timesheet.util.UserUtil;
@@ -26,7 +27,7 @@ public class UserStatisticsViewBean extends AbstractStatisticsBean {
 
 	public void init() {
 		try {
-			setCurrentDate(TimeSheetUtil.getTodayWithoutTime());
+			setCurrentDate(DateTimeUtil.getTodayWithoutTime());
 			setCurrentUser(TimeSheetUtil.getCurrentUser());
 
 			setEndDate(new Date());

@@ -23,4 +23,8 @@ public class TimeSheetConstants {
 
 	public static final int USER_LIST_GROUPPED = 1;
 
+	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
+
+	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
+
 }

@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
-import com.liferay.timesheet.util.TimeCalculatorUtil;
+import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 
 import java.util.Date;
 
@@ -52,7 +52,7 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 	}
 
 	public String getFormattedDuration() throws Exception {
-		return TimeCalculatorUtil.getStringFromTime(getDuration());
+		return DateTimeCalculatorUtil.getStringFromTime(getDuration());
 	}
 
 	public long getDuration(Date endTimeForOpenTask) throws Exception {

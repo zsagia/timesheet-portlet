@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class TimeCalculatorUtil {
+public class DateTimeCalculatorUtil {
 
 	public static String getStringFromTime(long time) {
 		StringBuffer buffer = new StringBuffer();

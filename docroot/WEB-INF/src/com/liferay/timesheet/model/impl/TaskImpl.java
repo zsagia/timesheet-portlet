@@ -20,7 +20,8 @@ import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimeCalculatorUtil;
+import com.liferay.timesheet.util.DateTimeCalculatorUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Collections;
@@ -49,28 +50,28 @@ public class TaskImpl extends TaskBaseImpl {
 	public long getDuration(long userId, Date date)
 		throws SystemException, Exception {
 
-		return TimeCalculatorUtil.summerizeTime(
+		return DateTimeCalculatorUtil.summerizeTime(
 			getTaskSessionList(
-				userId, date, TimeSheetUtil.getIncrementedDay(date)));
+				userId, date, DateTimeUtil.getIncrementedDay(date)));
 	}
 
 	public long getDuration(long userId, Date date1, Date date2)
 		throws SystemException, Exception {
 
-		return TimeCalculatorUtil.summerizeTime(
+		return DateTimeCalculatorUtil.summerizeTime(
 			getTaskSessionList(userId, date1, date2));
 	}
 
 	public String getFormattedDuration(long userId, Date date)
 		throws SystemException, Exception {
 
-		return TimeCalculatorUtil.getStringFromTime(getDuration(userId, date));
+		return DateTimeCalculatorUtil.getStringFromTime(getDuration(userId, date));
 	}
 
 	public String getFormattedDuration(long userId, Date date1, Date date2)
 		throws SystemException, Exception {
 
-		return TimeCalculatorUtil.getStringFromTime(
+		return DateTimeCalculatorUtil.getStringFromTime(
 			getDuration(userId, date1, date2));
 	}
 
