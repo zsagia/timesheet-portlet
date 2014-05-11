@@ -68,12 +68,33 @@ public class DateTimeUtil {
 		return calendar.getTime();
 	}
 
-	public static Date getDateFromMilitaryTime(String value) {
-		Date date = null;
+	public static Date getDateFromMilitaryTime(String value)
+		throws Exception {
+
+		return getDateFromMilitaryTime(
+			TimeSheetUtil.getCurrentUser(), DateTimeUtil.getTodayWithoutTime(),
+			value);
+	}
+
+	public static Date getDateFromMilitaryTime(User user, String value)
+		throws Exception {
+
+		return getDateFromMilitaryTime(
+			user, DateTimeUtil.getTodayWithoutTime(), value);
+	}
+
+	public static Date getDateFromMilitaryTime(Date date, String value)
+		throws Exception {
+
+		return getDateFromMilitaryTime(
+			TimeSheetUtil.getCurrentUser(), date, value);
+	}
+	
+	public static Date getDateFromMilitaryTime(
+		User user, Date date, String value) {
 
 		if (Validator.isNotNull(value)) {
 			try {
-				User user = TimeSheetUtil.getCurrentUser();
 				TimeZone userTimeZone = user.getTimeZone();
 
 				Calendar calendar = CalendarFactoryUtil.getCalendar(

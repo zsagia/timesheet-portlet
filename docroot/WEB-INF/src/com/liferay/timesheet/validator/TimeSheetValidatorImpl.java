@@ -65,7 +65,7 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 	}
 
 	@Override
-	public void validateLatestEndTime(Date workStart) throws PortalException {
+	public void validateLatestEndTime(Date workStart) throws Exception {
 		Date latestEndTimeRestriction =
 			DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
@@ -76,7 +76,7 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 	}
 
 	@Override
-	public void validateWorkStart(Date workStart) throws PortalException {
+	public void validateWorkStart(Date workStart) throws Exception {
 		Date earliestStartRestriction =
 			DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);

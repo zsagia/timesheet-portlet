@@ -2,7 +2,6 @@ package com.liferay.timesheet.validator;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.timesheet.model.TaskSession;
-import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -13,7 +12,7 @@ public class TimeSheetValidatorUtil {
 
 	public static void validateStartTime(
 			TaskSession taskSession, Date startTime)
-		throws ParseException, PortalException {
+		throws Exception {
 
 		getTimeSheetValidator().validateStartTime(taskSession, startTime);
 	}
@@ -31,13 +30,13 @@ public class TimeSheetValidatorUtil {
 	}
 
 	public static void validateLatestEndTime(Date workStart)
-		throws PortalException {
+		throws Exception {
 
 		getTimeSheetValidator().validateLatestEndTime(workStart);
 	}
 
 	public static void validateWorkStart(Date workStart)
-		throws PortalException {
+		throws Exception {
 
 		getTimeSheetValidator().validateWorkStart(workStart);
 	}
