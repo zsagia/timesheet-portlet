@@ -54,6 +54,10 @@ public interface Task extends TaskModel, PersistedModel {
 
 	public java.lang.String getProjectName();
 
+	public java.lang.String getShortTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
 		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException;

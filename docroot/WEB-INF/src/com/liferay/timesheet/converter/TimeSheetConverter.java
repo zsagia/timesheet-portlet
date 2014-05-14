@@ -30,9 +30,10 @@ public class TimeSheetConverter extends DateTimeConverter {
 		throws ConverterException{
 
 		try {
-			return DateTimeUtil.getDateFromMilitaryTime(value);
+			return DateTimeUtil.getDateFromMilitaryTime(new Date(), value);
 		} catch (Exception e) {
-			return new ConverterException();		}
+			throw new ConverterException();
+		}
 	}
 
 	@Override

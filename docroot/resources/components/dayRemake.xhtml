@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<cc:interface>
+		<cc:attribute name="controllerBean" />
+		<cc:attribute name="controllerName" />
+	</cc:interface>
+
+	<cc:implementation>
+		<pe:timeline
+			id="dayRemake" editable="true" start="#{cc.attrs.dayStart}" eventMargin="1"
+			minHeight="300" end="#{cc.attrs.controllerBean.dayEnd}"
+			min="#{cc.attrs.controllerBean.min}" stackEvents="true"
+			max="#{cc.attrs.controllerBean.max}" snapEvents="true" axisOnTop="true"
+			showButtonNew="true" showNavigation="true"
+			value="#{cc.attrs.controllerBean.dayRemakeModel}" var="taskSession"
+			zoomMin="#{cc.attrs.controllerBean.zoomMin}"
+			zoomMax="#{cc.attrs.controllerBean.zoomMax}" 
+			widgetVar="dayRemakeWidget">
+
+			<p:ajax event="change" update="@none" listener="#{cc.attrs.controllerBean.onChange}"/> 
+
+			<h:panelGrid columns="1">
+				<h:outputText value="#{taskSession.formattedDuration}"/>
+				<h:outputText value="#{taskSession.getTask().getTaskName()}"/>
+			</h:panelGrid>
+		</pe:timeline>
+	</cc:implementation>
+</ui:component>

@@ -93,31 +93,33 @@ public class DateTimeUtil {
 	public static Date getDateFromMilitaryTime(
 		User user, Date date, String value) {
 
-		if (Validator.isNotNull(value)) {
-			try {
-				TimeZone userTimeZone = user.getTimeZone();
+		try {
+			TimeZone userTimeZone = user.getTimeZone();
 
-				Calendar calendar = CalendarFactoryUtil.getCalendar(
-					userTimeZone);
+			Calendar calendar = CalendarFactoryUtil.getCalendar(userTimeZone);
 
-				if (Validator.isNotNull(value)) {
-					int hour = Integer.valueOf(value.substring(0, 2));
-					int minute = Integer.valueOf(
-						value.substring(2, value.length()));
-
-					calendar.set(Calendar.HOUR_OF_DAY, hour);
-					calendar.set(Calendar.MINUTE, minute);
-					calendar.set(Calendar.SECOND, 0);
-					calendar.set(Calendar.MILLISECOND, 0);
-				}
-
-				date = calendar.getTime();
-
-			} catch (Exception e) {
-				logger.error("date_conversion_is_failed", e);
-
-				throw new ConverterException();
+			if (date != null) {
+				calendar.setTime(date);
 			}
+
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+
+			if (Validator.isNotNull(value)) {
+				int hour = Integer.valueOf(value.substring(0, 2));
+				int minute = Integer.valueOf(
+					value.substring(2, value.length()));
+
+				calendar.set(Calendar.HOUR_OF_DAY, hour);
+				calendar.set(Calendar.MINUTE, minute);
+			}
+
+			date = calendar.getTime();
+
+		} catch (Exception e) {
+			logger.error("date_conversion_is_failed", e);
+
+			throw new ConverterException();
 		}
 
 		return date;

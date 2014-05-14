@@ -501,15 +501,14 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
-	public com.liferay.timesheet.model.Task getTask()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _taskSession.getTask();
+	public long getDuration() throws java.lang.Exception {
+		return _taskSession.getDuration();
 	}
 
 	@Override
-	public long getDuration() throws java.lang.Exception {
-		return _taskSession.getDuration();
+	public long getDuration(java.util.Date endTimeForOpenTask)
+		throws java.lang.Exception {
+		return _taskSession.getDuration(endTimeForOpenTask);
 	}
 
 	@Override
@@ -518,9 +517,17 @@ public class TaskSessionWrapper implements TaskSession,
 	}
 
 	@Override
-	public long getDuration(java.util.Date endTimeForOpenTask)
-		throws java.lang.Exception {
-		return _taskSession.getDuration(endTimeForOpenTask);
+	public java.lang.String getShortTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskSession.getShortTaskName();
+	}
+
+	@Override
+	public com.liferay.timesheet.model.Task getTask()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _taskSession.getTask();
 	}
 
 	@Override

@@ -237,9 +237,20 @@ public class TaskManagedBean implements Serializable {
 		this.editTaskViewBean = editTaskViewBean;
 	}
 
+	public DayRemakeViewBean getDayRemakeViewBean() {
+		return dayRemakeViewBean;
+	}
+
+	public void setDayRemakeViewBean(DayRemakeViewBean dayRemakeViewBean) {
+		this.dayRemakeViewBean = dayRemakeViewBean;
+	}
+
 	@ManagedProperty(value="#{param.selectedTaskId}")
 	private long selectedTaskId = 0;
 
+	@ManagedProperty(name = "dayRemakeViewBean",
+		value = "#{dayRemakeViewBean}")
+	private DayRemakeViewBean dayRemakeViewBean;
 	@ManagedProperty(name = "editTaskViewBean",
 		value = "#{editTaskViewBean}")
 	private EditTaskViewBean editTaskViewBean;

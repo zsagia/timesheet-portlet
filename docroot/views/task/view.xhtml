@@ -12,7 +12,7 @@
 
 	<h:head />
 
-	<h:body styleClass="timesheet">
+	<h:body styleClass="timesheet" id="timesheet">
 		<p:messages id="messages" showDetail="true" autoUpdate="false" closable="true" />
 
 		<aui:layout id="currentTaskLayout" styleClass="current-task-layout">
@@ -28,6 +28,9 @@
 			</aui:column>
 
 			<aui:column columnWidth="100">
+				<h:form id="navigation">
+					<h:commandLink action="#{viewControllerBean.showDayRemakeView}" value="Edit today's task session list"/>
+				</h:form>
 				<p:tabView id="tabView">  
 					<p:tab id="tab1" title="Creation">
 						<aui:layout>
@@ -57,17 +60,15 @@
 							</aui:column>
 
 							<aui:column columnWidth="55">
-								<h:form id="taskSessionForm">
-									<ui:repeat value="#{taskManagedBean.taskModelBean.tasksByUser}" var="task">
-										<components:taskComponent
+								<c:forEach items="#{taskManagedBean.taskModelBean.tasksByUser}" var="task">
+									<components:taskComponent
 											actionMethod="#{taskManagedBean.createTaskSessionAction}"
 											description="#{taskManagedBean.taskSessionModelBean.description}"
 											editTaskDialog="dialog"
 											editedTask="#{taskManagedBean.editTaskViewBean.editedTask}"
 											selectedTask="#{task}"
 											startTime="#{taskManagedBean.taskSessionModelBean.startTimes[task.taskId]}" />
-									</ui:repeat>
-								</h:form>
+								</c:forEach>
 
 								<components:taskDialog
 									actionMethod="#{taskManagedBean.updateTaskAction}"

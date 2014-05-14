@@ -588,6 +588,25 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
+	public java.lang.String getShortTaskName() {
+		try {
+			String methodName = "getShortTaskName";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
 		long userId, java.util.Date date1, java.util.Date date2) {
 		try {

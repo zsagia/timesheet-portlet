@@ -134,7 +134,7 @@
 										</p:column>
 
 										<p:column headerText="Duration">
-											<h:outputText value="#{task.getFormattedDuration(cc.attrs.controllerBean.currentUser.userId, cc.attrs.controllerBean.currentDate)}"/>
+											<h:outputText value="#{cc.attrs.controllerBean.getFormattedDuration(task)}"/>
 										</p:column>
 
 										<f:facet name="footer">

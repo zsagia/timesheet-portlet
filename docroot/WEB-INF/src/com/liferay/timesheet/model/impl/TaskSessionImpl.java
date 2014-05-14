@@ -41,18 +41,8 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 	public TaskSessionImpl() {
 	}
 
-	public Task getTask() throws PortalException, SystemException {
-		Task task = TaskLocalServiceUtil.getTask(getTaskId());
-
-		return task;
-	}
-
 	public long getDuration() throws Exception {
 		return getDuration(new Date());
-	}
-
-	public String getFormattedDuration() throws Exception {
-		return DateTimeCalculatorUtil.getStringFromTime(getDuration());
 	}
 
 	public long getDuration(Date endTimeForOpenTask) throws Exception {
@@ -75,6 +65,27 @@ public class TaskSessionImpl extends TaskSessionBaseImpl {
 		}
 
 		return endTimeValue - startTimeValue;
+	}
+
+	public String getFormattedDuration() throws Exception {
+		return DateTimeCalculatorUtil.getStringFromTime(getDuration());
+	}
+
+	public String getShortTaskName() throws PortalException, SystemException {
+		Task task = getTask();
+		String taskName = task.getTaskName();
+
+		if (taskName.length() > 60) {
+			return taskName.substring(0, 60) + "...";
+		}
+
+		return taskName;
+	}
+
+	public Task getTask() throws PortalException, SystemException {
+		Task task = TaskLocalServiceUtil.getTask(getTaskId());
+
+		return task;
 	}
 
 }
