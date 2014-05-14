@@ -61,4 +61,6 @@ public interface Task extends TaskModel, PersistedModel {
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
 		long userId, java.util.Date date1, java.util.Date date2)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public boolean isEditable();
 }

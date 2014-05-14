@@ -555,6 +555,11 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
+	public boolean isEditable() {
+		return _task.isEditable();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
