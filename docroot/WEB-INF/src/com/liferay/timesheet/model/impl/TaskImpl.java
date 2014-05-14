@@ -22,6 +22,7 @@ import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetConstants;
 
 import java.util.Collections;
 import java.util.Date;
@@ -120,6 +121,14 @@ public class TaskImpl extends TaskBaseImpl {
 		}
 
 		return taskSessionList;
+	}
+
+	public boolean isEditable() {
+		if (getTaskType() == TimeSheetConstants.TASK_GENERAL) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
