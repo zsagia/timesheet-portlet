@@ -9,6 +9,7 @@ import com.liferay.timesheet.TSNoCurrentTaskSessionException;
 import com.liferay.timesheet.TSNoSelectedTaskException;
 import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
+import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
@@ -94,6 +95,29 @@ public class TaskSessionModelBean implements Serializable {
 		return taskSession;
 	}
 
+	public TaskSession createTaskSession(
+			Task selectedTask, Date startTime, Date endTime, String description)
+		throws PortalException {
+
+		long userId = TimeSheetUtil.getCurrentUserId();
+
+		TaskSession taskSession = null;
+
+		ServiceContext serviceContext = TimeSheetUtil.createServiceContext();
+
+		try {
+			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
+				userId, getStartTime(), getEndTime(), selectedTask.getTaskId(),
+				description, serviceContext);
+		} catch (Exception e) {
+			throw new TSTaskSessionUpdateException();
+		}
+
+		clear();
+
+		return taskSession;
+	}
+
 	public void finishTaskSession()
 		throws PortalException {
 
@@ -159,10 +183,19 @@ public class TaskSessionModelBean implements Serializable {
 		this.startTimes = startTimes;
 	}
 
+	public Task getSelectedTask() {
+		return selectedTask;
+	}
+
+	public void setSelectedTask(Task selectedTask) {
+		this.selectedTask = selectedTask;
+	}
+
 	private String description = null;
 	private Date endTime = null;
 	private Date startTime = null;
 	private Map<Long, Date> startTimes;
+	private Task selectedTask = null;
 
 	private static final long serialVersionUID = -2671767034731473059L;
 	private static final Logger logger =

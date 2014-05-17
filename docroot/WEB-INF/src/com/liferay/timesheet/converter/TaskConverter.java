@@ -3,19 +3,19 @@ package com.liferay.timesheet.converter;
 import com.liferay.faces.util.lang.StringPool;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.service.GroupServiceUtil;
+import com.liferay.timesheet.model.Task;
+import com.liferay.timesheet.service.TaskLocalServiceUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter("OwnerGroupConverter")
-public class OwnerGroupConverter implements Converter {
+@FacesConverter("TaskConverter")
+public class TaskConverter implements Converter {
 
 	private static final Logger logger =
-		LoggerFactory.getLogger(OwnerGroupConverter.class);
+		LoggerFactory.getLogger(TaskConverter.class);
 
 	@Override
 	public Object getAsObject(
@@ -25,16 +25,16 @@ public class OwnerGroupConverter implements Converter {
 			return value;
 		}
 
-		Group ownerGroup = null;
+		Task task = null;
 
 		try {
-			ownerGroup = GroupServiceUtil.getGroup(
+			task = TaskLocalServiceUtil.getTask(
 				Long.parseLong(value));
 		} catch (Exception e) {
 			logger.error("Conversion error", e);
 		}
 
-		return ownerGroup;
+		return task;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class OwnerGroupConverter implements Converter {
 			return StringPool.BLANK;
 		}
 
-		return String.valueOf(((Group)value).getGroupId());
+		return String.valueOf(((Task)value).getTaskId());
 	}
 
 }

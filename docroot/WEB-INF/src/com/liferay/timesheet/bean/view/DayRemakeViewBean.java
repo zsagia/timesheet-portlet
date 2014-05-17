@@ -1,7 +1,5 @@
-package com.liferay.timesheet.bean.portlet;
+package com.liferay.timesheet.bean.view;
 
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
@@ -58,7 +56,7 @@ public class DayRemakeViewBean implements Serializable {
 
 			createDayRemakeModel();
 		} catch (Exception e) {
-			logger.error("Initialization is failed!", e);
+			
 		}
 	}
 
@@ -190,8 +188,5 @@ public class DayRemakeViewBean implements Serializable {
 	private Date min = null;
 	private Date max = null;
 
-	private static final long serialVersionUID = 5620158902340242023L;
-	private static Logger logger = LoggerFactory.getLogger(
-		DayRemakeViewBean.class);
-
+	private static final long serialVersionUID = -9197850325731216027L;
 }

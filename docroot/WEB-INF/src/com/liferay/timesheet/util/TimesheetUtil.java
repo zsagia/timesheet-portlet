@@ -4,6 +4,7 @@ import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 
@@ -14,10 +15,8 @@ import com.liferay.portal.theme.ThemeDisplay;
 public class TimeSheetUtil {
 
 	public static ServiceContext createServiceContext() {
-		LiferayFacesContext liferayFacesContext =
-				LiferayFacesContext.getInstance();
+		ThemeDisplay themeDisplay = getThemeDisplay();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setScopeGroupId(themeDisplay.getScopeGroupId());
@@ -48,6 +47,25 @@ public class TimeSheetUtil {
 			LiferayFacesContext.getInstance();
 
 		return liferayFacesContext.getUserId();
+	}
+
+	public static PermissionChecker getPermissionChecker() {
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getPermissionChecker();
+	}
+
+	public static long getSiteGroupId() {
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getSiteGroupId();
+	}
+
+	public static ThemeDisplay getThemeDisplay() {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		return liferayFacesContext.getThemeDisplay(); 
 	}
 
 }

@@ -36,7 +36,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			DateTimeCalculatorUtil.summerizeTime(taskSessions, breaks));
 	}
 
-	public String getFormattedDuration(Task task) throws Exception {
+	public String getFormattedDurationForTask(Task task) throws Exception {
 		Date[] interval = calculateInterval(currentDate, dateNumber);
 
 		return task.getFormattedDuration(

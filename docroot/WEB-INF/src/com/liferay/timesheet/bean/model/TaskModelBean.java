@@ -42,6 +42,16 @@ public class TaskModelBean implements Serializable {
 		try {
 			tasksToday = TaskLocalServiceUtil.getTasksByUserId(userId);
 
+			Task minutes10BreakTask = TaskLocalServiceUtil.getTaskByType(
+				TimeSheetConstants.TASK_BREAK);
+
+			tasksToday.add(0, minutes10BreakTask);
+
+			Task outOfOfficeTask = TaskLocalServiceUtil.getTaskByType(
+				TimeSheetConstants.TASK_MANDATORY_BREAK);
+
+			tasksToday.add(0, outOfOfficeTask);
+
 			Task lunchTask = TaskLocalServiceUtil.getTaskByType(
 				TimeSheetConstants.TASK_LUNCH);
 
