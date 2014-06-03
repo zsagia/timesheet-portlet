@@ -5,6 +5,36 @@
 
 	<namespace>timesheet</namespace>
 
+	<entity name="Day" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="dayId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="date" type="Date" />
+		<column name="type" type="int" />
+
+		<!-- Order -->
+
+		<order>
+			<order-column name="date" order-by="desc" />
+		</order>
+	</entity>
+
 	<entity name="Project" local-service="true" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
