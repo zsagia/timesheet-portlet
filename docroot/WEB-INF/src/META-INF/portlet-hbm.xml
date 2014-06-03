@@ -2,9 +2,24 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.timesheet.model.Day" />
 	<import class="com.liferay.timesheet.model.Project" />
 	<import class="com.liferay.timesheet.model.Task" />
 	<import class="com.liferay.timesheet.model.TaskSession" />
+	<class name="com.liferay.timesheet.model.impl.DayImpl" table="timesheet_Day">
+		<cache usage="read-write" />
+		<id name="dayId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="date" type="org.hibernate.type.TimestampType" column="date_" />
+		<property name="type" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="type_" />
+	</class>
 	<class name="com.liferay.timesheet.model.impl.ProjectImpl" table="timesheet_Project">
 		<cache usage="read-write" />
 		<id name="projectId" type="long">

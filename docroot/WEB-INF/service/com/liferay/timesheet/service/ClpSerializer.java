@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import com.liferay.timesheet.model.DayClp;
 import com.liferay.timesheet.model.ProjectClp;
 import com.liferay.timesheet.model.TaskClp;
 import com.liferay.timesheet.model.TaskSessionClp;
@@ -104,6 +105,10 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals(DayClp.class.getName())) {
+			return translateInputDay(oldModel);
+		}
+
 		if (oldModelClassName.equals(ProjectClp.class.getName())) {
 			return translateInputProject(oldModel);
 		}
@@ -129,6 +134,16 @@ public class ClpSerializer {
 		}
 
 		return newList;
+	}
+
+	public static Object translateInputDay(BaseModel<?> oldModel) {
+		DayClp oldClpModel = (DayClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getDayRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
 	}
 
 	public static Object translateInputProject(BaseModel<?> oldModel) {
@@ -177,6 +192,10 @@ public class ClpSerializer {
 		Class<?> oldModelClass = oldModel.getClass();
 
 		String oldModelClassName = oldModelClass.getName();
+
+		if (oldModelClassName.equals("com.liferay.timesheet.model.impl.DayImpl")) {
+			return translateOutputDay(oldModel);
+		}
 
 		if (oldModelClassName.equals(
 					"com.liferay.timesheet.model.impl.ProjectImpl")) {
@@ -321,6 +340,10 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.TSWorkDurationException();
 		}
 
+		if (className.equals("com.liferay.timesheet.NoSuchDayException")) {
+			return new com.liferay.timesheet.NoSuchDayException();
+		}
+
 		if (className.equals("com.liferay.timesheet.NoSuchProjectException")) {
 			return new com.liferay.timesheet.NoSuchProjectException();
 		}
@@ -334,6 +357,16 @@ public class ClpSerializer {
 		}
 
 		return throwable;
+	}
+
+	public static Object translateOutputDay(BaseModel<?> oldModel) {
+		DayClp newModel = new DayClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setDayRemoteModel(oldModel);
+
+		return newModel;
 	}
 
 	public static Object translateOutputProject(BaseModel<?> oldModel) {

@@ -7,6 +7,32 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.timesheet.model.impl.DayModelImpl">
+		<attributes>
+			<id name="dayId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="date">
+				<column name="DATE_" />
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="type">
+				<column name="TYPE_" />
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.timesheet.model.impl.ProjectModelImpl">
 		<attributes>
 			<id name="projectId" />
@@ -84,6 +110,10 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<entity class="com.liferay.timesheet.model.impl.DayImpl" name="Day">
+		<table name="timesheet_Day" />
+		<attributes />
+	</entity>
 	<entity class="com.liferay.timesheet.model.impl.ProjectImpl" name="Project">
 		<table name="timesheet_Project" />
 		<attributes />

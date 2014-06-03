@@ -1,3 +1,15 @@
+create table timesheet_Day (
+	dayId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	date_ DATE null,
+	type_ INTEGER
+);
+
 create table timesheet_Department (
 	departmentId LONG not null primary key,
 	groupId LONG,

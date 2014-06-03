@@ -33,6 +33,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalService;
+import com.liferay.timesheet.service.persistence.DayPersistence;
 import com.liferay.timesheet.service.persistence.ProjectPersistence;
 import com.liferay.timesheet.service.persistence.TaskPersistence;
 import com.liferay.timesheet.service.persistence.TaskSessionFinder;
@@ -271,6 +272,43 @@ public abstract class TaskLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public Task updateTask(Task task) throws SystemException {
 		return taskPersistence.update(task);
+	}
+
+	/**
+	 * Returns the day local service.
+	 *
+	 * @return the day local service
+	 */
+	public com.liferay.timesheet.service.DayLocalService getDayLocalService() {
+		return dayLocalService;
+	}
+
+	/**
+	 * Sets the day local service.
+	 *
+	 * @param dayLocalService the day local service
+	 */
+	public void setDayLocalService(
+		com.liferay.timesheet.service.DayLocalService dayLocalService) {
+		this.dayLocalService = dayLocalService;
+	}
+
+	/**
+	 * Returns the day persistence.
+	 *
+	 * @return the day persistence
+	 */
+	public DayPersistence getDayPersistence() {
+		return dayPersistence;
+	}
+
+	/**
+	 * Sets the day persistence.
+	 *
+	 * @param dayPersistence the day persistence
+	 */
+	public void setDayPersistence(DayPersistence dayPersistence) {
+		this.dayPersistence = dayPersistence;
 	}
 
 	/**
@@ -598,6 +636,10 @@ public abstract class TaskLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
+	@BeanReference(type = com.liferay.timesheet.service.DayLocalService.class)
+	protected com.liferay.timesheet.service.DayLocalService dayLocalService;
+	@BeanReference(type = DayPersistence.class)
+	protected DayPersistence dayPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectLocalService.class)
 	protected com.liferay.timesheet.service.ProjectLocalService projectLocalService;
 	@BeanReference(type = com.liferay.timesheet.service.ProjectService.class)
