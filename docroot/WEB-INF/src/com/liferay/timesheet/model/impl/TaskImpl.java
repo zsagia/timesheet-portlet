@@ -15,8 +15,10 @@
 package com.liferay.timesheet.model.impl;
 
 import com.liferay.faces.util.lang.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Project;
+import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
@@ -93,6 +95,16 @@ public class TaskImpl extends TaskBaseImpl {
 		}
 
 		return project.getProjectName();
+	}
+
+	public String getShortTaskName() throws PortalException, SystemException {
+		String taskName = getTaskName();
+
+		if (taskName.length() > 60) {
+			return taskName.substring(0, 60) + "...";
+		}
+
+		return taskName;
 	}
 
 	public List<TaskSession> getTaskSessionList(
