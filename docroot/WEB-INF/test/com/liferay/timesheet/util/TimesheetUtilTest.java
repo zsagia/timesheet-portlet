@@ -31,7 +31,7 @@ public class TimesheetUtilTest {
 
 		Date todayTime = new Date(time2);
 
-		Date date = TimeSheetUtil.addDateToDate(today, todayTime);
+		Date date = DateTimeUtil.addDateToDate(today, todayTime);
 
 		Assert.assertEquals(
 			calendar.getTimeInMillis() + calendar2.getTimeInMillis(),
@@ -59,7 +59,7 @@ public class TimesheetUtilTest {
 
 		long time2 = calendar2.getTimeInMillis();
 
-		Date date = TimeSheetUtil.addTimeToDate(today, time2);
+		Date date = DateTimeUtil.addTimeToDate(today, time2);
 
 		Assert.assertEquals(
 			calendar.getTimeInMillis() + calendar2.getTimeInMillis(),
@@ -75,7 +75,7 @@ public class TimesheetUtilTest {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
-		Date date = TimeSheetUtil.getTodayWithoutTime();
+		Date date = DateTimeUtil.getTodayWithoutTime();
 
 		long time1 = calendar.getTimeInMillis();
 		long time2 = date.getTime();

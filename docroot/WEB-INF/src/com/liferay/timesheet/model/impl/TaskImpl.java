@@ -21,7 +21,7 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.util.Collections;
 import java.util.Date;
@@ -51,7 +51,7 @@ public class TaskImpl extends TaskBaseImpl {
 
 		return TimeCalculatorUtil.summerizeTime(
 			getTaskSessionList(
-				userId, date, TimeSheetUtil.getIncrementedDay(date)));
+				userId, date, DateTimeUtil.getIncrementedDay(date)));
 	}
 
 	public long getDuration(long userId, Date date1, Date date2)

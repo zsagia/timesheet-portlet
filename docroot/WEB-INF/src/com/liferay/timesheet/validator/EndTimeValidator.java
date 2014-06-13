@@ -3,7 +3,7 @@ package com.liferay.timesheet.validator;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -17,11 +17,11 @@ public class EndTimeValidator extends AbstractValidator {
 	@Override
 	public void doValidate(Date time) throws Exception {
 		if (time != null) {
-			long userId = TimeSheetUtil.getCurrentUserId();
+			long userId = DateTimeUtil.getCurrentUserId();
 
 			Date endTime = time;
 			Date now = new Date();
-			Date today = TimeSheetUtil.getTodayWithoutTime();
+			Date today = DateTimeUtil.getTodayWithoutTime();
 
 			TimeSheetValidatorUtil.validateFutureStartTime(endTime, now);
 			TimeSheetValidatorUtil.validateLatestEndTime(endTime);

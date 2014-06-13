@@ -10,7 +10,7 @@ import com.liferay.timesheet.primefaces.ProjectTreeNode;
 import com.liferay.timesheet.primefaces.UserTreeNode;
 import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.util.OrganizationUtil;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class TreeNodeUtil {
 
 		List<Organization> organizations =
 			OrganizationUtil.getAvailableOrganizations(
-				TimeSheetUtil.getCompanyId(), organizationId);
+				DateTimeUtil.getCompanyId(), organizationId);
 
 		for (Organization organization: organizations) {
 			TreeNode treeNode = new UserTreeNode(organization, parentNode);

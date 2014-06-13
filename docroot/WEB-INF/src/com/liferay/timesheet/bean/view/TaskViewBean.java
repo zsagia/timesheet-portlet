@@ -5,7 +5,7 @@ import com.liferay.timesheet.primefaces.ProjectTreeNode;
 import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,11 +23,11 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 
 	public void init() {
 		try {
-			setTodayWithoutTime(TimeSheetUtil.getTodayWithoutTime());
+			setTodayWithoutTime(DateTimeUtil.getTodayWithoutTime());
 
 			setCurrentTaskSession(
 				TaskSessionLocalServiceUtil.getCurrentTaskSession(
-					TimeSheetUtil.getCurrentUserId()));
+					DateTimeUtil.getCurrentUserId()));
 
 			setRoot(new ProjectTreeNode(null, null));
 
@@ -38,11 +38,11 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 	}
 
 	public String getDayTime() throws Exception {
-		long userId = TimeSheetUtil.getCurrentUserId();
+		long userId = DateTimeUtil.getCurrentUserId();
 
 		List<TaskSession> taskSessions =
 			TaskSessionLocalServiceUtil.getTaskSessionsByU_D(
-				userId, TimeSheetUtil.getTodayWithoutTime());
+				userId, DateTimeUtil.getTodayWithoutTime());
 
 		long time = TimeCalculatorUtil.summerizeTime(taskSessions);
 
@@ -50,21 +50,21 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 	}
 
 	public String getMonthTime() throws Exception {
-		long userId = TimeSheetUtil.getCurrentUserId();
+		long userId = DateTimeUtil.getCurrentUserId();
 
 		long time = TimeCalculatorUtil.summerizeMonthTime(
-			TimeSheetUtil.getCompanyId(),
-			TimeSheetUtil.getTodayWithoutTime(), userId);
+			DateTimeUtil.getCompanyId(),
+			DateTimeUtil.getTodayWithoutTime(), userId);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	public String getWeekTime() throws Exception {
-		long userId = TimeSheetUtil.getCurrentUserId();
+		long userId = DateTimeUtil.getCurrentUserId();
 
 		long time = TimeCalculatorUtil.summerizeWeekTime(
-			TimeSheetUtil.getCompanyId(),
-			TimeSheetUtil.getTodayWithoutTime(), userId);
+			DateTimeUtil.getCompanyId(),
+			DateTimeUtil.getTodayWithoutTime(), userId);
 
 		return TimeCalculatorUtil.getStringFromTime(time);
 	}

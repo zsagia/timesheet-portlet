@@ -10,7 +10,7 @@ import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeCalculatorUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -42,7 +42,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			Date[] interval = calculateInterval(currentDate, dateNumber);
 
 			tasks = TaskLocalServiceUtil.getTasksByC_U_I(
-				TimeSheetUtil.getCompanyId(), currentUser.getUserId(),
+				DateTimeUtil.getCompanyId(), currentUser.getUserId(),
 				interval[0], interval[1]);
 		} catch (Exception e) {
 			logger.error(
@@ -66,7 +66,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			Date[] interval = calculateInterval(currentDate, dateNumber);
 
 			taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(
-				TimeSheetUtil.getCompanyId(), currentUser.getUserId(),
+				DateTimeUtil.getCompanyId(), currentUser.getUserId(),
 				interval[0], interval[1]);
 		} catch (Exception e) {
 			logger.error("Getting task sessions is failed!");
@@ -84,7 +84,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 
 		if (dateNumber == TimeSheetConstants.DATE_DAY) {
 			interval[0] = currentDate;
-			interval[1] = TimeSheetUtil.getIncrementedDay(currentDate);
+			interval[1] = DateTimeUtil.getIncrementedDay(currentDate);
 		}
 		else if (dateNumber == TimeSheetConstants.DATE_WEEK) {
 			interval = getIntervalOfWeek(currentDate);

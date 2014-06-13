@@ -11,7 +11,7 @@ import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -68,7 +68,7 @@ public class TaskSessionModelBean implements Serializable {
 			setStartTime(new Date());
 		}
 
-		long userId = TimeSheetUtil.getCurrentUserId();
+		long userId = DateTimeUtil.getCurrentUserId();
 
 		try {
 			closeCurrentTaskSession(userId, getStartTime());
@@ -79,7 +79,7 @@ public class TaskSessionModelBean implements Serializable {
 		TaskSession taskSession = null;
 
 		ServiceContext serviceContext =
-			TimeSheetUtil.createServiceContext();
+			DateTimeUtil.createServiceContext();
 
 		try {
 			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
@@ -97,7 +97,7 @@ public class TaskSessionModelBean implements Serializable {
 	public void finishTaskSession()
 		throws PortalException {
 
-		long userId = TimeSheetUtil.getCurrentUserId();
+		long userId = DateTimeUtil.getCurrentUserId();
 
 		TaskSession currentTaskSession = null;
 

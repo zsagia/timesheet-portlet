@@ -7,7 +7,7 @@ import com.liferay.portal.model.User;
 import com.liferay.timesheet.primefaces.UserTreeNode;
 import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.UserUtil;
 
 import java.util.Date;
@@ -26,8 +26,8 @@ public class UserStatisticsViewBean extends AbstractStatisticsBean {
 
 	public void init() {
 		try {
-			setCurrentDate(TimeSheetUtil.getTodayWithoutTime());
-			setCurrentUser(TimeSheetUtil.getCurrentUser());
+			setCurrentDate(DateTimeUtil.getTodayWithoutTime());
+			setCurrentUser(DateTimeUtil.getCurrentUser());
 
 			setEndDate(new Date());
 			setStartDate(new Date(0));
@@ -45,7 +45,7 @@ public class UserStatisticsViewBean extends AbstractStatisticsBean {
 
 	public List<User> getOrganizationUsers() throws Exception {
 		return UserUtil.getOrganizationUsers(
-			TimeSheetUtil.getCompanyId(),
+			DateTimeUtil.getCompanyId(),
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
  	}
 

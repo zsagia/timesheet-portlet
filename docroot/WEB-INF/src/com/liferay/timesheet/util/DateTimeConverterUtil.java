@@ -22,7 +22,7 @@ public class DateTimeConverterUtil {
 
 		if (Validator.isNotNull(value)) {
 			try {
-				User user = TimeSheetUtil.getCurrentUser();
+				User user = DateTimeUtil.getCurrentUser();
 				TimeZone userTimeZone = user.getTimeZone();
 
 				Calendar calendar = CalendarFactoryUtil.getCalendar(

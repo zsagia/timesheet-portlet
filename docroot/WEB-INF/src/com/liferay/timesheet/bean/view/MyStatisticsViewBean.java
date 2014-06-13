@@ -3,7 +3,7 @@ package com.liferay.timesheet.bean.view;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.util.TimeSheetConstants;
-import com.liferay.timesheet.util.TimeSheetUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.util.Date;
 
@@ -20,8 +20,8 @@ public class MyStatisticsViewBean extends AbstractStatisticsBean {
 
 	public void init() {
 		try {
-			setCurrentDate(TimeSheetUtil.getTodayWithoutTime());
-			setCurrentUser(TimeSheetUtil.getCurrentUser());
+			setCurrentDate(DateTimeUtil.getTodayWithoutTime());
+			setCurrentUser(DateTimeUtil.getCurrentUser());
 
 			setEndDate(new Date());
 			setStartDate(new Date(0));
