@@ -3,8 +3,10 @@ package com.liferay.timesheet.bean.portlet;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.timesheet.bean.model.DayModelBean;
 import com.liferay.timesheet.bean.model.ProjectModelBean;
 import com.liferay.timesheet.bean.view.ProjectViewBean;
+import com.liferay.timesheet.model.Day;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
 
@@ -17,6 +19,51 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class AdminManagedBean implements Serializable {
+
+	public String createDayAction() {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		Day day = null;
+
+		try {
+			day = dayModelBean.createDay();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+					"New day object is created: " + day.getType());
+			}
+		} catch (Exception e) {
+			logger.error("Creation new day is failed!", e);
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Day exception", "Creation new day is failed!");
+		}
+
+		liferayFacesContext.addGlobalInfoMessage(
+			"Day operation", "Day creation was succesfull!");
+
+		return "/views/admin/view.xhtml";
+	}
+
+	public void deleteDayAction(Day day) {
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		if (day != null) {
+			try {
+				dayModelBean.deleteDay(day.getDayId());
+			} catch (Exception e) {
+				logger.error("Day deletion is failed!", e);
+
+				liferayFacesContext.addGlobalErrorMessage(
+					"Day exception", "Day deletion is failed!");
+			}
+
+			liferayFacesContext.addGlobalInfoMessage(
+				"Day operation", "Day deletion was succesfull!");
+		}
+	}
 
 	public String createProjectAction() {
 		LiferayFacesContext liferayFacesContext =
@@ -89,9 +136,20 @@ public class AdminManagedBean implements Serializable {
 		this.projectViewBean = projectViewBean;
 	}
 
+	public DayModelBean getDayModelBean() {
+		return dayModelBean;
+	}
+
+	public void setDayModelBean(DayModelBean dayModelBean) {
+		this.dayModelBean = dayModelBean;
+	}
+
 	@ManagedProperty(name = "projectViewBean",
 		value = "#{projectViewBean}")
 	private ProjectViewBean projectViewBean;
+	@ManagedProperty(name = "dayModelBean",
+		value = "#{dayModelBean}")
+	private DayModelBean dayModelBean;
 	@ManagedProperty(name = "projectModelBean",
 		value = "#{projectModelBean}")
 	private ProjectModelBean projectModelBean;
