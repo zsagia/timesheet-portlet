@@ -1,8 +1,7 @@
 package com.liferay.timesheet.validator;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.timesheet.model.TaskSession;
-import java.text.ParseException;
+
 import java.util.Date;
 
 /**
@@ -11,35 +10,80 @@ import java.util.Date;
 */
 public class TimeSheetValidatorUtil {
 
+	public static boolean validateAfter(
+			Date endTime, Date newStartTime, Date newEndTime)
+		throws PortalException {
+
+		return getTimeSheetValidator().validateAfter(
+			endTime, newStartTime, newEndTime);
+	}
+
+	public static boolean validateBefore(
+			Date startTime, Date newStartTime, Date newEndTime)
+		throws PortalException {
+
+		return getTimeSheetValidator().validateBefore(
+			startTime, newStartTime, newEndTime);
+	}
+
+	public static void validateBetween(
+			Date startTime, Date endTime, Date newTime)
+		throws PortalException {
+
+		getTimeSheetValidator().validateBetween(startTime, endTime, newTime);
+	}
+
+	public static void validateEndTime(Date endTime) throws PortalException {
+		getTimeSheetValidator().validateEndTime(endTime);
+	}
+
+	public static void validateEndTime(
+			Date startTime, Date endTime, Date newEndTime)
+		throws PortalException {
+
+		getTimeSheetValidator().validateEndTime(startTime, endTime, newEndTime);
+	}
+
+	public static void validateFutureTime(Date time, Date now)
+		throws PortalException {
+
+		getTimeSheetValidator().validateFutureTime(time, now);
+	}
+
+	public static void validateLatestEndTime(
+			Date workStart, Date latestEndTimeRestriction)
+		throws PortalException {
+
+		getTimeSheetValidator().validateLatestEndTime(
+			workStart, latestEndTimeRestriction);
+	}
+
+	public static void validateStartAndEndTime(Date startTime, Date endTime)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		
+		getTimeSheetValidator().validateStartAndEndTime(startTime, endTime);
+	}
+
+	public static void validateStartTime(Date startTime)
+		throws PortalException {
+
+		getTimeSheetValidator().validateStartTime(startTime);
+	}
+
 	public static void validateStartTime(
-			TaskSession taskSession, Date startTime)
-		throws ParseException, PortalException {
+			Date startTime, Date endTime, Date newStartTime)
+		throws Exception {
 
-		getTimeSheetValidator().validateStartTime(taskSession, startTime);
+		getTimeSheetValidator().validateStartTime(
+			startTime, endTime, newStartTime);
 	}
 
-	public static void validateEndTime(TaskSession taskSession, Date endDate)
+	public static void validateWorkStart(
+			Date workStart, Date earliestStartRestriction)
 		throws PortalException {
 
-		getTimeSheetValidator().validateEndTime(taskSession, endDate);
-	}
-
-	public static void validateFutureStartTime(Date startTime, Date now)
-		throws PortalException {
-
-		getTimeSheetValidator().validateFutureStartTime(startTime, now);
-	}
-
-	public static void validateLatestEndTime(Date workStart)
-		throws PortalException {
-
-		getTimeSheetValidator().validateLatestEndTime(workStart);
-	}
-
-	public static void validateWorkStart(Date workStart)
-		throws PortalException {
-
-		getTimeSheetValidator().validateWorkStart(workStart);
+		getTimeSheetValidator().validateWorkStart(
+			workStart, earliestStartRestriction);
 	}
 
 	public static void validateWorkDuration(long allWorkToday)

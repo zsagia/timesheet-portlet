@@ -4,11 +4,14 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.PortletPropsValues;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 
 /**
@@ -20,14 +23,23 @@ import javax.faces.validator.FacesValidator;
 public class StartTimeValidator extends AbstractValidator {
 
 	@Override
-	public void doValidate(Date time) throws Exception {
-		if (time != null) {
+	public void doValidate(
+			FacesContext context, UIComponent component, Object value)
+		throws Exception {
+
+		if (value != null) {
 			long userId = TimeSheetUtil.getCurrentUserId();
-			Date startTime = time;
+			Date startTime = (Date)value;
 			Date now = new Date();
 
-			TimeSheetValidatorUtil.validateFutureStartTime(startTime, now);
-			TimeSheetValidatorUtil.validateLatestEndTime(startTime);
+			TimeSheetValidatorUtil.validateFutureTime(startTime, now);
+
+			Date latestEndTimeRestriction =
+				DateTimeUtil.getDateFromMilitaryTime(
+					PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
+
+			TimeSheetValidatorUtil.validateLatestEndTime(
+				startTime, latestEndTimeRestriction);
 
 			Date today = DateTimeUtil.getTodayWithoutTime();
 
@@ -40,15 +52,21 @@ public class StartTimeValidator extends AbstractValidator {
 					TaskSessionLocalServiceUtil.getTaskSessionsByU_D(
 						userId, today);
 
+				TimeSheetValidatorUtil.validateStartTime(
+					lastTaskSession.getStartTime(),
+					lastTaskSession.getEndTime(), startTime);
+
 				TimeSheetValidatorUtil.validateWorkDuration(
 					DateTimeCalculatorUtil.summerizeTime(
 						taskSessionList, startTime));
-
-				TimeSheetValidatorUtil.validateStartTime(
-					lastTaskSession, startTime);
 			}
 			else {
-				TimeSheetValidatorUtil.validateWorkStart(startTime);
+				Date earliestStartRestriction =
+					DateTimeUtil.getDateFromMilitaryTime(
+						PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+
+				TimeSheetValidatorUtil.validateWorkStart(
+					startTime, earliestStartRestriction);
 			}
 		}
 	}

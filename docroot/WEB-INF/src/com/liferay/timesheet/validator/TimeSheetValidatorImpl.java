@@ -1,78 +1,94 @@
 package com.liferay.timesheet.validator;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.Validator;
 
 import com.liferay.timesheet.TSEarliestStartTimeException;
 import com.liferay.timesheet.TSEndTimeException;
 import com.liferay.timesheet.TSFutureStartTimeException;
-import com.liferay.timesheet.TSNoCurrentTaskSessionException;
 import com.liferay.timesheet.TSStartEndTimeException;
 import com.liferay.timesheet.TSStartTimeException;
 import com.liferay.timesheet.TSWorkDurationException;
-import com.liferay.timesheet.model.TaskSession;
-import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
 import com.liferay.timesheet.validator.TimeSheetValidator;
 
-import java.text.ParseException;
 import java.util.Date;
 
 public class TimeSheetValidatorImpl implements TimeSheetValidator {
 
 	@Override
-	public void validateStartTime(TaskSession taskSession, Date startTime)
-		throws ParseException, PortalException {
+	public boolean validateAfter(
+			Date endTime, Date newStartTime, Date newEndTime)
+		throws PortalException {
 
-		Date previousStartTime = taskSession.getStartTime();
-		Date endTime = taskSession.getEndTime();
-
-		if (!previousStartTime.before(startTime) ||
-				((endTime != null) && endTime.after(startTime))) {
+		if (newEndTime.after(endTime)) {
+			if (!newStartTime.before(endTime)) {
+				return true;
+			}
 
 			throw new TSStartTimeException();
 		}
+
+		return false;
 	}
 
 	@Override
-	public void validateEndTime(TaskSession taskSession, Date endDate)
+	public boolean validateBefore(
+			Date startTime, Date newStartTime, Date newEndTime)
 		throws PortalException {
 
-		if (taskSession == null) {
-			throw new TSNoCurrentTaskSessionException();
-		}
+		if (newStartTime.before(startTime)) {
+			if (!newEndTime.after(startTime)) {
+				return true;
+			}
 
-		Date endTime = taskSession.getEndTime();
-
-		if (endTime != null) {
-			throw new TSNoCurrentTaskSessionException();
-		}
-
-		Date startTime = taskSession.getStartTime();
-
-		if (endDate.before(startTime)) {
 			throw new TSEndTimeException();
 		}
 
+		return false;
 	}
 
 	@Override
-	public void validateFutureStartTime(Date startTime, Date now)
+	public void validateBetween(
+			java.util.Date startTime, java.util.Date endTime,
+			java.util.Date newTime)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		if (!newTime.before(startTime) && !newTime.after(endTime)) {
+			throw new TSStartEndTimeException();
+		}
+	}
+
+	@Override
+	public void validateEndTime(Date endTime) throws PortalException {
+
+		if (Validator.isNull(endTime)) {
+			throw new TSEndTimeException();
+		}
+	}
+
+	@Override
+	public void validateEndTime(Date startTime, Date endTime, Date newEndTime)
 		throws PortalException {
 
-		if (startTime.after(now)) {
+		if (newEndTime.before(startTime)) {
+			throw new TSEndTimeException();
+		}
+	}
+
+	@Override
+	public void validateFutureTime(Date time, Date now)
+		throws PortalException {
+
+		if (time.after(now)) {
 			throw new TSFutureStartTimeException();
 		}
 	}
 
 	@Override
-	public void validateLatestEndTime(Date workStart) throws PortalException {
-		Date latestEndTimeRestriction = null;
-
-		try {
-			latestEndTimeRestriction = DateTimeUtil.getDateFromMilitaryTime(
-				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
-		} catch (Exception e) {
-		}
+	public void validateLatestEndTime(
+			Date workStart, Date latestEndTimeRestriction)
+		throws PortalException {
 
 		if (workStart.after(latestEndTimeRestriction)) {
 			throw new TSStartEndTimeException();
@@ -80,14 +96,38 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 	}
 
 	@Override
-	public void validateWorkStart(Date workStart) throws PortalException {
-		Date earliestStartRestriction = null;
+	public void validateStartAndEndTime(Date startTime, Date endTime)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		try {
-			earliestStartRestriction = DateTimeUtil.getDateFromMilitaryTime(
-				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
-		} catch (Exception e) {
+		if (!startTime.before(endTime)) {
+			throw new TSStartEndTimeException();
 		}
+	}
+
+	@Override
+	public void validateStartTime(Date startTime)
+		throws PortalException {
+
+		if (Validator.isNull(startTime)) {
+			throw new TSStartTimeException();
+		}
+	}
+
+	@Override
+	public void validateStartTime(
+			Date startTime, Date endTime, Date newStartTime)
+		throws PortalException {
+
+		if (!startTime.before(newStartTime) ||
+				((endTime != null) && endTime.after(newStartTime))) {
+
+			throw new TSStartTimeException();
+		}
+	}
+
+	@Override
+	public void validateWorkStart(Date workStart, Date earliestStartRestriction)
+		throws PortalException {
 
 		if (workStart.before(earliestStartRestriction)) {
 			throw new TSEarliestStartTimeException();

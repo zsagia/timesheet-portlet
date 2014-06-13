@@ -4,11 +4,14 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.PortletPropsValues;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 
 
@@ -16,16 +19,25 @@ import javax.faces.validator.FacesValidator;
 public class EndTimeValidator extends AbstractValidator {
 
 	@Override
-	public void doValidate(Date time) throws Exception {
-		if (time != null) {
+	public void doValidate(
+			FacesContext context, UIComponent component, Object value)
+		throws Exception {
+
+		if (value != null) {
 			long userId = TimeSheetUtil.getCurrentUserId();
 
-			Date endTime = time;
+			Date endTime = (Date)value;
 			Date now = new Date();
 			Date today = DateTimeUtil.getTodayWithoutTime();
 
-			TimeSheetValidatorUtil.validateFutureStartTime(endTime, now);
-			TimeSheetValidatorUtil.validateLatestEndTime(endTime);
+			TimeSheetValidatorUtil.validateFutureTime(endTime, now);
+
+			Date latestEndTimeRestriction =
+				DateTimeUtil.getDateFromMilitaryTime(
+					PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
+
+			TimeSheetValidatorUtil.validateLatestEndTime(
+				endTime, latestEndTimeRestriction);
 
 			TaskSession lastTaskSession =
 				TaskSessionLocalServiceUtil.getLastTaskSessionsByU_D(
@@ -33,7 +45,8 @@ public class EndTimeValidator extends AbstractValidator {
 
 			if (lastTaskSession != null) {
 				TimeSheetValidatorUtil.validateEndTime(
-					lastTaskSession, endTime);
+					lastTaskSession.getStartTime(),
+					lastTaskSession.getEndTime(), endTime);
 
 				List<TaskSession> taskSessionList =
 					TaskSessionLocalServiceUtil.getTaskSessionsByU_D(

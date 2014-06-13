@@ -6,13 +6,10 @@ import com.liferay.timesheet.TSEarliestStartTimeException;
 import com.liferay.timesheet.TSEndTimeException;
 import com.liferay.timesheet.TSFutureStartTimeException;
 import com.liferay.timesheet.TSNoCurrentTaskSessionException;
-import com.liferay.timesheet.TSStartEndTimeException;
 import com.liferay.timesheet.TSStartTimeException;
 import com.liferay.timesheet.TSWorkDurationException;
 import com.liferay.timesheet.util.MessageUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
-
-import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -22,7 +19,9 @@ import javax.faces.validator.ValidatorException;
 
 public abstract class AbstractValidator implements Validator {
 
-	protected abstract void doValidate(Date time) throws Exception;
+	protected abstract void doValidate(
+			FacesContext context, UIComponent component, Object value)
+		throws Exception;
 
 	@Override
 	public void validate(
@@ -32,7 +31,7 @@ public abstract class AbstractValidator implements Validator {
 		FacesMessage facesMessage = null;
 
 		try {
-			doValidate((Date)value);
+			doValidate(context, component, value);
 		} catch (Exception e) {
 			if (e instanceof TSEndTimeException) {
 				facesMessage = MessageUtil.getFacesMessage(
@@ -66,14 +65,6 @@ public abstract class AbstractValidator implements Validator {
 					"start_session_validation_error",
 					"task_is_not_startable_in_the_future");
 			}
-			else if (e instanceof TSStartEndTimeException) {
-				facesMessage = MessageUtil.getFacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					"start_session_validation_error",
-					"The given time exceeds the restriction defined for "
-						+ "starting work: "
-						+ PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
-			}
 			else if (e instanceof TSWorkDurationException) {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
@@ -81,6 +72,9 @@ public abstract class AbstractValidator implements Validator {
 					"work_time_duration_exception");
 			}
 			else {
+				facesMessage = MessageUtil.getFacesMessage(
+					FacesMessage.SEVERITY_ERROR, "validation_error",
+					"validation_exception");
 				logger.error(e);
 			}
 		}
