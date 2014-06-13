@@ -15,8 +15,8 @@
 
 	<h:head />
 
-	<h:body>
-		<p:messages id="messages" showDetail="true" autoUpdate="false" closable="true" showSummary="true"/>
+	<h:body styleClass="timesheet-admin">
+		<p:growl autoUpdate="true" closable="true" id="messages" showDetail="true" showSummary="true"/>
 
 		<portlet:renderURL var="currentPageRenderURL" />
 
@@ -33,7 +33,7 @@
 									update=":#{p:component('project_column_2')}" value="Edit" />
 							</p:contextMenu>
 
-							<p:tree draggable="true" droppable="true" dragdropScope="demo" id="projectTree"
+							<p:tree draggable="true" droppable="true" id="projectTree"
 								selection="#{adminManagedBean.projectViewBean.selectedProjectNode}" selectionMode="single"
 								value="#{adminManagedBean.projectViewBean.root}" var="project">
 
@@ -100,7 +100,70 @@
 				</h:form>
 			</p:tab>
 
-			<p:tab id="tab2" title="Task" rendered="#{adminPermissionBean.checkViewTask()}">
+			<p:tab id="tab2" title="Day">
+				<h:form id="dayForm">
+					<aui:layout id="layout">
+						<aui:column id="day_column_1">
+							<p:dataList id="dayList" type="definition" value="#{adminManagedBean.dayModelBean.days}" var="day">
+								<f:facet name="header">
+									<h:outputText value="Days" />
+								</f:facet>
+
+								<div class="timesheet-day">
+									<span class="date">
+										<h:outputText value="#{day.date}">
+											<f:convertDateTime dateStyle="full" locale="#{liferay.user.locale}" timeZone="#{liferay.user.timeZone}"  type="date" />
+										</h:outputText>
+									</span>
+									<span class="type #{day.dayType}">
+										<h:outputText value="#{day.dayType}" />
+									</span>
+									<span class="icon">
+										<p:commandLink action="#{adminManagedBean.deleteDayAction(day)}" process="@this" title="delete"
+											update=":#{p:component('dayList')}">
+	
+											<h:graphicImage library="images" name="icon-delete.png" title="delete" />
+										</p:commandLink>
+									</span>
+								</div>
+							</p:dataList>
+						</aui:column>
+
+						<p:commandButton id="btnAddDayDialog" onclick="PF('addDayWidget').show()" process="@none" styleClass="p-btn" value="Add Day" />
+
+						<p:dialog id="addDayDialog" header="Add Task" hideEffect="clip" showEffect="clip" widgetVar="addDayWidget">
+							<aui:layout id="addDayDialogLayout">
+								<aui:column>
+									<aui:fieldset>
+										<aui:field label="Date">
+											<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" required="true"
+												showButtonPanel="true" value="#{adminManagedBean.dayModelBean.date}">
+											</p:calendar>
+										</aui:field>
+
+										<aui:field label="Type">
+											<h:selectOneListbox id="dayTypes" required="true" value="#{adminManagedBean.dayModelBean.type}">
+												<f:selectItem itemValue="1" itemLabel="National Holiday"/>
+												<f:selectItem itemValue="2" itemLabel="Exceptional Holiday"/>
+												<f:selectItem itemValue="3" itemLabel="Exceptional Workday"/>
+											</h:selectOneListbox>
+										</aui:field>
+									</aui:fieldset>
+
+									<aui:button-row>
+										<p:commandButton action="#{adminManagedBean.createDayAction}" oncomplete="if(!args.validationFailed){PF('addDayWidget').hide();}"
+											process="#{addDayDialog}" styleClass="p-btn" update=":#{p:component('dayList')}" value="Add" />
+
+										<p:commandButton onclick="PF('addDayWidget').hide()" styleClass="p-btn" type="button" value="Close"/>
+									</aui:button-row>
+								</aui:column>
+							</aui:layout>
+						</p:dialog>
+					</aui:layout>
+				</h:form>
+			</p:tab>
+
+			<p:tab id="tab3" rendered="#{adminPermissionBean.checkViewTask()}" title="Task">
 				<h:panelGrid cellpadding="10" columns="2">
 
 				</h:panelGrid>

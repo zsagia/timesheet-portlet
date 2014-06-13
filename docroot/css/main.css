@@ -143,3 +143,33 @@
 .timesheet input.btn-finish{
 	margin: 0 0 0 12px !important;
 }
+
+.timesheet-admin .timesheet-day {
+	padding: 2px;
+}
+
+.timesheet-admin .timesheet-day span {
+	display: inline-block;
+}
+
+.timesheet-admin .timesheet-day span.date {
+	display: inline-block;
+	width: 240px;
+}
+
+.timesheet-admin .timesheet-day span.type {
+	color: #FFF;
+	padding: 2px 5px;
+	width: 180px;
+}
+.timesheet-admin .timesheet-day .national-holiday {
+	background-color: #FF0000;
+}
+
+.timesheet-admin .timesheet-day .exceptional-holiday {
+	background-color: #0000FF;
+}
+
+.timesheet-admin .timesheet-day .exceptional-workday {
+	background-color: #008000;
+}
