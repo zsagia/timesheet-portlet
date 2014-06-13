@@ -422,6 +422,25 @@ public class TaskClp extends BaseModelImpl<Task> implements Task {
 	}
 
 	@Override
+	public boolean isEditable() {
+		try {
+			String methodName = "isEditable";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public com.liferay.timesheet.model.Project getProject() {
 		try {
 			String methodName = "getProject";
