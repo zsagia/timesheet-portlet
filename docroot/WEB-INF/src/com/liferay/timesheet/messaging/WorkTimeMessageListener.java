@@ -9,7 +9,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.DateTimeConverterUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
 
 import java.util.Calendar;
@@ -48,7 +48,7 @@ public class WorkTimeMessageListener extends BaseMessageListener {
 			Date lastEndTime = lastTaskSession.getEndTime();
 
 			Date baseTimeEndRestriction = 
-				DateTimeConverterUtil.getDateFromMilitaryTime(
+				DateTimeUtil.getDateFromMilitaryTime(
 					PortletPropsValues.RESTRICTIONS_BASETIME_END);
 
 			if (lastEndTime.before(baseTimeEndRestriction)) {

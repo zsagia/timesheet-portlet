@@ -10,7 +10,7 @@ import com.liferay.timesheet.TSStartEndTimeException;
 import com.liferay.timesheet.TSStartTimeException;
 import com.liferay.timesheet.TSWorkDurationException;
 import com.liferay.timesheet.model.TaskSession;
-import com.liferay.timesheet.util.DateTimeConverterUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
 import com.liferay.timesheet.validator.TimeSheetValidator;
 
@@ -67,7 +67,7 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 	@Override
 	public void validateLatestEndTime(Date workStart) throws PortalException {
 		Date latestEndTimeRestriction =
-			DateTimeConverterUtil.getDateFromMilitaryTime(
+			DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
 
 		if (workStart.after(latestEndTimeRestriction)) {
@@ -78,7 +78,7 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 	@Override
 	public void validateWorkStart(Date workStart) throws PortalException {
 		Date earliestStartRestriction =
-			DateTimeConverterUtil.getDateFromMilitaryTime(
+			DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
 
 		if (workStart.before(earliestStartRestriction)) {

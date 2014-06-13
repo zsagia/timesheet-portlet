@@ -1,6 +1,6 @@
 package com.liferay.timesheet.converter;
 
-import com.liferay.timesheet.util.DateTimeConverterUtil;
+import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +29,7 @@ public class TimeSheetConverter extends DateTimeConverter {
 			FacesContext context, UIComponent component, String value)
 		throws ConverterException{
 
-		return DateTimeConverterUtil.getDateFromMilitaryTime(value);
+		return DateTimeUtil.getDateFromMilitaryTime(value);
 	}
 
 	@Override

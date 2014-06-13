@@ -1,9 +1,12 @@
 package com.liferay.timesheet.util;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -13,15 +16,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
+import javax.faces.convert.ConverterException;
 
 /**
 * @author Zsolt Szabo
 */
 
 public class DateTimeUtil {
-
-	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
-	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
 
 	public static Date addDateToDate(Date date1, Date date2) {
 		long timeMilis = date1.getTime();
@@ -72,6 +75,40 @@ public class DateTimeUtil {
 		return liferayFacesContext.getUserId();
 	}
 
+	public static Date getDateFromMilitaryTime(String value) {
+		Date date = null;
+
+		if (Validator.isNotNull(value)) {
+			try {
+				User user = DateTimeUtil.getCurrentUser();
+				TimeZone userTimeZone = user.getTimeZone();
+
+				Calendar calendar = CalendarFactoryUtil.getCalendar(
+					userTimeZone);
+
+				if (Validator.isNotNull(value)) {
+					int hour = Integer.valueOf(value.substring(0, 2));
+					int minute = Integer.valueOf(
+						value.substring(2, value.length()));
+
+					calendar.set(Calendar.HOUR_OF_DAY, hour);
+					calendar.set(Calendar.MINUTE, minute);
+					calendar.set(Calendar.SECOND, 0);
+					calendar.set(Calendar.MILLISECOND, 0);
+				}
+
+				date = calendar.getTime();
+
+			} catch (Exception e) {
+				logger.error("date_conversion_is_failed", e);
+
+				throw new ConverterException();
+			}
+		}
+
+		return date;
+	}
+
 	public static Date getTodayWithoutTime() throws ParseException {
 		Date today = new Date();
 
@@ -110,5 +147,11 @@ public class DateTimeUtil {
 
 		return calendar.getTime();
 	}
+
+	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
+	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
+
+	private static final Logger logger =
+		LoggerFactory.getLogger(DateTimeUtil.class);
 
 }
