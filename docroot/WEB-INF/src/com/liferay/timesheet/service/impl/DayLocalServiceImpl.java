@@ -14,6 +14,14 @@
 
 package com.liferay.timesheet.service.impl;
 
+import java.util.Date;
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.timesheet.model.Day;
 import com.liferay.timesheet.service.base.DayLocalServiceBaseImpl;
 
 /**
@@ -31,9 +39,35 @@ import com.liferay.timesheet.service.base.DayLocalServiceBaseImpl;
  * @see com.liferay.timesheet.service.DayLocalServiceUtil
  */
 public class DayLocalServiceImpl extends DayLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.timesheet.service.DayLocalServiceUtil} to access the day local service.
-	 */
+
+	public Day addDay(
+			long userId, Date date, int type, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		long groupId = serviceContext.getScopeGroupId();
+
+		long dayId = counterLocalService.increment();
+
+		Day day = dayPersistence.create(dayId);
+
+		Date now = new Date();
+
+		day.setCompanyId(user.getCompanyId());
+		day.setCreateDate(now);
+		day.setGroupId(groupId);
+		day.setModifiedDate(now);
+		day.setDate(date);
+		day.setType(type);
+
+		dayPersistence.update(day);
+
+		return day;
+	}
+
+	public List<Day> getDays(long companyId, int type) throws SystemException {
+		return dayPersistence.findByC_T(companyId, type);
+	}
+
 }
