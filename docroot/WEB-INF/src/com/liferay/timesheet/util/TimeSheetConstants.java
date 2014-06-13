@@ -23,4 +23,12 @@ public class TimeSheetConstants {
 
 	public static final int USER_LIST_GROUPPED = 1;
 
+	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
+
+	public static String TIME_FORMAT_WITHOUT_DATE = "HH:mm";
+
+	public static String VIEW_DAY_REMAKE = "/views/task/day-remake-view.xhtml";
+
+	public static String VIEW_TASK = "/views/task/view.xhtml";
+
 }
