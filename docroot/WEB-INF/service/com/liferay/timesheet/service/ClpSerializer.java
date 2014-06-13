@@ -314,12 +314,16 @@ public class ClpSerializer {
 			return new com.liferay.timesheet.TSNoCurrentTaskSessionException();
 		}
 
+		if (className.equals("com.liferay.timesheet.TSNoEndTimeException")) {
+			return new com.liferay.timesheet.TSNoEndTimeException();
+		}
+
 		if (className.equals("com.liferay.timesheet.TSNoSelectedTaskException")) {
 			return new com.liferay.timesheet.TSNoSelectedTaskException();
 		}
 
-		if (className.equals("com.liferay.timesheet.TSStartEndTimeException")) {
-			return new com.liferay.timesheet.TSStartEndTimeException();
+		if (className.equals("com.liferay.timesheet.TSNoStartTimeException")) {
+			return new com.liferay.timesheet.TSNoStartTimeException();
 		}
 
 		if (className.equals("com.liferay.timesheet.TSStartTimeException")) {
