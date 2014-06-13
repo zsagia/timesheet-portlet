@@ -214,7 +214,8 @@
 		<exception>TSNoCurrentTaskSession</exception>
 		<exception>TSNoSelectedTask</exception>
 		<exception>TSStartTime</exception>
-		<exception>TSStartEndTime</exception>
+		<exception>TSNoStartTime</exception>
+		<exception>TSNoEndTime</exception>
 		<exception>TSTaskSessionClose</exception>
 		<exception>TSTaskSessionUpdate</exception>
 		<exception>TSWorkDuration</exception>
