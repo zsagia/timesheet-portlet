@@ -271,6 +271,20 @@ public class DayLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.timesheet.model.Day addDay(long userId,
+		java.util.Date date, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addDay(userId, date, type, serviceContext);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDays(companyId, type);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

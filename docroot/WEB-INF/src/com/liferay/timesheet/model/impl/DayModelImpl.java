@@ -84,7 +84,12 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.timesheet.model.Day"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Day"),
+			true);
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long TYPE_COLUMN_BITMASK = 2L;
+	public static long DATE_COLUMN_BITMASK = 4L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Day"));
 
@@ -222,7 +227,19 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@Override
@@ -287,6 +304,8 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 
 	@Override
 	public void setDate(Date date) {
+		_columnBitmask = -1L;
+
 		_date = date;
 	}
 
@@ -297,7 +316,23 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 
 	@Override
 	public void setType(int type) {
+		_columnBitmask |= TYPE_COLUMN_BITMASK;
+
+		if (!_setOriginalType) {
+			_setOriginalType = true;
+
+			_originalType = _type;
+		}
+
 		_type = type;
+	}
+
+	public int getOriginalType() {
+		return _originalType;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -386,6 +421,17 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 
 	@Override
 	public void resetOriginalValues() {
+		DayModelImpl dayModelImpl = this;
+
+		dayModelImpl._originalCompanyId = dayModelImpl._companyId;
+
+		dayModelImpl._setOriginalCompanyId = false;
+
+		dayModelImpl._originalType = dayModelImpl._type;
+
+		dayModelImpl._setOriginalType = false;
+
+		dayModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -522,6 +568,8 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 	private long _dayId;
 	private long _groupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;
@@ -529,5 +577,8 @@ public class DayModelImpl extends BaseModelImpl<Day> implements DayModel {
 	private Date _modifiedDate;
 	private Date _date;
 	private int _type;
+	private int _originalType;
+	private boolean _setOriginalType;
+	private long _columnBitmask;
 	private Day _escapedModel;
 }

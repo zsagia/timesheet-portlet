@@ -109,6 +109,181 @@ public class DayUtil {
 	}
 
 	/**
+	* Returns all the daies where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @return the matching daies
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Day> findByC_T(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByC_T(companyId, type);
+	}
+
+	/**
+	* Returns a range of all the daies where companyId = &#63; and type = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.DayModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param start the lower bound of the range of daies
+	* @param end the upper bound of the range of daies (not inclusive)
+	* @return the range of matching daies
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Day> findByC_T(
+		long companyId, int type, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByC_T(companyId, type, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the daies where companyId = &#63; and type = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.timesheet.model.impl.DayModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param start the lower bound of the range of daies
+	* @param end the upper bound of the range of daies (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching daies
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.timesheet.model.Day> findByC_T(
+		long companyId, int type, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByC_T(companyId, type, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first day in the ordered set where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching day
+	* @throws com.liferay.timesheet.NoSuchDayException if a matching day could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Day findByC_T_First(
+		long companyId, int type,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDayException {
+		return getPersistence()
+				   .findByC_T_First(companyId, type, orderByComparator);
+	}
+
+	/**
+	* Returns the first day in the ordered set where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching day, or <code>null</code> if a matching day could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Day fetchByC_T_First(
+		long companyId, int type,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByC_T_First(companyId, type, orderByComparator);
+	}
+
+	/**
+	* Returns the last day in the ordered set where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching day
+	* @throws com.liferay.timesheet.NoSuchDayException if a matching day could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Day findByC_T_Last(
+		long companyId, int type,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDayException {
+		return getPersistence()
+				   .findByC_T_Last(companyId, type, orderByComparator);
+	}
+
+	/**
+	* Returns the last day in the ordered set where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching day, or <code>null</code> if a matching day could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Day fetchByC_T_Last(
+		long companyId, int type,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByC_T_Last(companyId, type, orderByComparator);
+	}
+
+	/**
+	* Returns the daies before and after the current day in the ordered set where companyId = &#63; and type = &#63;.
+	*
+	* @param dayId the primary key of the current day
+	* @param companyId the company ID
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next day
+	* @throws com.liferay.timesheet.NoSuchDayException if a day with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.timesheet.model.Day[] findByC_T_PrevAndNext(
+		long dayId, long companyId, int type,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.timesheet.NoSuchDayException {
+		return getPersistence()
+				   .findByC_T_PrevAndNext(dayId, companyId, type,
+			orderByComparator);
+	}
+
+	/**
+	* Removes all the daies where companyId = &#63; and type = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByC_T(long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByC_T(companyId, type);
+	}
+
+	/**
+	* Returns the number of daies where companyId = &#63; and type = &#63;.
+	*
+	* @param companyId the company ID
+	* @param type the type
+	* @return the number of matching daies
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByC_T(long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByC_T(companyId, type);
+	}
+
+	/**
 	* Caches the day in the entity cache if it is enabled.
 	*
 	* @param day the day

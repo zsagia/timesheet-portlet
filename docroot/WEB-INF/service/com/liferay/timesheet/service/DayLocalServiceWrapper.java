@@ -279,6 +279,22 @@ public class DayLocalServiceWrapper implements DayLocalService,
 		return _dayLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public com.liferay.timesheet.model.Day addDay(long userId,
+		java.util.Date date, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.addDay(userId, date, type, serviceContext);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.getDays(companyId, type);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

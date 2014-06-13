@@ -1,3 +1,6 @@
+create index IX_20358DE2 on timesheet_Day (companyId, type_);
+create index IX_C0AEF3C0 on timesheet_Day (type_);
+
 create index IX_1B6563E3 on timesheet_Department (companyId);
 
 create index IX_8BA46E73 on timesheet_Project (departmentId);

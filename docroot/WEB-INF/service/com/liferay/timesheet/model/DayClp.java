@@ -362,6 +362,25 @@ public class DayClp extends BaseModelImpl<Day> implements Day {
 		}
 	}
 
+	@Override
+	public java.lang.String getDayType() {
+		try {
+			String methodName = "getDayType";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
 	public BaseModel<?> getDayRemoteModel() {
 		return _dayRemoteModel;
 	}

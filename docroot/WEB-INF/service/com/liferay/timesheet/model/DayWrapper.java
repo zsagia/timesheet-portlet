@@ -405,7 +405,7 @@ public class DayWrapper implements Day, ModelWrapper<Day> {
 	}
 
 	@Override
-	public int compareTo(Day day) {
+	public int compareTo(com.liferay.timesheet.model.Day day) {
 		return _day.compareTo(day);
 	}
 
@@ -415,17 +415,17 @@ public class DayWrapper implements Day, ModelWrapper<Day> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<Day> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.timesheet.model.Day> toCacheModel() {
 		return _day.toCacheModel();
 	}
 
 	@Override
-	public Day toEscapedModel() {
+	public com.liferay.timesheet.model.Day toEscapedModel() {
 		return new DayWrapper(_day.toEscapedModel());
 	}
 
 	@Override
-	public Day toUnescapedModel() {
+	public com.liferay.timesheet.model.Day toUnescapedModel() {
 		return new DayWrapper(_day.toUnescapedModel());
 	}
 
@@ -443,6 +443,11 @@ public class DayWrapper implements Day, ModelWrapper<Day> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_day.persist();
+	}
+
+	@Override
+	public java.lang.String getDayType() {
+		return _day.getDayType();
 	}
 
 	@Override
