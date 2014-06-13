@@ -36,6 +36,13 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			DateTimeCalculatorUtil.summerizeTime(taskSessions, breaks));
 	}
 
+	public String getFormattedDurationForTask(Task task) throws Exception {
+		Date[] interval = calculateInterval(currentDate, dateNumber);
+
+		return task.getFormattedDuration(
+			currentUser.getUserId(), interval[0], interval[1]);
+	}
+
 	public List<Task> getTasks() {
 		List<Task> tasks = null;
 
@@ -97,6 +104,28 @@ public abstract class AbstractStatisticsBean implements Serializable{
 		return interval;
 	}
 
+	private Date[] getIntervalOfMonth(Date dateOfMonth) {
+		Calendar calendarStart = Calendar.getInstance();
+		Calendar calendarEnd = Calendar.getInstance();
+
+		calendarStart.setTime(dateOfMonth);
+		calendarEnd.setTime(dateOfMonth);
+
+		int first = calendarStart.getMinimum(Calendar.DAY_OF_MONTH);
+		int last = calendarStart.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		calendarStart.set(Calendar.DAY_OF_MONTH, first);
+		calendarEnd.set(Calendar.DAY_OF_MONTH, last);
+
+		Date[] interval = new Date[2];
+
+		interval[0] = calendarStart.getTime();
+		interval[1] = calendarEnd.getTime();
+
+		return interval;
+	}
+
+
 	private Date[] getIntervalOfWeek(Date date) {
 		Calendar calendar = Calendar.getInstance();
 
@@ -117,27 +146,6 @@ public abstract class AbstractStatisticsBean implements Serializable{
 
 		interval[0] = daysOfWeek.get(0);
 		interval[1] = daysOfWeek.get(6);
-
-		return interval;
-	}
-
-	private Date[] getIntervalOfMonth(Date dateOfMonth) {
-		Calendar calendarStart = Calendar.getInstance();
-		Calendar calendarEnd = Calendar.getInstance();
-
-		calendarStart.setTime(dateOfMonth);
-		calendarEnd.setTime(dateOfMonth);
-
-		int first = calendarStart.getMinimum(Calendar.DAY_OF_MONTH);
-		int last = calendarStart.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-		calendarStart.set(Calendar.DAY_OF_MONTH, first);
-		calendarEnd.set(Calendar.DAY_OF_MONTH, last);
-
-		Date[] interval = new Date[2];
-
-		interval[0] = calendarStart.getTime();
-		interval[1] = calendarEnd.getTime();
 
 		return interval;
 	}
