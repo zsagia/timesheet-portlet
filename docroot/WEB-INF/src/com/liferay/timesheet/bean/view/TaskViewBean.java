@@ -4,7 +4,7 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
 import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimeCalculatorUtil;
+import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
 
 import java.io.Serializable;
@@ -44,29 +44,29 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 			TaskSessionLocalServiceUtil.getTaskSessionsByU_D(
 				userId, DateTimeUtil.getTodayWithoutTime());
 
-		long time = TimeCalculatorUtil.summerizeTime(taskSessions);
+		long time = DateTimeCalculatorUtil.summerizeTime(taskSessions);
 
-		return TimeCalculatorUtil.getStringFromTime(time);
+		return DateTimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	public String getMonthTime() throws Exception {
 		long userId = DateTimeUtil.getCurrentUserId();
 
-		long time = TimeCalculatorUtil.summerizeMonthTime(
+		long time = DateTimeCalculatorUtil.summerizeMonthTime(
 			DateTimeUtil.getCompanyId(),
 			DateTimeUtil.getTodayWithoutTime(), userId);
 
-		return TimeCalculatorUtil.getStringFromTime(time);
+		return DateTimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	public String getWeekTime() throws Exception {
 		long userId = DateTimeUtil.getCurrentUserId();
 
-		long time = TimeCalculatorUtil.summerizeWeekTime(
+		long time = DateTimeCalculatorUtil.summerizeWeekTime(
 			DateTimeUtil.getCompanyId(),
 			DateTimeUtil.getTodayWithoutTime(), userId);
 
-		return TimeCalculatorUtil.getStringFromTime(time);
+		return DateTimeCalculatorUtil.getStringFromTime(time);
 	}
 
 	private static final long serialVersionUID = -1159224264202167114L;

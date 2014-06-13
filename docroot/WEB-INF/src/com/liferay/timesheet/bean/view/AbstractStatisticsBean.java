@@ -8,7 +8,7 @@ import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
-import com.liferay.timesheet.util.TimeCalculatorUtil;
+import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.DateTimeUtil;
 
@@ -31,8 +31,8 @@ public abstract class AbstractStatisticsBean implements Serializable{
 	public abstract void init();
 
 	public String getFormattedDuration(boolean breaks) throws Exception {
-		return TimeCalculatorUtil.getStringFromTime(
-			TimeCalculatorUtil.summerizeTime(taskSessions, breaks));
+		return DateTimeCalculatorUtil.getStringFromTime(
+			DateTimeCalculatorUtil.summerizeTime(taskSessions, breaks));
 	}
 
 	public List<Task> getTasks() {
