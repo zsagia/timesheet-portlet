@@ -29,7 +29,11 @@ public class TimeSheetConverter extends DateTimeConverter {
 			FacesContext context, UIComponent component, String value)
 		throws ConverterException{
 
-		return DateTimeUtil.getDateFromMilitaryTime(value);
+		try {
+			return DateTimeUtil.getDateFromMilitaryTime(value);
+		} catch (Exception e) {
+			return new ConverterException();
+		}
 	}
 
 	@Override

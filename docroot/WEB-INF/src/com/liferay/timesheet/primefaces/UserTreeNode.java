@@ -3,7 +3,7 @@ package com.liferay.timesheet.primefaces;
 import com.liferay.faces.util.lang.StringPool;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.User;
-import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 import com.liferay.timesheet.util.UserUtil;
 
 import java.util.Date;
@@ -72,7 +72,7 @@ public class UserTreeNode extends DefaultTreeNode {
 	public String getDuration() throws Exception {
 		if (USER_CLASS_NAME.equals(className)) {
 			return UserUtil.getFormattedDuration(
-				DateTimeUtil.getCompanyId(), getUser().getUserId(),
+				TimeSheetUtil.getCompanyId(), getUser().getUserId(),
 				new Date(0), new Date());
 		}
 

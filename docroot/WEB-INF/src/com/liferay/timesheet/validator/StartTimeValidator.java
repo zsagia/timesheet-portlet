@@ -4,6 +4,7 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class StartTimeValidator extends AbstractValidator {
 	@Override
 	public void doValidate(Date time) throws Exception {
 		if (time != null) {
-			long userId = DateTimeUtil.getCurrentUserId();
+			long userId = TimeSheetUtil.getCurrentUserId();
 			Date startTime = time;
 			Date now = new Date();
 

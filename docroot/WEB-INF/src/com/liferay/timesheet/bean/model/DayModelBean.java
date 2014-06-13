@@ -15,7 +15,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Day;
 import com.liferay.timesheet.model.DayConstants;
 import com.liferay.timesheet.service.DayLocalServiceUtil;
-import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 @ManagedBean
 @RequestScoped
@@ -25,10 +25,10 @@ public class DayModelBean implements Serializable {
 		throws PortalException, SystemException {
 
 		ServiceContext serviceContext =
-			DateTimeUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		return DayLocalServiceUtil.addDay(
-			DateTimeUtil.getCurrentUserId(), date, type, serviceContext);
+			TimeSheetUtil.getCurrentUserId(), date, type, serviceContext);
 	}
 
 	public Day deleteDay(long dayId) throws Exception {
@@ -38,7 +38,7 @@ public class DayModelBean implements Serializable {
 	public List<Day> getDays() throws Exception {
 		List<Day> days = new ArrayList<Day>();
 
-		long companyId = DateTimeUtil.getCompanyId();
+		long companyId = TimeSheetUtil.getCompanyId();
 
 		days.addAll(DayLocalServiceUtil.getDays(
 			companyId, DayConstants.TYPE_NATIONAL_HOLIDAY));

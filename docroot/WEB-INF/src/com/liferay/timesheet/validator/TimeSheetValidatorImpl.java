@@ -66,9 +66,13 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 
 	@Override
 	public void validateLatestEndTime(Date workStart) throws PortalException {
-		Date latestEndTimeRestriction =
-			DateTimeUtil.getDateFromMilitaryTime(
+		Date latestEndTimeRestriction = null;
+
+		try {
+			latestEndTimeRestriction = DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
+		} catch (Exception e) {
+		}
 
 		if (workStart.after(latestEndTimeRestriction)) {
 			throw new TSStartEndTimeException();
@@ -77,9 +81,13 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 
 	@Override
 	public void validateWorkStart(Date workStart) throws PortalException {
-		Date earliestStartRestriction =
-			DateTimeUtil.getDateFromMilitaryTime(
+		Date earliestStartRestriction = null;
+
+		try {
+			earliestStartRestriction = DateTimeUtil.getDateFromMilitaryTime(
 				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+		} catch (Exception e) {
+		}
 
 		if (workStart.before(earliestStartRestriction)) {
 			throw new TSEarliestStartTimeException();

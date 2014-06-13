@@ -19,7 +19,7 @@ import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
-import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 import com.liferay.timesheet.util.UserUtil;
 
 import java.io.Serializable;
@@ -43,7 +43,7 @@ import org.primefaces.model.TreeNode;
 public class TaskManagedBean implements Serializable {
 
 	public String createTaskAction() {
-		long userId = DateTimeUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		TreeNode selectedProjectNode = null;
 		Project selectedProject = null;
@@ -52,7 +52,7 @@ public class TaskManagedBean implements Serializable {
 			LiferayFacesContext.getInstance();
 
 		ServiceContext serviceContext =
-			DateTimeUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		try {
 			selectedProjectNode = taskViewBean.getSelectedProjectNode();
@@ -187,7 +187,7 @@ public class TaskManagedBean implements Serializable {
 	}
 
 	public boolean isLeader() throws SystemException, PortalException {
-		return UserUtil.isLeader(DateTimeUtil.getCompanyId(),
+		return UserUtil.isLeader(TimeSheetUtil.getCompanyId(),
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
 	}
 

@@ -1,15 +1,10 @@
 package com.liferay.timesheet.util;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.theme.ThemeDisplay;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,49 +33,33 @@ public class DateTimeUtil {
 		return new Date(timeMilis2 + timeMilis);
 	}
 
-	public static ServiceContext createServiceContext() {
-		LiferayFacesContext liferayFacesContext =
-				LiferayFacesContext.getInstance();
+	public static Date getDateFromMilitaryTime(String value)
+		throws Exception {
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setScopeGroupId(themeDisplay.getScopeGroupId());
-
-		return serviceContext;
+		return getDateFromMilitaryTime(
+			TimeSheetUtil.getCurrentUser(), DateTimeUtil.getTodayWithoutTime(),
+			value);
 	}
 
-	public static long getCompanyId()
-		throws PortalException, SystemException {
+	public static Date getDateFromMilitaryTime(User user, String value)
+		throws Exception {
 
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
-		return liferayFacesContext.getCompanyId();
+		return getDateFromMilitaryTime(
+			user, DateTimeUtil.getTodayWithoutTime(), value);
 	}
 
-	public static User getCurrentUser()
-		throws PortalException, SystemException {
+	public static Date getDateFromMilitaryTime(Date date, String value)
+		throws Exception {
 
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
-		return liferayFacesContext.getUser();
+		return getDateFromMilitaryTime(
+			TimeSheetUtil.getCurrentUser(), date, value);
 	}
 
-	public static long getCurrentUserId() {
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
-		return liferayFacesContext.getUserId();
-	}
-
-	public static Date getDateFromMilitaryTime(String value) {
-		Date date = null;
+	public static Date getDateFromMilitaryTime(
+		User user, Date date, String value) {
 
 		if (Validator.isNotNull(value)) {
 			try {
-				User user = DateTimeUtil.getCurrentUser();
 				TimeZone userTimeZone = user.getTimeZone();
 
 				Calendar calendar = CalendarFactoryUtil.getCalendar(

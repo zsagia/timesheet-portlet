@@ -4,6 +4,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class MyStatisticsViewBean extends AbstractStatisticsBean {
 	public void init() {
 		try {
 			setCurrentDate(DateTimeUtil.getTodayWithoutTime());
-			setCurrentUser(DateTimeUtil.getCurrentUser());
+			setCurrentUser(TimeSheetUtil.getCurrentUser());
 
 			setEndDate(new Date());
 			setStartDate(new Date(0));

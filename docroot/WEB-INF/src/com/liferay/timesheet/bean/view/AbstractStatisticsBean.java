@@ -11,6 +11,7 @@ import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -42,7 +43,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			Date[] interval = calculateInterval(currentDate, dateNumber);
 
 			tasks = TaskLocalServiceUtil.getTasksByC_U_I(
-				DateTimeUtil.getCompanyId(), currentUser.getUserId(),
+				TimeSheetUtil.getCompanyId(), currentUser.getUserId(),
 				interval[0], interval[1]);
 		} catch (Exception e) {
 			logger.error(
@@ -66,7 +67,7 @@ public abstract class AbstractStatisticsBean implements Serializable{
 			Date[] interval = calculateInterval(currentDate, dateNumber);
 
 			taskSessions = TaskSessionLocalServiceUtil.getTaskSessionsByC_U_I(
-				DateTimeUtil.getCompanyId(), currentUser.getUserId(),
+				TimeSheetUtil.getCompanyId(), currentUser.getUserId(),
 				interval[0], interval[1]);
 		} catch (Exception e) {
 			logger.error("Getting task sessions is failed!");

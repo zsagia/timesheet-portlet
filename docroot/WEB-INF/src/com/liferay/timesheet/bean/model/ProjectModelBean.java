@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.service.ProjectServiceUtil;
-import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
 
@@ -30,12 +30,12 @@ public class ProjectModelBean implements Serializable {
 		}
 
 		ServiceContext serviceContext =
-			DateTimeUtil.createServiceContext();
+			TimeSheetUtil.createServiceContext();
 
 		Project project = null;
 
 		project = ProjectServiceUtil.addProject(
-			DateTimeUtil.getCurrentUserId(),0, true,
+			TimeSheetUtil.getCurrentUserId(),0, true,
 			selectedProjectId, projectName, description,
 			serviceContext);
 

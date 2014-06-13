@@ -9,7 +9,7 @@ import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.util.TimeSheetConstants;
-import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TaskModelBean implements Serializable {
 	}
 
 	public List<Task> getTasksByUser() {
-		long userId = DateTimeUtil.getCurrentUserId();
+		long userId = TimeSheetUtil.getCurrentUserId();
 
 		List<Task> tasksToday = null;
 

@@ -20,7 +20,7 @@ public class OrganizationUtil {
 
 		List<Organization> organizationList =
 			OrganizationLocalServiceUtil.getOrganizations(
-				DateTimeUtil.getCompanyId(), organizationId);
+				TimeSheetUtil.getCompanyId(), organizationId);
 
 		if (organizationList.size() == 0) {
 			return organizationList;
@@ -49,7 +49,7 @@ public class OrganizationUtil {
 
 		List<Organization> organizationList =
 			OrganizationLocalServiceUtil.getOrganizations(
-				DateTimeUtil.getCompanyId(), organizationId);
+				TimeSheetUtil.getCompanyId(), organizationId);
 
 		organizationList = filterOrganizationsByPermissionChecking(
 			organizationList, ActionKeys.VIEW);
