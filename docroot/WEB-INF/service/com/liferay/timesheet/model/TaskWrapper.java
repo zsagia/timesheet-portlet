@@ -541,6 +541,13 @@ public class TaskWrapper implements Task, ModelWrapper<Task> {
 	}
 
 	@Override
+	public java.lang.String getShortTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _task.getShortTaskName();
+	}
+
+	@Override
 	public java.util.List<com.liferay.timesheet.model.TaskSession> getTaskSessionList(
 		long userId, java.util.Date date)
 		throws com.liferay.portal.kernel.exception.SystemException {

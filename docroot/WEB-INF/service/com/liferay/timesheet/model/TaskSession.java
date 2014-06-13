@@ -31,14 +31,18 @@ public interface TaskSession extends TaskSessionModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.timesheet.model.impl.TaskSessionImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public com.liferay.timesheet.model.Task getTask()
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
 	public long getDuration() throws java.lang.Exception;
-
-	public java.lang.String getFormattedDuration() throws java.lang.Exception;
 
 	public long getDuration(java.util.Date endTimeForOpenTask)
 		throws java.lang.Exception;
+
+	public java.lang.String getFormattedDuration() throws java.lang.Exception;
+
+	public java.lang.String getShortTaskName()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.timesheet.model.Task getTask()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }
