@@ -42,10 +42,10 @@
 		</portlet-ref>
 		<permissions>
 			<supports>
-				<action-key>ADD_DEPARTMENT</action-key>
+				<action-key>ADD_DAY</action-key>
 				<action-key>ADD_PROJECT</action-key>
 				<action-key>ADD_TASK</action-key>
-				<action-key>VIEW_DEPARTMENT</action-key>
+				<action-key>VIEW_DAY</action-key>
 				<action-key>VIEW_PROJECT</action-key>
 				<action-key>VIEW_TASK</action-key>
 				<action-key>PERMISSIONS</action-key>
@@ -53,10 +53,10 @@
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
-				<action-key>ADD_DEPARTMENT</action-key>
+				<action-key>ADD_DAY</action-key>
 				<action-key>ADD_PROJECT</action-key>
 				<action-key>ADD_TASK</action-key>
-				<action-key>VIEW_DEPARTMENT</action-key>
+				<action-key>VIEW_DAY</action-key>
 				<action-key>VIEW_PROJECT</action-key>
 				<action-key>VIEW_TASK</action-key>
 				<action-key>PERMISSIONS</action-key>
@@ -84,7 +84,7 @@
 		</permissions>
 	</model-resource>
 	<model-resource>
-		<model-name>com.liferay.timesheet.model.Department</model-name>
+		<model-name>com.liferay.timesheet.model.Day</model-name>
 		<portlet-ref>
 			<portlet-name>1</portlet-name>
 			<portlet-name>2</portlet-name>
@@ -96,7 +96,9 @@
 				<action-key>UPDATE</action-key>
 				<action-key>VIEW</action-key>
 			</supports>
-			<site-member-defaults />
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>DELETE</action-key>
