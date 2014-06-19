@@ -14,6 +14,18 @@ public class DayConstants {
 
 	public static final String TYPE_EXCEPTIONAL_WORKDAY_LABEL = "exceptional-workday";
 
+	public static final int TYPE_ON_DUTY = 11;
+
+	public static final String TYPE_ON_DUTY_LABEL = "on-duty";
+
+	public static final int TYPE_PATERNITY_LEAVE = 10;
+
+	public static final String TYPE_PATERNITY_LEAVE_LABEL = "paternity-leave";
+
+	public static final int TYPE_UNUSUAL_HOLIDAY = 10;
+
+	public static final String TYPE_UNUSUAL_HOLIDAY_LABEL = "unusual-holiday";
+
 	public static final int TYPE_USER_HOME_OFFICE = 4;
 
 	public static final String TYPE_USER_HOME_OFFICE_LABEL = "user-home-office";
