@@ -118,6 +118,22 @@ public class DayLocalServiceClpInvoker {
 		_methodName55 = "getDays";
 
 		_methodParameterTypes55 = new String[] { "long", "int" };
+
+		_methodName56 = "getDays";
+
+		_methodParameterTypes56 = new String[] { "long", "int[][]", "boolean" };
+
+		_methodName57 = "getDays";
+
+		_methodParameterTypes57 = new String[] { "long", "int[][]" };
+
+		_methodName58 = "getDaysMap";
+
+		_methodParameterTypes58 = new String[] { "long", "int" };
+
+		_methodName59 = "getDaysMap";
+
+		_methodParameterTypes59 = new String[] { "long", "int[][]" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -235,6 +251,30 @@ public class DayLocalServiceClpInvoker {
 				((Integer)arguments[1]).intValue());
 		}
 
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return DayLocalServiceUtil.getDays(((Long)arguments[0]).longValue(),
+				(int[])arguments[1], ((Boolean)arguments[2]).booleanValue());
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return DayLocalServiceUtil.getDays(((Long)arguments[0]).longValue(),
+				(int[])arguments[1]);
+		}
+
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return DayLocalServiceUtil.getDaysMap(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return DayLocalServiceUtil.getDaysMap(((Long)arguments[0]).longValue(),
+				(int[])arguments[1]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -278,4 +318,12 @@ public class DayLocalServiceClpInvoker {
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
 }

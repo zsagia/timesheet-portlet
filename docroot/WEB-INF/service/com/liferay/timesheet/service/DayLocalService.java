@@ -254,4 +254,24 @@ public interface DayLocalService extends BaseLocalService, InvokableLocalService
 	public java.util.List<com.liferay.timesheet.model.Day> getDays(
 		long companyId, int type)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types, boolean sort)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

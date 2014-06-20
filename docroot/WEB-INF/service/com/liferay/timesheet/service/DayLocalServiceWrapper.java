@@ -295,6 +295,34 @@ public class DayLocalServiceWrapper implements DayLocalService,
 		return _dayLocalService.getDays(companyId, type);
 	}
 
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types, boolean sort)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.getDays(companyId, types, sort);
+	}
+
+	@Override
+	public java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.getDays(companyId, types);
+	}
+
+	@Override
+	public java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.getDaysMap(companyId, type);
+	}
+
+	@Override
+	public java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dayLocalService.getDaysMap(companyId, types);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

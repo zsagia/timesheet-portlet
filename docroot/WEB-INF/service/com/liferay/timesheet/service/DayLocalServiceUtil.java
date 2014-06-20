@@ -285,6 +285,30 @@ public class DayLocalServiceUtil {
 		return getService().getDays(companyId, type);
 	}
 
+	public static java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types, boolean sort)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDays(companyId, types, sort);
+	}
+
+	public static java.util.List<com.liferay.timesheet.model.Day> getDays(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDays(companyId, types);
+	}
+
+	public static java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDaysMap(companyId, type);
+	}
+
+	public static java.util.Map<java.lang.String, com.liferay.timesheet.model.Day> getDaysMap(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDaysMap(companyId, types);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}
