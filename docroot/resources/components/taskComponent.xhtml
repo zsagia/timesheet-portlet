@@ -21,6 +21,7 @@
 	</cc:interface>
 
 	<cc:implementation>
+	<h:form>
 		<aui:layout>
 			<aui:column rendered="#{empty cc.attrs.selectedTask}" styleClass="task-column">
 				<aui:fieldset>
@@ -66,16 +67,17 @@
 						<h:outputText value=" > " />
 					</span>
 					<label class="taslLabel">
-						<h:outputText value="#{cc.attrs.selectedTask.taskName}" />
+						<h:outputText value="#{cc.attrs.selectedTask.shortTaskName}" />
 					</label>
 				</div>
 
-				<p:commandLink oncomplete="PF('editTaskDialog').show()" styleClass="ui-icon ui-icon-search" title="edit"
-					update=":#{p:component(cc.attrs.editTaskDialog)}">
+				<p:commandLink oncomplete="PF('editTaskDialog').show()" process="@this" styleClass="ui-icon ui-icon-search" title="edit"
+					update=":#{p:component(cc.attrs.editTaskDialog)}" rendered="#{cc.attrs.selectedTask.editable}">
 
 					<f:setPropertyActionListener target="#{cc.attrs.editedTask}" value="#{cc.attrs.selectedTask}" />
 				</p:commandLink>
 			</aui:column>
 		</aui:layout>
+	</h:form>
 	</cc:implementation>
 </ui:component>

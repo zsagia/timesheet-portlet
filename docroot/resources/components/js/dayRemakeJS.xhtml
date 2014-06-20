@@ -1,0 +1,24 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:outputScript id="dayRemakeJS" target="body">
+		function addEvent() {
+			return;
+		}
+ 
+		function changeEvent() {
+			var index = PF('dayRemakeWidget').getSelectedIndex();
+
+			if (index == -1) {
+				return;
+			}
+
+			if (!PF('dayRemakeWidget').isEditable(index)) {
+
+				return;
+			}
+		}
+	</h:outputScript>
+</ui:composition> 

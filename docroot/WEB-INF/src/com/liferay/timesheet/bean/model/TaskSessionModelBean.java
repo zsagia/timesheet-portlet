@@ -9,6 +9,7 @@ import com.liferay.timesheet.TSNoCurrentTaskSessionException;
 import com.liferay.timesheet.TSNoSelectedTaskException;
 import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
+import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
@@ -40,6 +41,8 @@ public class TaskSessionModelBean implements Serializable {
 		endTime = null;
 		startTime = null;
 		startTimes = new HashMap<Long, Date>();
+		selectedTask = null;
+		description = null;
 	}
 
 	public TaskSession closeCurrentTaskSession(long userId, Date endDate)
@@ -65,7 +68,12 @@ public class TaskSessionModelBean implements Serializable {
 		}
 
 		if (getStartTime() == null) {
-			setStartTime(new Date());
+			Calendar startTime = Calendar.getInstance();
+
+			startTime.set(Calendar.MILLISECOND, 0);
+			startTime.set(Calendar.SECOND, 0);
+
+			setStartTime(startTime.getTime());
 		}
 
 		long userId = TimeSheetUtil.getCurrentUserId();
@@ -94,6 +102,37 @@ public class TaskSessionModelBean implements Serializable {
 		return taskSession;
 	}
 
+	public TaskSession createTaskSession(
+			Task selectedTask, Date startTime, Date endTime, String description)
+		throws PortalException {
+
+		long userId = TimeSheetUtil.getCurrentUserId();
+
+		TaskSession taskSession = null;
+
+		ServiceContext serviceContext = TimeSheetUtil.createServiceContext();
+
+		try {
+			taskSession = TaskSessionLocalServiceUtil.addTaskSession(
+				userId, getStartTime(), getEndTime(), selectedTask.getTaskId(),
+				description, serviceContext);
+		} catch (Exception e) {
+			throw new TSTaskSessionUpdateException();
+		}
+
+		clear();
+
+		return taskSession;
+	}
+
+	public void deleteTaskSession(long taskSessionId) throws PortalException{
+		try {
+			TaskSessionLocalServiceUtil.deleteTaskSession(taskSessionId);
+		} catch (Exception e) {
+			throw new PortalException();
+		}
+	}
+
 	public void finishTaskSession()
 		throws PortalException {
 
@@ -112,6 +151,7 @@ public class TaskSessionModelBean implements Serializable {
 			Calendar endDate = Calendar.getInstance();
 
 			endDate.set(Calendar.MILLISECOND, 0);
+			endDate.set(Calendar.SECOND, 0);
 
 			endTime = endDate.getTime();
 		}
@@ -159,10 +199,19 @@ public class TaskSessionModelBean implements Serializable {
 		this.startTimes = startTimes;
 	}
 
+	public Task getSelectedTask() {
+		return selectedTask;
+	}
+
+	public void setSelectedTask(Task selectedTask) {
+		this.selectedTask = selectedTask;
+	}
+
 	private String description = null;
 	private Date endTime = null;
 	private Date startTime = null;
 	private Map<Long, Date> startTimes;
+	private Task selectedTask = null;
 
 	private static final long serialVersionUID = -2671767034731473059L;
 	private static final Logger logger =

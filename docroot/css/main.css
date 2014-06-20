@@ -11,6 +11,14 @@
 	padding: 1px 5px 1px 24px;
 }
 
+#breadcrumbs {
+	margin-bottom: 5px !important;
+}
+
+.timesheet form {
+	margin:0px;
+}
+
 .timesheet .ui-widget-header, .timesheet .ui-tabs-nav {
 	background: none !important;
 }
@@ -51,6 +59,7 @@
 
 .timesheet .current-task-session {
 	min-height: 40px;
+	margin-bottom: 10px;
 }
 
 .timesheet .current-task-session-content {
@@ -142,6 +151,33 @@
 
 .timesheet input.btn-finish{
 	margin: 0 0 0 12px !important;
+}
+
+.timesheet .timeline-event {
+	background: #009CEB none !important;
+	border-color: #0066B3 !important;
+	border-radius: 7px !important;
+	border-width: 2px !important;
+	box-shadow: none;
+	min-height: 80px;	
+	text-shadow: none !important;
+}
+
+.timesheet .timeline-event span {
+	display: block;
+	color: #FFFFFF;
+}
+
+.timesheet .task-session .left {
+	float: left;
+}
+
+.timesheet .task-session .right {
+	float: right;
+}
+
+.timesheet .task-session .clear {
+	clear: both;
 }
 
 .timesheet-admin .timesheet-day {

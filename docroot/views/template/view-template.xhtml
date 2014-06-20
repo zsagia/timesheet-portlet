@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:components="http://java.sun.com/jsf/composite/components">
+
+	<h:head />
+
+	<h:body styleClass="timesheet" id="timesheet">
+		<p:growl id="growl" showSummary="true" showDetail="true" autoUpdate="false" />
+
+		<aui:layout id="timesheetLayout">
+			<aui:column columnWidth="100">
+				<h:form id="currentTaskForm">
+					<aui:layout cssClass="current-task-session">
+						<aui:column styleClass="summary-time-column">
+							<label>
+								<h:outputText value="Day:" />
+							</label>
+
+							<span>
+								<h:outputText value="#{taskManagedBean.taskViewBean.dayTime}" />
+							</span>
+
+							<label>
+								<h:outputText value="Week:" />
+							</label>
+
+							<span>
+								<h:outputText value="#{taskManagedBean.taskViewBean.weekTime}" />
+							</span>
+
+							<label>
+								<h:outputText value="Month:" />
+							</label>
+
+							<span>
+								<h:outputText value="#{taskManagedBean.taskViewBean.monthTime}" />
+							</span>
+						</aui:column>
+
+						<aui:column rendered="#{taskManagedBean.taskViewBean.currentTaskSession!=null}" styleClass="current-task-session-column">
+							<label>
+								<h:outputText value="Current Task: " />
+							</label>
+							<span>
+								<h:outputText value="#{taskManagedBean.taskViewBean.currentTaskSession.task.project.projectName}" />
+								<h:outputText value=" > "/>
+								<h:outputText value="#{taskManagedBean.taskViewBean.currentTaskSession.task.shortTaskName}" />
+							</span>
+
+							<label>
+								<h:outputText value="Started: " />
+							</label>
+							<span>
+								<h:outputText value="#{taskManagedBean.taskViewBean.currentTaskSession.startTime}">
+									<f:convertDateTime pattern="HH:mm" type="time" timeZone="#{liferay.user.timeZone}" />
+								</h:outputText>
+							</span>
+
+							<h:inputText id="endTime" styleClass="time end-time" value="#{taskManagedBean.taskSessionModelBean.endTime}">
+								<f:converter converterId="TimeSheetConverter" />
+								<f:validator validatorId="EndTimeValidator" />
+							</h:inputText>
+
+							<h:commandButton action="#{taskManagedBean.finishTaskSessionAction}" id="finishTask" styleClass="btn btn-primary btn-finish" value="Finish" />
+						</aui:column>
+
+						<aui:column>
+							<p:menuButton value="Options">
+								<p:menuitem value="Re-make" action="#{viewControllerBean.showDayRemakeView}" process="@this" ajax="false"/>
+							</p:menuButton>
+						</aui:column>
+					</aui:layout>
+				</h:form>
+			</aui:column>
+
+			<aui:column columnWidth="100">
+				<ui:insert name="content">Content Section</ui:insert>
+			</aui:column>
+		</aui:layout>
+	</h:body>
+</f:view>

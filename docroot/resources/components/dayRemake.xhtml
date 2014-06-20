@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:aui="http://liferay.com/faces/aui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:components="http://java.sun.com/jsf/composite/components" >
+
+	<cc:interface>
+		<cc:attribute name="controllerBean" />
+		<cc:attribute name="controllerName" />
+	</cc:interface>
+
+	<cc:implementation>
+		<aui:form id="timelineForm">
+			<pe:timeline 
+				axisOnTop="true" editable="true" end="#{cc.attrs.controllerBean.dayRemakeViewBean.dayEnd}"
+				eventMargin="1" id="dayRemake" min="#{cc.attrs.controllerBean.dayRemakeViewBean.min}"
+				minHeight="300" max="#{cc.attrs.controllerBean.dayRemakeViewBean.max}"
+				showButtonNew="true" showNavigation="true" snapEvents="true" start="#{cc.attrs.dayStart}"
+				stackEvents="true" value="#{cc.attrs.controllerBean.dayRemakeViewBean.dayRemakeModel}"
+				var="taskSession" widgetVar="dayRemakeWidget"
+				zoomMax="#{cc.attrs.controllerBean.dayRemakeViewBean.zoomMax}"
+				zoomMin="#{cc.attrs.controllerBean.dayRemakeViewBean.zoomMin}">
+
+				<p:ajax event="add" update="addTaskDialog"
+					listener="#{cc.attrs.controllerBean.onAdd}" oncomplete="PF('addTaskWidget').show()" />
+
+				<p:ajax event="edit" update="addTaskDialog"
+					listener="#{cc.attrs.controllerBean.onEdit}" oncomplete="PF('addTaskWidget').show()" />
+
+				<p:ajax event="delete" listener="#{cc.attrs.controllerBean.onDelete}"
+					onstart="PF('dayRemakeWidget').cancelDelete()" oncomplete="PF('deleteTaskSessionWidget').show()" />
+
+				<p:ajax event="select" listener="#{cc.attrs.controllerBean.onSelect}"/>
+
+				<pe:javascript event="add" execute="addEvent()" />
+				<pe:javascript event="change" execute="changeEvent()" />
+
+				<section class="task-session">
+					<header>
+						<span class="left">
+							<h:outputText value="#{taskSession.startTime}">
+								<f:convertDateTime pattern="HH:mm" timeZone="#{cc.attrs.controllerBean.dayRemakeViewBean.currentUser.timeZone}" />
+							</h:outputText>
+						</span>
+						<span class="right">
+							<h:outputText value="#{taskSession.endTime}">
+								<f:convertDateTime pattern="HH:mm" timeZone="#{cc.attrs.controllerBean.dayRemakeViewBean.currentUser.timeZone}" />
+							</h:outputText>
+						</span>
+					</header>
+
+					<span class="clear">
+						<h:outputText value="#{taskSession.formattedDuration}" />
+					</span>
+
+					<span>
+						<h:outputText value="#{taskSession.getTask().getTaskName()}" />
+					</span>
+				</section>
+			</pe:timeline>
+
+			<p:dialog id="addTaskDialog" header="Add Task" widgetVar="addTaskWidget"
+				showEffect="clip" hideEffect="clip">
+
+				<aui:layout id="dialogLayout">
+					<aui:column>
+						<aui:fieldset>
+							<aui:field label="Start">
+								<h:inputText id="startTime" maxlength="4" required="true" styleClass="start-time" binding="#{cc.attrs.controllerBean.startTimeInput}"
+									value="#{cc.attrs.controllerBean.taskSessionModelBean.startTime}">
+
+									<f:converter converterId="TimeSheetConverter" />
+
+									<f:attribute name="currentDate" value="${cc.attrs.controllerBean.dayRemakeViewBean.currentDate}"/>
+								</h:inputText>
+							</aui:field>
+
+							<aui:field label="End">
+								<h:inputText id="endTime" maxlength="4" required="true" styleClass="end-time" binding="#{cc.attrs.controllerBean.endTimeInput}"
+									value="#{cc.attrs.controllerBean.taskSessionModelBean.endTime}"
+									validator="#{cc.attrs.controllerBean.doStartEndTimeValidate}">
+
+									<f:converter converterId="TimeSheetConverter" />
+
+									<f:attribute name="currentDate" value="${cc.attrs.controllerBean.dayRemakeViewBean.currentDate}"/>
+								</h:inputText>
+							</aui:field>
+
+							<aui:field label="Task">
+								<h:selectOneMenu value="#{cc.attrs.controllerBean.taskSessionModelBean.selectedTask}" converter="TaskConverter" required="true">
+									<f:selectItem itemLabel="Select Task" itemValue="" />
+									<f:selectItems value="#{cc.attrs.controllerBean.taskModelBean.tasksByUser}" itemValue="#{task}" var="task"
+										itemLabel="#{task.taskName}" />
+								</h:selectOneMenu>
+							</aui:field>
+
+							<aui:field label="Description">
+								<h:inputTextarea id="description" styleClass="description" value="#{cc.attrs.controllerBean.taskSessionModelBean.description}" />
+							</aui:field>
+						</aui:fieldset>
+
+						<aui:button-row>
+							<p:commandButton action="#{cc.attrs.controllerBean.addTaskSessionAction}" update="@none" process="#{addTaskDialog}"
+								rendered="#{cc.attrs.controllerBean.dayRemakeViewBean.action=='new'}" value="Add" styleClass="p-btn"
+								oncomplete="if(!args.validationFailed){PF('addTaskWidget').hide();}" />
+
+							<p:commandButton action="#{cc.attrs.controllerBean.updateTaskSessionAction}" update="@none" process="#{addTaskDialog}"
+								rendered="#{cc.attrs.controllerBean.dayRemakeViewBean.action=='edit'}" value="Update" styleClass="p-btn"
+								oncomplete="if(!args.validationFailed){PF('addTaskWidget').hide();}" />
+
+							<p:commandButton type="button" value="Close" onclick="PF('addTaskWidget').hide()" update="dayRemake" styleClass="p-btn"/>
+						</aui:button-row>
+					</aui:column>
+				</aui:layout>
+			</p:dialog>
+
+			<p:dialog id="deleteTaskSessionDialog" header="TaskSession Details" widgetVar="deleteTaskSessionWidget"
+				showEffect="clip" hideEffect="clip" dynamic="true">
+
+				<h:panelGroup id="deleteTaskSesiionInner" layout="block" style="margin:10px;">
+					<h:outputText value="Do you want to delete the selected TaskSession?"/>
+				</h:panelGroup>
+
+				<f:facet name="footer">
+					<h:panelGroup layout="block" style="text-align:right; padding:2px; white-space:nowrap;">
+						<p:commandButton value="Delete" update="@none" process="deleteTaskSessionDialog"
+							styleClass="p-btn"
+							action="#{cc.attrs.controllerBean.deleteTaskSessionAction}" oncomplete="PF('deleteTaskSessionWidget').hide()" />
+
+						<p:commandButton type="button" value="Close" onclick="PF('deleteTaskSessionWidget').hide()" update="dayRemake"
+							styleClass="p-btn"/>
+					</h:panelGroup>
+				</f:facet>
+			</p:dialog>
+
+			<ui:include src="js/dayRemakeJS.xhtml"/> 
+		</aui:form>
+	</cc:implementation>
+</ui:component>
