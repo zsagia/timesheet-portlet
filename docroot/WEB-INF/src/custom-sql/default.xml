@@ -67,4 +67,20 @@
 			ASC
 		]]>
 	</sql>
+	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByU_TT_I">
+		<![CDATA[
+			SELECT
+				{timesheet_taskSession.*}
+			FROM
+				timesheet_task, timesheet_taskSession
+			WHERE
+				(timesheet_taskSession.userId = ?) AND
+				(timesheet_taskSession.taskId = timesheet_task.taskId) 
+				(timesheet_taskSession.taskType = ? AND
+				((timesheet_taskSession.startTime > ?) AND (timesheet_taskSession.startTime < ?))
+			ORDER BY
+				timesheet_taskSession.startTime
+			ASC
+		]]>
+	</sql>
 </custom-sql>

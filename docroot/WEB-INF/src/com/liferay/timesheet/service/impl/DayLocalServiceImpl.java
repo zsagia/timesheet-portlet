@@ -14,8 +14,12 @@
 
 package com.liferay.timesheet.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -68,6 +72,54 @@ public class DayLocalServiceImpl extends DayLocalServiceBaseImpl {
 
 	public List<Day> getDays(long companyId, int type) throws SystemException {
 		return dayPersistence.findByC_T(companyId, type);
+	}
+
+	public List<Day> getDays(long companyId, int[] types, boolean sort)
+		throws SystemException {
+
+		List<Day> days = new ArrayList<Day>();
+
+		for (int i = 0; i < types.length; i++) {
+			days.addAll(getDays(companyId, types[i]));
+		}
+
+		if (sort) {
+			Collections.sort(days);
+		}
+
+		return days;
+	}
+
+	public List<Day> getDays(long companyId, int[] types)
+		throws SystemException {
+
+		return getDays(companyId, types, false);
+	}
+
+	public Map<String, Day> getDaysMap(long companyId, int type)
+		throws SystemException {
+
+		List<Day> days = getDays(companyId, type);
+
+		Map<String, Day> daysMap = new HashMap<String, Day>();
+
+		for(Day day : days) {
+			daysMap.put(String.valueOf(day.getDate().getTime()), day);
+		}
+
+		return daysMap;
+	}
+
+	public Map<String, Day> getDaysMap(long companyId, int[] types)
+		throws SystemException {
+
+		Map<String, Day> daysMap = new HashMap<String, Day>();
+
+		for (int i = 0; i < types.length; i++) {
+			daysMap.putAll(getDaysMap(companyId, types[i]));
+		}
+
+		return daysMap;
 	}
 
 }
