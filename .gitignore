@@ -16,3 +16,5 @@ _sass_cache_*.css
 
 /build.*.properties
 /dist
+.refactorings/2014/6/23/refactorings.history
+.refactorings/2014/6/23/refactorings.index
