@@ -2,15 +2,21 @@ package com.liferay.timesheet.util;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
+import com.liferay.timesheet.model.Day;
+import com.liferay.timesheet.model.DayConstants;
+import com.liferay.timesheet.service.DayLocalServiceUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 import javax.faces.convert.ConverterException;
 
@@ -121,6 +127,12 @@ public class DateTimeUtil {
 		return calendar.getTime();
 	}
 
+	public static long getMillisFromMilitaryTime(String value)
+		throws Exception {
+
+		return Long.valueOf(value) * 1000 * 60;
+	}
+
 	public static long getTimeWithoutDate(Date date) throws ParseException {
 		DateFormat timeFormatWithoutDate =
 			new SimpleDateFormat(TimeSheetConstants.TIME_FORMAT_WITHOUT_DATE);
@@ -142,8 +154,50 @@ public class DateTimeUtil {
 		return calendar.getTime();
 	}
 
-	public static Date getPreviousWorkDay(Date date) {
-		return date;
+	public static Date getPreviousWorkingDay(Date date)
+		throws SystemException, PortalException {
+
+		int[] types = new int[3];
+		boolean isPrevious = false;
+		Date previousDay = date;
+		Day day = null;
+
+		types[0] = DayConstants.TYPE_NATIONAL_HOLIDAY;
+		types[1] = DayConstants.TYPE_EXCEPTIONAL_HOLIDAY;
+		types[2] = DayConstants.TYPE_EXCEPTIONAL_WORKDAY;
+
+		Map<String, Day> daysMap = DayLocalServiceUtil.getDaysMap(
+			TimeSheetUtil.getCompanyId(), types);
+
+		while (!isPrevious) {
+			previousDay = getPreviousDay(previousDay);
+
+			String dayKey = String.valueOf(previousDay.getTime());
+
+			if (daysMap.containsKey(dayKey)) {
+				day = daysMap.get(dayKey);
+
+				if (day.getType() == DayConstants.TYPE_EXCEPTIONAL_WORKDAY) {
+					isPrevious = true;
+
+					continue;
+				}
+			}
+
+			Calendar calendar = Calendar.getInstance();
+
+			calendar.setTime(previousDay);
+
+			int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+			if ((dayOfWeek != Calendar.SATURDAY) &&
+				(dayOfWeek != Calendar.SUNDAY)) {
+
+				isPrevious = true;
+			}
+		}
+
+		return previousDay;
 	}
 
 	private static final Logger logger =

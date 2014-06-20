@@ -1,6 +1,9 @@
 package com.liferay.timesheet.converter;
 
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.User;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,9 +33,18 @@ public class TimeSheetConverter extends DateTimeConverter {
 		throws ConverterException{
 
 		try {
-			return DateTimeUtil.getDateFromMilitaryTime(value);
+			if (Validator.isNull(value)) {
+				return null;
+			}
+
+			Object object = component.getAttributes().get("currentDate");
+
+			currentDate = (object != null) ? (Date)object :
+				DateTimeUtil.getTodayWithoutTime();
+
+			return DateTimeUtil.getDateFromMilitaryTime(currentDate, value);
 		} catch (Exception e) {
-			return new ConverterException();
+			throw new ConverterException(e);
 		}
 	}
 
@@ -40,13 +52,31 @@ public class TimeSheetConverter extends DateTimeConverter {
 	public String getAsString(
 		FacesContext context, UIComponent component, Object date) {
 
-		Date fullDate = (Date)date;
+		String time = null;
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(getPattern());
+		try {
+			User currentUser = TimeSheetUtil.getCurrentUser();
 
-		String time = dateFormat.format(fullDate);
+			SimpleDateFormat dateFormat = new SimpleDateFormat(getPattern());
+
+			dateFormat.setTimeZone(currentUser.getTimeZone());
+
+			time = dateFormat.format(date);
+		} catch (Exception e) {
+			throw new ConverterException(e);
+		}
 
 		return time;
 	}
+
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+
+	private Date currentDate = null;
 
 }
