@@ -60,7 +60,7 @@ public class TimeSheetValidatorUtil {
 
 	public static void validateStartAndEndTime(Date startTime, Date endTime)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		
+
 		getTimeSheetValidator().validateStartAndEndTime(startTime, endTime);
 	}
 

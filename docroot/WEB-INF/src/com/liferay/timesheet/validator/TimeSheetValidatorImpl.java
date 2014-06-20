@@ -119,7 +119,7 @@ public class TimeSheetValidatorImpl implements TimeSheetValidator {
 		throws PortalException {
 
 		if (!startTime.before(newStartTime) ||
-				((endTime != null) && endTime.after(newStartTime))) {
+			((endTime != null) && endTime.after(newStartTime))) {
 
 			throw new TSStartTimeException();
 		}

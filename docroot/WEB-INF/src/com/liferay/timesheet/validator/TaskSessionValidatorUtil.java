@@ -16,7 +16,7 @@ public class TaskSessionValidatorUtil {
 			Date currentDate)
 		throws Exception {
 
-		baseValidation(newStartTime, newEndTime);
+		baseValidation(newStartTime, newEndTime, currentDate);
 
 		int size = taskSessions.size();
 
@@ -43,7 +43,7 @@ public class TaskSessionValidatorUtil {
 			Date startTime, Date endTime, Date currentDate)
 		throws Exception {
 
-		baseValidation(startTime, endTime);
+		baseValidation(startTime, endTime, currentDate);
 
 		int size = taskSessions.size();
 
@@ -81,7 +81,8 @@ public class TaskSessionValidatorUtil {
 		}
 	}
 
-	private static void baseValidation(Date startTime, Date endTime)
+	private static void baseValidation(
+			Date startTime, Date endTime, Date currentDate)
 		throws Exception {
 
 		TimeSheetValidatorUtil.validateStartTime(startTime);
@@ -89,6 +90,7 @@ public class TaskSessionValidatorUtil {
 
 		Date earliestStartRestriction =
 			DateTimeUtil.getDateFromMilitaryTime(
+				currentDate,
 				PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
 
 		TimeSheetValidatorUtil.validateWorkStart(
@@ -96,6 +98,7 @@ public class TaskSessionValidatorUtil {
 
 		Date latestEndTimeRestriction =
 			DateTimeUtil.getDateFromMilitaryTime(
+				currentDate,
 				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
 
 		TimeSheetValidatorUtil.validateLatestEndTime(
