@@ -179,9 +179,9 @@ public class DateTimeUtil {
 
 				if (day.getType() == DayConstants.TYPE_EXCEPTIONAL_WORKDAY) {
 					isPrevious = true;
-
-					continue;
 				}
+
+				continue;
 			}
 
 			Calendar calendar = Calendar.getInstance();
