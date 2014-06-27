@@ -18,8 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.convert.ConverterException;
-
 public class DateTimeUtil {
 
 	public static Date addDateToDate(Date date1, Date date2) {
@@ -77,39 +75,32 @@ public class DateTimeUtil {
 	public static Date getDateFromMilitaryTime(
 		User user, Date date, String value) {
 
-		try {
-			Calendar calendar = null;
+		Calendar calendar = null;
 
-			if (user != null) {
-				calendar = Calendar.getInstance(user.getTimeZone());
-			}
-			else {
-				calendar = Calendar.getInstance();
-			}
-
-			if (date != null) {
-				calendar.setTime(date);
-			}
-
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
-
-			if (Validator.isNotNull(value)) {
-				int hour = Integer.valueOf(value.substring(0, 2));
-				int minute = Integer.valueOf(
-					value.substring(2, value.length()));
-
-				calendar.set(Calendar.HOUR_OF_DAY, hour);
-				calendar.set(Calendar.MINUTE, minute);
-			}
-
-			date = calendar.getTime();
-
-		} catch (Exception e) {
-			logger.error("date_conversion_is_failed", e);
-
-			throw new ConverterException();
+		if (user != null) {
+			calendar = Calendar.getInstance(user.getTimeZone());
 		}
+		else {
+			calendar = Calendar.getInstance();
+		}
+
+		if (date != null) {
+			calendar.setTime(date);
+		}
+
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		if (Validator.isNotNull(value)) {
+			int hour = Integer.valueOf(value.substring(0, 2));
+			int minute = Integer.valueOf(
+				value.substring(2, value.length()));
+
+			calendar.set(Calendar.HOUR_OF_DAY, hour);
+			calendar.set(Calendar.MINUTE, minute);
+		}
+
+		date = calendar.getTime();
 
 		return date;
 	}
