@@ -191,6 +191,10 @@ public class TaskManagedBean implements Serializable {
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
 	}
 
+	public boolean isProjectTree() {
+		return taskViewBean.getRoot() != null;
+	}
+
 	protected void clear() {
 		taskModelBean.setTaskName(null);
 	}

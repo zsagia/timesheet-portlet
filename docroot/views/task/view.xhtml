@@ -21,14 +21,17 @@
 							<h:form id="taskForm">
 								<aui:column>
 									<aui:field label="Projects">
-										<p:tree id="projectTree" selection="#{taskManagedBean.taskViewBean.selectedProjectNode}" 
-											selectionMode="single"
+										<p:tree id="projectTree" rendered="#{taskManagedBean.projectTree}"
+											selection="#{taskManagedBean.taskViewBean.selectedProjectNode}" selectionMode="single"
 											value="#{taskManagedBean.taskViewBean.root}" var="project">
 
 											<p:treeNode>
 												<h:outputText value="#{project}" />
 											</p:treeNode>
 										</p:tree>
+
+										<p:outputLabel rendered="#{not taskManagedBean.projectTree}" styleClass="error"
+											value="#{i18n['message-there-are-not-any-project-yet']}" />
 									</aui:field>
 								</aui:column>
 

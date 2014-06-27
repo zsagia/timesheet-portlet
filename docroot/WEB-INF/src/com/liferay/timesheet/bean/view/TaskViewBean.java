@@ -1,8 +1,10 @@
 package com.liferay.timesheet.bean.view;
 
+import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
 import com.liferay.timesheet.primefaces.util.TreeNodeUtil;
+import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import com.liferay.timesheet.util.DateTimeCalculatorUtil;
 import com.liferay.timesheet.util.DateTimeUtil;
@@ -30,9 +32,13 @@ public class TaskViewBean extends AbstractViewBean implements Serializable {
 				TaskSessionLocalServiceUtil.getCurrentTaskSession(
 					TimeSheetUtil.getCurrentUserId()));
 
-			setRoot(new ProjectTreeNode(null, null));
+			List<Project> projects = ProjectServiceUtil.getProjects(0);
 
-			TreeNodeUtil.generateProjectTreeNodes(true, getRoot());
+			if ((projects != null) && (projects.size() > 0)) {
+				setRoot(new ProjectTreeNode(null, null));
+
+				TreeNodeUtil.generateProjectTreeNodes(true, getRoot());
+			}
 		} catch (Exception e) {
 			
 		}
