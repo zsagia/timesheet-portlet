@@ -113,13 +113,31 @@ public class MessageUtil {
 		Severity severity, String errorMessageVariable,
 		String errorMessageDetailVariable) {
 
+		Object[] params = null;
+
+		return getFacesMessage(
+			severity, errorMessageVariable, errorMessageDetailVariable, params);
+	}
+
+	public static FacesMessage getFacesMessage(
+		Severity severity, String errorMessageVariable,
+		String errorMessageDetailVariable, Object... params) {
+
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance(); 
 
 		String errorMessage = liferayFacesContext.getMessage(
 			errorMessageVariable);
-		String errorMessageDetail = liferayFacesContext.getMessage(
-			errorMessageDetailVariable);
+		String errorMessageDetail = null;
+
+		if (params != null) {
+			errorMessageDetail = liferayFacesContext.getMessage(
+				errorMessageDetailVariable, params);
+		}
+		else {
+			errorMessageDetail = liferayFacesContext.getMessage(
+				errorMessageDetailVariable);
+		}
 
 		FacesMessage facesMessage = new FacesMessage(
 			severity, errorMessage, errorMessageDetail);
