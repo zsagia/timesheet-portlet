@@ -137,12 +137,15 @@
 									<aui:fieldset>
 										<aui:field label="Date">
 											<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" required="true"
+												requiredMessage="#{i18n['message-required-date-selection']}"
 												showButtonPanel="true" value="#{adminManagedBean.dayModelBean.date}">
 											</p:calendar>
 										</aui:field>
 
 										<aui:field label="Type">
-											<h:selectOneListbox id="dayTypes" required="true" value="#{adminManagedBean.dayModelBean.type}">
+											<h:selectOneListbox id="dayTypes" required="true" requiredMessage="#{i18n['message-required-type-selection']}"
+												value="#{adminManagedBean.dayModelBean.type}">
+
 												<f:selectItem itemValue="1" itemLabel="National Holiday"/>
 												<f:selectItem itemValue="2" itemLabel="Exceptional Holiday"/>
 												<f:selectItem itemValue="3" itemLabel="Exceptional Workday"/>
