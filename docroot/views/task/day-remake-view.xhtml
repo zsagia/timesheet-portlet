@@ -12,6 +12,8 @@
 
 	<ui:composition template="/views/template/view-template.xhtml">
 		<ui:define name="content">
+			<p:growl autoUpdate="true" closable="true" id="messages" showDetail="true" showSummary="true"/>
+
 			<components:dayRemake
 				controllerBean="#{dayRemakeManagedBean}"
 				controllerName="dayRemake" />

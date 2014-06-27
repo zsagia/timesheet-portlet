@@ -1,13 +1,16 @@
 package com.liferay.timesheet.converter;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.timesheet.util.DateTimeUtil;
+import com.liferay.timesheet.util.MessageUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
@@ -44,7 +47,12 @@ public class TimeSheetConverter extends DateTimeConverter {
 
 			return DateTimeUtil.getDateFromMilitaryTime(currentDate, value);
 		} catch (Exception e) {
-			throw new ConverterException(e);
+			FacesMessage facesMessage = MessageUtil.getFacesMessage(
+				FacesMessage.SEVERITY_ERROR, "conversion_error",
+				"the_given_time_is_not_convertible_the_correct_time_format_is",
+				new Object[]{getPattern()});
+
+			throw new ConverterException(facesMessage);
 		}
 	}
 
@@ -63,7 +71,12 @@ public class TimeSheetConverter extends DateTimeConverter {
 
 			time = dateFormat.format(date);
 		} catch (Exception e) {
-			throw new ConverterException(e);
+			FacesMessage facesMessage = MessageUtil.getFacesMessage(
+				FacesMessage.SEVERITY_ERROR, "conversion_error",
+				"the_given_time_is_not_convertible" + StringPool.BLANK +
+				"the_correct_time_format_is" + StringPool.BLANK + getPattern());
+
+			throw new ConverterException(facesMessage);
 		}
 
 		return time;

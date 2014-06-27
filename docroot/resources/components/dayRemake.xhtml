@@ -74,7 +74,7 @@
 						<aui:fieldset>
 							<aui:field label="Start">
 								<h:inputText id="startTime" maxlength="4" required="true" styleClass="start-time" binding="#{cc.attrs.controllerBean.startTimeInput}"
-									value="#{cc.attrs.controllerBean.taskSessionModelBean.startTime}">
+									requiredMessage="#{i18n['message-required-start-time']}" value="#{cc.attrs.controllerBean.taskSessionModelBean.startTime}">
 
 									<f:converter converterId="TimeSheetConverter" />
 
@@ -84,7 +84,7 @@
 
 							<aui:field label="End">
 								<h:inputText id="endTime" maxlength="4" required="true" styleClass="end-time" binding="#{cc.attrs.controllerBean.endTimeInput}"
-									value="#{cc.attrs.controllerBean.taskSessionModelBean.endTime}"
+									requiredMessage="#{i18n['message-required-end-time']}" value="#{cc.attrs.controllerBean.taskSessionModelBean.endTime}"
 									validator="#{cc.attrs.controllerBean.doStartEndTimeValidate}">
 
 									<f:converter converterId="TimeSheetConverter" />
@@ -94,7 +94,9 @@
 							</aui:field>
 
 							<aui:field label="Task">
-								<h:selectOneMenu value="#{cc.attrs.controllerBean.taskSessionModelBean.selectedTask}" converter="TaskConverter" required="true">
+								<h:selectOneMenu value="#{cc.attrs.controllerBean.taskSessionModelBean.selectedTask}" converter="TaskConverter" required="true"
+									requiredMessage="#{i18n['message-required-task-selection']}">
+
 									<f:selectItem itemLabel="Select Task" itemValue="" />
 									<f:selectItems value="#{cc.attrs.controllerBean.taskModelBean.tasksByUser}" itemValue="#{task}" var="task"
 										itemLabel="#{task.taskName}" />
