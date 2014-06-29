@@ -3,83 +3,83 @@
 	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByD_U">
 		<![CDATA[
 			SELECT
-				timesheet_taskSession.startTime AS startTime,
-				timesheet_taskSession.endTime AS endTime,
-				timesheet_task.taskName AS taskName
+				timesheet_TaskSession.startTime AS startTime,
+				timesheet_TaskSession.endTime AS endTime,
+				timesheet_Task.taskName AS taskName
 			FROM
-				timesheet_task, timesheet_taskSession
+				timesheet_Task, timesheet_TaskSession
 			WHERE
-				(timesheet_task.userId = ?) AND
-				(timesheet_taskSession.taskId = timesheet_task.taskId) AND
-				(( date(timesheet_taskSession.startTime) = date(?)) OR ( date(timesheet_taskSession.endTime) = date(?)))
+				(timesheet_Task.userId = ?) AND
+				(timesheet_TaskSession.taskId = timesheet_Task.taskId) AND
+				(( date(timesheet_TaskSession.startTime) = date(?)) OR ( date(timesheet_TaskSession.endTime) = date(?)))
 			ORDER BY
-				timesheet_taskSession.startTime
+				timesheet_TaskSession.startTime
 			ASC
 		]]>
 	</sql>
 	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByC_U_I">
 		<![CDATA[
 			SELECT
-				timesheet_taskSession.taskSessionId AS taskSessionId,
-				timesheet_taskSession.groupId AS groupId,
-				timesheet_taskSession.companyId AS companyId,
-				timesheet_taskSession.userId AS userId,
-				timesheet_taskSession.userName AS userName,
-				timesheet_taskSession.createDate AS createDate,
-				timesheet_taskSession.modifiedDate AS modifiedDate,
-				timesheet_taskSession.endTime AS endTime,
-				timesheet_taskSession.startTime AS startTime,
-				timesheet_taskSession.description AS description,
-				timesheet_taskSession.taskId AS taskId
+				timesheet_TaskSession.taskSessionId AS taskSessionId,
+				timesheet_TaskSession.groupId AS groupId,
+				timesheet_TaskSession.companyId AS companyId,
+				timesheet_TaskSession.userId AS userId,
+				timesheet_TaskSession.userName AS userName,
+				timesheet_TaskSession.createDate AS createDate,
+				timesheet_TaskSession.modifiedDate AS modifiedDate,
+				timesheet_TaskSession.endTime AS endTime,
+				timesheet_TaskSession.startTime AS startTime,
+				timesheet_TaskSession.description AS description,
+				timesheet_TaskSession.taskId AS taskId
 			FROM
-				timesheet_taskSession
+				timesheet_TaskSession
 			WHERE
-				(timesheet_taskSession.companyId = ?) AND
-				(timesheet_taskSession.userId = ?) AND
-				(( timesheet_taskSession.startTime >= ?) AND ( timesheet_taskSession.startTime < ?))
+				(timesheet_TaskSession.companyId = ?) AND
+				(timesheet_TaskSession.userId = ?) AND
+				(( timesheet_TaskSession.startTime >= ?) AND ( timesheet_TaskSession.startTime < ?))
 			ORDER BY
-				timesheet_taskSession.startTime
+				timesheet_TaskSession.startTime
 			ASC
 		]]>
 	</sql>
 	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByU_T_I">
 		<![CDATA[
 			SELECT
-				timesheet_taskSession.taskSessionId AS taskSessionId,
-				timesheet_taskSession.groupId AS groupId,
-				timesheet_taskSession.companyId AS companyId,
-				timesheet_taskSession.userId AS userId,
-				timesheet_taskSession.userName AS userName,
-				timesheet_taskSession.createDate AS createDate,
-				timesheet_taskSession.modifiedDate AS modifiedDate,
-				timesheet_taskSession.endTime AS endTime,
-				timesheet_taskSession.startTime AS startTime,
-				timesheet_taskSession.description AS description,
-				timesheet_taskSession.taskId AS taskId
+				timesheet_TaskSession.taskSessionId AS taskSessionId,
+				timesheet_TaskSession.groupId AS groupId,
+				timesheet_TaskSession.companyId AS companyId,
+				timesheet_TaskSession.userId AS userId,
+				timesheet_TaskSession.userName AS userName,
+				timesheet_TaskSession.createDate AS createDate,
+				timesheet_TaskSession.modifiedDate AS modifiedDate,
+				timesheet_TaskSession.endTime AS endTime,
+				timesheet_TaskSession.startTime AS startTime,
+				timesheet_TaskSession.description AS description,
+				timesheet_TaskSession.taskId AS taskId
 			FROM
-				timesheet_taskSession
+				timesheet_TaskSession
 			WHERE
-				(timesheet_taskSession.userId = ?) AND
-				(timesheet_taskSession.taskId = ?) AND
-				((timesheet_taskSession.startTime > ?) AND (timesheet_taskSession.startTime < ?))
+				(timesheet_TaskSession.userId = ?) AND
+				(timesheet_TaskSession.taskId = ?) AND
+				((timesheet_TaskSession.startTime > ?) AND (timesheet_TaskSession.startTime < ?))
 			ORDER BY
-				timesheet_taskSession.startTime
+				timesheet_TaskSession.startTime
 			ASC
 		]]>
 	</sql>
 	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByU_TT_I">
 		<![CDATA[
 			SELECT
-				{timesheet_taskSession.*}
+				{timesheet_TaskSession.*}
 			FROM
-				timesheet_task, timesheet_taskSession
+				timesheet_Task, timesheet_TaskSession
 			WHERE
-				(timesheet_taskSession.userId = ?) AND
-				(timesheet_taskSession.taskId = timesheet_task.taskId) 
-				(timesheet_taskSession.taskType = ? AND
-				((timesheet_taskSession.startTime > ?) AND (timesheet_taskSession.startTime < ?))
+				(timesheet_TaskSession.userId = ?) AND
+				(timesheet_TaskSession.taskId = timesheet_Task.taskId) 
+				(timesheet_TaskSession.taskType = ? AND
+				((timesheet_TaskSession.startTime > ?) AND (timesheet_TaskSession.startTime < ?))
 			ORDER BY
-				timesheet_taskSession.startTime
+				timesheet_TaskSession.startTime
 			ASC
 		]]>
 	</sql>
