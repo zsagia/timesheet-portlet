@@ -18,6 +18,8 @@ public class TimeSheetConstants {
 	public static final int TASK_BREAK = 2;
 
 	public static final int TASK_MANDATORY_BREAK = 3;
+	
+	public static final int TASK_ASSIGNED = 4;
 
 	public static final int USER_LIST_ALL = 0;
 
