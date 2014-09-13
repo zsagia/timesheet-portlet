@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <custom-sql>
-	<sql id="com.liferay.timesheet.service.persistence.TaskSessionFinder.findByD_U">
+	<sql id="com.liferay.timesheet.service.persistence.TaskFinder.findByU_TT">
 		<![CDATA[
 			SELECT
-				timesheet_TaskSession.startTime AS startTime,
-				timesheet_TaskSession.endTime AS endTime,
-				timesheet_Task.taskName AS taskName
+				timesheet_Task.taskId AS taskId,
+				timesheet_Task.groupId AS groupId,
+				timesheet_Task.companyId AS companyId,
+				timesheet_Task.userId AS userId,
+				timesheet_Task.userName AS userName,
+				timesheet_Task.createDate AS createDate,
+				timesheet_Task.modifiedDate AS modifiedDate,
+				timesheet_Task.description AS description,
+				timesheet_Task.projectId AS projectId,
+				timesheet_Task.taskName AS taskName,
+				timesheet_Task.taskType AS taskType
 			FROM
 				timesheet_Task, timesheet_TaskSession
 			WHERE
-				(timesheet_Task.userId = ?) AND
+				(timesheet_TaskSession.userId = ?) AND
 				(timesheet_TaskSession.taskId = timesheet_Task.taskId) AND
-				(( date(timesheet_TaskSession.startTime) = date(?)) OR ( date(timesheet_TaskSession.endTime) = date(?)))
+				(timesheet_Task.taskType = ?)
 			ORDER BY
-				timesheet_TaskSession.startTime
+				timesheet_TaskSession.modifiedDate
 			ASC
 		]]>
 	</sql>
