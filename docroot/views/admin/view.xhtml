@@ -16,45 +16,51 @@
 	<h:head />
 
 	<h:body styleClass="timesheet-admin">
-		<p:growl autoUpdate="true" closable="true" id="messages" showDetail="true" showSummary="true"/>
+		<p:growl autoUpdate="true" closable="true" id="messages" showDetail="true" showSummary="true" />
 
 		<portlet:renderURL var="currentPageRenderURL" />
 
 		<p:tabView id="tabView">
-			<p:tab id="tab1" rendered="#{adminPermissionBean.checkViewProject()}" title="Project">
+			<p:tab id="tab1" rendered="#{adminPermissionBean.checkViewProject()}" title="#{i18n['tab-title-projects']}">
 				<h:form id="treeForm">
 					<aui:layout id="layout">
 						<aui:column id="project_column_1">
 							<p:contextMenu for="projectTree" id="menu">
-								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}" icon="ui-icon-new" id="newMenuItem"
-									update=":#{p:component('project_column_2')}" value="New" />
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}"
+									icon="ui-icon-new" id="newMenuItem" update=":#{p:component('project_column_2')}"
+									value="New" />
 
-								<p:menuitem action="#adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}" icon="ui-icon-edit" id="editMenuItem"
-									update=":#{p:component('project_column_2')}" value="Edit" />
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}"
+									icon="ui-icon-edit" id="editMenuItem" update=":#{p:component('project_column_2')}"
+									value="Edit" />
 							</p:contextMenu>
 
-							<p:tree draggable="true" droppable="true" id="projectTree"
-								selection="#{adminManagedBean.projectViewBean.selectedProjectNode}" selectionMode="single"
-								value="#{adminManagedBean.projectViewBean.root}" var="project">
+							<aui:field label="Projects">
+								<p:tree draggable="true" droppable="true" id="projectTree"
+									selection="#{adminManagedBean.projectViewBean.selectedProjectNode}" selectionMode="single"
+									value="#{adminManagedBean.projectViewBean.root}" var="project">
 
-								<p:ajax event="unselect" listener="#{adminManagedBean.projectViewBean.onNodeUnSelect(adminManagedBean.projectModelBean)}"
-									update=":#{p:component('project_column_2')}" />
+									<p:ajax event="unselect" listener="#{adminManagedBean.projectViewBean.onNodeUnSelect(adminManagedBean.projectModelBean)}"
+										update=":#{p:component('project_column_2')}" />
 
-								<p:ajax event="select" listener="#{adminManagedBean.projectViewBean.onNodeSelect(adminManagedBean.projectModelBean)}"
-									update=":#{p:component('project_column_2')}" />
+									<p:ajax event="select" listener="#{adminManagedBean.projectViewBean.onNodeSelect(adminManagedBean.projectModelBean)}"
+										update=":#{p:component('project_column_2')}" />
 
-								<p:treeNode>
-									<h:outputText value="#{project}" />
-								</p:treeNode>
-							</p:tree>
+									<p:treeNode>
+										<h:outputText value="#{project}" />
+									</p:treeNode>
+								</p:tree>
+							</aui:field>
 						</aui:column>
 
 						<aui:column id="project_column_2">
 							<p:menubar rendered="#{adminManagedBean.projectViewBean.selectedProjectNode!=null}">
-								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}" icon="ui-icon-new" id="newMenuItem"
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doNewAction(adminManagedBean.projectModelBean)}"
+									icon="ui-icon-new" id="newMenuItem"
 									update=":#{p:component('project_column_2')}" value="New" />
 
-								<p:menuitem action="#{adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}" icon="ui-icon-edit" id="editMenuItem"
+								<p:menuitem action="#{adminManagedBean.projectViewBean.doEditAction(adminManagedBean.projectModelBean)}"
+									icon="ui-icon-edit" id="editMenuItem"
 									update=":#{p:component('project_column_2')}" value="Edit" />
 							</p:menubar>
 
@@ -67,7 +73,8 @@
 								</aui:field>
 
 								<aui:field label="Enabled">
-									<p:selectBooleanCheckbox id="enabledProject1" rendered="#{adminManagedBean.projectViewBean.action!='selected'}"
+									<p:selectBooleanCheckbox id="enabledProject1"
+										rendered="#{adminManagedBean.projectViewBean.action!='selected'}"
 										value="#{adminManagedBean.projectModelBean.enabled}" />
 									<p:outputLabel id="enabledProject2" rendered="#{adminManagedBean.projectViewBean=='selected'}"
 										value="#{adminManagedBean.projectModelBean.enabled}" />
@@ -85,8 +92,8 @@
 									modelResource="com.liferay.timesheet.model.Project"
 									modelResourceDescription="Project"
 									redirect="#{currentPageRenderURL}"
-									resourcePrimKey="#{adminManagedBean.projectViewBean.selectedProject.projectId}" >
-										Permissions
+									resourcePrimKey="#{adminManagedBean.projectViewBean.selectedProject.projectId}">
+										#{i18n['item-label-permissions']}
 								</liferay-security:permissionsURL>
 							</aui:fieldset>
 
@@ -100,7 +107,7 @@
 				</h:form>
 			</p:tab>
 
-			<p:tab id="tab2" title="Day">
+			<p:tab id="tab2" title="#{i18n['tab-title-days']}">
 				<h:form id="dayForm">
 					<aui:layout id="layout">
 						<aui:column id="day_column_1">
@@ -112,7 +119,8 @@
 								<div class="timesheet-day">
 									<span class="date">
 										<h:outputText value="#{day.date}">
-											<f:convertDateTime dateStyle="full" locale="#{liferay.user.locale}" timeZone="#{liferay.user.timeZone}"  type="date" />
+											<f:convertDateTime dateStyle="full" locale="#{liferay.user.locale}"
+												timeZone="#{liferay.user.timeZone}" type="date" />
 										</h:outputText>
 									</span>
 									<span class="type #{day.dayType}">
@@ -121,7 +129,7 @@
 									<span class="icon">
 										<p:commandLink action="#{adminManagedBean.deleteDayAction(day)}" process="@this" title="delete"
 											update=":#{p:component('dayList')}">
-	
+
 											<h:graphicImage library="images" name="icon-delete.png" title="delete" />
 										</p:commandLink>
 									</span>
@@ -129,13 +137,16 @@
 							</p:dataList>
 						</aui:column>
 
-						<p:commandButton id="btnAddDayDialog" onclick="PF('addDayWidget').show()" process="@none" styleClass="p-btn" value="Add Day" />
+						<p:commandButton id="btnAddDayDialog" onclick="PF('addDayWidget').show()" process="@none" styleClass="p-btn"
+							value="Add Day" />
 
-						<p:dialog id="addDayDialog" header="#{i18n['title-new-day']}" hideEffect="clip" showEffect="clip" widgetVar="addDayWidget">
+						<p:dialog id="addDayDialog" header="#{i18n['title-new-day']}" hideEffect="clip" showEffect="clip"
+							widgetVar="addDayWidget">
+
 							<aui:layout id="addDayDialogLayout">
 								<aui:column>
 									<aui:fieldset>
-										<aui:field label="Date">
+										<aui:field label="#{i18n['field-label-date']}">
 											<p:calendar effect="drop" id="calendar" pattern="yyyy-MM-dd" required="true"
 												requiredMessage="#{i18n['message-required-date-selection']}"
 												showButtonPanel="true" value="#{adminManagedBean.dayModelBean.date}">
@@ -143,21 +154,25 @@
 										</aui:field>
 
 										<aui:field label="Type">
-											<h:selectOneListbox id="dayTypes" required="true" requiredMessage="#{i18n['message-required-type-selection']}"
+											<h:selectOneListbox id="dayTypes" required="true"
+												requiredMessage="#{i18n['message-required-type-selection']}"
 												value="#{adminManagedBean.dayModelBean.type}">
 
-												<f:selectItem itemValue="1" itemLabel="National Holiday"/>
-												<f:selectItem itemValue="2" itemLabel="Exceptional Holiday"/>
-												<f:selectItem itemValue="3" itemLabel="Exceptional Workday"/>
+												<f:selectItem itemValue="1" itemLabel="#{i18n['item-label-national-holiday']}" />
+												<f:selectItem itemValue="2" itemLabel="#{i18n['item-label-exceptional-holiday']}" />
+												<f:selectItem itemValue="3" itemLabel="#{i18n['item-label-exceptional-workday']}" />
 											</h:selectOneListbox>
 										</aui:field>
 									</aui:fieldset>
 
 									<aui:button-row>
-										<p:commandButton action="#{adminManagedBean.createDayAction}" oncomplete="if(!args.validationFailed){PF('addDayWidget').hide();}"
-											process="#{addDayDialog}" styleClass="p-btn" update=":#{p:component('dayList')}" value="Add" />
+										<p:commandButton action="#{adminManagedBean.createDayAction}"
+											oncomplete="if(!args.validationFailed){PF('addDayWidget').hide();}"
+											process="#{addDayDialog}" styleClass="p-btn" update=":#{p:component('dayList')}"
+											value="#{i18n['button-add']}" />
 
-										<p:commandButton onclick="PF('addDayWidget').hide()" styleClass="p-btn" type="button" value="Close"/>
+										<p:commandButton onclick="PF('addDayWidget').hide()" styleClass="p-btn" type="button"
+											value="#{i18n['button-close']}" />
 									</aui:button-row>
 								</aui:column>
 							</aui:layout>
@@ -166,10 +181,176 @@
 				</h:form>
 			</p:tab>
 
-			<p:tab id="tab3" rendered="#{adminPermissionBean.checkViewTask()}" title="Task">
-				<h:panelGrid cellpadding="10" columns="2">
+			<p:tab id="tab3" rendered="#{adminPermissionBean.checkViewTask()}" title="#{i18n['tab-title-tasks']}">
+				<h:form id="taskForm">
+					<aui:layout cssClass="w100">
+						<aui:column columnWidth="100">
+							<p:menubar>
+								<p:menuitem action="#{adminManagedBean.adminTaskViewBean.doNewAction(adminManagedBean.taskModelBean)}"
+									icon="ui-icon-new" id="newTaskMItem"
+									process="@this" rendered="#{adminManagedBean.adminTaskViewBean.isNotNewAction()}"
+									update=":#{p:component('taskForm')}" value="#{i18n['menu-item-new']}" />
 
-				</h:panelGrid>
+								<p:menuitem action="#{adminManagedBean.adminTaskViewBean.doEditAction(adminManagedBean.taskModelBean)}"
+									icon="ui-icon-edit" id="editTaskMItem"
+									process="@this" rendered="#{adminManagedBean.adminTaskViewBean.isNotNewAndEditAction()}"
+									update=":#{p:component('taskForm')}" value="#{i18n['menu-item-edit']}" />
+
+								<p:menuitem action="#{adminManagedBean.adminTaskViewBean.doListAction(adminManagedBean.taskModelBean)}"
+									icon="ui-icon-edit" id="taskListMItem"
+									process="@this" rendered="#{adminManagedBean.adminTaskViewBean.isNotListAction()}"
+									update=":#{p:component('taskForm')}" value="#{i18n['menu-item-list']}" />
+							</p:menubar>
+						</aui:column>
+
+						<aui:column columnWidth="100" rendered="#{adminManagedBean.adminTaskViewBean.isListAction()}">
+							<p:contextMenu for="assignedTaskList" id="taskContextMenu" widgetVar="taskContextMenu">
+								<p:menuitem action="#{adminManagedBean.adminTaskViewBean.doEditAction(adminManagedBean.taskModelBean)}"
+									icon="ui-icon-edit" id="editTaskCMItem" value="#{i18n['menu-item-edit']}"
+									update=":#{p:component('taskForm')}" />
+
+								<p:menuitem action="#{adminManagedBean.deleteTaskAction()}"
+									icon="ui-icon-delete" id="deleteTaskItem" value="#{i18n['menu-item-delete']}"
+									update=":#{p:component('taskForm')}" />
+							</p:contextMenu> 
+
+							<p:dataTable id="assignedTaskList" selectionMode="single" rowKey="#{assignedTask.taskId}"
+								selection="#{adminManagedBean.adminTaskViewBean.selectedTask}"
+								value="#{adminManagedBean.adminTaskViewBean.assignedTasks}" var="assignedTask">
+
+								<p:ajax event="rowSelect" listener="#{adminManagedBean.adminTaskViewBean.onRowSelect}"
+									update=":#{p:component('taskContextMenu')}" />
+
+								<p:ajax event="rowUnselect" listener="#{adminManagedBean.adminTaskViewBean.onRowUnselect}"
+									update=":#{p:component('taskContextMenu')}" />
+
+								<p:column headerText="#{i18n['header-text-task-name']}">
+									<h:outputText value="#{assignedTask.taskName}" />
+								</p:column>
+
+								<p:column headerText="#{i18n['header-text-project-name']}">
+									<h:outputText value="#{assignedTask.getProjectName()}" />
+								</p:column>
+
+								<p:column headerText="#{i18n['header-text-created']}">
+									<h:outputText value="#{assignedTask.createDate}" />
+								</p:column>
+							</p:dataTable>
+						</aui:column>
+
+						<aui:column columnWidth="40" rendered="#{adminManagedBean.adminTaskViewBean.isNewOrEditAction()}">
+							<aui:field label="#{i18n['field-label-projects']}">
+								<p:tree id="projectTree" rendered="#{adminManagedBean.projectTree}"
+									selection="#{adminManagedBean.adminTaskViewBean.selectedProjectNode}" selectionMode="single"
+									value="#{adminManagedBean.adminTaskViewBean.root}" var="project">
+
+									<p:treeNode>
+										<h:outputText value="#{project}" />
+									</p:treeNode>
+								</p:tree>
+
+								<p:outputLabel rendered="#{not adminManagedBean.projectTree}" styleClass="error"
+									value="#{i18n['message-there-are-not-any-project-yet']}" />
+							</aui:field>
+						</aui:column>
+
+						<aui:column columnWidth="60" rendered="#{adminManagedBean.adminTaskViewBean.isNewOrEditAction()}">
+							<aui:fieldset>
+								<aui:field label="#{i18n['field-label-task-name']}">
+									<h:inputText id="taskName" required="true" styleClass="task-name"
+										value="#{adminManagedBean.taskModelBean.taskName}">
+
+										<f:converter converterId="StringTrimmer" />
+										<f:validateRequired />
+									</h:inputText>
+								</aui:field>
+
+								<aui:field label="#{i18n['field-label-description']}">
+									<h:inputTextarea id="description" styleClass="description"
+										value="#{adminManagedBean.taskModelBean.description}" />
+								</aui:field>
+
+								<aui:field>
+									<p:dataList id="assignedUsers" type="definition"
+										value="#{adminManagedBean.taskModelBean.assignedUsers}" var="assignedUser">
+
+										<f:facet name="header">
+											<h:outputText value="#{i18n['header-text-assigned-users']}" />
+										</f:facet>
+
+										<p:column>
+											<span class="datalist-element">
+												<h:outputText value="#{assignedUser.screenName}" />
+											</span>
+										</p:column>
+									</p:dataList>
+
+									<p:commandButton id="btnSelectUserDialog" onclick="PF('selectUserWidget').show()"
+										process="@none" styleClass="p-btn btn-primary" value="#{i18n['button-assign-user']}" />
+								</aui:field>
+
+								<aui:field>
+									<p:dataList id="assignedRoles" type="definition"
+										value="#{adminManagedBean.taskModelBean.assignedRoles}" var="assignedRole">
+
+										<f:facet name="header">
+											<h:outputText value="#{i18n['header-text-assigned-roles']}" />
+										</f:facet>
+
+										<p:column>
+											<span class="datalist-element">
+												<h:outputText value="#{assignedRole.name}" />
+											</span>
+										</p:column>
+									</p:dataList>
+
+									<p:commandButton id="btnSelectRoleDialog" onclick="PF('selectRoleWidget').show()"
+										process="@none" styleClass="p-btn btn-primary" value="#{i18n['button-assign-role']}" />
+								</aui:field>
+							</aui:fieldset>
+
+							<h:commandButton action="#{adminManagedBean.createTaskAction}" id="newTaskButton"
+								rendered="#{adminManagedBean.adminTaskViewBean.isNewAction()}" styleClass="btn btn-primary"
+								value="#{i18n['button-create-task']}" />
+
+							<h:commandButton action="#{adminManagedBean.updateTaskAction}" id="editTaskButton"
+								rendered="#{adminManagedBean.adminTaskViewBean.isEditAction()}" styleClass="btn btn-primary"
+								value="#{i18n['button-update-task']}" />
+						</aui:column>
+
+						<p:dialog height="400" id="selectUserDialog" widgetVar="selectUserWidget" width="400">
+							<p:treeTable id="selectUserTree" value="#{adminManagedBean.adminTaskViewBean.userTreeRoot}"
+								var="user">
+
+								<p:column headerText="#{i18n['header-text-user-name']}">
+									<h:outputText value="#{user.getName()}" />
+								</p:column>
+
+								<p:column headerText="#{i18n['header-text-assigned']}" rendered="#{user.isUser()}">
+									<p:selectBooleanCheckbox id="userCheckbox" value="#{adminManagedBean.taskModelBean.userList[user.getUser().userId]}">
+										<p:ajax listener="#{adminManagedBean.selectUser(user.getUser().userId)}"
+											update=":#{p:component('assignedUsers')}" />
+									</p:selectBooleanCheckbox>
+								</p:column>
+							</p:treeTable>
+						</p:dialog>
+
+						<p:dialog height="400" id="selectRoleDialog" widgetVar="selectRoleWidget" width="400">
+							<p:dataTable id="selectRoleList" value="#{adminManagedBean.adminTaskViewBean.roleList}" var="role">
+								<p:column headerText="#{i18n['header-text-role-name']}">
+									<h:outputText value="#{role.name}" />
+								</p:column>
+
+								<p:column headerText="#{i18n['header-text-view']}">
+									<p:selectBooleanCheckbox id="roleCheckbox" value="#{adminManagedBean.taskModelBean.roleList[role.roleId]}">
+										<p:ajax listener="#{adminManagedBean.selectRole(role.roleId)}"
+											update=":#{p:component('assignedRoles')}" />
+									</p:selectBooleanCheckbox>
+								</p:column>
+							</p:dataTable>
+						</p:dialog>
+					</aui:layout>
+				</h:form>
 			</p:tab>
 		</p:tabView>
 	</h:body>
