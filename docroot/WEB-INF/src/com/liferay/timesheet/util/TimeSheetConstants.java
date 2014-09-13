@@ -24,6 +24,8 @@ public class TimeSheetConstants {
 	public static final int USER_LIST_ALL = 0;
 
 	public static final int USER_LIST_GROUPPED = 1;
+	
+	public static final String TIMESHEET_TASK_ROLE = "TimeSheet_Task_Role_";
 
 	public static String DATE_FORMAT_WITHOUT_TIME = "yyyy/MM/dd";
 
