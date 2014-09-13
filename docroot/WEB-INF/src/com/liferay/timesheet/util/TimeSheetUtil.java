@@ -51,6 +51,12 @@ public class TimeSheetUtil {
 		return themeDisplay.getPermissionChecker();
 	}
 
+	public static long getScopeGroupId() {
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getScopeGroupId();
+	}
+
 	public static long getSiteGroupId() {
 		ThemeDisplay themeDisplay = getThemeDisplay();
 
