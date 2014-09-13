@@ -28,12 +28,12 @@ public class UpgradeTask extends UpgradeProcess {
 
 		long defaultUserId = UserLocalServiceUtil.getDefaultUserId(companyId);
 
-		TaskLocalServiceUtil.addTask(defaultUserId, "Lunch Break", 0, null,
-			TimeSheetConstants.TASK_LUNCH, serviceContext);
-		TaskLocalServiceUtil.addTask(defaultUserId, "10min Break", 0, null,
-			TimeSheetConstants.TASK_MANDATORY_BREAK, serviceContext);
-		TaskLocalServiceUtil.addTask(defaultUserId, "Out of Office", 0, null,
-				TimeSheetConstants.TASK_BREAK, serviceContext);
+		TaskLocalServiceUtil.addTask(companyId, defaultUserId, "Lunch Break", 0,
+			null, TimeSheetConstants.TASK_LUNCH, serviceContext);
+		TaskLocalServiceUtil.addTask(companyId, defaultUserId, "10min Break", 0,
+			null, TimeSheetConstants.TASK_MANDATORY_BREAK, serviceContext);
+		TaskLocalServiceUtil.addTask(companyId, defaultUserId, "Out of Office",
+			0, null, TimeSheetConstants.TASK_BREAK, serviceContext);
 	}
 
 }
