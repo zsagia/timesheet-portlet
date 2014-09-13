@@ -18,7 +18,6 @@ import com.liferay.faces.util.lang.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Project;
-import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
@@ -41,7 +40,7 @@ import java.util.List;
  * @author Zsolt Szabo
  */
 public class TaskImpl extends TaskBaseImpl {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a task model instance should use the {@link com.liferay.timesheet.model.Task} interface instead.
@@ -50,7 +49,7 @@ public class TaskImpl extends TaskBaseImpl {
 	}
 
 	public long getDuration(long userId, Date date)
-		throws SystemException, Exception {
+		throws Exception, SystemException {
 
 		return DateTimeCalculatorUtil.summerizeTime(
 			getTaskSessionList(
@@ -58,20 +57,20 @@ public class TaskImpl extends TaskBaseImpl {
 	}
 
 	public long getDuration(long userId, Date date1, Date date2)
-		throws SystemException, Exception {
+		throws Exception, SystemException {
 
 		return DateTimeCalculatorUtil.summerizeTime(
 			getTaskSessionList(userId, date1, date2));
 	}
 
 	public String getFormattedDuration(long userId, Date date)
-		throws SystemException, Exception {
+		throws Exception, SystemException {
 
 		return DateTimeCalculatorUtil.getStringFromTime(getDuration(userId, date));
 	}
 
 	public String getFormattedDuration(long userId, Date date1, Date date2)
-		throws SystemException, Exception {
+		throws Exception, SystemException {
 
 		return DateTimeCalculatorUtil.getStringFromTime(
 			getDuration(userId, date1, date2));

@@ -6,19 +6,19 @@
 		<display-name>Timesheet (Admin)</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/views/admin/preferences.xhtml</value>
+		</init-param>
+		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/admin/view.xhtml</value>
 		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/admin/preferences.xhtml</value>
-		</init-param> 
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
 			<portlet-mode>edit</portlet-mode>
-		</supports> 
+		</supports>
 		<portlet-info>
 			<title>Timesheet (Admin)</title>
 			<short-title>Timesheet (Admin)</short-title>
@@ -42,19 +42,19 @@
 		<display-name>Timesheet (Task)</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/views/task/preferences.xhtml</value>
+		</init-param>
+		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/task/view.xhtml</value>
 		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/task/preferences.xhtml</value>
-		</init-param> 
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
 			<portlet-mode>edit</portlet-mode>
-		</supports> 
+		</supports>
 		<portlet-info>
 			<title>Timesheet (Task)</title>
 			<short-title>Timesheet (Task)</short-title>
@@ -65,7 +65,7 @@
 		</security-role-ref>
 		<security-role-ref>
 			<role-name>guest</role-name>
-		</security-role-ref> 
+		</security-role-ref>
 		<security-role-ref>
 			<role-name>power-user</role-name>
 		</security-role-ref>

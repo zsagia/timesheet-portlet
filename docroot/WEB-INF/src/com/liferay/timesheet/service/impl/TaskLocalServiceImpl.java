@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;;
+import java.util.Set;
 
 /**
  * The implementation of the task local service.
@@ -62,18 +62,6 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 
 	public Task addTask(
 			long companyId, long userId, String taskName, long projectId,
-			String description, int taskType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		Task task = createTask(
-			companyId, userId, taskName, projectId, description, taskType,
-			serviceContext);
-
-		return task;
-	}
-
-	public Task addTask(
-			long companyId, long userId, String taskName, long projectId,
 			String description, int taskType, long[] assignedUserIds,
 			long[] assignedRoleIds, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -91,20 +79,30 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return task;
 	}
 
+	public Task addTask(
+			long companyId, long userId, String taskName, long projectId,
+			String description, int taskType, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Task task = createTask(
+			companyId, userId, taskName, projectId, description, taskType,
+			serviceContext);
+
+		return task;
+	}
+
 	public void addTaskResources(
-			Task task, boolean addGroupPermissions,
-			boolean addGuestPermissions)
+			Task task, boolean addGroupPermissions, boolean addGuestPermissions)
 		throws PortalException, SystemException {
 
 		resourceLocalService.addResources(
 			task.getCompanyId(), task.getGroupId(), task.getUserId(),
-			Task.class.getName(), task.getTaskId(), false,
-			addGroupPermissions, addGuestPermissions);
+			Task.class.getName(), task.getTaskId(), false, addGroupPermissions,
+			addGuestPermissions);
 	}
 
 	public void addTaskResources(
-			Task task, String[] groupPermissions,
-			String[] guestPermissions)
+			Task task, String[] groupPermissions, String[] guestPermissions)
 		throws PortalException, SystemException {
 
 		resourceLocalService.addModelResources(
@@ -135,14 +133,14 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 			TimeSheetConstants.TIMESHEET_TASK_ROLE + task.getTaskId());
 
 		resourceLocalService.deleteResource(
-			companyId, Role.class.getName(),
-			ResourceConstants.SCOPE_COMPANY, role.getRoleId());
+			companyId, Role.class.getName(), ResourceConstants.SCOPE_COMPANY,
+			role.getRoleId());
 
 		RoleLocalServiceUtil.deleteRole(role);
 
 		resourceLocalService.deleteResource(
-			companyId, Task.class.getName(),
-			ResourceConstants.SCOPE_COMPANY, task.getTaskId());
+			companyId, Task.class.getName(), ResourceConstants.SCOPE_COMPANY,
+			task.getTaskId());
 
 		taskPersistence.remove(task);
 
@@ -159,6 +157,10 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return null;
 	}
 
+	public List<Task> getTaskByU_TT(long userId, int taskType) {
+		return taskFinder.findByU_TT(userId, taskType);
+	}
+
 	public List<Task> getTasksByC_G_TT(
 			long companyId, long groupId, int taskType)
 		throws PortalException, SystemException {
@@ -166,8 +168,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return taskPersistence.findByC_G_TT(companyId, groupId, taskType);
 	}
 
-	public List<Task> getTasksByC_G_U(
-			long companyId, long groupId, long userId)
+	public List<Task> getTasksByC_G_U(long companyId, long groupId, long userId)
 		throws PortalException, SystemException {
 
 		return getTasksByC_G_U_TT(
@@ -181,11 +182,13 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return taskPersistence.findByC_G_TT(companyId, groupId, taskType);
 	}
 
-	public List<Task> getTasksByU_D(long userId, Date day)
+	public List<Task> getTasksByC_U_I(
+			long companyId, long userId, Date date1, Date date2)
 		throws PortalException, SystemException {
 
 		List<TaskSession> taskSessionList =
-			taskSessionLocalService.getTaskSessionsByU_D(userId, day);
+			taskSessionLocalService.getTaskSessionsByC_U_I(
+				companyId, userId, date1, date2);
 
 		if (taskSessionList == null) {
 			return Collections.emptyList();
@@ -210,17 +213,11 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return taskList;
 	}
 
-	public List<Task> getTaskByU_TT(long userId, int taskType) {
-		return taskFinder.findByU_TT(userId, taskType);
-	}
-
-	public List<Task> getTasksByC_U_I(
-			long companyId, long userId, Date date1, Date date2)
+	public List<Task> getTasksByU_D(long userId, Date day)
 		throws PortalException, SystemException {
 
 		List<TaskSession> taskSessionList =
-			taskSessionLocalService.getTaskSessionsByC_U_I(
-				companyId, userId, date1, date2);
+			taskSessionLocalService.getTaskSessionsByU_D(userId, day);
 
 		if (taskSessionList == null) {
 			return Collections.emptyList();
@@ -281,8 +278,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		return role;
 	}
 
-	protected void assignRolesToTask(
-			Task task, long[] assignedRoleIds)
+	protected void assignRolesToTask(Task task, long[] assignedRoleIds)
 		throws PortalException, SystemException {
 
 		long companyId = task.getCompanyId();
@@ -300,7 +296,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 			}
 		}
 
-		for (Role role: oldAssignedRoles) {
+		for (Role role : oldAssignedRoles) {
 			if (!ArrayUtil.contains(assignedRoleIds, role.getRoleId())) {
 				ResourcePermissionServiceUtil.removeResourcePermission(
 					task.getGroupId(), task.getCompanyId(),
@@ -313,11 +309,11 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 			}
 		}
 
-		for (long roleId: assignedRoleIds) {
+		for (long roleId : assignedRoleIds) {
 			ResourcePermissionServiceUtil.setIndividualResourcePermissions(
-				task.getGroupId(), task.getCompanyId(),
-				Task.class.getName(), String.valueOf(task.getTaskId()),
-				roleId, new String[]{ActionKeys.VIEW});
+				task.getGroupId(), task.getCompanyId(), Task.class.getName(),
+				String.valueOf(task.getTaskId()), roleId,
+				new String[]{ActionKeys.VIEW});
 		}
 	}
 
@@ -339,7 +335,7 @@ public class TaskLocalServiceImpl extends TaskLocalServiceBaseImpl {
 		}
 
 		if (assignedUsers.size() > 0) {
-			for (User user: assignedUsers) {
+			for (User user : assignedUsers) {
 				if (!ArrayUtil.contains(assignedUserIds, user.getUserId())) {
 					UserLocalServiceUtil.deleteRoleUser(
 						role.getRoleId(), user.getUserId());

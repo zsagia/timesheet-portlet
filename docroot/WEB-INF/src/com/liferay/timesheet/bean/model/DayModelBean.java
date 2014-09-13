@@ -1,14 +1,5 @@
 package com.liferay.timesheet.bean.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
@@ -17,15 +8,21 @@ import com.liferay.timesheet.model.DayConstants;
 import com.liferay.timesheet.service.DayLocalServiceUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class DayModelBean implements Serializable {
 
-	public Day createDay()
-		throws PortalException, SystemException {
-
-		ServiceContext serviceContext =
-			TimeSheetUtil.createServiceContext();
+	public Day createDay() throws PortalException, SystemException {
+		ServiceContext serviceContext = TimeSheetUtil.createServiceContext();
 
 		return DayLocalServiceUtil.addDay(
 			TimeSheetUtil.getCurrentUserId(), date, type, serviceContext);
@@ -33,6 +30,10 @@ public class DayModelBean implements Serializable {
 
 	public Day deleteDay(long dayId) throws Exception {
 		return DayLocalServiceUtil.deleteDay(dayId);
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	public List<Day> getDays() throws Exception {
@@ -54,24 +55,20 @@ public class DayModelBean implements Serializable {
 		return days;
 	}
 
-	public Date getDate() {
-		return date;
+	public int getType() {
+		return type;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	public void setType(int type) {
 		this.type = type;
 	}
 
-	private Date date;
-	private int type;
+	private static final long serialVersionUID = 2602676609530935036L; private int type;
 
-	private static final long serialVersionUID = 2602676609530935036L;
+	private Date date;
+
 }

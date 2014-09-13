@@ -15,7 +15,6 @@ import com.liferay.timesheet.util.TimeSheetUtil;
 import java.util.List;
 
 import org.primefaces.model.TreeNode;
-
 public class TreeNodeUtil {
 
 	public static void generateProjectTreeNodes(
@@ -24,13 +23,11 @@ public class TreeNodeUtil {
 
 		Project projectNode = ((ProjectTreeNode)parentNode).getProject();
 
-		long projectId =
-			projectNode != null ? projectNode.getProjectId() : 0;
+		long projectId = projectNode != null ? projectNode.getProjectId() : 0;
 
-		List<Project> projects = ProjectServiceUtil.getProjects(
-			projectId);
+		List<Project> projects = ProjectServiceUtil.getProjects(projectId);
 
-		for (Project project: projects) {
+		for (Project project : projects) {
 			boolean enabled = true;
 
 			if (checkEnabled && !project.getEnabled()) {
@@ -61,7 +58,7 @@ public class TreeNodeUtil {
 			OrganizationUtil.getAvailableOrganizations(
 				TimeSheetUtil.getCompanyId(), organizationId);
 
-		for (Organization organization: organizations) {
+		for (Organization organization : organizations) {
 			TreeNode treeNode = new UserTreeNode(organization, parentNode);
 
 			generateUserTreeNodes(treeNode);
@@ -70,7 +67,7 @@ public class TreeNodeUtil {
 		List<User> users = UserLocalServiceUtil.getOrganizationUsers(
 			organizationId);
 
-		for (User user: users) {
+		for (User user : users) {
 			new UserTreeNode(user, parentNode);
 		}
 	}

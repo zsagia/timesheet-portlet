@@ -10,12 +10,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
 @FacesConverter("OwnerGroupConverter")
 public class OwnerGroupConverter implements Converter {
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(OwnerGroupConverter.class);
 
 	@Override
 	public Object getAsObject(
@@ -28,8 +24,7 @@ public class OwnerGroupConverter implements Converter {
 		Group ownerGroup = null;
 
 		try {
-			ownerGroup = GroupServiceUtil.getGroup(
-				Long.parseLong(value));
+			ownerGroup = GroupServiceUtil.getGroup(Long.parseLong(value));
 		} catch (Exception e) {
 			logger.error("Conversion error", e);
 		}
@@ -47,5 +42,8 @@ public class OwnerGroupConverter implements Converter {
 
 		return String.valueOf(((Group)value).getGroupId());
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+		OwnerGroupConverter.class);
 
 }

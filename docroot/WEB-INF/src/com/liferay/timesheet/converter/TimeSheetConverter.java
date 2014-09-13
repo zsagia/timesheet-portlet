@@ -8,6 +8,7 @@ import com.liferay.timesheet.util.MessageUtil;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
@@ -33,7 +34,7 @@ public class TimeSheetConverter extends DateTimeConverter {
 	@Override
 	public Object getAsObject(
 			FacesContext context, UIComponent component, String value)
-		throws ConverterException{
+		throws ConverterException {
 
 		try {
 			if (Validator.isNull(value)) {

@@ -27,7 +27,6 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 public class TaskFinderImpl extends BasePersistenceImpl<Task>
 	implements TaskFinder {
 
@@ -63,7 +62,7 @@ public class TaskFinderImpl extends BasePersistenceImpl<Task>
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> queriedTasks =
-			(List<Object[]>) QueryUtil.list(
+			(List<Object[]>)QueryUtil.list(
 				q, getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		List<Task> tasks = assembleTasks(queriedTasks);
@@ -71,9 +70,7 @@ public class TaskFinderImpl extends BasePersistenceImpl<Task>
 		return tasks;
 	}
 
-	private List<Task> assembleTasks(
-		List<Object[]> queriedTasks) {
-
+	private List<Task> assembleTasks(List<Object[]> queriedTasks) {
 		List<Task> tasks = new ArrayList<Task>();
 
 		for (Object[] queriedTask : queriedTasks) {
@@ -83,13 +80,13 @@ public class TaskFinderImpl extends BasePersistenceImpl<Task>
 			task.setCompanyId((Long)queriedTask[1]);
 			task.setGroupId((Long)queriedTask[2]);
 			task.setUserId((Long)queriedTask[3]);
-			task.setUserName((String) queriedTask[4]);
-			task.setCreateDate((Date) queriedTask[5]);
-			task.setModifiedDate((Date) queriedTask[6]);
-			task.setDescription((String) queriedTask[7]);
-			task.setProjectId((Long) queriedTask[8]);
-			task.setTaskName((String) queriedTask[9]);
-			task.setTaskType((Integer) queriedTask[10]);
+			task.setUserName((String)queriedTask[4]);
+			task.setCreateDate((Date)queriedTask[5]);
+			task.setModifiedDate((Date)queriedTask[6]);
+			task.setDescription((String)queriedTask[7]);
+			task.setProjectId((Long)queriedTask[8]);
+			task.setTaskName((String)queriedTask[9]);
+			task.setTaskType((Integer)queriedTask[10]);
 
 			tasks.add(task);
 		}

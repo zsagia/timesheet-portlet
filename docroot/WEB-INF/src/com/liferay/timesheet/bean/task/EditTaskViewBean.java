@@ -41,8 +41,8 @@ public class EditTaskViewBean implements Serializable {
 
 	private static final long serialVersionUID = -4363519020450177169L;
 
-	private String taskName = null;
 	private Task editedTask = null;
 	private ProjectTreeNode selectedProjectNode = null;
+	private String taskName = null;
 
 }

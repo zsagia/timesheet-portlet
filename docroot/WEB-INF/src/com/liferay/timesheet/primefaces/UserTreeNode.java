@@ -10,7 +10,6 @@ import java.util.Date;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
-
 public class UserTreeNode extends DefaultTreeNode {
 
 	public UserTreeNode() {
@@ -30,35 +29,31 @@ public class UserTreeNode extends DefaultTreeNode {
 	}
 
 	@Override
+	public boolean equals(Object object) {
+		if ((object != null)) {
+			String className = object.getClass().getName();
+
+			if (className.equals(USER_CLASS_NAME)) {
+				return (((User)super.getData()).getUserId() ==
+					((User)object).getUserId());
+			}
+
+			if (className.equals(ORGANIZATION_CLASS_NAME)) {
+				return (((Organization)super.getData()).getOrganizationId() ==
+					((Organization)object).getOrganizationId());
+			}
+		}
+
+		return false;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	@Override
 	public Object getData() {
 		return this;
-	}
-
-	public Organization getOrganization() {
-		if (isOrganization()) {
-			return (Organization)super.getData();
-		}
-
-		return null;
-	}
-
-	public User getUser() {
-		if (isUser()) {
-			return (User)super.getData();
-		}
-
-		return null;
-	}
-
-	public String getName() {
-		if (USER_CLASS_NAME.equals(className)) {
-			return ((User)super.getData()).getFullName();
-		}
-		else if (ORGANIZATION_CLASS_NAME.equals(className)) {
-			return ((Organization)super.getData()).getName();
-		}
-
-		return StringPool.BLANK;
 	}
 
 	public String getDays() {
@@ -79,6 +74,33 @@ public class UserTreeNode extends DefaultTreeNode {
 		return "";
 	}
 
+	public String getName() {
+		if (USER_CLASS_NAME.equals(className)) {
+			return ((User)super.getData()).getFullName();
+		}
+		else if (ORGANIZATION_CLASS_NAME.equals(className)) {
+			return ((Organization)super.getData()).getName();
+		}
+
+		return StringPool.BLANK;
+	}
+
+	public Organization getOrganization() {
+		if (isOrganization()) {
+			return (Organization)super.getData();
+		}
+
+		return null;
+	}
+
+	public User getUser() {
+		if (isUser()) {
+			return (User)super.getData();
+		}
+
+		return null;
+	}
+
 	public boolean isOrganization() {
 		return ORGANIZATION_CLASS_NAME.equals(className);
 	}
@@ -87,31 +109,8 @@ public class UserTreeNode extends DefaultTreeNode {
 		return USER_CLASS_NAME.equals(className);
 	}
 
-	public String getClassName() {
-		return className;
-	}
-
 	public void setClassName(String className) {
 		this.className = className;
-	}
-	
-	@Override
-	public boolean equals(Object object) {
-		if ((object != null)) {
-			String className = object.getClass().getName();
-
-			if (className.equals(USER_CLASS_NAME)) {
-				return (((User)super.getData()).getUserId() ==
-					((User)object).getUserId());
-			}
-
-			if (className.equals(ORGANIZATION_CLASS_NAME)) {
-				return (((Organization)super.getData()).getOrganizationId() ==
-					((Organization)object).getOrganizationId());
-			}
-		}
-
-		return false;
 	}
 
 	@Override
@@ -119,12 +118,13 @@ public class UserTreeNode extends DefaultTreeNode {
 		return getClassName() + "-" + super.toString();
 	}
 
-	private String className = null;
-
-	public final static String USER_CLASS_NAME = User.class.getName();
 	public final static String ORGANIZATION_CLASS_NAME =
 		Organization.class.getName();
 
+	public final static String USER_CLASS_NAME = User.class.getName();
+
 	private static final long serialVersionUID = -4492373011467607456L;
+
+	private String className = null;
 
 }

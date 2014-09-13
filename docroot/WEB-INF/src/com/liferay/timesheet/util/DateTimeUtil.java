@@ -14,10 +14,10 @@ import com.liferay.timesheet.service.DayLocalServiceUtil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
 public class DateTimeUtil {
 
 	public static Date addDateToDate(Date date1, Date date2) {
@@ -32,44 +32,17 @@ public class DateTimeUtil {
 		return new Date(timeMilis2 + timeMilis);
 	}
 
-	public static Date getTodayWithoutTime() throws ParseException {
-		Date today = new Date();
-
-		return getDayWithoutTime(today);
-	}
-
-	public static Date getDayWithoutTime(Date date) throws ParseException {
-		Calendar calendar = Calendar.getInstance();
-
-		calendar.setTime(date);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-
-		return calendar.getTime();
-	}
-
-	public static Date getDateFromMilitaryTime(String value)
-		throws Exception {
-
-		return getDateFromMilitaryTime(
-			TimeSheetUtil.getCurrentUser(), DateTimeUtil.getTodayWithoutTime(),
-			value);
-	}
-
-	public static Date getDateFromMilitaryTime(User user, String value)
-		throws Exception {
-
-		return getDateFromMilitaryTime(
-			user, DateTimeUtil.getTodayWithoutTime(), value);
-	}
-
 	public static Date getDateFromMilitaryTime(Date date, String value)
 		throws Exception {
 
 		return getDateFromMilitaryTime(
 			TimeSheetUtil.getCurrentUser(), date, value);
+	}
+
+	public static Date getDateFromMilitaryTime(String value) throws Exception {
+		return getDateFromMilitaryTime(
+			TimeSheetUtil.getCurrentUser(), DateTimeUtil.getTodayWithoutTime(),
+			value);
 	}
 
 	public static Date getDateFromMilitaryTime(
@@ -93,8 +66,7 @@ public class DateTimeUtil {
 
 		if (Validator.isNotNull(value)) {
 			int hour = Integer.valueOf(value.substring(0, 2));
-			int minute = Integer.valueOf(
-				value.substring(2, value.length()));
+			int minute = Integer.valueOf(value.substring(2, value.length()));
 
 			calendar.set(Calendar.HOUR_OF_DAY, hour);
 			calendar.set(Calendar.MINUTE, minute);
@@ -103,6 +75,25 @@ public class DateTimeUtil {
 		date = calendar.getTime();
 
 		return date;
+	}
+
+	public static Date getDateFromMilitaryTime(User user, String value)
+		throws Exception {
+
+		return getDateFromMilitaryTime(
+			user, DateTimeUtil.getTodayWithoutTime(), value);
+	}
+
+	public static Date getDayWithoutTime(Date date) throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		return calendar.getTime();
 	}
 
 	public static Date getIncrementedDay(Date day) {
@@ -124,14 +115,6 @@ public class DateTimeUtil {
 		return Long.valueOf(value) * 1000 * 60;
 	}
 
-	public static long getTimeWithoutDate(Date date) throws ParseException {
-		DateFormat timeFormatWithoutDate =
-			new SimpleDateFormat(TimeSheetConstants.TIME_FORMAT_WITHOUT_DATE);
-
-		return timeFormatWithoutDate.parse(
-			timeFormatWithoutDate.format(date)).getTime();
-	}
-
 	public static Date getPreviousDay(Date date) {
 		Calendar calendar = Calendar.getInstance();
 
@@ -146,7 +129,7 @@ public class DateTimeUtil {
 	}
 
 	public static Date getPreviousWorkingDay(Date date)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		int[] types = new int[3];
 		boolean isPrevious = false;
@@ -191,7 +174,21 @@ public class DateTimeUtil {
 		return previousDay;
 	}
 
-	private static final Logger logger =
-		LoggerFactory.getLogger(DateTimeUtil.class);
+	public static long getTimeWithoutDate(Date date) throws ParseException {
+		DateFormat timeFormatWithoutDate = new SimpleDateFormat(
+			TimeSheetConstants.TIME_FORMAT_WITHOUT_DATE);
+
+		return timeFormatWithoutDate.parse(
+			timeFormatWithoutDate.format(date)).getTime();
+	}
+
+	public static Date getTodayWithoutTime() throws ParseException {
+		Date today = new Date();
+
+		return getDayWithoutTime(today);
+	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+		DateTimeUtil.class);
 
 }

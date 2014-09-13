@@ -1,14 +1,13 @@
 package com.liferay.timesheet.validator;
 
-import java.util.Date;
-import java.util.List;
-
 import com.liferay.timesheet.TSEndTimeException;
 import com.liferay.timesheet.TSStartTimeException;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.util.DateTimeUtil;
 import com.liferay.timesheet.util.PortletPropsValues;
 
+import java.util.Date;
+import java.util.List;
 public class TaskSessionValidatorUtil {
 
 	public static void validateAddTaskSession(
@@ -76,7 +75,7 @@ public class TaskSessionValidatorUtil {
 					if (endTime.after(followingTaskSession.getStartTime())) {
 						throw new TSEndTimeException();
 					}
-				}	
+				}
 			}
 		}
 	}
@@ -98,8 +97,7 @@ public class TaskSessionValidatorUtil {
 
 		Date latestEndTimeRestriction =
 			DateTimeUtil.getDateFromMilitaryTime(
-				currentDate,
-				PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
+				currentDate, PortletPropsValues.RESTRICTIONS_ENDTIME_LATEST);
 
 		TimeSheetValidatorUtil.validateLatestEndTime(
 			endTime, latestEndTimeRestriction);

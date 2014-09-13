@@ -41,31 +41,35 @@ import java.util.List;
  */
 public class TaskServiceImpl extends TaskServiceBaseImpl {
 
-	public Task getTask(long taskId)
-		throws PortalException, SystemException {
-
+	public Task getTask(long taskId) throws PortalException, SystemException {
 		TaskPermission.contains(
 			getPermissionChecker(), taskId, ActionKeys.VIEW);
 
 		return taskLocalService.getTask(taskId);
 	}
 
-	public List<Task> getTasksByC_G_U(
-			long companyId, long groupId, long userId)
-		throws SystemException, PortalException {
+	public List<Task> getTasksByC_G_TT(
+			long companyId, long groupId, int taskType)
+		throws PortalException, SystemException {
 
-		List<Task> tasks =
-			taskLocalService.getTasksByC_G_U(companyId, groupId, userId);
+		return taskLocalService.getTasksByC_G_TT(companyId, groupId, taskType);
+	}
+
+	public List<Task> getTasksByC_G_U(long companyId, long groupId, long userId)
+		throws PortalException, SystemException {
+
+		List<Task> tasks = taskLocalService.getTasksByC_G_U(
+			companyId, groupId, userId);
 
 		tasks = ListUtil.copy(tasks);
 
 		Iterator<Task> iterator = tasks.iterator();
 
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Task task = iterator.next();
 
 			if (!TaskPermission.contains(
-				getPermissionChecker(), task, ActionKeys.VIEW)) {
+					getPermissionChecker(), task, ActionKeys.VIEW)) {
 
 				iterator.remove();
 			}
@@ -74,16 +78,9 @@ public class TaskServiceImpl extends TaskServiceBaseImpl {
 		return tasks;
 	}
 
-	public List<Task> getTasksByC_G_TT(
-			long companyId, long groupId, int taskType)
-		throws SystemException, PortalException {
-
-		return taskLocalService.getTasksByC_G_TT(companyId, groupId, taskType);
-	}
-
 	public List<Task> getTasksByC_G_U_TT(
 			long companyId, long groupId, long userId, int taskType)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		List<Task> tasks = taskLocalService.getTasksByC_G_U_TT(
 			companyId, groupId, userId, taskType);
@@ -92,11 +89,11 @@ public class TaskServiceImpl extends TaskServiceBaseImpl {
 
 		Iterator<Task> iterator = tasks.iterator();
 
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Task task = iterator.next();
 
 			if (!TaskPermission.contains(
-				getPermissionChecker(), task, ActionKeys.VIEW)) {
+					getPermissionChecker(), task, ActionKeys.VIEW)) {
 
 				iterator.remove();
 			}

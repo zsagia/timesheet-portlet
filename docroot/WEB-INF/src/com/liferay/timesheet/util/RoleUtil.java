@@ -35,16 +35,31 @@ import java.util.List;
 
 public class RoleUtil {
 
+	public static List<Role> filterRoles(List<Role> roles) {
+		roles = ListUtil.copy(roles);
+
+		Iterator<Role> iterator = roles.iterator();
+
+		while (iterator.hasNext()) {
+			Role role = iterator.next();
+
+			if (isFilteredRole(role)) {
+				iterator.remove();
+			}
+		}
+
+		return roles;
+	}
+
 	public static List<Role> getAssignedRoles(
 			long companyId, Task task, String action)
 		throws PortalException, SystemException {
 
-		List<Role> roleList = RoleLocalServiceUtil.getRoles(
-			companyId);
+		List<Role> roleList = RoleLocalServiceUtil.getRoles(companyId);
 
 		List<Role> assignedRoles = new ArrayList<Role>();
 
-		for (Role role: roleList) {
+		for (Role role : roleList) {
 			if (!isFilteredRole(role) &&
 				ResourcePermissionLocalServiceUtil.hasResourcePermission(
 					companyId, Task.class.getName(),
@@ -76,22 +91,6 @@ public class RoleUtil {
 		}
 
 		return isFiltered;
-	}
-
-	public static List<Role> filterRoles(List<Role> roles) {
-		roles = ListUtil.copy(roles);
-
-		Iterator<Role> iterator = roles.iterator();
-
-		while(iterator.hasNext()) {
-			Role role = iterator.next();
-
-			if (isFilteredRole(role)) {
-				iterator.remove();
-			}
-		}
-
-		return roles;
 	}
 
 }

@@ -37,7 +37,6 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.TreeNode;
-
 /*
  * @author Zsolt Szabo
  */
@@ -70,6 +69,11 @@ public class AdminTaskViewBean extends AbstractEntityViewBean {
 	}
 
 	@Override
+	public void doListAction(Object bean) {
+		setAction(ACTION_LIST);
+	}
+
+	@Override
 	public void doNewAction(Object bean) {
 		TaskModelBean taskModelBean = (TaskModelBean)bean;
 
@@ -80,9 +84,12 @@ public class AdminTaskViewBean extends AbstractEntityViewBean {
 		setAction(ACTION_NEW);
 	}
 
-	@Override
-	public void doListAction(Object bean) {
-		setAction(ACTION_LIST);
+	public List<Task> getAssignedTasks() {
+		return assignedTasks;
+	}
+
+	public List<Role> getRoleList() {
+		return roleList;
 	}
 
 	public TreeNode getUserTreeRoot() {
@@ -126,34 +133,6 @@ public class AdminTaskViewBean extends AbstractEntityViewBean {
 		setSelectedTask(null);
 	}
 
-	private void initProjectTree() throws PortalException, SystemException {
-		List<Project> projects = ProjectServiceUtil.getProjects(0);
-
-		if ((projects != null) && (projects.size() > 0)) {
-			setRoot(new ProjectTreeNode(null, null));
-
-			TreeNodeUtil.generateProjectTreeNodes(true, getRoot());
-		}
-	}
-
-	private void initUserTree() throws Exception {
-		setUserTreeRoot(new UserTreeNode());
-
-		TreeNodeUtil.generateUserTreeNodes(getUserTreeRoot());
-	}
-
-	private void initRoleList() throws SystemException {
-		roleList = RoleUtil.getRegularRoles();
-	}
-
-	public List<Task> getAssignedTasks() {
-		return assignedTasks;
-	}
-
-	public List<Role> getRoleList() {
-		return roleList;
-	}
-
 	public void setAssignedTasks(List<Task> assignedTasks) {
 		this.assignedTasks = assignedTasks;
 	}
@@ -166,10 +145,30 @@ public class AdminTaskViewBean extends AbstractEntityViewBean {
 		this.userTreeRoot = userTreeRoot;
 	}
 
+	private void initProjectTree() throws PortalException, SystemException {
+		List<Project> projects = ProjectServiceUtil.getProjects(0);
+
+		if ((projects != null) && (projects.size() > 0)) {
+			setRoot(new ProjectTreeNode(null, null));
+
+			TreeNodeUtil.generateProjectTreeNodes(true, getRoot());
+		}
+	}
+
+	private void initRoleList() throws SystemException {
+		roleList = RoleUtil.getRegularRoles();
+	}
+
+	private void initUserTree() throws Exception {
+		setUserTreeRoot(new UserTreeNode());
+
+		TreeNodeUtil.generateUserTreeNodes(getUserTreeRoot());
+	}
+
+	private static final long serialVersionUID = 1862205069150831867L;
+
 	private List<Task> assignedTasks = null;
 	private List<Role> roleList = null;
 	private TreeNode userTreeRoot = null;
-
-	private static final long serialVersionUID = 1862205069150831867L;
 
 }

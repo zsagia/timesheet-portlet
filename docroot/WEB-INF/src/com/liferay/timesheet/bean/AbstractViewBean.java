@@ -6,6 +6,7 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import org.primefaces.model.TreeNode;
@@ -25,6 +26,10 @@ public abstract class AbstractViewBean implements Serializable {
 
 	public TreeNode getSelectedProjectNode() {
 		return selectedProjectNode;
+	}
+
+	public Task getSelectedTask() {
+		return selectedTask;
 	}
 
 	public Date getTodayWithoutTime() {
@@ -52,16 +57,12 @@ public abstract class AbstractViewBean implements Serializable {
 		}
 	}
 
-	public void setTodayWithoutTime(Date todayWithoutTime) {
-		this.todayWithoutTime = todayWithoutTime;
-	}
-
-	public Task getSelectedTask() {
-		return selectedTask;
-	}
-
 	public void setSelectedTask(Task selectedTask) {
 		this.selectedTask = selectedTask;
+	}
+
+	public void setTodayWithoutTime(Date todayWithoutTime) {
+		this.todayWithoutTime = todayWithoutTime;
 	}
 
 	private static final long serialVersionUID = 1L;

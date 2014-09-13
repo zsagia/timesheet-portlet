@@ -22,7 +22,7 @@ public class AdminPermissionBean {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay(); 
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 
 		return AdminPermission.contains(
 			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
@@ -37,7 +37,7 @@ public class AdminPermissionBean {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay(); 
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 
 		return ProjectPermission.contains(
 			themeDisplay.getPermissionChecker(), project,
@@ -52,7 +52,7 @@ public class AdminPermissionBean {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay(); 
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 
 		return ProjectPermission.contains(
 			themeDisplay.getPermissionChecker(), project, ActionKeys.UPDATE);
@@ -62,7 +62,7 @@ public class AdminPermissionBean {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay(); 
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 
 		return AdminPermission.contains(
 			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
@@ -73,7 +73,7 @@ public class AdminPermissionBean {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay(); 
+		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
 
 		return AdminPermission.contains(
 			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),

@@ -10,12 +10,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
 @FacesConverter("TaskConverter")
 public class TaskConverter implements Converter {
-
-	private static final Logger logger =
-		LoggerFactory.getLogger(TaskConverter.class);
 
 	@Override
 	public Object getAsObject(
@@ -28,8 +24,7 @@ public class TaskConverter implements Converter {
 		Task task = null;
 
 		try {
-			task = TaskLocalServiceUtil.getTask(
-				Long.parseLong(value));
+			task = TaskLocalServiceUtil.getTask(Long.parseLong(value));
 		} catch (Exception e) {
 			logger.error("Conversion error", e);
 		}
@@ -47,5 +42,8 @@ public class TaskConverter implements Converter {
 
 		return String.valueOf(((Task)value).getTaskId());
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+		TaskConverter.class);
 
 }

@@ -1,17 +1,16 @@
 package com.liferay.timesheet.util;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 public class DayValidatorUtil {
 
 	public static Map<String, List<String>> dayIsValid(Date currentDate)
@@ -36,13 +35,11 @@ public class DayValidatorUtil {
 		}
 
 		if (!onlyOneLunchTimeExist(lunchSessions)) {
-			errors.add(
-				TimeSheetConstants.ERROR_MORE_THEN_ONE_LUNCH_TASK_EXIST);
+			errors.add(TimeSheetConstants.ERROR_MORE_THEN_ONE_LUNCH_TASK_EXIST);
 		}
 
 		if (!lunchTaskTimeCorrect(lunchSessions)) {
-			errors.add(
-				TimeSheetConstants.ERROR_LUNCH_TASK_TIME_IS_NOT_CORRECT);
+			errors.add(TimeSheetConstants.ERROR_LUNCH_TASK_TIME_IS_NOT_CORRECT);
 		}
 
 		List<TaskSession> workSessions =
@@ -83,7 +80,7 @@ public class DayValidatorUtil {
 
 		boolean timeIsCorrect = true;
 
-		for (TaskSession lunchSession:lunchSessions) {
+		for (TaskSession lunchSession :lunchSessions) {
 			if (lunchSession.getDuration() <
 					DateTimeUtil.getMillisFromMilitaryTime(
 						PortletPropsValues.RESTRICTIONS_LUNCHTIME_MIN_DURATION)) {
@@ -110,7 +107,7 @@ public class DayValidatorUtil {
 
 		boolean isBefore = false;
 
-		for (TaskSession workSession:workSessions) {
+		for (TaskSession workSession :workSessions) {
 			if (!workSession.getStartTime().after(
 					DateTimeUtil.getDateFromMilitaryTime(
 						currentDate,

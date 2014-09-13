@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 public class DateTimeCalculatorUtil {
 
 	public static String getStringFromTime(long time) {
@@ -93,13 +92,13 @@ public class DateTimeCalculatorUtil {
 
 		long time = 0;
 
-		for(TaskSession taskSession: taskSessions) {
+		for (TaskSession taskSession : taskSessions) {
 			Task task = taskSession.getTask();
 
 			int type = task.getTaskType();
 
 			if (!breaks && ((type != TimeSheetConstants.TASK_GENERAL) &&
-				(type != TimeSheetConstants.TASK_MANDATORY_BREAK))) {
+				 (type != TimeSheetConstants.TASK_MANDATORY_BREAK))) {
 
 				continue;
 			}
@@ -118,7 +117,7 @@ public class DateTimeCalculatorUtil {
 
 		List<Date> daysOfWeek = getDaysOfWeek(dateOfWeek);
 
-		for(Date date: daysOfWeek) {
+		for (Date date : daysOfWeek) {
 			Calendar date2 = Calendar.getInstance();
 
 			date2.setTime(date);

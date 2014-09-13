@@ -22,9 +22,6 @@ import java.util.TimeZone;
  */
 public class WorkTimeMessageListener extends BaseMessageListener {
 
-	private static final Logger logger =
-			LoggerFactory.getLogger(WorkTimeMessageListener.class);
-
 	@Override
 	protected void doReceive(Message message) throws Exception {
 		List<User> users = UserLocalServiceUtil.getUsers(
@@ -47,16 +44,19 @@ public class WorkTimeMessageListener extends BaseMessageListener {
 
 			Date lastEndTime = lastTaskSession.getEndTime();
 
-			Date baseTimeEndRestriction = 
+			Date baseTimeEndRestriction =
 				DateTimeUtil.getDateFromMilitaryTime(
 					PortletPropsValues.RESTRICTIONS_BASETIME_END);
 
 			if (lastEndTime.before(baseTimeEndRestriction)) {
-				logger.info(user.getUserId() + "closed his task at "
-					+ lastEndTime);
+				logger.info(user.getUserId() + "closed his task at " +
+					lastEndTime);
 				/* Placeholder for notification sending code. */
 			}
 		}
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(
+			WorkTimeMessageListener.class);
 
 }

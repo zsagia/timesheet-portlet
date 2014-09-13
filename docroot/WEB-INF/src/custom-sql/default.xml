@@ -83,7 +83,7 @@
 				timesheet_Task, timesheet_TaskSession
 			WHERE
 				(timesheet_TaskSession.userId = ?) AND
-				(timesheet_TaskSession.taskId = timesheet_Task.taskId) 
+				(timesheet_TaskSession.taskId = timesheet_Task.taskId)
 				(timesheet_TaskSession.taskType = ? AND
 				((timesheet_TaskSession.startTime > ?) AND (timesheet_TaskSession.startTime < ?))
 			ORDER BY

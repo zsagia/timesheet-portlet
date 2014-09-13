@@ -21,6 +21,7 @@ import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +38,8 @@ import org.primefaces.model.TreeNode;
 @ManagedBean
 @RequestScoped
 public class AdminManagedBean implements Serializable {
+
+	public static final String ADMIN_VIEW = "/views/admin/view.xhtml";
 
 	public String createDayAction() {
 		LiferayFacesContext liferayFacesContext =
@@ -178,98 +181,6 @@ public class AdminManagedBean implements Serializable {
 		}
 	}
 
-	public String updateTaskAction() {
-		Task editedTask = adminTaskViewBean.getSelectedTask();
-
-		TreeNode selectedProjectTreeNode =
-			adminTaskViewBean.getSelectedProjectNode();
-
-		String description = taskModelBean.getDescription();
-		String taskName = taskModelBean.getTaskName();
-
-		Project selectedProject = null;
-
-		if (selectedProjectTreeNode != null) {
-			ProjectTreeNode projectTreeNode =
-				(ProjectTreeNode)selectedProjectTreeNode;
-	
-			selectedProject = projectTreeNode.getProject();
-		}
-
-		long[] assignedUserIds = generateUserIds();
-
-		long[] assignedRoleIds = generateRoleIds();
-
-		try {
-			taskModelBean.updateTask(
-				editedTask, taskName, description, selectedProject,
-				assignedUserIds, assignedRoleIds);
-
-			adminTaskViewBean.init();
-		} catch (Exception e) {
-		}
-
-		return ADMIN_VIEW;
-	}
-
-	public String updateProjectAction() {
-		Project project =
-			((ProjectTreeNode)projectViewBean.getSelectedProjectNode())
-				.getProject();
-
-		project.setEnabled(projectModelBean.isEnabled());
-		project.setDescription(projectModelBean.getDescription());
-		project.setProjectName(projectModelBean.getProjectName());
-
-		LiferayFacesContext liferayFacesContext =
-			LiferayFacesContext.getInstance();
-
-		try {
-			projectModelBean.updateProject(project);
-
-			projectViewBean.init();
-
-			if (logger.isDebugEnabled()) {
-				logger.debug("Project is updated: " + project.getProjectName());
-			}
-		} catch (Exception e) {
-			logger.error("Creation new project is failed!");
-
-			liferayFacesContext.addGlobalErrorMessage(
-				"Project update is failed!");
-		}
-
-		return ADMIN_VIEW;
-	}
-
-	protected long[] generateUserIds() {
-		List<User> assignedUsers = taskModelBean.getAssignedUsers();
-
-		long[] assignedUserIds = new long[assignedUsers.size()];
-
-		for (int i = 0; i < assignedUsers.size(); i++) {
-			User user = assignedUsers.get(i);
-
-			assignedUserIds[i] = user.getUserId();
-		}
-
-		return assignedUserIds;
-	}
-
-	protected long[] generateRoleIds() {
-		List<Role> assignedRoles = taskModelBean.getAssignedRoles();
-
-		long[] assignedRoleIds = new long[assignedRoles.size()];
-
-		for (int i = 0; i < assignedRoles.size(); i++) {
-			Role role = assignedRoles.get(i);
-
-			assignedRoleIds[i] = role.getRoleId();
-		}
-
-		return assignedRoleIds;
-	}
-
 	public AdminTaskViewBean getAdminTaskViewBean() {
 		return adminTaskViewBean;
 	}
@@ -366,6 +277,103 @@ public class AdminManagedBean implements Serializable {
 		this.taskModelBean = taskModelBean;
 	}
 
+	public String updateProjectAction() {
+		Project project =
+			((ProjectTreeNode)projectViewBean.getSelectedProjectNode())
+				.getProject();
+
+		project.setEnabled(projectModelBean.isEnabled());
+		project.setDescription(projectModelBean.getDescription());
+		project.setProjectName(projectModelBean.getProjectName());
+
+		LiferayFacesContext liferayFacesContext =
+			LiferayFacesContext.getInstance();
+
+		try {
+			projectModelBean.updateProject(project);
+
+			projectViewBean.init();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("Project is updated: " + project.getProjectName());
+			}
+		} catch (Exception e) {
+			logger.error("Creation new project is failed!");
+
+			liferayFacesContext.addGlobalErrorMessage(
+				"Project update is failed!");
+		}
+
+		return ADMIN_VIEW;
+	}
+
+	public String updateTaskAction() {
+		Task editedTask = adminTaskViewBean.getSelectedTask();
+
+		TreeNode selectedProjectTreeNode =
+			adminTaskViewBean.getSelectedProjectNode();
+
+		String description = taskModelBean.getDescription();
+		String taskName = taskModelBean.getTaskName();
+
+		Project selectedProject = null;
+
+		if (selectedProjectTreeNode != null) {
+			ProjectTreeNode projectTreeNode =
+				(ProjectTreeNode)selectedProjectTreeNode;
+
+			selectedProject = projectTreeNode.getProject();
+		}
+
+		long[] assignedUserIds = generateUserIds();
+
+		long[] assignedRoleIds = generateRoleIds();
+
+		try {
+			taskModelBean.updateTask(
+				editedTask, taskName, description, selectedProject,
+				assignedUserIds, assignedRoleIds);
+
+			adminTaskViewBean.init();
+		} catch (Exception e) {
+		}
+
+		return ADMIN_VIEW;
+	}
+
+	protected long[] generateRoleIds() {
+		List<Role> assignedRoles = taskModelBean.getAssignedRoles();
+
+		long[] assignedRoleIds = new long[assignedRoles.size()];
+
+		for (int i = 0; i < assignedRoles.size(); i++) {
+			Role role = assignedRoles.get(i);
+
+			assignedRoleIds[i] = role.getRoleId();
+		}
+
+		return assignedRoleIds;
+	}
+
+	protected long[] generateUserIds() {
+		List<User> assignedUsers = taskModelBean.getAssignedUsers();
+
+		long[] assignedUserIds = new long[assignedUsers.size()];
+
+		for (int i = 0; i < assignedUsers.size(); i++) {
+			User user = assignedUsers.get(i);
+
+			assignedUserIds[i] = user.getUserId();
+		}
+
+		return assignedUserIds;
+	}
+
+	private static final long serialVersionUID = 3679608295250497309L;
+
+	private static Logger logger = LoggerFactory.getLogger(
+		AdminManagedBean.class);
+
 	@ManagedProperty(name = "adminTaskViewBean",
 		value = "#{adminTaskViewBean}")
 	private AdminTaskViewBean adminTaskViewBean;
@@ -385,11 +393,5 @@ public class AdminManagedBean implements Serializable {
 	@ManagedProperty(name = "taskModelBean",
 		value = "#{taskModelBean}")
 	private TaskModelBean taskModelBean;
-
-	public static final String ADMIN_VIEW = "/views/admin/view.xhtml";
-
-	private static final long serialVersionUID = 3679608295250497309L;
-	private static Logger logger = LoggerFactory.getLogger(
-		AdminManagedBean.class);
 
 }

@@ -16,12 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
 public abstract class AbstractValidator implements Validator {
-
-	protected abstract void doValidate(
-			FacesContext context, UIComponent component, Object value)
-		throws Exception;
 
 	@Override
 	public void validate(
@@ -35,22 +30,20 @@ public abstract class AbstractValidator implements Validator {
 		} catch (Exception e) {
 			if (e instanceof TSEndTimeException) {
 				facesMessage = MessageUtil.getFacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					"end_session_validation_error",
+					FacesMessage.SEVERITY_ERROR, "end_session_validation_error",
 					"another_task_is_already_recorded_in_the_given_period");
 			}
 			else if (e instanceof TSEarliestStartTimeException) {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
 					"start_session_validation_error",
-					"the_given_time_does_not_fit_the_time_frame_defined_for_"
-						+ "work_start "
-						+ PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
+					"the_given_time_does_not_fit_the_time_frame_defined_for_" +
+						"work_start " +
+						PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
 			}
 			else if (e instanceof TSNoCurrentTaskSessionException) {
 				facesMessage = MessageUtil.getFacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					"end_session_validation_error",
+					FacesMessage.SEVERITY_ERROR, "end_session_validation_error",
 					"there_is_not_current_task_session");
 			}
 			else if (e instanceof TSStartTimeException) {
@@ -67,8 +60,7 @@ public abstract class AbstractValidator implements Validator {
 			}
 			else if (e instanceof TSWorkDurationException) {
 				facesMessage = MessageUtil.getFacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					"end_session_validation_error",
+					FacesMessage.SEVERITY_ERROR, "end_session_validation_error",
 					"work_time_duration_exception");
 			}
 			else {
@@ -83,6 +75,10 @@ public abstract class AbstractValidator implements Validator {
 			throw new ValidatorException(facesMessage);
 		}
 	}
+
+	protected abstract void doValidate(
+			FacesContext context, UIComponent component, Object value)
+		throws Exception;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

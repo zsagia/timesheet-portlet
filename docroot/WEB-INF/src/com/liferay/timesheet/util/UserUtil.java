@@ -11,30 +11,7 @@ import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 public class UserUtil {
-
-	public static boolean isLeader(long companyId, long organizationId)
-		throws SystemException, PortalException {
-
-		List<Organization> organizations =
-			OrganizationUtil.getAvailableOrganizations(
-				companyId, organizationId);
-
-		if (organizations.size() > 0) {
-			return true;
-		}
-	
-		return false;
-	}
-
-	public static boolean hasOrganizationRole() {
-		return false;
-	}
-
-	public static boolean isMemberOfTeam() {
-		return false;
-	}
 
 	public static long getDuration(
 			long companyId, long userId, Date date, Date now)
@@ -61,10 +38,10 @@ public class UserUtil {
 
 		List<User> users = new ArrayList<User>();
 
-		List<Organization> organizations =
-			OrganizationUtil.getOrganizations(companyId, organizationId);
+		List<Organization> organizations = OrganizationUtil.getOrganizations(
+			companyId, organizationId);
 
-		for (Organization organization: organizations) {
+		for (Organization organization : organizations) {
 			users.addAll(
 				UserLocalServiceUtil.getOrganizationUsers(
 					organization.getOrganizationId()));
@@ -75,6 +52,28 @@ public class UserUtil {
 		}
 
 		return users;
+	}
+
+	public static boolean hasOrganizationRole() {
+		return false;
+	}
+
+	public static boolean isLeader(long companyId, long organizationId)
+		throws PortalException, SystemException {
+
+		List<Organization> organizations =
+			OrganizationUtil.getAvailableOrganizations(
+				companyId, organizationId);
+
+		if (organizations.size() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public static boolean isMemberOfTeam() {
+		return false;
 	}
 
 }

@@ -21,6 +21,7 @@ import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.TimeSheetUtil;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,16 +44,6 @@ public class TaskModelBean implements Serializable {
 
 	public Task createTask(
 			long companyId, long userId, long projectId, int type,
-			ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		return TaskLocalServiceUtil.addTask(
-			companyId, userId, taskName, projectId, description, type,
-			serviceContext);
-	}
-
-	public Task createTask(
-			long companyId, long userId, long projectId, int type,
 			long[] assignedUserIds, long[] assignedRoleIds,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -62,10 +53,24 @@ public class TaskModelBean implements Serializable {
 			assignedUserIds, assignedRoleIds, serviceContext);
 	}
 
+	public Task createTask(
+			long companyId, long userId, long projectId, int type,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		return TaskLocalServiceUtil.addTask(
+			companyId, userId, taskName, projectId, description, type,
+			serviceContext);
+	}
+
 	public void deleteTask(long taskId)
 		throws PortalException, SystemException {
 
 		TaskLocalServiceUtil.deleteTask(taskId);
+	}
+
+	public List<Role> getAssignedRoles() {
+		return assignedRoles;
 	}
 
 	public List<Task> getAssignedTask()
@@ -76,44 +81,20 @@ public class TaskModelBean implements Serializable {
 			TimeSheetConstants.TASK_ASSIGNED);
 	}
 
-	public void setAssignedRoles(Task task)
-		throws PortalException, SystemException {
-
-		List<Role> assignedRoles = RoleUtil.getAssignedRoles(
-			task.getCompanyId(), task, ActionKeys.VIEW);
-
-		setAssignedRoles(assignedRoles);
+	public List<User> getAssignedUsers() {
+		return assignedUsers;
 	}
 
-	public void setAssignedUsers(Task task)
-		throws PortalException, SystemException {
-
-		Role role = RoleLocalServiceUtil.getRole(
-			task.getCompanyId(),
-			TimeSheetConstants.TIMESHEET_TASK_ROLE + task.getTaskId());
-
-		List<User> assignedUsers = UserLocalServiceUtil.getRoleUsers(
-			role.getRoleId());
-
-		if (!assignedUsers.isEmpty()) {
-			setAssignedUsers(ListUtil.copy(assignedUsers));
-		}
+	public String getDescription() {
+		return description;
 	}
 
-	public void setRoleList() {
-		roleList = new HashMap<Long, Boolean>();
-
-		for (Role role: assignedRoles) {
-			roleList.put(role.getRoleId(), Boolean.TRUE);
-		}
+	public Map<Long, Boolean> getRoleList() {
+		return roleList;
 	}
 
-	public void setUserList() {
-		userList = new HashMap<Long, Boolean>();
-
-		for (User user: assignedUsers) {
-			userList.put(user.getUserId(), Boolean.TRUE);
-		}
+	public String getTaskName() {
+		return taskName;
 	}
 
 	public List<Task> getTasksByUser() {
@@ -152,6 +133,10 @@ public class TaskModelBean implements Serializable {
 		return userTasks;
 	}
 
+	public Map<Long, Boolean> getUserList() {
+		return userList;
+	}
+
 	public void init() {
 		taskName = null;
 
@@ -162,6 +147,70 @@ public class TaskModelBean implements Serializable {
 
 		roleList = new HashMap<Long, Boolean>();
 		userList = new HashMap<Long, Boolean>();
+	}
+
+	public void setAssignedRoles(List<Role> assignedRoles) {
+		this.assignedRoles = assignedRoles;
+	}
+
+	public void setAssignedRoles(Task task)
+		throws PortalException, SystemException {
+
+		List<Role> assignedRoles = RoleUtil.getAssignedRoles(
+			task.getCompanyId(), task, ActionKeys.VIEW);
+
+		setAssignedRoles(assignedRoles);
+	}
+
+	public void setAssignedUsers(List<User> assignedUsers) {
+		this.assignedUsers = assignedUsers;
+	}
+
+	public void setAssignedUsers(Task task)
+		throws PortalException, SystemException {
+
+		Role role = RoleLocalServiceUtil.getRole(
+			task.getCompanyId(),
+			TimeSheetConstants.TIMESHEET_TASK_ROLE + task.getTaskId());
+
+		List<User> assignedUsers = UserLocalServiceUtil.getRoleUsers(
+			role.getRoleId());
+
+		if (!assignedUsers.isEmpty()) {
+			setAssignedUsers(ListUtil.copy(assignedUsers));
+		}
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setRoleList() {
+		roleList = new HashMap<Long, Boolean>();
+
+		for (Role role : assignedRoles) {
+			roleList.put(role.getRoleId(), Boolean.TRUE);
+		}
+	}
+
+	public void setRoleList(Map<Long, Boolean> roleList) {
+		this.roleList = roleList;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public void setUserList() {
+		userList = new HashMap<Long, Boolean>();
+
+		for (User user : assignedUsers) {
+			userList.put(user.getUserId(), Boolean.TRUE);
+		}
+	}
+
+	public void setUserList(Map<Long, Boolean> userList) {
+		this.userList = userList;
 	}
 
 	public Task updateTask(
@@ -194,53 +243,9 @@ public class TaskModelBean implements Serializable {
 			task, assignedUserIds, assignedRoleIds);
 	}
 
-	public List<Role> getAssignedRoles() {
-		return assignedRoles;
-	}
+	private static final long serialVersionUID = 4961368400508391281L;
 
-	public List<User> getAssignedUsers() {
-		return assignedUsers;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public Map<Long, Boolean> getRoleList() {
-		return roleList;
-	}
-
-	public String getTaskName() {
-		return taskName;
-	}
-
-	public Map<Long, Boolean> getUserList() {
-		return userList;
-	}
-
-	public void setAssignedRoles(List<Role> assignedRoles) {
-		this.assignedRoles = assignedRoles;
-	}
-
-	public void setAssignedUsers(List<User> assignedUsers) {
-		this.assignedUsers = assignedUsers;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setRoleList(Map<Long, Boolean> roleList) {
-		this.roleList = roleList;
-	}
-
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
-
-	public void setUserList(Map<Long, Boolean> userList) {
-		this.userList = userList;
-	}
+	private static Logger logger = LoggerFactory.getLogger(TaskModelBean.class);
 
 	private List<Role> assignedRoles = null;
 	private List<User> assignedUsers = null;
@@ -248,8 +253,5 @@ public class TaskModelBean implements Serializable {
 	private Map<Long, Boolean> roleList = null;
 	private String taskName;
 	private Map<Long, Boolean> userList = null;
-
-	private static final long serialVersionUID = 4961368400508391281L;
-	private static Logger logger = LoggerFactory.getLogger(TaskModelBean.class);
 
 }

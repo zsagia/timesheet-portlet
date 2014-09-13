@@ -14,19 +14,19 @@
 
 package com.liferay.timesheet.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.timesheet.model.Day;
 import com.liferay.timesheet.service.base.DayLocalServiceBaseImpl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The implementation of the day local service.
@@ -74,6 +74,12 @@ public class DayLocalServiceImpl extends DayLocalServiceBaseImpl {
 		return dayPersistence.findByC_T(companyId, type);
 	}
 
+	public List<Day> getDays(long companyId, int[] types)
+		throws SystemException {
+
+		return getDays(companyId, types, false);
+	}
+
 	public List<Day> getDays(long companyId, int[] types, boolean sort)
 		throws SystemException {
 
@@ -90,12 +96,6 @@ public class DayLocalServiceImpl extends DayLocalServiceBaseImpl {
 		return days;
 	}
 
-	public List<Day> getDays(long companyId, int[] types)
-		throws SystemException {
-
-		return getDays(companyId, types, false);
-	}
-
 	public Map<String, Day> getDaysMap(long companyId, int type)
 		throws SystemException {
 
@@ -103,7 +103,7 @@ public class DayLocalServiceImpl extends DayLocalServiceBaseImpl {
 
 		Map<String, Day> daysMap = new HashMap<String, Day>();
 
-		for(Day day : days) {
+		for (Day day : days) {
 			daysMap.put(String.valueOf(day.getDate().getTime()), day);
 		}
 

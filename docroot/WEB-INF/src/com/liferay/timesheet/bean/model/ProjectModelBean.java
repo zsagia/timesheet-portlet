@@ -29,23 +29,13 @@ public class ProjectModelBean implements Serializable {
 			selectedProjectId = selectedProject.getProjectId();
 		}
 
-		ServiceContext serviceContext =
-			TimeSheetUtil.createServiceContext();
+		ServiceContext serviceContext = TimeSheetUtil.createServiceContext();
 
 		Project project = null;
 
 		project = ProjectServiceUtil.addProject(
-			TimeSheetUtil.getCurrentUserId(),0, true,
-			selectedProjectId, projectName, description,
-			serviceContext);
-
-		return project;
-	}
-
-	public Project updateProject(Project project)
-		throws PortalException, SystemException {
-
-		ProjectServiceUtil.updateProject(project);
+			TimeSheetUtil.getCurrentUserId(), 0, true, selectedProjectId,
+			projectName, description, serviceContext);
 
 		return project;
 	}
@@ -74,10 +64,18 @@ public class ProjectModelBean implements Serializable {
 		this.projectName = projectName;
 	}
 
-	private boolean enabled = false;
-	private String description = null;
-	private String projectName = null;
+	public Project updateProject(Project project)
+		throws PortalException, SystemException {
+
+		ProjectServiceUtil.updateProject(project);
+
+		return project;
+	}
 
 	private static final long serialVersionUID = 4411045587555113969L;
+
+	private String description = null;
+	private boolean enabled = false;
+	private String projectName = null;
 
 }

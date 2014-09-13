@@ -45,7 +45,7 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession addTaskSession(
 			long userId, Date startTime, Date endTime, long taskId,
 			String description, ServiceContext serviceContext)
-		throws SystemException, NoSuchUserException {
+		throws NoSuchUserException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long groupId = serviceContext.getScopeGroupId();
@@ -75,7 +75,7 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession addTaskSession(
 			long userId, Date startTime, long taskId, String description,
 			ServiceContext serviceContext)
-		throws SystemException, NoSuchUserException {
+		throws NoSuchUserException, SystemException {
 
 		return addTaskSession(
 			userId, startTime, null, taskId, description, serviceContext);
@@ -90,8 +90,8 @@ public class TaskSessionLocalServiceImpl
 	public TaskSession getLastTaskSessionsByU_D(long userId, Date date)
 		throws SystemException {
 
-		List<TaskSession> taskSessions =
-			taskSessionPersistence.findByU_GtS(userId, date);
+		List<TaskSession> taskSessions = taskSessionPersistence.findByU_GtS(
+			userId, date);
 
 		if ((taskSessions != null) && !taskSessions.isEmpty()) {
 			return taskSessions.get(0);
@@ -100,11 +100,21 @@ public class TaskSessionLocalServiceImpl
 		return null;
 	}
 
+	public List<TaskSession> getTaskSessionsByC_U_I(
+			long companyId, long userId, Date date1, Date date2)
+		throws SystemException {
+
+		List<TaskSession> taskSessions = taskSessionFinder.findByC_U_I(
+			companyId, userId, date1, date2);
+
+		return taskSessions;
+	}
+
 	public List<TaskSession> getTaskSessionsByU_D(long userId, Date date)
 		throws SystemException {
 
-		List<TaskSession> taskSessions =
-			taskSessionPersistence.findByU_GtS(userId, date);
+		List<TaskSession> taskSessions = taskSessionPersistence.findByU_GtS(
+			userId, date);
 
 		return taskSessions;
 	}
@@ -113,18 +123,8 @@ public class TaskSessionLocalServiceImpl
 			long userId, long taskId, Date date)
 		throws SystemException {
 
-		List<TaskSession> taskSessions =
-			taskSessionPersistence.findByU_T_GtS(userId, taskId, date);
-
-		return taskSessions;
-	}
-
-	public List<TaskSession> getTaskSessionsByC_U_I(
-			long companyId, long userId, Date date1, Date date2)
-		throws SystemException {
-
-		List<TaskSession> taskSessions =
-			taskSessionFinder.findByC_U_I(companyId, userId, date1, date2);
+		List<TaskSession> taskSessions = taskSessionPersistence.findByU_T_GtS(
+			userId, taskId, date);
 
 		return taskSessions;
 	}
@@ -133,8 +133,8 @@ public class TaskSessionLocalServiceImpl
 			long userId, long taskId, Date date1, Date date2)
 		throws SystemException {
 
-		List<TaskSession> taskSessions =
-			taskSessionFinder.findByU_T_I(userId, taskId, date1, date2);
+		List<TaskSession> taskSessions = taskSessionFinder.findByU_T_I(
+			userId, taskId, date1, date2);
 
 		return taskSessions;
 	}

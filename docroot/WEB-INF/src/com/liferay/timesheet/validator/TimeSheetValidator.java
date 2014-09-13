@@ -25,8 +25,7 @@ public interface TimeSheetValidator {
 			java.util.Date newEndTime)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public void validateFutureTime(
-			java.util.Date time, java.util.Date now)
+	public void validateFutureTime(java.util.Date time, java.util.Date now)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public void validateLatestEndTime(

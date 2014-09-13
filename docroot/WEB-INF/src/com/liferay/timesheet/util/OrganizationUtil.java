@@ -11,12 +11,11 @@ import com.liferay.portal.service.permission.OrganizationPermissionUtil;
 
 import java.util.Iterator;
 import java.util.List;
-
 public class OrganizationUtil {
 
 	public static List<Organization> getAvailableOrganizations(
 			long companyId, long organizationId)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		List<Organization> organizationList =
 			OrganizationLocalServiceUtil.getOrganizations(
@@ -34,7 +33,7 @@ public class OrganizationUtil {
 			return filteredList;
 		}
 
-		for (Organization organization: organizationList) {
+		for (Organization organization : organizationList) {
 			filteredList.addAll(
 				getAvailableOrganizations(
 					companyId, organization.getOrganizationId()));
@@ -68,7 +67,7 @@ public class OrganizationUtil {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Organization organization = iterator.next();
 
 			if (!OrganizationPermissionUtil.contains(

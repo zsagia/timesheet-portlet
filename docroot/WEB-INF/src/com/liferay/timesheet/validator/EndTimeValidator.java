@@ -13,8 +13,6 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
-
-
 @FacesValidator("EndTimeValidator")
 public class EndTimeValidator extends AbstractValidator {
 

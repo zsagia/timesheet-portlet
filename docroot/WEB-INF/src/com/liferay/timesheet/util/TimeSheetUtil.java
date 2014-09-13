@@ -7,7 +7,6 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
-
 public class TimeSheetUtil {
 
 	public static ServiceContext createServiceContext() {
@@ -20,9 +19,7 @@ public class TimeSheetUtil {
 		return serviceContext;
 	}
 
-	public static long getCompanyId()
-		throws PortalException, SystemException {
-
+	public static long getCompanyId() throws PortalException, SystemException {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
@@ -67,7 +64,7 @@ public class TimeSheetUtil {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		return liferayFacesContext.getThemeDisplay(); 
+		return liferayFacesContext.getThemeDisplay();
 	}
 
 }

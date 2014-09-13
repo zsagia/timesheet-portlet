@@ -163,29 +163,6 @@ public class TaskManagedBean implements Serializable {
 		return "/views/task/view.xhtml";
 	}
 
-	public String updateTaskAction() {
-		Task editedTask = editTaskViewBean.getEditedTask();
-		ProjectTreeNode selectedProjectTreeNode =
-			editTaskViewBean.getSelectedProjectNode();
-
-		String taskName = editTaskViewBean.getTaskName();
-
-		Project selectedProject = null;
-
-		if (selectedProjectTreeNode != null) {
-			selectedProject = selectedProjectTreeNode.getProject();
-		}
-
-		try {
-			taskModelBean.updateTask(
-				editedTask, taskName, null, selectedProject);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "/views/task/view.xhtml";
-	}
-
 	public EditTaskViewBean getEditTaskViewBean() {
 		return editTaskViewBean;
 	}
@@ -235,6 +212,29 @@ public class TaskManagedBean implements Serializable {
 
 	public void setTaskViewBean(TaskViewBean taskViewBean) {
 		this.taskViewBean = taskViewBean;
+	}
+
+	public String updateTaskAction() {
+		Task editedTask = editTaskViewBean.getEditedTask();
+		ProjectTreeNode selectedProjectTreeNode =
+			editTaskViewBean.getSelectedProjectNode();
+
+		String taskName = editTaskViewBean.getTaskName();
+
+		Project selectedProject = null;
+
+		if (selectedProjectTreeNode != null) {
+			selectedProject = selectedProjectTreeNode.getProject();
+		}
+
+		try {
+			taskModelBean.updateTask(
+				editedTask, taskName, null, selectedProject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "/views/task/view.xhtml";
 	}
 
 	protected void clear() {

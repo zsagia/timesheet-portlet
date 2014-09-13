@@ -27,7 +27,7 @@ import com.liferay.timesheet.model.DayConstants;
  * @author Istvan Sajtos, Zsolt Szabo
  */
 public class DayImpl extends DayBaseImpl {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a day model instance should use the {@link com.liferay.timesheet.model.Day} interface instead.

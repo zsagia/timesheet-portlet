@@ -10,6 +10,10 @@ import java.util.Date;
 */
 public class TimeSheetValidatorUtil {
 
+	public static TimeSheetValidator getTimeSheetValidator() {
+		return timeSheetValidator;
+	}
+
 	public static boolean validateAfter(
 			Date endTime, Date newStartTime, Date newEndTime)
 		throws PortalException {
@@ -78,6 +82,12 @@ public class TimeSheetValidatorUtil {
 			startTime, endTime, newStartTime);
 	}
 
+	public static void validateWorkDuration(long allWorkToday)
+		throws PortalException {
+
+		getTimeSheetValidator().validateWorkDuration(allWorkToday);
+	}
+
 	public static void validateWorkStart(
 			Date workStart, Date earliestStartRestriction)
 		throws PortalException {
@@ -86,19 +96,7 @@ public class TimeSheetValidatorUtil {
 			workStart, earliestStartRestriction);
 	}
 
-	public static void validateWorkDuration(long allWorkToday)
-		throws PortalException {
-
-		getTimeSheetValidator().validateWorkDuration(allWorkToday);
-	}
-
-	public static TimeSheetValidator getTimeSheetValidator() {
-		return timeSheetValidator;
-	}
-
-	public void setTimeSheetValidator(
-		TimeSheetValidator validator) {
-
+	public void setTimeSheetValidator(TimeSheetValidator validator) {
 		timeSheetValidator = validator;
 	}
 
