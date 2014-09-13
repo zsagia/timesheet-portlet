@@ -90,7 +90,7 @@
 		</finder>
 	</entity>
 
-	<entity name="Task" local-service="true" remote-service="false">
+	<entity name="Task" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
@@ -123,6 +123,10 @@
 
 		<!-- Finder methods -->
 
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
 		<finder name="ProjectId" return-type="Collection">
 			<finder-column name="projectId" />
 		</finder>
@@ -131,19 +135,10 @@
 			<finder-column name="taskType" />
 		</finder>
 
-		<finder name="U_T" return-type="Collection">
-			<finder-column name="userId" />
-			<finder-column name="taskType" />
-		</finder>
-
-		<finder name="TN_CR" return-type="Task">
-			<finder-column name="taskName" />
-			<finder-column name="userId" />
-		</finder>
-
-		<finder name="C_CR" return-type="Collection">
+		<finder name="C_G_TT" return-type="Collection">
 			<finder-column name="companyId" />
-			<finder-column name="userId" />
+			<finder-column name="groupId" />
+			<finder-column name="taskType" />
 		</finder>
 	</entity>
 
