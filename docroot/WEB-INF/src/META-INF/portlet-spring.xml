@@ -7,7 +7,9 @@
 	<bean id="com.liferay.timesheet.service.ProjectService" class="com.liferay.timesheet.service.impl.ProjectServiceImpl" />
 	<bean id="com.liferay.timesheet.service.persistence.ProjectPersistence" class="com.liferay.timesheet.service.persistence.ProjectPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.timesheet.service.TaskLocalService" class="com.liferay.timesheet.service.impl.TaskLocalServiceImpl" />
+	<bean id="com.liferay.timesheet.service.TaskService" class="com.liferay.timesheet.service.impl.TaskServiceImpl" />
 	<bean id="com.liferay.timesheet.service.persistence.TaskPersistence" class="com.liferay.timesheet.service.persistence.TaskPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.timesheet.service.persistence.TaskFinder" class="com.liferay.timesheet.service.persistence.TaskFinderImpl" parent="basePersistence" />
 	<bean id="com.liferay.timesheet.service.TaskSessionLocalService" class="com.liferay.timesheet.service.impl.TaskSessionLocalServiceImpl" />
 	<bean id="com.liferay.timesheet.service.persistence.TaskSessionPersistence" class="com.liferay.timesheet.service.persistence.TaskSessionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.timesheet.service.persistence.TaskSessionFinder" class="com.liferay.timesheet.service.persistence.TaskSessionFinderImpl" parent="basePersistence" />

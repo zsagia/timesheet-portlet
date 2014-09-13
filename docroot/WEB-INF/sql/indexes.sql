@@ -15,8 +15,12 @@ create index IX_6ABD6CA6 on timesheet_Project (uuid_, companyId);
 create unique index IX_89E4E4A8 on timesheet_Project (uuid_, groupId);
 
 create index IX_F3AE5F87 on timesheet_Task (companyId, creatorId);
+create index IX_82876CED on timesheet_Task (companyId, groupId, taskType);
+create index IX_3B674AA7 on timesheet_Task (companyId, groupId, userId, taskType);
 create index IX_3F299F0A on timesheet_Task (companyId, userId);
 create index IX_61D96719 on timesheet_Task (departmentId);
+create index IX_7F881152 on timesheet_Task (groupId);
+create index IX_3FF535A9 on timesheet_Task (groupId, companyId, taskType);
 create index IX_6A90776C on timesheet_Task (projectId);
 create index IX_D0DE61DB on timesheet_Task (taskName, creatorId);
 create index IX_ED5CDD36 on timesheet_Task (taskName, userId);

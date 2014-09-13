@@ -35,6 +35,7 @@ import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.service.TaskSessionLocalService;
 import com.liferay.timesheet.service.persistence.DayPersistence;
 import com.liferay.timesheet.service.persistence.ProjectPersistence;
+import com.liferay.timesheet.service.persistence.TaskFinder;
 import com.liferay.timesheet.service.persistence.TaskPersistence;
 import com.liferay.timesheet.service.persistence.TaskSessionFinder;
 import com.liferay.timesheet.service.persistence.TaskSessionPersistence;
@@ -397,6 +398,25 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the task remote service.
+	 *
+	 * @return the task remote service
+	 */
+	public com.liferay.timesheet.service.TaskService getTaskService() {
+		return taskService;
+	}
+
+	/**
+	 * Sets the task remote service.
+	 *
+	 * @param taskService the task remote service
+	 */
+	public void setTaskService(
+		com.liferay.timesheet.service.TaskService taskService) {
+		this.taskService = taskService;
+	}
+
+	/**
 	 * Returns the task persistence.
 	 *
 	 * @return the task persistence
@@ -412,6 +432,24 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	 */
 	public void setTaskPersistence(TaskPersistence taskPersistence) {
 		this.taskPersistence = taskPersistence;
+	}
+
+	/**
+	 * Returns the task finder.
+	 *
+	 * @return the task finder
+	 */
+	public TaskFinder getTaskFinder() {
+		return taskFinder;
+	}
+
+	/**
+	 * Sets the task finder.
+	 *
+	 * @param taskFinder the task finder
+	 */
+	public void setTaskFinder(TaskFinder taskFinder) {
+		this.taskFinder = taskFinder;
 	}
 
 	/**
@@ -658,8 +696,12 @@ public abstract class TaskSessionLocalServiceBaseImpl
 	protected ProjectPersistence projectPersistence;
 	@BeanReference(type = com.liferay.timesheet.service.TaskLocalService.class)
 	protected com.liferay.timesheet.service.TaskLocalService taskLocalService;
+	@BeanReference(type = com.liferay.timesheet.service.TaskService.class)
+	protected com.liferay.timesheet.service.TaskService taskService;
 	@BeanReference(type = TaskPersistence.class)
 	protected TaskPersistence taskPersistence;
+	@BeanReference(type = TaskFinder.class)
+	protected TaskFinder taskFinder;
 	@BeanReference(type = com.liferay.timesheet.service.TaskSessionLocalService.class)
 	protected com.liferay.timesheet.service.TaskSessionLocalService taskSessionLocalService;
 	@BeanReference(type = TaskSessionPersistence.class)

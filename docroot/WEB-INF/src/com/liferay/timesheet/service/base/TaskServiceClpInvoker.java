@@ -14,7 +14,7 @@
 
 package com.liferay.timesheet.service.base;
 
-import com.liferay.timesheet.service.ProjectServiceUtil;
+import com.liferay.timesheet.service.TaskServiceUtil;
 
 import java.util.Arrays;
 
@@ -22,8 +22,8 @@ import java.util.Arrays;
  * @author Istvan Sajtos, Zsolt Szabo
  * @generated
  */
-public class ProjectServiceClpInvoker {
-	public ProjectServiceClpInvoker() {
+public class TaskServiceClpInvoker {
+	public TaskServiceClpInvoker() {
 		_methodName36 = "getBeanIdentifier";
 
 		_methodParameterTypes36 = new String[] {  };
@@ -32,65 +32,62 @@ public class ProjectServiceClpInvoker {
 
 		_methodParameterTypes37 = new String[] { "java.lang.String" };
 
-		_methodName42 = "addProject";
+		_methodName42 = "getTask";
 
-		_methodParameterTypes42 = new String[] {
-				"long", "long", "boolean", "long", "java.lang.String",
-				"java.lang.String", "com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes42 = new String[] { "long" };
 
-		_methodName43 = "getProject";
+		_methodName43 = "getTasksByC_G_U";
 
-		_methodParameterTypes43 = new String[] { "long" };
+		_methodParameterTypes43 = new String[] { "long", "long", "long" };
 
-		_methodName44 = "getProjects";
+		_methodName44 = "getTasksByC_G_TT";
 
-		_methodParameterTypes44 = new String[] { "long" };
+		_methodParameterTypes44 = new String[] { "long", "long", "int" };
 
-		_methodName45 = "updateProject";
+		_methodName45 = "getTasksByC_G_U_TT";
 
-		_methodParameterTypes45 = new String[] {
-				"com.liferay.timesheet.model.Project"
-			};
+		_methodParameterTypes45 = new String[] { "long", "long", "long", "int" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		if (_methodName36.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
-			return ProjectServiceUtil.getBeanIdentifier();
+			return TaskServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName37.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
-			ProjectServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+			TaskServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
 		if (_methodName42.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
-			return ProjectServiceUtil.addProject(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue(),
-				((Boolean)arguments[2]).booleanValue(),
-				((Long)arguments[3]).longValue(),
-				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
-				(com.liferay.portal.service.ServiceContext)arguments[6]);
+			return TaskServiceUtil.getTask(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName43.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
-			return ProjectServiceUtil.getProject(((Long)arguments[0]).longValue());
+			return TaskServiceUtil.getTasksByC_G_U(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
 		}
 
 		if (_methodName44.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
-			return ProjectServiceUtil.getProjects(((Long)arguments[0]).longValue());
+			return TaskServiceUtil.getTasksByC_G_TT(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName45.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-			return ProjectServiceUtil.updateProject((com.liferay.timesheet.model.Project)arguments[0]);
+			return TaskServiceUtil.getTasksByC_G_U_TT(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Integer)arguments[3]).intValue());
 		}
 
 		throw new UnsupportedOperationException();

@@ -21,9 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services.
+ * This class is used by SOAP remote services, specifically {@link com.liferay.timesheet.service.http.TaskServiceSoap}.
  *
  * @author Istvan Sajtos, Zsolt Szabo
+ * @see com.liferay.timesheet.service.http.TaskServiceSoap
  * @generated
  */
 public class TaskSoap implements Serializable {

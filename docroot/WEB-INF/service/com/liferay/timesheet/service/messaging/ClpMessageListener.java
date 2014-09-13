@@ -22,6 +22,7 @@ import com.liferay.timesheet.service.DayLocalServiceUtil;
 import com.liferay.timesheet.service.ProjectLocalServiceUtil;
 import com.liferay.timesheet.service.ProjectServiceUtil;
 import com.liferay.timesheet.service.TaskLocalServiceUtil;
+import com.liferay.timesheet.service.TaskServiceUtil;
 import com.liferay.timesheet.service.TaskSessionLocalServiceUtil;
 
 /**
@@ -46,6 +47,7 @@ public class ClpMessageListener extends BaseMessageListener {
 			ProjectServiceUtil.clearService();
 			TaskLocalServiceUtil.clearService();
 
+			TaskServiceUtil.clearService();
 			TaskSessionLocalServiceUtil.clearService();
 		}
 	}

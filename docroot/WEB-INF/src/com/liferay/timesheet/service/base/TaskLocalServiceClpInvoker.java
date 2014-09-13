@@ -102,49 +102,86 @@ public class TaskLocalServiceClpInvoker {
 				"com.liferay.timesheet.model.Task"
 			};
 
-		_methodName48 = "getBeanIdentifier";
+		_methodName52 = "getBeanIdentifier";
 
-		_methodParameterTypes48 = new String[] {  };
+		_methodParameterTypes52 = new String[] {  };
 
-		_methodName49 = "setBeanIdentifier";
+		_methodName53 = "setBeanIdentifier";
 
-		_methodParameterTypes49 = new String[] { "java.lang.String" };
+		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName54 = "addTask";
+		_methodName58 = "addTask";
 
-		_methodParameterTypes54 = new String[] {
-				"long", "java.lang.String", "long", "java.lang.String", "int",
+		_methodParameterTypes58 = new String[] {
+				"long", "long", "java.lang.String", "long", "java.lang.String",
+				"int", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName59 = "addTask";
+
+		_methodParameterTypes59 = new String[] {
+				"long", "long", "java.lang.String", "long", "java.lang.String",
+				"int", "long[][]", "long[][]",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName55 = "getTaskByTN_CR";
+		_methodName60 = "addTaskResources";
 
-		_methodParameterTypes55 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes60 = new String[] {
+				"com.liferay.timesheet.model.Task", "boolean", "boolean"
+			};
 
-		_methodName56 = "getTasksByCreatorId";
-
-		_methodParameterTypes56 = new String[] { "long" };
-
-		_methodName57 = "getTaskByType";
-
-		_methodParameterTypes57 = new String[] { "int" };
-
-		_methodName58 = "getTasksByUserId";
-
-		_methodParameterTypes58 = new String[] { "long" };
-
-		_methodName59 = "getTasksByU_T";
-
-		_methodParameterTypes59 = new String[] { "long", "int" };
-
-		_methodName60 = "getTasksByU_D";
-
-		_methodParameterTypes60 = new String[] { "long", "java.util.Date" };
-
-		_methodName61 = "getTasksByC_U_I";
+		_methodName61 = "addTaskResources";
 
 		_methodParameterTypes61 = new String[] {
+				"com.liferay.timesheet.model.Task", "java.lang.String[][]",
+				"java.lang.String[][]"
+			};
+
+		_methodName62 = "deleteTask";
+
+		_methodParameterTypes62 = new String[] { "long" };
+
+		_methodName63 = "deleteTask";
+
+		_methodParameterTypes63 = new String[] {
+				"com.liferay.timesheet.model.Task"
+			};
+
+		_methodName64 = "getTaskByType";
+
+		_methodParameterTypes64 = new String[] { "int" };
+
+		_methodName65 = "getTasksByC_G_TT";
+
+		_methodParameterTypes65 = new String[] { "long", "long", "int" };
+
+		_methodName66 = "getTasksByC_G_U";
+
+		_methodParameterTypes66 = new String[] { "long", "long", "long" };
+
+		_methodName67 = "getTasksByC_G_U_TT";
+
+		_methodParameterTypes67 = new String[] { "long", "long", "long", "int" };
+
+		_methodName68 = "getTasksByU_D";
+
+		_methodParameterTypes68 = new String[] { "long", "java.util.Date" };
+
+		_methodName69 = "getTaskByU_TT";
+
+		_methodParameterTypes69 = new String[] { "long", "int" };
+
+		_methodName70 = "getTasksByC_U_I";
+
+		_methodParameterTypes70 = new String[] {
 				"long", "long", "java.util.Date", "java.util.Date"
+			};
+
+		_methodName71 = "updateTask";
+
+		_methodParameterTypes71 = new String[] {
+				"com.liferay.timesheet.model.Task", "long[][]", "long[][]"
 			};
 	}
 
@@ -237,66 +274,119 @@ public class TaskLocalServiceClpInvoker {
 			return TaskLocalServiceUtil.updateTask((com.liferay.timesheet.model.Task)arguments[0]);
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return TaskLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName49.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			TaskLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
-			return TaskLocalServiceUtil.addTask(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				((Long)arguments[2]).longValue(),
-				(java.lang.String)arguments[3],
-				((Integer)arguments[4]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
-		}
-
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
-			return TaskLocalServiceUtil.getTaskByTN_CR((java.lang.String)arguments[0],
-				((Long)arguments[1]).longValue());
-		}
-
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
-			return TaskLocalServiceUtil.getTasksByCreatorId(((Long)arguments[0]).longValue());
-		}
-
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
-			return TaskLocalServiceUtil.getTaskByType(((Integer)arguments[0]).intValue());
-		}
-
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return TaskLocalServiceUtil.getTasksByUserId(((Long)arguments[0]).longValue());
+			return TaskLocalServiceUtil.addTask(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				((Long)arguments[3]).longValue(),
+				(java.lang.String)arguments[4],
+				((Integer)arguments[5]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return TaskLocalServiceUtil.getTasksByU_T(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue());
+			return TaskLocalServiceUtil.addTask(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				((Long)arguments[3]).longValue(),
+				(java.lang.String)arguments[4],
+				((Integer)arguments[5]).intValue(), (long[])arguments[6],
+				(long[])arguments[7],
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return TaskLocalServiceUtil.getTasksByU_D(((Long)arguments[0]).longValue(),
-				(java.util.Date)arguments[1]);
+			TaskLocalServiceUtil.addTaskResources((com.liferay.timesheet.model.Task)arguments[0],
+				((Boolean)arguments[1]).booleanValue(),
+				((Boolean)arguments[2]).booleanValue());
+
+			return null;
 		}
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			TaskLocalServiceUtil.addTaskResources((com.liferay.timesheet.model.Task)arguments[0],
+				(java.lang.String[])arguments[1],
+				(java.lang.String[])arguments[2]);
+
+			return null;
+		}
+
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+			return TaskLocalServiceUtil.deleteTask(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+			return TaskLocalServiceUtil.deleteTask((com.liferay.timesheet.model.Task)arguments[0]);
+		}
+
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+			return TaskLocalServiceUtil.getTaskByType(((Integer)arguments[0]).intValue());
+		}
+
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByC_G_TT(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByC_G_U(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
+		}
+
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByC_G_U_TT(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Integer)arguments[3]).intValue());
+		}
+
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+			return TaskLocalServiceUtil.getTasksByU_D(((Long)arguments[0]).longValue(),
+				(java.util.Date)arguments[1]);
+		}
+
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+			return TaskLocalServiceUtil.getTaskByU_TT(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return TaskLocalServiceUtil.getTasksByC_U_I(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(), (java.util.Date)arguments[2],
 				(java.util.Date)arguments[3]);
+		}
+
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+			return TaskLocalServiceUtil.updateTask((com.liferay.timesheet.model.Task)arguments[0],
+				(long[])arguments[1], (long[])arguments[2]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -334,18 +424,10 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
-	private String _methodName49;
-	private String[] _methodParameterTypes49;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
-	private String _methodName56;
-	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
 	private String _methodName58;
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
@@ -354,4 +436,24 @@ public class TaskLocalServiceClpInvoker {
 	private String[] _methodParameterTypes60;
 	private String _methodName61;
 	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
+	private String _methodName63;
+	private String[] _methodParameterTypes63;
+	private String _methodName64;
+	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
+	private String _methodName66;
+	private String[] _methodParameterTypes66;
+	private String _methodName67;
+	private String[] _methodParameterTypes67;
+	private String _methodName68;
+	private String[] _methodParameterTypes68;
+	private String _methodName69;
+	private String[] _methodParameterTypes69;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
 }

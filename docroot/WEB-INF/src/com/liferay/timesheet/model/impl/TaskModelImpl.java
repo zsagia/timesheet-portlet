@@ -16,6 +16,7 @@ package com.liferay.timesheet.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -30,13 +31,16 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskModel;
+import com.liferay.timesheet.model.TaskSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +56,7 @@ import java.util.Map;
  * @see com.liferay.timesheet.model.TaskModel
  * @generated
  */
+@JSON(strict = true)
 public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -89,10 +94,59 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 				"value.object.column.bitmask.enabled.com.liferay.timesheet.model.Task"),
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
-	public static long PROJECTID_COLUMN_BITMASK = 2L;
-	public static long TASKNAME_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long PROJECTID_COLUMN_BITMASK = 4L;
 	public static long TASKTYPE_COLUMN_BITMASK = 8L;
-	public static long USERID_COLUMN_BITMASK = 16L;
+	public static long TASKNAME_COLUMN_BITMASK = 16L;
+
+	/**
+	 * Converts the soap model instance into a normal model instance.
+	 *
+	 * @param soapModel the soap model instance to convert
+	 * @return the normal model instance
+	 */
+	public static Task toModel(TaskSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
+		Task model = new TaskImpl();
+
+		model.setTaskId(soapModel.getTaskId());
+		model.setGroupId(soapModel.getGroupId());
+		model.setCompanyId(soapModel.getCompanyId());
+		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
+		model.setCreateDate(soapModel.getCreateDate());
+		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setDescription(soapModel.getDescription());
+		model.setProjectId(soapModel.getProjectId());
+		model.setTaskName(soapModel.getTaskName());
+		model.setTaskType(soapModel.getTaskType());
+
+		return model;
+	}
+
+	/**
+	 * Converts the soap model instances into normal model instances.
+	 *
+	 * @param soapModels the soap model instances to convert
+	 * @return the normal model instances
+	 */
+	public static List<Task> toModels(TaskSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
+		List<Task> models = new ArrayList<Task>(soapModels.length);
+
+		for (TaskSoap soapModel : soapModels) {
+			models.add(toModel(soapModel));
+		}
+
+		return models;
+	}
+
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.timesheet.model.Task"));
 
@@ -217,6 +271,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		}
 	}
 
+	@JSON
 	@Override
 	public long getTaskId() {
 		return _taskId;
@@ -227,6 +282,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_taskId = taskId;
 	}
 
+	@JSON
 	@Override
 	public long getGroupId() {
 		return _groupId;
@@ -234,9 +290,22 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public void setGroupId(long groupId) {
+		_columnBitmask |= GROUPID_COLUMN_BITMASK;
+
+		if (!_setOriginalGroupId) {
+			_setOriginalGroupId = true;
+
+			_originalGroupId = _groupId;
+		}
+
 		_groupId = groupId;
 	}
 
+	public long getOriginalGroupId() {
+		return _originalGroupId;
+	}
+
+	@JSON
 	@Override
 	public long getCompanyId() {
 		return _companyId;
@@ -259,6 +328,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return _originalCompanyId;
 	}
 
+	@JSON
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -266,14 +336,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 
 	@Override
 	public void setUserId(long userId) {
-		_columnBitmask |= USERID_COLUMN_BITMASK;
-
-		if (!_setOriginalUserId) {
-			_setOriginalUserId = true;
-
-			_originalUserId = _userId;
-		}
-
 		_userId = userId;
 	}
 
@@ -287,10 +349,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_userUuid = userUuid;
 	}
 
-	public long getOriginalUserId() {
-		return _originalUserId;
-	}
-
+	@JSON
 	@Override
 	public String getUserName() {
 		if (_userName == null) {
@@ -306,6 +365,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_userName = userName;
 	}
 
+	@JSON
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -316,6 +376,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_createDate = createDate;
 	}
 
+	@JSON
 	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
@@ -326,6 +387,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_modifiedDate = modifiedDate;
 	}
 
+	@JSON
 	@Override
 	public String getDescription() {
 		if (_description == null) {
@@ -341,6 +403,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		_description = description;
 	}
 
+	@JSON
 	@Override
 	public long getProjectId() {
 		return _projectId;
@@ -363,6 +426,7 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 		return _originalProjectId;
 	}
 
+	@JSON
 	@Override
 	public String getTaskName() {
 		if (_taskName == null) {
@@ -377,17 +441,10 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public void setTaskName(String taskName) {
 		_columnBitmask = -1L;
 
-		if (_originalTaskName == null) {
-			_originalTaskName = _taskName;
-		}
-
 		_taskName = taskName;
 	}
 
-	public String getOriginalTaskName() {
-		return GetterUtil.getString(_originalTaskName);
-	}
-
+	@JSON
 	@Override
 	public int getTaskType() {
 		return _taskType;
@@ -502,19 +559,17 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	public void resetOriginalValues() {
 		TaskModelImpl taskModelImpl = this;
 
+		taskModelImpl._originalGroupId = taskModelImpl._groupId;
+
+		taskModelImpl._setOriginalGroupId = false;
+
 		taskModelImpl._originalCompanyId = taskModelImpl._companyId;
 
 		taskModelImpl._setOriginalCompanyId = false;
 
-		taskModelImpl._originalUserId = taskModelImpl._userId;
-
-		taskModelImpl._setOriginalUserId = false;
-
 		taskModelImpl._originalProjectId = taskModelImpl._projectId;
 
 		taskModelImpl._setOriginalProjectId = false;
-
-		taskModelImpl._originalTaskName = taskModelImpl._taskName;
 
 		taskModelImpl._originalTaskType = taskModelImpl._taskType;
 
@@ -677,13 +732,13 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private static Class<?>[] _escapedModelInterfaces = new Class[] { Task.class };
 	private long _taskId;
 	private long _groupId;
+	private long _originalGroupId;
+	private boolean _setOriginalGroupId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
-	private long _originalUserId;
-	private boolean _setOriginalUserId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
@@ -692,7 +747,6 @@ public class TaskModelImpl extends BaseModelImpl<Task> implements TaskModel {
 	private long _originalProjectId;
 	private boolean _setOriginalProjectId;
 	private String _taskName;
-	private String _originalTaskName;
 	private int _taskType;
 	private int _originalTaskType;
 	private boolean _setOriginalTaskType;

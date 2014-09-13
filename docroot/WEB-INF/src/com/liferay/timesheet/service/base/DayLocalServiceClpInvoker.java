@@ -100,40 +100,40 @@ public class DayLocalServiceClpInvoker {
 
 		_methodParameterTypes15 = new String[] { "com.liferay.timesheet.model.Day" };
 
-		_methodName48 = "getBeanIdentifier";
+		_methodName52 = "getBeanIdentifier";
 
-		_methodParameterTypes48 = new String[] {  };
+		_methodParameterTypes52 = new String[] {  };
 
-		_methodName49 = "setBeanIdentifier";
+		_methodName53 = "setBeanIdentifier";
 
-		_methodParameterTypes49 = new String[] { "java.lang.String" };
+		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName54 = "addDay";
+		_methodName58 = "addDay";
 
-		_methodParameterTypes54 = new String[] {
+		_methodParameterTypes58 = new String[] {
 				"long", "java.util.Date", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName55 = "getDays";
+		_methodName59 = "getDays";
 
-		_methodParameterTypes55 = new String[] { "long", "int" };
+		_methodParameterTypes59 = new String[] { "long", "int" };
 
-		_methodName56 = "getDays";
+		_methodName60 = "getDays";
 
-		_methodParameterTypes56 = new String[] { "long", "int[][]", "boolean" };
+		_methodParameterTypes60 = new String[] { "long", "int[][]", "boolean" };
 
-		_methodName57 = "getDays";
+		_methodName61 = "getDays";
 
-		_methodParameterTypes57 = new String[] { "long", "int[][]" };
+		_methodParameterTypes61 = new String[] { "long", "int[][]" };
 
-		_methodName58 = "getDaysMap";
+		_methodName62 = "getDaysMap";
 
-		_methodParameterTypes58 = new String[] { "long", "int" };
+		_methodParameterTypes62 = new String[] { "long", "int" };
 
-		_methodName59 = "getDaysMap";
+		_methodName63 = "getDaysMap";
 
-		_methodParameterTypes59 = new String[] { "long", "int[][]" };
+		_methodParameterTypes63 = new String[] { "long", "int[][]" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -225,52 +225,52 @@ public class DayLocalServiceClpInvoker {
 			return DayLocalServiceUtil.updateDay((com.liferay.timesheet.model.Day)arguments[0]);
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return DayLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName49.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			DayLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return DayLocalServiceUtil.addDay(((Long)arguments[0]).longValue(),
 				(java.util.Date)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return DayLocalServiceUtil.getDays(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue());
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return DayLocalServiceUtil.getDays(((Long)arguments[0]).longValue(),
 				(int[])arguments[1], ((Boolean)arguments[2]).booleanValue());
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return DayLocalServiceUtil.getDays(((Long)arguments[0]).longValue(),
 				(int[])arguments[1]);
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return DayLocalServiceUtil.getDaysMap(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue());
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return DayLocalServiceUtil.getDaysMap(((Long)arguments[0]).longValue(),
 				(int[])arguments[1]);
 		}
@@ -310,20 +310,20 @@ public class DayLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
-	private String _methodName49;
-	private String[] _methodParameterTypes49;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
-	private String _methodName56;
-	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
 	private String _methodName58;
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
+	private String _methodName63;
+	private String[] _methodParameterTypes63;
 }

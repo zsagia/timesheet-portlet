@@ -81,11 +81,13 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 	*
 	* @param task the task
 	* @return the task that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.timesheet.model.Task deleteTask(
 		com.liferay.timesheet.model.Task task)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
 
@@ -245,22 +247,28 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public com.liferay.timesheet.model.Task addTask(long userId,
-		java.lang.String taskName, long projectId,
+	public com.liferay.timesheet.model.Task addTask(long companyId,
+		long userId, java.lang.String taskName, long projectId,
 		java.lang.String description, int taskType,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.timesheet.model.Task getTaskByTN_CR(
-		java.lang.String taskName, long creatorId)
+	public com.liferay.timesheet.model.Task addTask(long companyId,
+		long userId, java.lang.String taskName, long projectId,
+		java.lang.String description, int taskType, long[] assignedUserIds,
+		long[] assignedRoleIds,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByCreatorId(
-		long creatorId)
+	public void addTaskResources(com.liferay.timesheet.model.Task task,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addTaskResources(com.liferay.timesheet.model.Task task,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -269,14 +277,20 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByUserId(
-		long userId)
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByC_G_TT(
+		long companyId, long groupId, int taskType)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.timesheet.model.Task> getTasksByU_T(
-		long userId, int taskType)
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByC_G_U(
+		long companyId, long groupId, long userId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Task> getTasksByC_G_U_TT(
+		long companyId, long groupId, long userId, int taskType)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -287,8 +301,18 @@ public interface TaskLocalService extends BaseLocalService, InvokableLocalServic
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.timesheet.model.Task> getTaskByU_TT(
+		long userId, int taskType);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.timesheet.model.Task> getTasksByC_U_I(
 		long companyId, long userId, java.util.Date date1, java.util.Date date2)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.timesheet.model.Task updateTask(
+		com.liferay.timesheet.model.Task task, long[] assignedUserIds,
+		long[] assignedRoleIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 }
