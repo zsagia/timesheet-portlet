@@ -13,7 +13,7 @@ public class ActionKeys extends
 
 	public static final String ADD_TASK = "ADD_TASK";
 
-	public static final String VIEW_DEPARTMENT = "VIEW_DEPARTMENT";
+	public static final String VIEW_DAYS = "VIEW_DAYS";
 
 	public static final String VIEW_PROJECT = "VIEW_PROJECT";
 	
