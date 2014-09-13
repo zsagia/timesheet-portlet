@@ -1,4 +1,4 @@
-package com.liferay.timesheet.bean.portlet;
+package com.liferay.timesheet.bean.task;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
@@ -13,16 +13,16 @@ import com.liferay.timesheet.TSTaskSessionCloseException;
 import com.liferay.timesheet.TSTaskSessionUpdateException;
 import com.liferay.timesheet.bean.model.TaskModelBean;
 import com.liferay.timesheet.bean.model.TaskSessionModelBean;
-import com.liferay.timesheet.bean.view.EditTaskViewBean;
-import com.liferay.timesheet.bean.view.TaskViewBean;
 import com.liferay.timesheet.model.Project;
 import com.liferay.timesheet.model.Task;
 import com.liferay.timesheet.model.TaskSession;
 import com.liferay.timesheet.primefaces.ProjectTreeNode;
+import com.liferay.timesheet.util.TimeSheetConstants;
 import com.liferay.timesheet.util.TimeSheetUtil;
 import com.liferay.timesheet.util.UserUtil;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -51,8 +51,7 @@ public class TaskManagedBean implements Serializable {
 		LiferayFacesContext liferayFacesContext =
 			LiferayFacesContext.getInstance();
 
-		ServiceContext serviceContext =
-			TimeSheetUtil.createServiceContext();
+		ServiceContext serviceContext = TimeSheetUtil.createServiceContext();
 
 		try {
 			selectedProjectNode = taskViewBean.getSelectedProjectNode();
@@ -72,7 +71,8 @@ public class TaskManagedBean implements Serializable {
 
 		try {
 			task = taskModelBean.createTask(
-				userId, selectedProject.getProjectId(), serviceContext);
+				TimeSheetUtil.getCompanyId(), userId, selectedProject.getProjectId(),
+				TimeSheetConstants.TASK_GENERAL, serviceContext);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("New Task: " + task.getTaskName());
@@ -144,7 +144,7 @@ public class TaskManagedBean implements Serializable {
 
 		try {
 			taskSessionModelBean.finishTaskSession();
-	
+
 			taskViewBean.setCurrentTaskSession(null);
 		} catch (TSNoCurrentTaskSessionException e) {
 			logger.error("No current task session!");
@@ -178,7 +178,7 @@ public class TaskManagedBean implements Serializable {
 
 		try {
 			taskModelBean.updateTask(
-				editedTask, taskName, selectedProject);
+				editedTask, taskName, null, selectedProject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -186,7 +186,27 @@ public class TaskManagedBean implements Serializable {
 		return "/views/task/view.xhtml";
 	}
 
-	public boolean isLeader() throws SystemException, PortalException {
+	public EditTaskViewBean getEditTaskViewBean() {
+		return editTaskViewBean;
+	}
+
+	public long getSelectedTaskId() {
+		return selectedTaskId;
+	}
+
+	public TaskModelBean getTaskModelBean() {
+		return taskModelBean;
+	}
+
+	public TaskSessionModelBean getTaskSessionModelBean() {
+		return taskSessionModelBean;
+	}
+
+	public TaskViewBean getTaskViewBean() {
+		return taskViewBean;
+	}
+
+	public boolean isLeader() throws PortalException, SystemException {
 		return UserUtil.isLeader(TimeSheetUtil.getCompanyId(),
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);
 	}
@@ -195,20 +215,16 @@ public class TaskManagedBean implements Serializable {
 		return taskViewBean.getRoot() != null;
 	}
 
-	protected void clear() {
-		taskModelBean.setTaskName(null);
+	public void setEditTaskViewBean(EditTaskViewBean editTaskViewBean) {
+		this.editTaskViewBean = editTaskViewBean;
 	}
 
-	public TaskModelBean getTaskModelBean() {
-		return taskModelBean;
+	public void setSelectedTaskId(long selectedTaskId) {
+		this.selectedTaskId = selectedTaskId;
 	}
 
 	public void setTaskModelBean(TaskModelBean taskModelBean) {
 		this.taskModelBean = taskModelBean;
-	}
-
-	public TaskSessionModelBean getTaskSessionModelBean() {
-		return taskSessionModelBean;
 	}
 
 	public void setTaskSessionModelBean(
@@ -216,49 +232,37 @@ public class TaskManagedBean implements Serializable {
 
 		this.taskSessionModelBean = taskSessionModelBean;
 	}
-	
-	public TaskViewBean getTaskViewBean() {
-		return taskViewBean;
-	}
 
 	public void setTaskViewBean(TaskViewBean taskViewBean) {
 		this.taskViewBean = taskViewBean;
 	}
 
-	public long getSelectedTaskId() {
-		return selectedTaskId;
+	protected void clear() {
+		taskModelBean.setTaskName(null);
 	}
 
-	public void setSelectedTaskId(long selectedTaskId) {
-		this.selectedTaskId = selectedTaskId;
-	}
+	private static final long serialVersionUID = -8412810082872360906L;
 
-	public EditTaskViewBean getEditTaskViewBean() {
-		return editTaskViewBean;
-	}
-
-	public void setEditTaskViewBean(EditTaskViewBean editTaskViewBean) {
-		this.editTaskViewBean = editTaskViewBean;
-	}
-
-	@ManagedProperty(value="#{param.selectedTaskId}")
-	private long selectedTaskId = 0;
+	private static Logger logger = LoggerFactory.getLogger(
+		TaskManagedBean.class);
 
 	@ManagedProperty(name = "editTaskViewBean",
 		value = "#{editTaskViewBean}")
 	private EditTaskViewBean editTaskViewBean;
-	@ManagedProperty(name = "taskViewBean",
-		value = "#{taskViewBean}")
-	private TaskViewBean taskViewBean;
+
+	@ManagedProperty(value ="#{param.selectedTaskId}")
+	private long selectedTaskId = 0;
+
 	@ManagedProperty(name = "taskModelBean",
 		value = "#{taskModelBean}")
 	private TaskModelBean taskModelBean;
+
 	@ManagedProperty(name = "taskSessionModelBean",
 		value = "#{taskSessionModelBean}")
 	private TaskSessionModelBean taskSessionModelBean;
 
-	private static final long serialVersionUID = -8412810082872360906L;
-	private static Logger logger = LoggerFactory.getLogger(
-		TaskManagedBean.class);
+	@ManagedProperty(name = "taskViewBean",
+		value = "#{taskViewBean}")
+	private TaskViewBean taskViewBean;
 
 }
