@@ -54,7 +54,9 @@ public class ValidationBean implements Serializable {
 		return validPreviousWorkingDay;
 	}
 
-	public void setDayValidationMap(Map<String, List<String>> dayValidationMap) {
+	public void setDayValidationMap(
+		Map<String, List<String>> dayValidationMap) {
+
 		this.dayValidationMap = dayValidationMap;
 	}
 
@@ -62,8 +64,9 @@ public class ValidationBean implements Serializable {
 		this.validPreviousWorkingDay = validPreviousWorkingDay;
 	}
 
-	private static final long serialVersionUID = -1227272710033966470L; private boolean validPreviousWorkingDay = true;
+	private static final long serialVersionUID = -1227272710033966470L;
 
 	private Map<String, List<String>> dayValidationMap;
+	private boolean validPreviousWorkingDay = true;
 
 }

@@ -79,7 +79,8 @@ public class DayRemakeManagedBean implements Serializable {
 		TimelineEvent selectedEvent = dayRemakeViewBean.getSelectedEvent();
 
 		if (selectedEvent != null) {
-			TaskSession selectedTaskSession = (TaskSession)selectedEvent.getData();
+			TaskSession selectedTaskSession =
+				(TaskSession)selectedEvent.getData();
 
 			try {
 				taskSessionModelBean.deleteTaskSession(
@@ -87,7 +88,8 @@ public class DayRemakeManagedBean implements Serializable {
 
 				TimelineUpdater timelineUpdater =
 					TimelineUpdater.getCurrentInstance(
-						":timesheetLayout:j_idt33:j_idt34:timelineForm:dayRemake");
+						":timesheetLayout:j_idt33:j_idt34:timelineForm:" +
+						"dayRemake");
 
 				TimelineModel dayRemakeModel =
 					dayRemakeViewBean.getDayRemakeModel();
@@ -134,7 +136,8 @@ public class DayRemakeManagedBean implements Serializable {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
 					"start _session _validation _error",
-					"another _task _is _already _recorded _in _the _given _period");
+					"another _task _is _already _recorded _in _the _given" +
+					"_period");
 			}
 			else if (e instanceof TSNoStartTimeException) {
 				facesMessage = MessageUtil.getFacesMessage(
@@ -145,7 +148,8 @@ public class DayRemakeManagedBean implements Serializable {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
 					"end _session _validation _error",
-					"another _task _is _already _recorded _in _the _given _period");
+					"another _task _is _already _recorded _in _the _given" +
+					"_period");
 			}
 			else if (e instanceof TSNoEndTimeException) {
 				facesMessage = MessageUtil.getFacesMessage(
@@ -156,8 +160,8 @@ public class DayRemakeManagedBean implements Serializable {
 				facesMessage = MessageUtil.getFacesMessage(
 					FacesMessage.SEVERITY_ERROR,
 					"start _session _validation _error",
-					"the _given _time _does _not _fit _the _time _frame _defined_for_" +
-						"work_start " +
+					"the _given _time _does _not _fit _the _time _frame" +
+					"_defined_for_work_start " +
 						PortletPropsValues.RESTRICTIONS_STARTTIME_EARLIEST);
 			}
 			else if (e instanceof TSStartEndTimeException) {

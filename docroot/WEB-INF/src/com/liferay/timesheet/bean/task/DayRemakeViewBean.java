@@ -201,12 +201,13 @@ public class DayRemakeViewBean implements Serializable {
 		}
 	}
 
-	private static final long serialVersionUID = -9197850325731216027L; private TimelineModel dayRemakeModel = null;
+	private static final long serialVersionUID = -9197850325731216027L;
 
 	private String action = ACTION_NEW;
 	private Date currentDate = null;
 	private User currentUser = null;
 	private Date dayEnd = null;
+	private TimelineModel dayRemakeModel = null;
 	private Date dayStart = null;
 	private Date max = null;
 	private Date min = null;

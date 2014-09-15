@@ -83,7 +83,7 @@ public class DayValidatorUtil {
 		for (TaskSession lunchSession :lunchSessions) {
 			if (lunchSession.getDuration() <
 					DateTimeUtil.getMillisFromMilitaryTime(
-						PortletPropsValues.RESTRICTIONS_LUNCHTIME_MIN_DURATION)) {
+					PortletPropsValues.RESTRICTIONS_LUNCHTIME_MIN_DURATION)) {
 
 				timeIsCorrect = false;
 			}

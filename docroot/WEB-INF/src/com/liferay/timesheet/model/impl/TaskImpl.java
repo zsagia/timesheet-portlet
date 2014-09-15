@@ -30,10 +30,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The extended model implementation for the Task service. Represents a row in the &quot;timesheet_Task&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the Task service. Represents a row in
+ * the &quot;timesheet_Task&quot; database table, with each column mapped to a
+ * property of this class.
  *
  * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.timesheet.model.Task} interface.
+ * Helper methods and all application logic should be put in this class.
+ * Whenever methods are added, rerun ServiceBuilder to copy their definitions
+ * into the {@link com.liferay.timesheet.model.Task} interface.
  * </p>
  *
  * @author Istvan Sajtos
@@ -43,7 +47,9 @@ public class TaskImpl extends TaskBaseImpl {
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. All methods that expect a task model instance should use the {@link com.liferay.timesheet.model.Task} interface instead.
+	 * Never reference this class directly. All methods that expect a task model
+	 * instance should use the {@link com.liferay.timesheet.model.Task}
+	 * interface instead.
 	 */
 	public TaskImpl() {
 	}
@@ -66,7 +72,8 @@ public class TaskImpl extends TaskBaseImpl {
 	public String getFormattedDuration(long userId, Date date)
 		throws Exception, SystemException {
 
-		return DateTimeCalculatorUtil.getStringFromTime(getDuration(userId, date));
+		return DateTimeCalculatorUtil.getStringFromTime(
+			getDuration(userId, date));
 	}
 
 	public String getFormattedDuration(long userId, Date date1, Date date2)

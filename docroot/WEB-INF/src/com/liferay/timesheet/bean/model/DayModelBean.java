@@ -67,8 +67,9 @@ public class DayModelBean implements Serializable {
 		this.type = type;
 	}
 
-	private static final long serialVersionUID = 2602676609530935036L; private int type;
+	private static final long serialVersionUID = 2602676609530935036L;
 
 	private Date date;
+	private int type;
 
 }

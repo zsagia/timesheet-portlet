@@ -71,8 +71,9 @@ public class TaskManagedBean implements Serializable {
 
 		try {
 			task = taskModelBean.createTask(
-				TimeSheetUtil.getCompanyId(), userId, selectedProject.getProjectId(),
-				TimeSheetConstants.TASK_GENERAL, serviceContext);
+				TimeSheetUtil.getCompanyId(), userId,
+				selectedProject.getProjectId(), TimeSheetConstants.TASK_GENERAL,
+				serviceContext);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("New Task: " + task.getTaskName());
